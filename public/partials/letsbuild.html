@@ -1,0 +1,68 @@
+<div layout="row" layout-wrap>
+    <div flex>
+        <h1 class="page-title">LetsBuild</h1>
+    </div>
+    <div flex="15">
+        <md-button href="#/letsbuild/add" class="md-raised md-primary block">Propose App</md-button>
+    </div>
+</div>
+<div ng-if="responseLoaded">
+    <div ng-repeat="item in apps" class="app-tile-wrap letsbuild">
+        <div class="app-tile md-whiteframe-z1">
+            <div class="image-holder">
+                <a ng-href="{{item.href}}">
+                    <img ng-src="{{item.src}}">
+                </a>
+                <div class="feature-panel">
+                    <div class="pull-right">
+                        <md-button class="md-fab md-primary md-mini" ng-href="#/letsbuild/edit/{{item._id}}">
+                            <i class="fa fa-edit"></i>
+                        </md-button>
+                        <md-button class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, $index )">
+                            <i class="fa fa-trash-o"></i>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="info-holder">
+
+                <a ng-href="{{item.href}}">
+                    <h3>{{item.name}}</h3>
+                </a>
+                <div>
+
+                    <p>
+                        Stage:
+                        <span class="pull-right">{{item.status}}</span>
+                    </p>
+                    <p>
+                        Effort:
+                        <span class="pull-right"> {{item.effort}} </span>
+                    </p>
+                    <p>
+                        Category:
+                        <span class="pull-right"> {{item.division}} </span>
+                    </p>
+                    <div>
+                        % of completion:
+                        <div class="progress">
+                            <md-progress-linear md-mode="determinate" value="{{item.percentageOfCompletion}}"></md-progress-linear>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!apps.length">
+        <h2>Please add the App to the project</h2>
+    </div>
+</div>
+
+<div ng-if="responseError">
+    <h1>Some thing went wrong</h1>
+</div>
+<div ng-if="!responseLoaded">
+    <md-progress-linear md-mode="indeterminate">Loading</md-progress-linear>
+</div>

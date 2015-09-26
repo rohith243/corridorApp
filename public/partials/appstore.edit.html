@@ -1,0 +1,50 @@
+<div layout="row" layout-wrap>
+    <div flex>
+        <h1 class="page-title">Edit {{itemName}}</h1>
+    </div>
+</div>
+<form name="appstoreEditForm" ng-submit="updateApp( $event )" novalidate>
+    <md-input-container>
+        <label>Name</label>
+        <input required name="name" ng-model="item.name">
+        <div ng-messages="appstoreEditForm.item.name.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container>
+        <label>href</label>
+        <input required name="href" ng-model="item.href">
+        <div ng-messages="appstoreEditForm.item.href.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container>
+        <label>infotext</label>
+        <textarea required name="infotext" ng-model="item.infotext"></textarea>
+        <div ng-messages="appstoreEditForm.item.infotext.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+
+    <md-input-container>
+        <label>desc</label>
+        <textarea required name="desc" ng-model="item.desc"></textarea>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Src</label>
+        <input required name="src" ng-model="item.src">
+        <div ng-messages="appstoreEditForm.item.src.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+
+    <md-input-container>
+        <label>srcLg</label>
+        <input name="srcLg" ng-model="item.srcLg">
+    </md-input-container>
+    <md-button class="md-raised md-primary" type="submit">
+        UPDATE
+    </md-button>
+
+</form>

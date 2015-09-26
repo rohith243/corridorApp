@@ -1,0 +1,32 @@
+<h1>Edit {{item.itemName}}</h1>
+
+<form name="globalUpdateForm" ng-submit="updateGlobal( $event )" novalidate ng-class="{'form-submitted': globalUpdateForm.$submitted }">
+    <md-input-container>
+        <label>Name</label>
+        <input required name="name" ng-model="item.name">
+        <div ng-messages="globalAddForm.$submitted && globalAddForm.name.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container>
+        <label>Type</label>
+        <md-select name="type" ng-model="item.type" required>
+            <md-option value="md">Markdown</md-option>
+            <md-option value="text">text</md-option>
+        </md-select>
+        <div ng-messages="globalUpdateForm.$submitted && globalUpdateForm.type.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container>
+        <label>Value</label>
+        <textarea required name="value" ng-model="item.value"></textarea>
+        <div ng-messages="globalUpdateForm.$submitted && globalUpdateForm.value.$error">
+            <div ng-message="required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-button class="md-raised md-primary" type="submit">
+        Update
+    </md-button>
+
+</form>

@@ -1,0 +1,82 @@
+<div layout="row" layout-wrap>
+    <div flex>
+        <h1 class="page-title">Edit {{itemName}}</h1>
+    </div>
+    <div flex="15">
+        <md-button ng-click="updateForm( $event )" class="md-raised md-primary block">Update app</md-button>
+    </div>
+</div>
+<div>
+    <form name="letsbuildEditForm" ng-submit="updateForm( $event )">
+        <input type="submit" hidden/>
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Introduction">
+                    <md-content class="md-padding">
+                        <md-input-container>
+                            <label>Name</label>
+                            <input required name="name" ng-model="item.name">
+                            <div ng-messages="letsbuildEditForm.$submitted && letsbuildEditForm.name.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Category</label>
+                            <input ng-model="item.division" name="category" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label>src</label>
+                            <input ng-model="item.src" name="src" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Short Description</label>
+                            <textarea ng-model="item.shortDesc" name="shortDesc"></textarea>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Long Description</label>
+                            <textarea ng-model="item.longDesc" name="longDesc"></textarea>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Technical Details</label>
+                            <textarea ng-model="item.techDetails" name="techDetails"></textarea>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Vedio Links</label>
+                            <input ng-model="item.vedioLink" name="vedioLink" />
+                        </md-input-container>
+                    </md-content>
+                </md-tab>
+                <md-tab label="TEAM">
+                    <md-content class="md-padding">
+                        <div class="field-wrapper" ng-if="item.team">
+                            <md-chips ng-model="item.team" placeholder="Add Team Member" secondary-placeholder="Add Member"></md-chips>
+                        </div>
+                        <div class="field-wrapper" ng-if="item.proposedTeam">
+                            <md-chips ng-model="item.proposedTeam" placeholder="Add Member" secondary-placeholder="Proposed By"></md-chips>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Others">
+                    <md-content class="md-padding">
+                        <md-input-container>
+                            <label>Stage</label>
+                            <input ng-model="item.status" name="status" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label>minimum bid to join</label>
+                            <input ng-model="item.minimumBid" name="minimumBid" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Effort</label>
+                            <input ng-model="item.effort" name="effort" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label> % completion</label>
+                            <input ng-model="item.percentageOfCompletion" name="percentageOfCompletion" />
+                        </md-input-container>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </form>
+</div>
