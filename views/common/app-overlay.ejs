@@ -15,18 +15,27 @@
                         <div class="col-sm-6 col-md-4 col-lg-3 repeated-item" ng-repeat="item in filteredApps()">
                             <div class="app-tile">
                                 <div class="image-holder">
-                                    <a href="#" ng-href="{{item.href}}" target="_blank">
-                                        <img ng-src="{{item.src}}">
-                                    </a>
+                                    <div ng-if="category === 'appstore'">
+                                        <a href="#" ng-href="{{item.href}}" target="_blank">
+                                            <img ng-src="{{item.src}}">
+                                        </a>
+                                    </div>
+                                    <div ng-if="category === 'letsbuild'">
+                                        <a href="#" ng-href="/letsbuild/id/{{item._id}}" target="_blank">
+                                            <img ng-src="{{item.src}}">
+                                        </a>
+                                    </div>
+                                    
                                 </div>
                                 <div class="info-holder">
-                                    <a herf="#" ng-href="{{item.href}}" target="_blank">
-                                        <h3>{{item.name}}</h3>
-                                    </a>
                                     <div ng-if="category === 'appstore'">
+                                        <a herf="#" ng-href="{{item.href}}" target="_blank">
+                                            <h3>{{item.name}}</h3>
+                                        </a>
                                         <div btf-markdown="item.infotext"></div>
                                     </div>
-                                    <div ng-if="category === 'proposed'">
+                                    <div ng-if="category === 'letsbuild'">
+
                                         <p>
                                             Status:
                                             <span class="pull-right">{{item.status}}</span>
