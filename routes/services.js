@@ -8,7 +8,14 @@ var getSetObject = function(data, cname) {
     var objupdated = false;
     var map = {
         appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
-        letsbuild: ['name', 'src', 'status', 'effort', 'percentageOfCompletion', 'category', 'href',
+        letsbuild: [
+            'name', 
+            'src', 
+            'status', 
+            'effort', 
+            'percentageOfCompletion', 
+            'category', 
+            'href',
             'division',
             'shortDesc',
             'longDesc',
@@ -167,5 +174,28 @@ router.post('/adddocument', function(req, res, next) {
             });
         }
     });
+});
+
+
+
+router.post('/signin', function(req, res, next) {
+    var data = req.body.data;
+    var adminUser = {
+        email: 'admin',
+        password: 'admin' 
+    }
+
+    if( data.email === adminUser.email && data.password === adminUser.password ) {
+        res.json( {
+            user: adminUser
+        } );
+    } 
+    else {
+        res.statusCode = 400;
+        res.json( {
+            type: 'error',
+            code: '_invalid_credeintials'
+        } );
+    }
 });
 module.exports = router;
