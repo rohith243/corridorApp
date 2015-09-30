@@ -183,7 +183,7 @@ router.post('/signin', function(req, res, next) {
     var adminUser = {
         email: 'admin',
         password: 'admin' 
-    }
+    };
 
     if( data.email === adminUser.email && data.password === adminUser.password ) {
         res.json( {

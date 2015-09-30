@@ -12,3 +12,6 @@
 - Access http://localhost:3000/admin
 - http://localhost:3000/apps
 - http://localhost:3000/letsbuild
+
+username: admin
+password: admin

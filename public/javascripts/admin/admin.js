@@ -322,9 +322,9 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
                     $state.go( 'appstore' );
                 }, function  ( res ) {
                     $scope.errorCode = res.code;
-                } ) 
+                } ); 
            }
-       }
+       };
     })
     
     .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth ) {
@@ -351,7 +351,7 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
                 return(user)? user : false;
             }
 
-        }
+        };
     });
 
 angular.module('notification', ['ui-notification'])
