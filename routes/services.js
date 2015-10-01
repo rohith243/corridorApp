@@ -23,7 +23,20 @@ var getSetObject = function(data, cname) {
             'vedioLink',
             'minimumBid',
             'team',
-            'proposedTeam'
+            'proposedTeam',
+
+
+            'appName',
+            'shortDesc',
+            'longDesc',
+            'proposedTeam',
+            'links',
+            'solution',
+            'contributors',
+            'isPublish',
+            'public',
+            'invites',
+            'imgurl'
         ],
         globals: ['name', 'type', 'value']
     };

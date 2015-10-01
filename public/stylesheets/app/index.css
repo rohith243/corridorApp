@@ -299,6 +299,7 @@ a:hover {
 
 .search-wrapper {
     margin-top: 16%;
+    color: #999;
     -webkit-transition: all 0.4s ease-in;
     /* Safari */
     transition: all 0.4s ease-in;
@@ -371,6 +372,7 @@ a:hover {
     position: absolute;
     top: 10px;
     left: 13px;
+    color: #999;
 }
 
 .dummy-search-wrap input {

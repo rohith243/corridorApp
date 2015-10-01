@@ -1,12 +1,16 @@
-var app = angular.module('app', ['ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown']);
+var app = angular.module('app', [ 'ngMaterial', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'httpService', 'notification']);
 app.controller('appsController', [
         '$scope',
         '$http',
         'model',
+        'Notification',
+        'http',
         function(
             $scope,
             $http,
-            model
+            model,
+            Notification,
+            http
         ) {
             $scope.category = serviceConfig.app.key;
             $http.get(serviceConfig.app.url)
@@ -17,21 +21,21 @@ app.controller('appsController', [
                     $scope.apps[key] = res.data;
                     $scope.limit = {};
                     $scope.limit[key] = 8;
-                    $scope.featuredApps = GLOBAL.featuredApps || [];
-                    var len = $scope.featuredApps.length;
+                    $scope.apps.favourites = GLOBAL.featuredApps || [];
+                    var len = $scope.apps.favourites.length;
                     var fav;
                     var data;
                     var findFunction = function(app) {
                         return app._id === fav._id;
                     };
                     if (len) {
-                        for (var i = 0; i < $scope.featuredApps.length; i++) {
-                            fav = $scope.featuredApps[i];
+                        for (var i = 0; i < $scope.apps.favourites.length; i++) {
+                            fav = $scope.apps.favourites[i];
                             data = _.find(res.data, findFunction);
                             if (data) {
-                                fav.data = data;
+                                $scope.apps.favourites[i] = data;
                             } else {
-                                $scope.featuredApps.splice(i, 1);
+                                $scope.apps.favourites.splice(i, 1);
                                 i--;
                             }
                         }
@@ -40,6 +44,23 @@ app.controller('appsController', [
             $scope.searchpop = function(argument) {
                 openSearchApps();
             };
+            $scope.deleteItem = function(e, item, index, key) {
+                e.preventDefault();
+                if (confirm('do you want to delete' + item.name + '?')) {
+                    if( key === 'letsbuild' ) {
+                        http.get('services/deletedoc?cname=letsbuild&_id=' + item._id)
+                          .then(function(res) {
+                              $scope.apps[key].splice(index, 1);
+                              Notification.success(GLOBAL.messages.appdeleted);
+                          });      
+                    } else {
+                        $scope.apps[key].splice(index, 1);
+                        Notification.success('app deleted from favourites');
+                    }
+                  
+                }
+            };
+
         }
     ])
     .controller('searchPopCtrl', [
@@ -64,7 +85,30 @@ app.controller('appsController', [
     .factory('model', [function() {
         var data = {};
         return data;
-    }]);
+    }])
+    .directive('appTile', [function() {
+        return {
+            templateUrl: '/partials/app-tile.html',
+            restict: 'A',
+            scope: {
+                item: '=',
+
+            }
+        }
+    }])
+    .directive('appTileEdit', [function() {
+        return {
+            templateUrl: '/partials/app-tile-edit.html',
+            restict: 'A',
+            scope: {
+                item: '=',
+                deleteItem: '=',
+                key : '='
+            }
+        }
+
+    }]);;
+
 $(function(argument) {
     angular.bootstrap(document, ['app']);
     $('#app-search-popup-close').click(function(e) {

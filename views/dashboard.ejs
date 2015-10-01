@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <%- include common/index.head.ejs %>
+    
+    <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/letsbuild/index.css" />
+</head>
+
+<body>
+
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div>
+    <div class="wrapall">
+    <section>
+        <%- include common/index.header.ejs %>
+    </section>
+    <section class="header-flush">
+        <div class="page-layout" ng-controller="appsController">
+            
+            <div class="pull-right dummy-search-wrap">
+                <label for="dummy-search-field"><span class="fa fa-search"></span></label>
+                <input id="dummy-search-field" class="search-field " type="text" name="search" ng-focus="searchpop()" placeholder="Search app">
+            </div>
+            <h1 class="md-display-1">Your Proposed Apps</h1>
+            <div class="app-container">
+                <md-content >
+                    <md-tabs md-dynamic-height md-border-bottom >
+                        <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
+                            <md-content class="tiles-container" >
+                                <div class="tile" ng-repeat="item in tab | limitTo: limit[key]">
+                                    <div app-tile-edit data-item="item" data-delete-item="deleteItem" data-key="key">
+                                    </div>
+                                     <div class="loadmore" ng-if="tab.length > limit[key]">
+                                        <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 8" class="md-raised md-primary">
+                                        Loadmore
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </md-content>
+                        </md-tab>
+                    </md-tabs>
+                </md-content>
+            </div>
+        </div>
+    </section>
+    <section>
+        <%- include common/index.footer.ejs %>
+    </section>
+    </div>
+    <%- include common/app-overlay.ejs %>
+    <script type="text/javascript">
+        var serviceConfig = {
+            app: {
+                url: '/services/collection?cname=letsbuild',
+                key: 'letsbuild'
+            }
+        }
+        var GLOBAL = {
+            featuredApps : [{
+                "_id": "56022746b14391e21be35310"
+            }, {
+                "_id": "5603bcd04127193e156b435a"
+            }]
+        };
+    </script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/lodash/lodash.min.js"></script>
+
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+
+
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="/bower_components/showdown/compressed/Showdown.js"></script>
+    <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
+    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="/javascripts/admin/http-service.js"></script>
+    <script src="/javascripts/app/notification.js"></script>
+
+    <script src="/javascripts/app/script.js"></script>
+
+
+
+</body>
+
+</html>

@@ -27,10 +27,12 @@ app.use('/users', users);
 
 app.use('/apps', require( './routes/apps' ) );
 app.use('/letsbuild', require( './routes/letsbuild' ) );
+app.use('/dashboard', require( './routes/dashboard' ) );
 
 
 app.use('/admin', require( './routes/admin' ) );
 app.use('/services', require( './routes/services' ) );
+app.use('/propose-form', require( './routes/propose-form' ) );
 
 
 

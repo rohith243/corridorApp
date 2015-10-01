@@ -1,5 +1,5 @@
 (function(angular) {
-    angular.module('httpSerivice', [])
+    angular.module('httpService', [])
         .factory('http', [
             '$http',
             '$q',

@@ -1,0 +1,13 @@
+<div class="tile-data md-whiteframe-2dp">
+    <a ng-href="/letsbuild/id/{{item._id}}">
+        <div class="image-holder">
+            <img ng-src="{{item.src}}">
+        </div>
+        <div class="tile-title">
+            <h3>{{item.appName}}</h3>
+        </div>
+        <div class="tile-content">
+            <div btf-markdown="item.shortDesc"></div>
+        </div>
+    </a>
+</div>

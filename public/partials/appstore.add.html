@@ -6,7 +6,7 @@
 <form name="appstoreAddForm" ng-submit="addApp( $event )" novalidate ng-class="{'form-submitted': appstoreAddForm.$submitted }">
     <md-input-container>
         <label>Name</label>
-        <input required name="name" ng-model="item.name">
+        <input required name="name" ng-model="item.appName">
         <div ng-messages="appstoreAddForm.$submitted && appstoreAddForm.name.$error">
             <div ng-message="required">This is required.</div>
         </div>

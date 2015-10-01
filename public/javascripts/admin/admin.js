@@ -366,4 +366,4 @@ angular.module('notification', ['ui-notification'])
             positionY: 'top'
         });
     });
-angular.bootstrap(document, ['admin', 'notification', 'httpSerivice']);
+angular.bootstrap(document, ['admin', 'notification', 'httpService']);

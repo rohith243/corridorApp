@@ -6,7 +6,11 @@
     </head>
 
 <body>
-    
+    <div class="wrapall">
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div>
+
     <section>
         <%- include common/index.header.ejs %>
     </section>
@@ -34,7 +38,7 @@
                                     I want contributors to help me build an Idea
                                 </p>
                                 <div class="button-container">
-                                    <md-button href="http://localhost:3000/admin#/appstore/add" class="md-raised md-primary">
+                                    <md-button href="/propose-form" class="md-raised md-primary">
                                     Propose An App
                                     </md-button>
                                 </div>
@@ -60,7 +64,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
 
     </section>
@@ -69,7 +72,7 @@
         <div class="stats-section">
             <div class="page-layout">
                 <div layout="row" layout-sm="column">
-                    <div flex="25" layout class="tile">
+                    <div flex layout class="tile">
                         <div class="tile-data md-whiteframe-2dp">
                             <p class="count md-display-1">
                                 20,271
@@ -79,7 +82,7 @@
                             </p>
                         </div>
                     </div>
-                    <div flex="25" layout class="tile">
+                    <div flex layout class="tile">
                         <div class="tile-data md-whiteframe-2dp">
                             <p class="count md-display-1">
                                 20,568
@@ -89,7 +92,7 @@
                             </p>
                         </div>
                     </div>
-                    <div flex="25" layout class="tile">
+                    <div flex layout class="tile">
                         <div class="tile-data md-whiteframe-2dp">
                             <p class="count md-display-1">
                                 504
@@ -103,14 +106,21 @@
                 </div>
             </div>
         </div>
+        
+    </section>
+    <section>
         <%- include common/index.footer.ejs %>
     </section>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    </div>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
     <script type="text/javascript">
-        angular.bootstrap( document, [ 'ngMaterial' ] );
+        setTimeout( function (argument) {
+            angular.bootstrap( document, [ 'ngMaterial' ] );    
+        }, 0 )
+        
     </script>
 
 </body>

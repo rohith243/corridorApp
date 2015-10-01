@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+
+<head>
+    <%- include common/index.head.ejs %>
+</head>
+<body ng-app="appdetails">
+  <div class="wrapall">
+    <section>
+        <%- include common/index.header.ejs %>
+    </section>
+    <section>
+     
+        <div class="header-flush" ng-controller="DetailsController">
+            <div class="page-layout" >
+                 <form name="updateForm" class="update-form"  ng-submit="updateFormSubmit( $event )" novalidate ng-class="{'form-submitted':updateForm.$submitted}" >
+                  <md-button class="md-raised md-primary pull-right">
+                    Save changes
+                  </md-button>
+                  <h1 class="md-display-1">
+                      Welcome, Edit {{item.itemName}}
+                  </h1>
+                  <md-content layout-padding ng-if="item">
+                    <md-tabs md-dynamic-height md-border-bottom>
+                      <md-tab label="Introduction">
+                        <md-content class="tab-content">
+                          <div>
+                              <div>
+                                  <md-input-container>
+                                    <label>App Name</label>
+                                    <input md-maxlength="30" required name="appName" ng-model="item.appName">
+                                    <div ng-messages="updateForm.$submitted && updateForm.appName.$error">
+                                      <div ng-message="required">This is required.</div>
+                                      <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                    </div>
+                                  </md-input-container>
+                              </div>
+                              <div>
+                                  <md-input-container >
+                                      <label>Short Description</label>
+                                      <textarea columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
+                                      <div ng-messages="updateForm.$submitted && updateForm.shortDesc.$error">
+                                        <div ng-message="required">This is required.</div>
+                                      </div>
+                                  </md-input-container>
+                              </div>
+                              <div>
+                                  <md-input-container>
+                                      <label>Long Description</label>
+                                      <textarea columns="1" name="longDesc" ng-model="item.longDesc"></textarea>
+                                  </md-input-container>
+                              </div>
+                              <div>
+                                  <md-input-container>
+                                      <label>Select a Category </label>
+                                      <md-select ng-model="item.category" name="category">
+                                        <md-option value="WebSite, IT and Software">
+                                          WebSite, IT and Software
+                                        </md-option>
+                                        <md-option value="Mobile">
+                                          Mobile
+                                        </md-option>
+                                        <md-option value="Sales">
+                                          Sales
+                                        </md-option>
+                                        <md-option value="Product Development">
+                                          Product Development
+                                        </md-option>
+                                        <md-option value="Entertainment">
+                                          Entertainment
+                                        </md-option>
+                                      </md-select>
+                              </div>                        
+                          
+                          </div>
+                        </md-content>
+                      </md-tab>
+                      <md-tab label="Solution">
+                        <md-content class="tab-content">
+                          <div >
+                              <md-input-container>
+                                  <label>Analysis/Solution Approach</label>
+                                  <textarea required columns="1" name="solution" ng-model="item.solution"></textarea>
+                                  <div ng-messages="updateForm.$submitted && updateForm.solution.$error">
+                                    <div ng-message="required">This is required.</div>
+                                  </div>
+                              </md-input-container>
+                             
+                          </div>
+                          <div >
+                              <md-input-container>
+                                  <label>Useful Links</label>
+                                  <textarea columns="1" name="links" ng-model="item.links"></textarea>
+                              </md-input-container>
+                          </div>
+                        </md-content>
+                      </md-tab>
+                      <md-tab label="Team">
+                        <md-content class="tab-content">
+                          <div class="field-wrapper">
+                              <md-chips required ng-model="item.proposedTeam" name="proposedTeam" placeholder="Proposed By" secondary-placeholder="Proposed By"></md-chips>
+                              <div ng-messages="updateForm.$submitted && updateForm.proposedTeam.$error">
+                                <div ng-message="required">This is required.</div>
+                              </div>
+                          </div>
+                          <div>
+                              <md-chips ng-model="item.contributors" name="contributors" placeholder="+Contributor" secondary-placeholder="Contributors List"></md-chips>
+                          </div>
+                        </md-content>
+                      </md-tab>
+                      <md-tab label="Settings">
+                        <md-content class="tab-content">
+                          <div>
+                              <div>
+                                  <md-checkbox md-no-ink aria-label="Publish the App" name="isPublish" ng-model="item.isPublish" class="md-primary">
+                                      Publish the App
+                                  </md-checkbox>
+                              </div>
+                          </div>
+                          <div>
+                              <div>
+                                  <p>Is the App needs to be publish outside pramati</p>
+                                  <md-radio-group ng-model="item.public" name="public">
+                                    <md-radio-button value="public" class="md-primary"> Public </md-radio-button>
+                                    <md-radio-button value="private"> Private </md-radio-button>
+                                  </md-radio-group>
+                            </div>
+                          </div>
+                          <div >
+                              <md-input-container >
+                                <label>Project Status</label>
+                                <input type="text" ng-model="item.status" name="status">
+                              </md-input-container>
+                          </div>
+                          <div class="field-wrapper">
+                              <md-chips ng-model="item.invites" name="invites" placeholder="+Invite" secondary-placeholder="Invitation List">
+                              </md-chips>
+                          </div>
+                          <div >
+                              <md-input-container>
+                                <label>App Icon URL</label>
+                                <input type="text" ng-model="item.imgurl" name="imgurl" required>
+                                <div ng-messages="updateForm.$submitted && updateForm.imgurl.$error">
+                                  <div ng-message="required">This is required.</div>
+                                </div>
+                              </md-input-container>
+                          </div>
+                        </md-content>
+                      </md-tab>
+                    </md-tabs>
+                  </md-content>
+                  <md-button class="md-raised md-primary">
+                    Save changes
+                  </md-button>
+                </form>  
+            </div>
+        </div>  
+     
+    </section>
+    <section>
+        <%- include common/index.footer.ejs %>
+    </section>
+    </div>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="/javascripts/admin/http-service.js"></script>
+    <script src="/javascripts/app/notification.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.js"></script>
+    
+    <script type="text/javascript">
+        var getPostData = function(data, originalData, cname) {
+          var map = {
+              appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
+              letsbuild: ['name', 'src', 'status', 'effort', 'percentageOfCompletion', 'category', 'href',
+                  'division',
+                  'shortDesc',
+                  'longDesc',
+                  'techDetails',
+                  'vedioLink',
+                  'minimumBid',
+                  'team',
+                  'proposedTeam',
+
+
+
+                   'appName',
+            'shortDesc',
+            'longDesc',
+            'proposedTeam',
+            'links',
+            'solution',
+            'contributors',
+            'isPublish',
+            'public',
+            'invites',
+            'imgurl'
+              ],
+              globals: ['name', 'type', 'value']
+          };
+          var obj = {};
+          for (var len = map[cname].length - 1; len >= 0; len--) {
+              var key = map[cname][len];
+              if (data[key] !== originalData[key]) {
+                  obj[key] = data[key];
+              }
+          }
+          return obj;
+      };
+        var appModule = angular.module('appdetails',['ngMaterial','ngMessages', 'httpService', 'notification']);
+        var pathname = location.pathname.split( '/' );
+        var _id;
+        if( pathname.length === 4 ) {
+          _id = pathname[ 3 ]; 
+        }
+
+        appModule.controller('DetailsController', ['$scope', 'http', 'Notification', function( $scope, http, Notification ) {
+            console.log( _id );
+            http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
+              .then(function(res) {
+                  originalData = res;
+                  $scope.item = angular.copy(res);
+                  $scope.item.contributors = $scope.item.contributors || [];
+                  $scope.item.proposedTeam = $scope.item.proposedTeam || [];
+                  $scope.itemName = $scope.item.name;
+                  $scope.item.invites = $scope.item.invites || [];
+              });
+              $scope.updateFormSubmit = function(e) {
+                  e.preventDefault();
+                  if ($scope.updateForm && $scope.updateForm.$valid) {
+                      http.post('/services/update', {
+                          postData: {
+                              data: getPostData($scope.item, originalData, 'letsbuild'),
+                              cname: 'letsbuild',
+                              _id: _id
+                          }
+                      })
+                      .then(function(res) {
+                          Notification.success( 'success fully updated' );
+                      });
+                  } else {
+                    Notification.error( ' Fill all required details in all the tabs ' );
+                  }
+              };
+        }]);
+    </script>
+
+    <style type="text/css">
+      .tab-content {
+        padding: 20px 0
+      }
+      .update-form {
+        margin-bottom: 20px;
+      }
+      .field-wrapper {
+          padding: 2px 2px 26px;
+      }
+    </style>
+</body>
+</html>
