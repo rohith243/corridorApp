@@ -1,0 +1,317 @@
+body, html {
+    z-index: -1;
+}
+
+*{
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba( 255, 255, 255, 0.9 );
+    z-index: 9999;
+}
+.logo {
+    display: inline-block;
+    padding: 10px 0;
+}
+.logo img{
+    height: 45px;
+}
+.page-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.page-layout-2 {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.welcome-section1 .page-layout-2 {
+    margin-right: 0
+}
+.welcome-section2 .page-layout-2 {
+    margin-left: 0;
+    text-align: right;
+}
+.welcome-content {
+    padding: 20px;
+}
+
+.header-flush {
+    padding-top: 70px;
+}
+.banner-container {
+    height: 600px; 
+    position: relative;
+}
+.banner {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center center;
+    z-index: -1;
+}
+.banner1 {
+    animation: slidefade 22s infinite;
+    -o-animation: slidefade 22s infinite;
+    -moz-animation: slidefade 22s infinite;
+    -webkit-animation: slidefade 22s infinite;
+}
+.banner2 {
+    animation: slidefade2 22s infinite;
+    -o-animation: slidefade2 22s infinite;
+    -moz-animation: slidefade2 22s infinite;
+    -webkit-animation: slidefade2 22s infinite;
+}
+.banner3 {
+    animation: slidefade3 22s infinite;
+    -o-animation: slidefade3 22s infinite;
+    -moz-animation: slidefade3 22s infinite;
+    -webkit-animation: slidefade3 22s infinite;
+}
+
+.welcome-section1 {
+    height: 530px;
+    background: rgba( 255,255,255, 0.5 );
+    text-shadow: 2px 2px  2px #999;
+    color: #333;
+}
+
+.welcome-section2 {
+    height: 530px;
+    background: rgba( 0,0,0, 0.5 );
+    text-shadow: 2px 2px  2px #666;
+    color: #fff;
+}
+
+.welcome-content {
+
+}
+
+.welcome-content .md-button {
+    padding: 10px 50px;
+    min-width: 120px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.page-layout-2 {
+    height: 100%;
+}
+.page-layout-2:after {
+    content: '';
+    display: inline-block;;
+    height: 100%;
+    margin-left: -10px;
+    vertical-align: middle;
+}
+.page-layout-2 .welcome-content {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -20px;
+}
+
+
+.stats-section .tile{
+    margin: 30px;
+}
+.stats-section .tile .tile-data {
+    min-height: 100px; 
+    background: #fff;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+.stats-section .tile .tile-data p{
+    margin: 0
+}
+
+footer {
+    background: #2b3340;
+    padding: 20px 0;
+    color: #fff;
+    text-align: center;
+} 
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .welcome-section1,.welcome-section2{
+        height: auto;
+        background: none;
+    }
+}
+
+
+
+@-webkit-keyframes slidefade {
+    0% {
+        opacity: 0
+    }
+    14.25% {
+        opacity: 0
+    }
+    28.5% {
+        opacity: 1
+    }
+    42.75% {
+        opacity: 1
+    }
+    57% {
+        opacity: 0
+    }
+    71.25% {
+        opacity: 0
+    }
+    85.5 {
+        opacity: 0
+    }
+    100% {
+        opacity: 0
+    }
+}
+@keyframes slidefade {
+    0% {
+        opacity: 0
+    }
+    14.25% {
+        opacity: 0
+    }
+    28.5% {
+        opacity: 1
+    }
+    42.75% {
+        opacity: 1
+    }
+    57% {
+        opacity: 0
+    }
+    71.25% {
+        opacity: 0
+    }
+    85.5 {
+        opacity: 0
+    }
+    100% {
+        opacity: 0
+    }
+}
+@-webkit-keyframes slidefade2 {
+    0% {
+        opacity: 0
+    }
+    14.25% {
+        opacity: 0
+    }
+    28.5% {
+        opacity: 0
+    }
+    42.75% {
+        opacity: 0
+    }
+    57% {
+        opacity: 1
+    }
+    71.25% {
+        opacity: 1
+    }
+    85.5 {
+        opacity: 0
+    }
+    100% {
+        opacity: 0
+    }
+}
+@keyframes slidefade2 {
+    0% {
+        opacity: 0
+    }
+    14.25% {
+        opacity: 0
+    }
+    28.5% {
+        opacity: 0
+    }
+    42.75% {
+        opacity: 0
+    }
+    57% {
+        opacity: 1
+    }
+    71.25% {
+        opacity: 1
+    }
+    85.5 {
+        opacity: 0
+    }
+    100% {
+        opacity: 0
+    }
+}
+@-webkit-keyframes slidefade3 {
+    0% {
+        opacity: 1
+    }
+    14.25% {
+        opacity: 1
+    }
+    28.5% {
+        opacity: 0
+    }
+    42.75% {
+        opacity: 0
+    }
+    57% {
+        opacity: 0
+    }
+    71.25% {
+        opacity: 0
+    }
+    85.5 {
+        opacity: 1
+    }
+    100% {
+        opacity: 1
+    }
+}
+@keyframes slidefade3 {
+    0% {
+        opacity: 1
+    }
+    14.25% {
+        opacity: 1
+    }
+    28.5% {
+        opacity: 0
+    }
+    42.75% {
+        opacity: 0
+    }
+    57% {
+        opacity: 0
+    }
+    71.25% {
+        opacity: 0
+    }
+    85.5 {
+        opacity: 1
+    }
+    100% {
+        opacity: 1
+    }
+}

@@ -27,7 +27,7 @@ app.use('/users', users);
 
 app.use('/apps', require( './routes/apps' ) );
 app.use('/letsbuild', require( './routes/letsbuild' ) );
-app.use('/abc', require( './routes/abc' ) );
+
 
 app.use('/admin', require( './routes/admin' ) );
 app.use('/services', require( './routes/services' ) );

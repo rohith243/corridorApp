@@ -1,16 +1,118 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>
-        <%= title %>
-    </title>
-</head>
+    <head>
+        <%- include common/index.head.ejs %>
+    </head>
 
 <body>
-   <a href="/admin#/letsbuild/add">Propose Idea</a>
-   <br>
-   <a href="/letsbuild">Develop proposed App</a>
+    
+    <section>
+        <%- include common/index.header.ejs %>
+    </section>
+    
+    <section>
+        
+        <div class="banner-container header-flush" >
+            <div class="banner banner3" style="background-image: url( 'images/cover-image-1.jpg' )">
+            </div>
+            <div class="banner banner1" style="background-image: url( 'images/cover-image-nasa.jpg' )">
+            </div>
+            <div class="banner banner2" style="background-image: url( 'images/cover-image-2.jpg' )">
+            </div>
+            <div class="banner banner3" style="background-image: url( 'images/cover-image-1.jpg' )">
+            </div>
+            <div layout="row" layout-sm="column">
+                <div flex>
+                    <div class="welcome-section1">
+                        <div class="page-layout-2">
+                            <div class="welcome-content">
+                                <h1 class="md-display-1">
+                                    I have An Idea
+                                </h1>
+                                <p>
+                                    I want contributors to help me build an Idea
+                                </p>
+                                <div class="button-container">
+                                    <md-button href="http://localhost:3000/admin#/appstore/add" class="md-raised md-primary">
+                                    Propose An App
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div flex>
+                    <div class="welcome-section2">
+                        <div class="page-layout-2">
+                            <div class="welcome-content">
+                                <h1 class="md-display-1">
+                                    I would like to contribute 
+                                </h1>
+                                <p>
+                                    I want to help people to build an Idea
+                                </p>
+                                <div class="button-container">
+                                    <md-button href="http://localhost:3000/letsbuild" class="md-raised md-primary">Be a Contributor</md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+
+    <section>
+        <div class="stats-section">
+            <div class="page-layout">
+                <div layout="row" layout-sm="column">
+                    <div flex="25" layout class="tile">
+                        <div class="tile-data md-whiteframe-2dp">
+                            <p class="count md-display-1">
+                                20,271
+                            </p>
+                            <p class="count-item-text md-subhead">
+                                Proposed Ideas
+                            </p>
+                        </div>
+                    </div>
+                    <div flex="25" layout class="tile">
+                        <div class="tile-data md-whiteframe-2dp">
+                            <p class="count md-display-1">
+                                20,568
+                            </p>
+                            <p class="count-item-text md-subhead">
+                                Contributors
+                            </p>
+                        </div>
+                    </div>
+                    <div flex="25" layout class="tile">
+                        <div class="tile-data md-whiteframe-2dp">
+                            <p class="count md-display-1">
+                                504
+                            </p>
+                            <p class="count-item-text md-subhead">
+                                Successfull ideas
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include common/index.footer.ejs %>
+    </section>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript">
+        angular.bootstrap( document, [ 'ngMaterial' ] );
+    </script>
+
 </body>
 
 </html>
