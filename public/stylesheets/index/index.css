@@ -427,7 +427,39 @@ footer a {
 .form-validate md-input-container .md-input.ng-invalid {
     border-color: rgb(244, 67, 54);
 }
+
 .md-button.md-primary {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.proposer-details, .app-details ,.app-details md-content{
+    background: #f8f8f8;
+    padding: 15px;
+    color: #777777;
+}
+
+.text-center {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*body {
+    font: 400 13px Montserrat, Arial, Helvetica, sans-serif;
+    color: #777777;
+    line-height: 1.9;
+}
+.page-layout {
+    max-width: 1300px;
+}*/
+
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
 }
