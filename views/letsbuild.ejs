@@ -55,7 +55,9 @@
     <script type="text/javascript">
         var serviceConfig = {
             app: {
-                url: '/services/collection?cname=letsbuild',
+                url: '/services/collection?cname=letsbuild&cond=' + JSON.stringify( {
+                    isPublish: true
+                })  ,
                 key: 'letsbuild'
             }
         }

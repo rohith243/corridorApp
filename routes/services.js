@@ -41,9 +41,10 @@ var getSetObject = function(data, cname) {
         globals: ['name', 'type', 'value']
     };
 
+
     for (var len = map[cname].length - 1; len >= 0; len--) {
         var key = map[cname][len];
-        if (data[key]) {
+        if ( typeof data[key] !== 'undefined' ) {
             objupdated = true;
             obj[key] = data[key];
         }
@@ -57,6 +58,7 @@ var getSetObject = function(data, cname) {
 
 router.get('/collection', function(req, res, next) {
     var query = req.query;
+    console.log( query );
     mongo.connect({
         callback: function(err, db) {
             if (err) {
@@ -65,10 +67,20 @@ router.get('/collection', function(req, res, next) {
                 });
                 return;
             }
-            var cursor = mongo.find({
+            var obj = {
                 db: db,
                 collectionName: query.cname
-            });
+            };
+
+            if( query.cond ) {
+                try{
+                    obj.query = JSON.parse( query.cond );     
+                } catch( e ) {
+                    console.log( 'error in parsing reqest' );
+                }
+            }
+
+            var cursor = mongo.find( obj );
             cursor.stream().pipe(JSONStream.stringify()).pipe(res);
         }
     });
@@ -129,7 +141,13 @@ router.post('/update', function(req, res, next) {
     var data = req.body.data;
     var cname = req.body.cname;
     var id = req.body._id;
+
+    console.log( 'data', data );
+
     var setObj = getSetObject(data, cname);
+
+    console.log( 'setObj', setObj );
+
     if (!setObj) {
         res.json('');
         return;
@@ -144,6 +162,8 @@ router.post('/update', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.lastUpdated = +new Date();
+
+            console.log( setObj );
             collection.update({
                 _id: new ObjectId(id)
             }, {
@@ -155,6 +175,7 @@ router.post('/update', function(req, res, next) {
                     });
                     return;
                 }
+                console.log( doc );
                 res.json('');
                 db.close();
             });
@@ -182,7 +203,7 @@ router.post('/adddocument', function(req, res, next) {
                     });
                     return;
                 }
-                res.json('');
+                res.json( setObj );
                 db.close();
             });
         }

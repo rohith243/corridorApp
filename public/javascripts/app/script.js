@@ -51,7 +51,7 @@ app.controller('appsController', [
                         http.get('services/deletedoc?cname=letsbuild&_id=' + item._id)
                           .then(function(res) {
                               $scope.apps[key].splice(index, 1);
-                              Notification.success(GLOBAL.messages.appdeleted);
+                              Notification.success( 'app successfully deleted' );
                           });      
                     } else {
                         $scope.apps[key].splice(index, 1);
@@ -103,7 +103,8 @@ app.controller('appsController', [
             scope: {
                 item: '=',
                 deleteItem: '=',
-                key : '='
+                key : '=',
+                index: '='
             }
         }
 
