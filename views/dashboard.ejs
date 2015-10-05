@@ -33,11 +33,11 @@
                                 <div class="tile" ng-repeat="item in tab | limitTo: limit[key]">
                                     <div app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key">
                                     </div>
-                                     <div class="loadmore" ng-if="tab.length > limit[key]">
-                                        <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 8" class="md-raised md-primary">
-                                        Loadmore
-                                        </md-button>
-                                    </div>
+                                </div>
+                                <div class="loadmore" ng-if="tab.length > limit[key]">
+                                    <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 8" class="md-raised md-primary">
+                                    Loadmore
+                                    </md-button>
                                 </div>
                             </md-content>
                         </md-tab>

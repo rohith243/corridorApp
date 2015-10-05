@@ -3,11 +3,13 @@
         <div class="image-holder">
             <img ng-src="{{item.imgurl || ('//placehold.it/400x400?text=' + item.appName) }}">
         </div>
-        <div class="tile-title">
-            <h3>{{item.appName}}</h3>
-        </div>
         <div class="tile-content">
-            <div btf-markdown="item.shortDesc"></div>
+            <div class="tile-title">
+                <h3>{{item.appName}}</h3>
+            </div>
+            <div class="tile-desc">
+                <div btf-markdown="item.shortDesc"></div>
+            </div>
         </div>
     </a>
 </div>

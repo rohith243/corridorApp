@@ -1,5 +1,5 @@
 <form name="updateForm" class="update-form"  ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}" >
-  <div ng-if="item" style="overflow:auto">
+  <div ng-if="item" >
     <md-button class="md-raised md-primary pull-right"  ng-click="publishApp( $event, isPublished ) ">
       <span ng-if="!isPublished">Publish</span>
       <span ng-if="isPublished">unpublish</span>
@@ -147,12 +147,14 @@
         </md-tab>
       </md-tabs>
     </md-content>
+    <div style="overflow:auto">
     <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary pull-left" ng-if="global.selectedIndex !=0">
       Previous
     </md-button>
     <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
       Next
     </md-button>
+    </div>
 
   </div>
 </form> 

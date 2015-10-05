@@ -427,3 +427,7 @@ footer a {
 .form-validate md-input-container .md-input.ng-invalid {
     border-color: rgb(244, 67, 54);
 }
+.md-button.md-primary {
+  padding-left: 15px;
+  padding-right: 15px;
+}

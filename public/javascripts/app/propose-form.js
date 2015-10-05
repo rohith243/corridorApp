@@ -105,8 +105,11 @@ function( $scope, Notification, http,$state,$stateParams ) {
           }
       })
       .then(function(res) {
-      Notification.success( 'successfullyadded' );
-      location = 'dashboard';
+        Notification.success( 'successfully saved added' );
+        $state.go( 'editItem', {
+          _id: res._id
+        } )
+      
       });  
     } else {
       Notification.error( 'To publish fill the required fileds in other tabs' )
@@ -152,6 +155,7 @@ function( $scope, Notification, http,$state,$stateParams ) {
       $scope.item.contributors = $scope.item.contributors || [];
       $scope.item.proposedTeam = $scope.item.proposedTeam || [];
       $scope.item.invites = $scope.item.invites || [];
+      $scope.isPublished = $scope.item.isPublish;
     } )
   }
 
@@ -194,10 +198,10 @@ function( $scope, Notification, http,$state,$stateParams ) {
     $scope.global.selectedIndex = ( $scope.global.selectedIndex + tabcount - 1 ) % tabcount; 
   }
 
-  $scope.publishApp = function( e, published ) {
+  $scope.publishApp = function( e ) {
     e.preventDefault();
     $scope.updateForm.$showValidation = true;
-    $scope.item.isPublish = !published;
+    $scope.item.isPublish = !$scope.item.isPublish;
 
     if( $scope.item.isPublish && !($scope.updateForm && $scope.updateForm.$valid) ) {
       Notification.error( 'To publish fill the required fileds in other tabs' );
