@@ -2,130 +2,124 @@
 <html class="no-js" lang="">
 
 <head>
-    <%- include common/corridor.head.ejs %>
+    <%- include common/letsbuild.head.ejs %>
 </head>
 
-<body>
-
-    <div class="site-wrapper wrapall">
-        <%- include common/corridor.header.ejs %>
-            <div class="container proposel-app-container" ng-controller="letsBuildController">
-                <div class="sixteen columns" ng-if="item" ng-cloak>
-                    <div class="row ">
-                        <div class="col-sm-9">
+<body ng-app="app">
+    <div class="wrapall">
+        <section>
+            <%- include common/index.header.ejs %>
+        </section>
+        <section>
+            <div class="header-flush" ng-controller="letsBuildController">
+                <div class="page-layout detail-page">
+                     <div layout="row" layout-sm="column" class="layout-padding">
+                        <div flex="80" flex-sm="100" class="layout-padding">
                             <div class="app-details">
-                                <div class="welcome-details">
-                                    <div class="row">
-                                        <div class="image-section col-sm-2 text-center">
-                                            <img ng-src="{{item.src}}">
+                                <div layout="row" layout-sm="column">
+                                    <div class="image-section text-center md-padding" flex="20" flex-sm="100">
+                                        <img ng-src="{{item.imgurl}}">
+                                    </div>
+                                    <div class="app-intro md-padding" flex="55" flex-sm="100">
+                                        <div class="md-title">  
+                                           {{item.name}}
                                         </div>
-                                        <div class="app-intro col-sm-6">
-                                            <h3>  
-                                               {{item.name}}
-                                            </h3>
-                                            <div btf-markdown="item.shortDesc">
-                                            </div>
+                                        <div btf-markdown="item.shortDesc">
                                         </div>
-                                        <div class="app-summary col-sm-4">
+                                        <md-button class="md-raised md-primary pull-right" ng-click="expressInterestDetails($event)">
+                                            Express Interest
+                                        </md-button>
+                                    </div>
+                                    <div class="app-summary md-padding" flex="25" flex-sm="100">
 
-                                            <div class="row">
-                                                <span class="col-xs-6 text-right">Posted date :</span><span class="col-xs-6">{{item.createdAt | date:'yyyy-MM-dd'}}</span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xs-6 text-right">Last Updated :</span><span class="col-xs-6">{{item.lastUpdated | date:'yyyy-MM-dd'}}</span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xs-6 text-right">Stage:</span> <span class="col-xs-6">{{item.status}}</span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xs-6 text-right">Category :</span> <span class="col-xs-6">{{item.division}}</span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="col-xs-6 text-right">Effort :</span> <span class="col-xs-6">{{item.effort}}</span>
-                                            </div>
-                                            <div class="featured-panel">
-                                                <div class="pull-right">
-                                                    <a href="#" class="glyphicon glyphicon-heart"></a>
-                                                    <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
-                                                </div>
-                                                <div class="rating-panel">
-                                                    <rating ng-model="item.rate" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"></rating>
-                                                </div>
-
-                                            </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="" flex="50">Posted date :</span><span flex="50" class="">{{item.createdAt | date:'yyyy-MM-dd'}}</span>
                                         </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="" flex="50">Last Updated :</span><span flex="50" class="">{{item.lastUpdated | date:'yyyy-MM-dd'}}</span>
+                                        </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="" flex="50">Stage:</span> <span flex="50" class="">{{item.status}}</span>
+                                        </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="" flex="50">Category :</span> <span flex="50" class="">{{item.division}}</span>
+                                        </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span>
+                                        </div>
+                                        <div layout="row" class="text-right">
+                                            <span class="pull-right" flex="100">
+                                            <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                            </span>
+                                        </div>
+                                        <!-- <div class="featured-panel">
+                                            <div class="pull-right">
+                                                <a href="#" class="glyphicon glyphicon-heart"></a>
+                                                <a href="#" class="glyphicon glyphicon-thumbs-up"></a>
+                                            </div>
+                                            <div class="rating-panel">
+                                                <rating ng-model="item.rate" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"></rating>
+                                            </div>
+
+                                        </div> -->
                                     </div>
                                 </div>
-                                <div class="row marginb-none">
-                                    <tabset>
-                                        <tab ng-if="item.longDesc">
-                                            <tab-heading>
-                                                Introduction
-                                            </tab-heading>
-                                            <div class="col-xs-12" btf-markdown="item.longDesc">
-                                            </div>
-                                        </tab>
-                                        <tab ng-if="item.techDetails">
-                                            <tab-heading>
-                                                Stage
-                                            </tab-heading>
-                                            <div class="col-xs-12" btf-markdown="item.techDetails">
-                                            </div>
-                                        </tab>
-                                        <tab ng-if="item.vedioLink">
-                                            <tab-heading>
-                                                Video
-                                            </tab-heading>
-                                            <div class="col-xs-12">
-                                                <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
-                                                </iframe>
-                                            </div>
-                                        </tab>
-
-                                        <tab ng-if="true">
-                                            <tab-heading>
-                                                Team
-                                            </tab-heading>
-                                            <div class="col-xs-12">
-                                                <h3>
-                                                    Team:
-                                                </h3>
-                                                <div class="team">
-                                                    <a href="#" ng-repeat="mem in item.team">
+                                <md-content layout-padding>
+                                    <md-tabs md-dynamic-height md-border-bottom>
+                                      <md-tab label="Introduction" ng-if="item.longDesc">
+                                        <md-content class="md-padding">
+                                            {{item.longDesc}}
+                                        </md-content>
+                                      </md-tab>
+                                      <md-tab label="Stage" ng-if="item.techDetails">
+                                        <md-content class="md-padding">
+                                            {{item.techDetails}}
+                                        </md-content>
+                                      </md-tab>
+                                      <md-tab label="Video Links" ng-if="item.vedioLink">
+                                        <md-content>
+                                            <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                            </iframe>
+                                        </md-content>
+                                      </md-tab>
+                                      <md-tab label="Team">
+                                        <div layout="column">
+                                            <md-content>
+                                                <div class="md-title">
+                                                    Team
+                                                </div>
+                                                <div class="">
+                                                    <a href="#" ng-repeat="mem in item.team" class="">
                                                         {{mem}}
                                                     </a>
                                                 </div>
-                                                <h3 class="info-line">
-                                                    Total effort : <span>{{item.effort}}</span>
-                                                </h3>
-                                                <h3 class="info-line">
-                                                    Minimum bid : <span>{{item.minimumBid}}</span>
-                                                </h3>
-                                                <h3 class="info-line">
-                                                    % of completion : <span>{{item.percentageOfCompletion}}%</span>
-                                                </h3>
-                                                <div>
-                                                    <button class="btn btn-warning"> Join Now</button>
+                                            </md-content>
+                                            <md-content>
+                                                <div class="">
+                                                        <span class="md-title">Total effort : </span><span class="md-subhead">{{item.effort}}</span>
                                                 </div>
-
-                                            </div>
-                                        </tab>
-                                    </tabset>
-                                </div>
+                                                <div class="">
+                                                        <span class="md-title">Minimum bid : </span><span class="md-subhead">{{item.minimumBid}}</span>
+                                                </div>
+                                                <div class="">
+                                                        <span class="md-title">% of completion : </span><span class="md-subhead">{{item.percentageOfCompletion}}%</span>
+                                                </div>
+                                            </md-content>
+                                        </div>
+                                      </md-tab>
+                                    </md-tabs>
+                                </md-content>
+                                
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div flex="20" flex-sm="100" class="layout-padding">
                             <div class="proposer-details">
                                 <div>
                                     % of completion
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" ng-style="{'width':'{{item.percentageOfCompletion}}%'}">
-                                            <span>{{item.percentageOfCompletion}}%</span>
-                                        </div>
-                                    </div>
+                                    <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
                                 </div>
                                 <div>
-                                    <h3>Proposed by</h3>
+                                    <div class="md-title">Proposed by</div>
                                     <a href="#" ng-repeat="mem in item.proposedTeam">
                                         {{mem}}
                                     </a>
@@ -133,46 +127,83 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--div class="row">
-                        <div class="col-sm-9">
-                            <h3>Comments</h3>
-                            <div class="comment">
-                                <strong>kumar:</strong> What is the status of this app?
-                                <p>15-jul-2015 <a href="#">Reply</a></p>
-                            </div>
-                            <div class="comment">
-                                <strong>AB:</strong> @kumar now the app is in the requirement gatherning stage.
-                                <p>15-jul-2015  <a href="#">Reply</a></p>
-                            </div>
-                            <div class="comment">
-                                <strong>Ramesh:</strong> What are technologies using for this app
-                                <p>21-jul-2015 <a href="#">Reply</a></p>
-                            </div>
-                            <div class="comment">
-                                <strong>AB:</strong> Wordpress, php.
-                                <p>21-jul-2015 <a href="#">Reply</a></p>
-                            </div>
-                            <div class="comment-box">
-                                <form name="commentBox">
-                                    <div class="form-group">
-                                        <label for="email">Comment:</label>
-                                        <textarea class="form-control" placeholder="post your comment here"></textarea> 
-                                    </div>
-                                    <button type="submit" class="btn btn-warning">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div-->
+                      </div>
                 </div>
             </div>
-            <%- include common/corridor.footer.ejs %>
-                <%- include common/letsbuildapp.footersettings.ejs %>
-
+        </section>
+        <section>
+            <%- include common/index.footer.ejs %>
+        </section>
     </div>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/lodash/lodash.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/showdown/compressed/Showdown.js"></script>
+    <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
+    
+    <script type="text/javascript">
+        var app = angular.module('app', ['ngMaterial','ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown']);
+        app.controller('letsBuildController', ['$scope', '$http','$mdDialog', function($scope,$http,$mdDialog) {
+                var _id;
+                var paths = location.pathname.split('/');
+                _id = paths[3];
+                $http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
+                    .then(function(res) {
+                        $scope.item = res.data;
+                    });
+                $scope.expressInterestDetails = function($event) {
+                    var parentEl = angular.element(document.body);
+                    $mdDialog.show({
+                      parent: parentEl,
+                      targetEvent: $event,
+                      templateUrl: "/partials/express-interest.html",
+                      locals: {
+                        items: $scope.items
+                      },
+                      controller:  function DialogController($scope, $mdDialog) {
+                        $scope.items = [1,2,4];
+                        $scope.closeDialog = function() {
+                          $mdDialog.hide();
+                        }
+                        $scope.addContributor = function() {
+                            alert("Thanks for Contributing");
+                            $mdDialog.hide();  
+                        };
+                      }
+                   });
+                    
+                }
+            }
+        ])
+        .filter('trustAsResourceUrl', ['$sce', function($sce) {
+            return function(val) {
+                return $sce.trustAsResourceUrl(val);
+            };
+        }]);
+    </script>
     <style type="text/css">
-        .team {
-            margin-bottom: 20px;
+      .tab-content {
+        padding: 20px 0
+      }
+      .update-form {
+        margin-bottom: 20px;
+      }
+      .field-wrapper {
+          padding: 2px 2px 26px;
+      }
+       body {
+            font: 400 13px Montserrat, Arial, Helvetica, sans-serif;
+            color: #777777;
+            line-height: 1.9;
+        }
+        .detail-page {
+            max-width: 1130px;
         }
     </style>
 </body>
