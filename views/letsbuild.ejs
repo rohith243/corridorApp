@@ -30,7 +30,7 @@
                     <md-tabs md-dynamic-height md-border-bottom >
                         <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
                             <md-content class="tiles-container" >
-                                <div class="tile" ng-repeat="item in tab | limitTo: limit[key]">
+                                <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]">
                                     <div app-tile data-item="item">
                                     </div>
                                 </div>
