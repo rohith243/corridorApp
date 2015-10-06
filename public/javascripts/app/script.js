@@ -1,4 +1,4 @@
-var app = angular.module('app', [ 'ngMaterial', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'httpService', 'notification']);
+var app = angular.module('app', [ 'ngMaterial', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'httpService', 'notification', 'signin']);
 app.controller('appsController', [
         '$scope',
         '$http',

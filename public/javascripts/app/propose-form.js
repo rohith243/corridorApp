@@ -38,7 +38,7 @@ var getPostData = function(data, originalData, cname) {
     return obj;
 };
 
-var appModule = angular.module('appdetails',['ngMaterial','httpService','ngMessages', 'notification', 'ui.router']);
+var appModule = angular.module('appdetails',['ngMaterial','httpService','ngMessages', 'notification', 'ui.router', 'signin']);
 
 
 appModule.config(function($stateProvider, $urlRouterProvider) {

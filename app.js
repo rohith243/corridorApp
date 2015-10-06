@@ -1,9 +1,26 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
-   var favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cas = require('connect-cas');
+
+
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+cas.configure({ 'host': 'cev3.pramati.com',
+paths: {
+        validate: '/cas/validate', 
+        serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0
+        proxyValidate: '/cas/p3/proxyValidate', // CAS 3.0
+        proxy: '/cas/proxy',
+        login: '/cas/login',
+        logout: '/cas/logout'
+    }
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -20,6 +37,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'corridorApp'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -28,6 +46,7 @@ app.use('/users', users);
 app.use('/apps', require( './routes/apps' ) );
 app.use('/letsbuild', require( './routes/letsbuild' ) );
 app.use('/dashboard', require( './routes/dashboard' ) );
+app.use('/signin', require( './routes/signin' ) );
 
 
 app.use('/admin', require( './routes/admin' ) );

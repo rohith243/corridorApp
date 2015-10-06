@@ -58,7 +58,6 @@ var getSetObject = function(data, cname) {
 
 router.get('/collection', function(req, res, next) {
     var query = req.query;
-    console.log( query );
     mongo.connect({
         callback: function(err, db) {
             if (err) {
@@ -142,7 +141,7 @@ router.post('/update', function(req, res, next) {
     var cname = req.body.cname;
     var id = req.body._id;
 
-    console.log( 'data', data );
+
 
     var setObj = getSetObject(data, cname);
 
@@ -162,6 +161,8 @@ router.post('/update', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.lastUpdated = +new Date();
+
+            
 
             console.log( setObj );
             collection.update({
@@ -212,24 +213,23 @@ router.post('/adddocument', function(req, res, next) {
 
 
 
-router.post('/signin', function(req, res, next) {
-    var data = req.body.data;
-    var adminUser = {
-        email: 'admin',
-        password: 'admin' 
-    };
-
-    if( data.email === adminUser.email && data.password === adminUser.password ) {
-        res.json( {
-            user: adminUser
-        } );
-    } 
-    else {
-        res.statusCode = 400;
-        res.json( {
-            type: 'error',
-            code: '_invalid_credeintials'
-        } );
-    }
+router.get('/userdetails', function(req, res, next) {
+    res.json( req.session.cas && req.session.cas.attributes || '' );
 });
+
+router.get('/logout', function(req, res, next) {
+    
+    if ( req.session.destroy ) {
+        req.session.destroy();
+    } else {
+        req.session = null;
+    }
+    
+    res.send('');
+});
+
+
+
 module.exports = router;
+
+

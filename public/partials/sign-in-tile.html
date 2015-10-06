@@ -1,0 +1,6 @@
+<md-button ng-if="!username" ng-href="{{signinurl}}" class="md-primary md-hue-1">
+    SIGNIN
+</md-button>
+<md-button ng-if="username" href="#" ng-click="logout($event)" class="md-primary md-hue-1">
+    LOGOUT, {{username}}
+</md-button> 

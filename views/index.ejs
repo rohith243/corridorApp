@@ -116,11 +116,14 @@
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="/javascripts/admin/http-service.js"></script>
+    <script src="/javascripts/app/notification.js"></script>
+    <script src="/javascripts/app/sign-in-tile.js"></script>
     <script type="text/javascript">
         setTimeout( function (argument) {
-            angular.bootstrap( document, [ 'ngMaterial' ] );    
+            angular.bootstrap( document, [ 'ngMaterial', 'signin' ] );    
         }, 0 )
-        
     </script>
 
 </body>
