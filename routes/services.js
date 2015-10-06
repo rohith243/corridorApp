@@ -1,4 +1,6 @@
 var express = require('express');
+var CAS = require('cas');
+var cas = new CAS({base_url: 'https://cev3.pramati.com/cas/login', service: 'http://localhost:3000'});
 var router = express.Router();
 var mongo = require('./mongo-db/index.js');
 var JSONStream = require('JSONStream');
@@ -36,7 +38,8 @@ var getSetObject = function(data, cname) {
             'isPublish',
             'public',
             'invites',
-            'imgurl'
+            'imgurl',
+            'interests'
         ],
         globals: ['name', 'type', 'value']
     };
@@ -228,6 +231,40 @@ router.get('/logout', function(req, res, next) {
     res.send('');
 });
 
+router.post('/expressInterest', function(req, res, next) {
+    var cname = req.body.cname;
+    var id = req.body._id;
+    var user = req.body.user;
+    mongo.connect({
+        callback: function(err, db) {
+            if (err) {
+                console.log({
+                    'error': '_error_mongo'
+                });
+                return;
+            }
+            console.log("before");
+            var collection = db.collection(cname);
+            console.log("after");
+
+            collection.update({
+                _id: new ObjectId(id)
+            }, {
+                $push: { interests: user } 
+            }, function(err, doc) {
+                if (err) {
+                    console.log({
+                        'error': '_error_mongo'
+                    });
+                    return;
+                }
+                console.log( doc );
+                res.json('');
+                db.close();
+            });
+        }
+    });
+});
 
 
 module.exports = router;

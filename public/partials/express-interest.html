@@ -1,22 +1,36 @@
 <md-dialog aria-label="List dialog" flex="60">
-    <md-dialog-content>
-      <div class="md-padding">
+    
+
         <form name="express-details" class=""  ng-submit="addContributor( $event )" novalidate>
-            <div>
-                <md-input-container>
-                  <label>Hours you can contribute</label>
-                  <input md-maxlength="2" ng-model="user.hourContubution">
-                </md-input-container>
+  
+            <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>How you want to contribute.</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+              </md-button>
             </div>
-            <div>
-                <md-input-container>
-                    <label>How you want to contribute</label>
-                    <textarea columns="1" name="longDesc" ng-model="user.aboutme"></textarea>
-                </md-input-container>
+          </md-toolbar>
+          <md-dialog-content>
+            <div class="md-padding">
+                <div>
+                    <md-input-container>
+                      <label>Hours you can contribute</label>
+                      <input md-maxlength="2" ng-model="user.hours">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label>How you want to contribute</label>
+                        <textarea columns="1" name="longDesc" ng-model="user.aboutme"></textarea>
+                    </md-input-container>
+                </div>
             </div>
-        </div>
+        </md-dialog-content>
+        
       </form>
-    </md-dialog-content>
+  
     
     <div class="md-actions">
         <md-button ng-click="addContributor()" class="md-primary md-raised"> 

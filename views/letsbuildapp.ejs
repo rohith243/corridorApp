@@ -114,10 +114,10 @@
                         </div>
                         <div flex="20" flex-sm="100" class="layout-padding">
                             <div class="proposer-details">
-                                <div>
+                                <!-- <div>
                                     % of completion
                                     <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
-                                </div>
+                                </div> -->  
                                 <div>
                                     <div class="md-title">Proposed by</div>
                                     <a href="#" ng-repeat="mem in item.proposedTeam">
@@ -146,10 +146,16 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/showdown/compressed/Showdown.js"></script>
     <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
+    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="/javascripts/app/notification.js"></script>
+    
+    <script src="/javascripts/admin/http-service.js"></script>
+    <script src="/javascripts/app/sign-in-tile.js"></script>
+    
     
     <script type="text/javascript">
-        var app = angular.module('app', ['ngMaterial','ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown']);
-        app.controller('letsBuildController', ['$scope', '$http','$mdDialog', function($scope,$http,$mdDialog) {
+        var app = angular.module('app', ['ngMaterial','ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown','notification',  'signin']);
+        app.controller('letsBuildController', ['$scope', '$http','$mdDialog','Notification', function($scope,$http,$mdDialog,Notification) {
                 var _id;
                 var paths = location.pathname.split('/');
                 _id = paths[3];
@@ -157,27 +163,79 @@
                     .then(function(res) {
                         $scope.item = res.data;
                     });
+                    var selfScope =  $scope; 
                 $scope.expressInterestDetails = function($event) {
-                    var parentEl = angular.element(document.body);
-                    $mdDialog.show({
-                      parent: parentEl,
-                      targetEvent: $event,
-                      templateUrl: "/partials/express-interest.html",
-                      locals: {
-                        items: $scope.items
-                      },
-                      controller:  function DialogController($scope, $mdDialog) {
-                        $scope.items = [1,2,4];
-                        $scope.closeDialog = function() {
-                          $mdDialog.hide();
-                        }
-                        $scope.addContributor = function() {
-                            alert("Thanks for Contributing");
-                            $mdDialog.hide();  
-                        };
-                      }
-                   });
-                    
+                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
+                        var parentEl = angular.element(document.body);
+                        $mdDialog.show({
+                          parent: parentEl,
+                          targetEvent: $event,
+                          templateUrl: "/partials/express-interest.html",
+                          locals: {
+                            
+                          },
+                          controller: function DialogController($scope, $mdDialog,Notification, http) {
+                            var uid = GLOBAL.user.uid[ 0 ];
+                            $scope.user = {
+                                uid : uid,
+                                hours : '',
+                                aboutme : ''
+                            };
+                            var isupdate = false;
+
+                            var interests = selfScope.item.interests
+                            if( uid && interests ) {
+                                for( var user in interests   ) {
+
+                                    if( interests[ user ].user === uid  ) {
+                                        isupdate = true;
+                                        $scope.user = interests[ user ];
+                                        break;
+                                    }
+                                } 
+                            } 
+                            $scope.closeDialog = function() {
+                              $mdDialog.hide();
+                            }
+                            $scope.addContributor = function() {
+                                if( isupdate ) {
+                                    http.post('/services/update', {
+                                      postData: {
+                                          data: {
+                                            interests: interests
+                                          },
+                                          cname: 'letsbuild',
+                                          _id: _id
+                                      }
+
+                                  } )
+                                  .then(function(res) {
+
+                                    Notification.success( 'Successfully updated your changes' );
+                                  } );
+
+                                } else {
+                                    $http.post('/services/expressInterest', {
+                                        cname: 'letsbuild',
+                                        _id: _id,
+                                        user:$scope.user
+                                        
+                                    })
+                                    .then(function(res) {
+                                          if (res.status == 200) {
+                                            Notification.success( 'Thanks for expressing interest' );
+                                          }
+                                    });    
+                                }
+                                
+                                $mdDialog.hide();  
+                            };
+                          }
+                       });
+                    }
+                    else {
+                       window.location = '/signin?redirect=' + location.pathname
+                    } 
                 }
             }
         ])
@@ -208,6 +266,9 @@
         img {
             max-width: 100%;
             height: auto;
+        }
+        .md-dialog-container {
+            font-size: 16px;
         }
     </style>
 </body>
