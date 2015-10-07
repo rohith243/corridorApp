@@ -8,7 +8,7 @@
                     isEdit: '='
                 },
                 controller: 'searchOverlayController'
-            }
+            };
         }])
         .controller('searchOverlayController', [
             '$scope',
@@ -46,4 +46,4 @@
                 };
             }
         ]);
-})(angular)
+})(angular);

@@ -5,7 +5,7 @@
     <%- include common/head.ejs %>
 </head>
 
-<body ng-app="app">
+<body>
     <div class="wrapall">
         <div class="loader-wrap" ng-class="{'loader-hide': true}">
             <div class="page-loader"></div>
@@ -14,16 +14,16 @@
             <%- include common/header.ejs %>
         </section>
         <section>
-            <div class="header-flush" ng-controller="letsBuildController">
+            <div class="header-flush" ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
-                    <div layout="row" layout-sm="column" class="layout-padding">
-                        <div flex="80" flex-sm="100" class="layout-padding">
+                    <div layout="row" layout-sm="column">
+                        <div flex="80" flex-sm="100">
                             <div class="app-details">
                                 <div layout="row" layout-sm="column">
-                                    <div class="image-section text-center md-padding" flex="20" flex-sm="100">
+                                    <div class="image-section text-center" flex="20" flex-sm="100">
                                         <img ng-src="{{item.imgurl || '/images/default.png'}}">
                                     </div>
-                                    <div class="app-intro md-padding" flex="55" flex-sm="100">
+                                    <div class="app-intro" flex="55" flex-sm="100">
                                         <div class="md-title">
                                             {{item.name}}
                                         </div>
@@ -33,28 +33,29 @@
                                             Express Interest
                                         </md-button>
                                     </div>
-                                    <div class="app-summary md-padding" flex="25" flex-sm="100">
+                                    <div class="app-summary" flex="25" flex-sm="100">
 
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Posted date :</span><span flex="50" class="">{{item.createdAt | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="50">Posted date : </span>
+                                            <span flex="50" class="app-summary-value"> {{item.createdAt | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Last Updated :</span><span flex="50" class="">{{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="50">Last Updated : </span><span flex="50" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Stage :</span> <span flex="50" class="">{{item.status}}</span>
+                                            <span class="" flex="50">Stage : </span> <span flex="50" class="app-summary-value"> {{item.status}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Category :</span> <span flex="50" class="">{{item.category}}</span>
+                                            <span class="" flex="50">Category : </span> <span flex="50" class="app-summary-value"> {{item.category}}</span>
                                         </div>
                                         <!-- <div layout="row" class="text-right">
                                             <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
                                         </div> -->
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Likes :</span>
-                                            <span class="pull-right" flex="50">
+                                            <span class="" flex="50">Likes : </span>
+                                            <span class="app-summary-value" flex="50">
                                                 {{item.likes.length}}
-                                            <a href="#" ng-click="updateLikes()" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
+                                            <a href="#" ng-click="updateLikes( $event )" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
                                             </span>
                                         </div>
                                         <!-- <div class="featured-panel">
@@ -117,7 +118,7 @@
 
                             </div>
                         </div>
-                        <div flex="20" flex-sm="100" class="layout-padding">
+                        <div flex="20" flex-sm="100">
                             <div class="proposer-details">
                                 <!-- <div>
                                     % of completion
@@ -142,165 +143,11 @@
             <%- include common/footer.ejs %>
         </section>
     </div>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/lodash/lodash.min.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="/bower_components/angular-material/angular-material.min.js"></script>
-    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/bower_components/showdown/compressed/Showdown.js"></script>
-    <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
-    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-    <script src="/javascripts/app/notification.js"></script>
 
-    <script src="/javascripts/admin/http-service.js"></script>
-    <script src="/javascripts/app/sign-in-tile.js"></script>
-
-
-    <script type="text/javascript">
-        var app = angular.module('app', ['ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'notification', 'signin']);
-        app.controller('letsBuildController', ['$scope', '$http', '$mdDialog', 'Notification', 'http', '$timeout', function($scope, $http, $mdDialog, Notification, http, $timeout) {
-                var _id;
-                var paths = location.pathname.split('/');
-                _id = paths[3];
-                $http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
-                    .then(function(res) {
-                        $scope.item = res.data;
-                        $scope.item.likes = res.data.likes ? res.data.likes : [];
-                        $scope.item.interests = $scope.item.interests || [];
-                        $scope.likeClass = "fa fa-thumbs-o-up";
-                        if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
-                            var uid = GLOBAL.user.uid;
-                            if (uid) {
-                                var likesObj = $scope.item.likes || [];
-                                var index = likesObj.indexOf(uid);
-                                $scope.likeClass = index == -1 ? "fa fa-thumbs-o-up" : "fa fa-thumbs-up";
-                            }
-                        }
-                    });
-                $scope.updateLikes = function() {
-                    if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
-                        var uid = GLOBAL.user.uid;
-                        if (uid) {
-                            var likesObj = $scope.item.likes ? $scope.item.likes : [];
-                            var index = likesObj.indexOf(uid);
-                            if (index != -1) {
-                                $scope.likeClass = "fa fa-thumbs-o-up";
-                                likesObj.splice(index, 1);
-                                http.post('/services/update', {
-                                        postData: {
-                                            data: {
-                                                likes: likesObj
-                                            },
-                                            cname: 'letsbuild',
-                                            _id: _id
-                                        }
-
-                                    })
-                                    .then(function(res) {});
-                            } else {
-                                $http.post('/services/push', {
-                                        cname: 'letsbuild',
-                                        _id: _id,
-                                        data: {
-                                            likes: uid
-                                        }
-                                    })
-                                    .then(function(res) {
-                                        $scope.likeClass = "fa fa-thumbs-up";
-                                        likesObj.push(uid);
-                                    });
-                            }
-                        }
-                    } else {
-                        window.location = '/signin?redirect=' + location.pathname;
-                    }
-                }
-                var selfScope = $scope;
-                $scope.expressInterestDetails = function($event) {
-                    if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
-                        var parentEl = angular.element(document.body);
-                        $mdDialog.show({
-                            parent: parentEl,
-                            targetEvent: $event,
-                            templateUrl: "/partials/express-interest.html",
-                            locals: {
-
-                            },
-                            controller: function DialogController($scope, $mdDialog, Notification, http) {
-                                var uid = GLOBAL.user.uid;
-                                $scope.user = {
-                                    uid: uid,
-                                    hours: '',
-                                    aboutme: ''
-                                };
-                                var isupdate = false;
-
-                                var interests = selfScope.item.interests;
-                                if (uid && interests) {
-                                    for (var user in interests) {
-
-                                        if (interests[user].uid === uid) {
-                                            isupdate = true;
-                                            $scope.user = interests[user];
-                                            break;
-                                        }
-                                    }
-                                }
-                                $scope.closeDialog = function() {
-                                    $mdDialog.hide();
-                                }
-                                $scope.addContributor = function() {
-                                    if (isupdate) {
-                                        http.post('/services/update', {
-                                                postData: {
-                                                    data: {
-                                                        interests: interests
-                                                    },
-                                                    cname: 'letsbuild',
-                                                    _id: _id
-                                                }
-
-                                            })
-                                            .then(function(res) {
-
-                                                Notification.success('Successfully updated your changes');
-                                            });
-
-                                    } else {
-                                        $http.post('/services/push', {
-                                                cname: 'letsbuild',
-                                                _id: _id,
-                                                data: {
-                                                    interests: $scope.user
-                                                }
-                                            })
-                                            .then(function(res) {
-
-                                                if (res.status == 200) {
-                                                    interests.push($scope.user);
-                                                    Notification.success('Thanks for expressing interest');
-                                                }
-                                            });
-                                    }
-                                    $mdDialog.hide();
-                                };
-                            }
-                        });
-                    } else {
-                        window.location = '/signin?redirect=' + location.pathname;
-                    }
-                }
-            }])
-            .filter('trustAsResourceUrl', ['$sce', function($sce) {
-                return function(val) {
-                    return $sce.trustAsResourceUrl(val);
-                };
-            }]);
-    </script>
+    <%- include common/footer.script.includes.ejs %>
+    <script src="/javascripts/controllers/app-details-controller.js"></script>
+    <script src="/javascripts/controllers/express-interest-controller.js"></script>
+    <script src="/javascripts/modules/app-details.js"></script>
     <style type="text/css">
         .tab-content {
             padding: 20px 0
@@ -314,27 +161,48 @@
             padding: 2px 2px 26px;
         }
         
-        body {
-            font: 400 13px Montserrat, Arial, Helvetica, sans-serif;
-            color: #777777;
-            line-height: 1.9;
-        }
-        
-        .detail-page {
-            max-width: 1130px;
-        }
-        
         img {
             max-width: 100%;
             height: auto;
         }
         
-        .md-dialog-container {
-            font-size: 16px;
-        }
-        
         .like-icon {
             color: rgb(63, 81, 181);
+        }
+        
+        .proposer-details {
+            margin-left: 10px;
+        }
+        
+        .detail-page {
+            margin-top: 20px;
+            font-size: 13px;
+            line-height: 24px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .proposer-details {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+        
+        .app-details {
+            padding: 15px 15px 0 15px;
+        }
+        
+        .proposer-details {
+            padding: 15px;
+        }
+        
+        .app-intro {
+            padding-left: 15px;
+        }
+        
+        .app-summary-value {
+            text-align: left;
+            padding-left: 5px;
         }
     </style>
 </body>

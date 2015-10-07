@@ -12,5 +12,5 @@ user.getDetails = function(req) {
 };
 user.getAllDetails = function(req) {
     return (req.session.cas && req.session.cas.attributes || '');
-}
+};
 module.exports = user;

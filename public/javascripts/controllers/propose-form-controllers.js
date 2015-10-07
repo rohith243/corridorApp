@@ -51,7 +51,7 @@
                             Notification.success('successfully saved');
                             $state.go('editItem', {
                                 _id: res._id
-                            })
+                            });
                         });
                 };
                 $scope.togglePublish = function(e, isPublished) {
@@ -72,7 +72,7 @@
                                 });
                             });
                     } else {
-                        Notification.error('To publish fill the required fileds in other tabs')
+                        Notification.error('To publish fill the required fileds in other tabs');
                     }
                 };
                 $scope.nextTab = function(e) {
@@ -134,11 +134,11 @@
                 $scope.nextTab = function(e) {
                     e.preventDefault();
                     $scope.global.selectedIndex = ($scope.global.selectedIndex + 1) % tabcount;
-                }
+                };
                 $scope.prevTab = function(e) {
                     e.preventDefault();
                     $scope.global.selectedIndex = ($scope.global.selectedIndex + tabcount - 1) % tabcount;
-                }
+                };
                 $scope.togglePublish = function(e, isPublished) {
                     e.preventDefault();
                     $scope.updateForm.$showValidation = true;
@@ -174,4 +174,4 @@
                 };
             }
         ]);
-})(angular)
+})(angular);

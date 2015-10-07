@@ -7,7 +7,7 @@
                 scope: {
                     item: '='
                 }
-            }
+            };
         }])
         .directive('appTileEdit', [function() {
             return {
@@ -19,6 +19,6 @@
                     key: '=',
                     index: '='
                 }
-            }
+            };
         }]);
-})(angular)
+})(angular);
