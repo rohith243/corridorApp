@@ -50,7 +50,7 @@
                                         <div layout="row" class="text-right">
                                             <span class="" flex="50">Likes :</span>
                                             <span class="pull-right" flex="50">
-                                                {{item.likes ? item.likes.length : 0}}
+                                                {{item.likes.length}}
                                             <a href="#" ng-click="updateLikes()"><i ng-class="likeClass" style="font-size:18px"></i></a>
                                             </span>
                                         </div>
@@ -166,6 +166,7 @@
                 $http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
                 .then(function(res) {
                     $scope.item = res.data;
+                    $scope.item.likes = res.data.likes ? res.data.likes : [];
                 });
                 $scope.likeClass = "fa fa-thumbs-o-up";
                 //$timeout(function(){
