@@ -18,7 +18,7 @@
                             <div class="app-details">
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center md-padding" flex="20" flex-sm="100">
-                                        <img ng-src="{{item.imgurl}}">
+                                        <img ng-src="{{item.imgurl || '/images/default.png'}}">
                                     </div>
                                     <div class="app-intro md-padding" flex="55" flex-sm="100">
                                         <div class="md-title">  
