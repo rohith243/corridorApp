@@ -46,7 +46,7 @@ app.controller('appsController', [
             };
             $scope.deleteItem = function(e, item, index, key) {
                 e.preventDefault();
-                if (confirm('do you want to delete' + item.name + '?')) {
+                if (confirm('do you want to delete "' + item.appName + '" ?')) {
                     if( key === 'proposed' ) {
                         http.get('services/deletedoc?cname=letsbuild&_id=' + item._id)
                           .then(function(res) {
@@ -67,10 +67,14 @@ app.controller('appsController', [
         '$scope',
         'model',
         '$filter',
+        'http',
+        'Notification',
         function(
             $scope,
             model,
-            $filter
+            $filter,
+            http,
+            Notification
         ) {
             $scope.category = serviceConfig.app.key;
             $scope.filteredApps = function() {
@@ -78,6 +82,23 @@ app.controller('appsController', [
                     return $filter('filter')(model.appResponse && model.appResponse, $scope.searchText);
                 } else {
                     return [];
+                }
+            };
+            $scope.deleteItem = function(e, item, index, key) {
+                e.preventDefault();
+                if (confirm('do you want to delete "' + item.appName + '" ?')) {
+                    
+                    http.get('/services/deletedoc?cname=letsbuild&_id=' + item._id)
+                      .then(function(res) {
+                          for(var i in model.appResponse) {
+                            if( item._id ===  model.appResponse[ i ]._id ) {
+                                model.appResponse.splice( i, 1 );
+                            }
+                          } 
+                          Notification.success( 'app successfully deleted' );
+                      });      
+                     
+                  
                 }
             };
         }

@@ -54,7 +54,7 @@
                                             <span class="" flex="50">Likes :</span>
                                             <span class="pull-right" flex="50">
                                                 {{item.likes.length}}
-                                            <a href="#" ng-click="updateLikes()"><i ng-class="likeClass" style="font-size:18px"></i></a>
+                                            <a href="#" ng-click="updateLikes()" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
                                             </span>
                                         </div>
                                         <!-- <div class="featured-panel">
@@ -176,7 +176,7 @@
                         if( uid) {
                             var likesObj = $scope.item.likes || [];
                             var index = likesObj.indexOf(uid);
-                            $scope.likeClass = index == -1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-o-down";
+                            $scope.likeClass = index == -1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-up";
                         }
                     }
                 });
@@ -211,7 +211,7 @@
                                     }                                        
                                 })
                                 .then(function(res) {
-                                    $scope.likeClass = "fa fa-thumbs-o-down";
+                                    $scope.likeClass = "fa fa-thumbs-up";
                                     likesObj.push(uid);
                                 });     
                             }
@@ -325,6 +325,9 @@
         }
         .md-dialog-container {
             font-size: 16px;
+        }
+        .like-icon {
+            color: rgb(63, 81, 181);
         }
     </style>
 </body>

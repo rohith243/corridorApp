@@ -15,7 +15,7 @@
                         
                         <div class="tile repeated-item" ng-repeat="item in filteredApps()">
                             <%if( typeof editAppTile !== 'undefined' && editAppTile ) {%>
-                                <div app-tile-edit data-item="item">
+                                <div app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key">
                                 </div>
                             <%} else {%>
                                 <div app-tile data-item="item">

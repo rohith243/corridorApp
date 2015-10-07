@@ -182,7 +182,7 @@ function( $scope, Notification, http,$state,$stateParams ) {
           }
         }
 
-        Notification.success( 'success fully updated' );
+        Notification.success( 'successfully updated' );
       } );
 
   };
@@ -233,7 +233,7 @@ function( $scope, Notification, http,$state,$stateParams ) {
         }
       }
 
-      Notification.success( 'success fully published' );
+      Notification.success( 'successfully updated' );
     } );
   };
 
