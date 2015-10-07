@@ -35,4 +35,12 @@
             position: absolute;
         }
     </style>
+
+    <% if(user) {%>
+        <script>
+            var GLOBAL = {
+                user: <%- stringify(user) %>
+            };
+        </script>
+    <%} %>
 </head>

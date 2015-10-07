@@ -1,6 +1,7 @@
 var express = require('express');
 var cas = require('connect-cas');
 var router = express.Router();
+var user = require('./modules/user');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
@@ -10,7 +11,8 @@ router.get('/', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate
   
     res.render( 'dashboard', {
         title: 'Dashboard | Letsbuild',
-        editAppTile: true
+        editAppTile: true,
+        user : user.getDetails( req )
     } );
 });
 

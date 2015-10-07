@@ -3,6 +3,7 @@ var router = express.Router();
 var mongo = require('./mongo-db/index.js');
 var JSONStream = require('JSONStream');
 var ObjectId = require('mongodb').ObjectID;
+var user = require('./modules/user');
 var getSetObject = function(data, cname) {
     var obj = {};
     var objupdated = false;

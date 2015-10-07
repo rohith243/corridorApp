@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var user = require('./modules/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
-        title: 'Home | Letsbuild'
+        title: 'Home1 | Letsbuild',
+        user : user.getDetails( req )
     });
 });
 

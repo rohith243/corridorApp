@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var user = require('./modules/user');
 //var mongo = require('./mongo-db/index.js');
 //var JSONStream = require( 'JSONStream' );
 /* GET users listing. */
@@ -22,7 +23,8 @@ var router = express.Router();
 });*/
 router.get('/', function(req, res, next) {
     res.render('admin', {
-        title: 'Express'
+        title: 'Express',
+        user : user.getDetails( req )
     });
 });
 module.exports = router;
