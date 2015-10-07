@@ -1,11 +1,7 @@
 
 
 if( typeof GLOBAL === 'undefined' ) {
-    GLOBAL = {
-      messages:{ 
-          responseError: 'error inloading response'
-        }
-    };
+    GLOBAL = {};
 } else {
   if( GLOBAL.messages ) {
     GLOBAL.messages.responseError = 'error inloading response';

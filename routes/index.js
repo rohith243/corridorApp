@@ -4,7 +4,7 @@ var user = require('./modules/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
-        title: 'Home1 | Letsbuild',
+        title: 'Home | Letsbuild',
         user : user.getDetails( req )
     });
 });

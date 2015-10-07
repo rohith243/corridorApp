@@ -70,13 +70,15 @@
                 key: 'letsbuild'
             }
         }
-        var GLOBAL = {
-            featuredApps : [{
-                "_id": "56022746b14391e21be35310"
-            }, {
-                "_id": "5603bcd04127193e156b435a"
-            }]
-        };
+        if( typeof GLOBAL === 'undefined' ) {
+           var GLOBAL = {};
+        }
+        GLOBAL.featuredApps = [{
+            "_id": "56022746b14391e21be35310"
+        }, {
+            "_id": "5603bcd04127193e156b435a"
+        } ];
+        
     </script>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/lodash/lodash.min.js"></script>
