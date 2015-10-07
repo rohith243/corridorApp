@@ -22,8 +22,6 @@ paths: {
     }
 });
 
-var routes = require('./routes/index');
-
 
 var app = express();
 
@@ -42,16 +40,10 @@ app.use(cookieParser());
 app.use(session({secret: 'corridorApp'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-
-
-app.use('/apps', require( './routes/apps' ) );
-app.use('/letsbuild', require( './routes/letsbuild' ) );
+app.use('/', require('./routes/home'));
+app.use('/gallary', require( './routes/gallary' ) );
 app.use('/dashboard', require( './routes/dashboard' ) );
 app.use('/signin', require( './routes/signin' ) );
-
-
-app.use('/admin', require( './routes/admin' ) );
 app.use('/services', require( './routes/services' ) );
 app.use('/propose-form', require( './routes/propose-form' ) );
 

@@ -3,7 +3,7 @@ var router = express.Router();
 var user = require('./modules/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', {
+    res.render('home', {
         title: 'Home | Letsbuild',
         user : user.getDetails( req )
     });
