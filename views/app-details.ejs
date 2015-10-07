@@ -170,6 +170,7 @@
                 .then(function(res) {
                     $scope.item = res.data;
                     $scope.item.likes = res.data.likes ? res.data.likes : [];
+                    $scope.item.interests = $scope.item.interests || [];
                     $scope.likeClass = "fa fa-thumbs-o-up";
                     if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
                         var uid = GLOBAL.user.uid;
@@ -239,6 +240,7 @@
                                 aboutme : ''
                             };
                             var isupdate = false;
+
                             var interests = selfScope.item.interests;
                             if( uid && interests ) {
                                 for( var user in interests   ) {
@@ -279,7 +281,9 @@
                                         }                                        
                                     })
                                     .then(function(res) {
+
                                           if (res.status == 200) {
+                                            interests.push( $scope.user );
                                             Notification.success( 'Thanks for expressing interest' );
                                           }
                                     });    
