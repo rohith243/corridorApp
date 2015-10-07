@@ -4,7 +4,7 @@
 <head>
     <%- include common/head.ejs %>
 </head>
-<body ng-app="appdetails">
+<body>
   <div class="wrapall">
     <section>
         <%- include common/header.ejs %>
@@ -23,17 +23,12 @@
         <%- include common/footer.ejs %>
     </section>
     </div>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="/bower_components/angular-material/angular-material.min.js"></script>
-    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+
+    <%- include common/footer.script.includes.ejs %>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="/bower_components/angular-messages/angular-messages.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/javascripts/admin/http-service.js"></script>
-    <script src="/javascripts/app/notification.js"></script>
-    <script src="/javascripts/app/sign-in-tile.js"></script>
-    <script src="/javascripts/app/propose-form.js"></script>
+    <script src="/javascripts/controllers/propose-form-controllers.js"></script>
+    <script src="/javascripts/modules/propose-form.js"></script>
 
     <style type="text/css">
       .tab-content {

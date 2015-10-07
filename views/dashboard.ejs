@@ -59,7 +59,7 @@
         <%- include common/footer.ejs  %>
     </section>
     </div>
-    <%- include common/app-overlay.ejs %>
+    <div search-app data-is-edit="true"></div>
     <script type="text/javascript">
         var serviceConfig = {
             app: {
@@ -68,28 +68,12 @@
             }
         }
     </script>
+    <%- include common/footer.script.includes.ejs %>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/lodash/lodash.min.js"></script>
-
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-    
-    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="/bower_components/angular-material/angular-material.min.js"></script>
-
-
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
-    <script src="/bower_components/showdown/compressed/Showdown.js"></script>
-    <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
-    <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-    <script src="/javascripts/admin/http-service.js"></script>
-    <script src="/javascripts/app/notification.js"></script>
-    <script src="/javascripts/app/sign-in-tile.js"></script>
-
-    <script src="/javascripts/app/script.js"></script>
+    <script src="/javascripts/controllers/apps-controller.js"></script>
+    <script src="/javascripts/directives/app-tile-directive.js"></script>
+    <script src="/javascripts/directives/search-app-directive.js"></script>
+    <script src="/javascripts/modules/gallary.js"></script>
 
 
 

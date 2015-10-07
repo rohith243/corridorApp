@@ -1,8 +1,10 @@
 <form name="updateForm" class="update-form"  ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}" >
   <div ng-if="item" >
-    <md-button class="md-raised md-primary pull-right"  ng-click="publishApp( $event, isPublished ) ">
-      <span ng-if="!isPublished">Publish</span>
-      <span ng-if="isPublished">unpublish</span>
+    <md-button ng-if="!isPublished" class="md-raised md-primary pull-right"  ng-click="togglePublish( $event, isPublished ) ">
+      Publish
+    </md-button>
+    <md-button ng-if="isPublished" class="md-raised md-warn pull-right"  ng-click="togglePublish( $event, isPublished ) ">
+      unpublish
     </md-button>
     <md-button class="md-raised md-primary pull-right">
       Save to draft

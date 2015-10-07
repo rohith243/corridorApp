@@ -41,23 +41,6 @@ var getPostData = function(data, originalData, cname) {
 var appModule = angular.module('appdetails',['ngMaterial','httpService','ngMessages', 'notification', 'ui.router', 'signin']);
 
 
-appModule.config(function($stateProvider, $urlRouterProvider) {
-    // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise('/');
-    //
-    // Now set up the states
-    $stateProvider
-    .state('default', {
-      url: '/',
-      templateUrl: 'partials/propose-form.html',
-      controller: 'proposeFormController'
-    })
-    .state('editItem', {
-      url: '/edit/:_id',
-      templateUrl: 'partials/propose-form.html',
-      controller: 'proposeFormEditController'
-    })
-})
 
 appModule.controller('proposeFormController', [
                      '$scope', 
@@ -127,9 +110,6 @@ function( $scope, Notification, http,$state,$stateParams ) {
     e.preventDefault();
     $scope.global.selectedIndex = ( $scope.global.selectedIndex + tabcount - 1 ) % tabcount; 
   }
-
-
-
 }])
 .controller('proposeFormEditController', [
                      '$scope', 

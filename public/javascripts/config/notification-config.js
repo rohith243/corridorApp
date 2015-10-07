@@ -13,7 +13,7 @@ if( typeof GLOBAL === 'undefined' ) {
    
 }
 
-angular.module('notification', ['ui-notification'])
+angular.module('notificationConfig', [ 'ui-notification' ])
   .config(function(NotificationProvider) {
       NotificationProvider.setOptions({
           delay: 3000,
