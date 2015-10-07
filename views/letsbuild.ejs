@@ -30,12 +30,14 @@
                     <md-tabs md-dynamic-height md-border-bottom >
                         <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
                             <md-content class="tiles-container" >
-                                <div class="margin-flush">
-                                    <md-toolbar class="md-warn">
-                                    <div class="md-toolbar-tools">
-                                      <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+                                <div  ng-if="!tab || tab.length ===0">
+                                    <div class="margin-flush">
+                                        <md-toolbar class="md-warn">
+                                        <div class="md-toolbar-tools">
+                                          <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+                                        </div>
+                                      </md-toolbar>
                                     </div>
-                                  </md-toolbar>
                                 </div>
                                 <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]">
                                     <div app-tile data-item="item">
