@@ -88,8 +88,8 @@
                                                 <div class="md-title">
                                                     Team
                                                 </div>
-                                                <div class="">
-                                                    <a href="#" ng-repeat="mem in item.team" class="">
+                                                <div class="" ng-repeat="mem in item.contributors">
+                                                    <a href="#" class="">
                                                         {{mem}}
                                                     </a>
                                                 </div>
@@ -101,9 +101,9 @@
                                                 <div class="">
                                                         <span class="md-title">Minimum bid : </span><span class="md-subhead">{{item.minimumBid}}</span>
                                                 </div>
-                                                <div class="">
+                                                <!-- <div class="">
                                                         <span class="md-title">% of completion : </span><span class="md-subhead">{{item.percentageOfCompletion}}%</span>
-                                                </div>
+                                                </div> -->
                                             </md-content>
                                         </div>
                                       </md-tab>
@@ -119,10 +119,12 @@
                                     <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
                                 </div> -->  
                                 <div>
-                                    <div class="md-title">Proposed by</div>
-                                    <a href="#" ng-repeat="mem in item.proposedTeam">
-                                        {{mem}}
-                                    </a>
+                                    <div class="md-title" >Proposed by</div>
+                                    <div ng-repeat="mem in item.proposedTeam">
+                                        <a href="#" >
+                                            {{mem}}
+                                        </a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -182,12 +184,11 @@
                                 aboutme : ''
                             };
                             var isupdate = false;
-
-                            var interests = selfScope.item.interests
+                            var interests = selfScope.item.interests;
                             if( uid && interests ) {
                                 for( var user in interests   ) {
 
-                                    if( interests[ user ].user === uid  ) {
+                                    if( interests[ user ].uid === uid  ) {
                                         isupdate = true;
                                         $scope.user = interests[ user ];
                                         break;
