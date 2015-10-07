@@ -36,20 +36,22 @@
                                             <span class="" flex="50">Posted date :</span><span flex="50" class="">{{item.createdAt | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Last Updated :</span><span flex="50" class="">{{item.lastUpdated | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="50">Last Updated :</span><span flex="50" class="">{{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Stage:</span> <span flex="50" class="">{{item.status}}</span>
+                                            <span class="" flex="50">Stage :</span> <span flex="50" class="">{{item.status}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Category :</span> <span flex="50" class="">{{item.division}}</span>
+                                            <span class="" flex="50">Category :</span> <span flex="50" class="">{{item.category}}</span>
                                         </div>
+                                        <!-- <div layout="row" class="text-right">
+                                            <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
+                                        </div> -->
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span>
-                                        </div>
-                                        <div layout="row" class="text-right">
-                                            <span class="pull-right" flex="100">
-                                            <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                            <span class="" flex="50">Likes :</span>
+                                            <span class="pull-right" flex="50">
+                                                {{item.likes ? item.likes.length : 0}}
+                                            <a href="#" ng-click="updateLikes()"><i ng-class="likeClass" style="font-size:18px"></i></a>
                                             </span>
                                         </div>
                                         <!-- <div class="featured-panel">
@@ -157,15 +159,64 @@
     
     <script type="text/javascript">
         var app = angular.module('app', ['ngMaterial','ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown','notification',  'signin']);
-        app.controller('letsBuildController', ['$scope', '$http','$mdDialog','Notification', function($scope,$http,$mdDialog,Notification) {
+        app.controller('letsBuildController', ['$scope', '$http','$mdDialog','Notification','http','$timeout', function($scope,$http,$mdDialog,Notification,http,$timeout) {
                 var _id;
                 var paths = location.pathname.split('/');
                 _id = paths[3];
                 $http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
-                    .then(function(res) {
-                        $scope.item = res.data;
-                    });
-                    var selfScope =  $scope; 
+                .then(function(res) {
+                    $scope.item = res.data;
+                });
+                $scope.likeClass = "fa fa-thumbs-o-up";
+                //$timeout(function(){
+                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
+                        var uid = GLOBAL.user.uid[ 0 ];
+                        if( uid) {
+                            var likesObj = $scope.item.likes ? $scope.item.likes : [];
+                            var index = likesObj.indexOf(uid);
+                            $scope.likeClass = index ==-1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-o-down";
+                        }
+                    }
+                //},3000);
+                $scope.updateLikes = function(){
+                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
+                        var uid = GLOBAL.user.uid[ 0 ];
+                        if( uid) {
+                            var likesObj = $scope.item.likes ? $scope.item.likes : [];
+                            var index = likesObj.indexOf(uid);
+                            if (index != -1) {
+                                $scope.likeClass = "fa fa-thumbs-o-up";
+                                likesObj.splice(index,1);
+                                http.post('/services/update', {
+                                      postData: {
+                                          data: {
+                                            likes: likesObj
+                                          },
+                                          cname: 'letsbuild',
+                                          _id: _id
+                                      }
+
+                                  } )
+                                  .then(function(res) {
+                                  } );
+                            }
+                            else {
+                                $http.post('/services/push', {
+                                    cname: 'letsbuild',
+                                    _id: _id,
+                                    data: {
+                                        likes: uid
+                                    }                                        
+                                })
+                                .then(function(res) {
+                                    $scope.likeClass = "fa fa-thumbs-o-down";
+                                    likesObj.push(uid);
+                                });     
+                            }
+                        }
+                    }
+                }
+                var selfScope =  $scope; 
                 $scope.expressInterestDetails = function($event) {
                     if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
                         var parentEl = angular.element(document.body);
@@ -216,11 +267,12 @@
                                   } );
 
                                 } else {
-                                    $http.post('/services/expressInterest', {
+                                    $http.post('/services/push', {
                                         cname: 'letsbuild',
                                         _id: _id,
-                                        user:$scope.user
-                                        
+                                        data: {
+                                            interests: $scope.user
+                                        }                                        
                                     })
                                     .then(function(res) {
                                           if (res.status == 200) {
@@ -228,7 +280,6 @@
                                           }
                                     });    
                                 }
-                                
                                 $mdDialog.hide();  
                             };
                           }
