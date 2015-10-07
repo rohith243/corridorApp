@@ -1,6 +1,6 @@
 var express = require('express');
 var CAS = require('cas');
-var cas = new CAS({base_url: 'https://cev3.pramati.com/cas/login', service: 'http://localhost:3000'});
+var cas = new CAS({base_url: 'https://cev3.pramati.com/cas/login', service: '/'});
 var router = express.Router();
 var mongo = require('./mongo-db/index.js');
 var JSONStream = require('JSONStream');
