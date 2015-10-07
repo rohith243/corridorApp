@@ -1,36 +1,41 @@
 input {
-  outline: 0px;
+    outline: 0px;
 }
+
 .tiles-container {
-  letter-spacing: -6px;
-  margin: 0 -15px;
-  padding-top: 20px;
+    letter-spacing: -6px;
+    margin: 0 -15px;
+    padding-top: 20px;
 }
+
 .tiles-container>* {
-  letter-spacing: normal;
+    letter-spacing: normal;
 }
+
 .margin-flush {
-  margin: 0 15px;
+    margin: 0 15px;
 }
+
 .app-container {
-
-  margin:0 0 30px 0;
-
+    margin: 0 0 30px 0;
 }
-.app-container .tile{
+
+.app-container .tile {
     width: 24.9%;
     display: inline-block;
     letter-spacing: normal;
 }
+
 .tile-data {
     position: relative;
     overflow: hidden;
     margin: 15px;
     border-radius: 5px;
 }
-.tile-data a{
-  color: #333;
-} 
+
+.tile-data a {
+    color: #333;
+}
 
 .tile .image-holder {
     overflow: hidden;
@@ -66,6 +71,7 @@ input {
     transform: translate(-50%, -50%) scale(1.3);
 }
 
+
 /*.tile-title {
   position: absolute;
   left: 10px;
@@ -77,60 +83,63 @@ input {
 }*/
 
 .tile-content {
-  position: absolute;
-  top: 35%;
-  left: 10px;
-  right: 10px;
-  text-shadow: 0px 0px 1px #666;
-  background: rgba( 255, 255, 255, 0.9 );
-  border-radius: 5px;
-  padding: 10px;
-  transition: all 0.4s ease-in;
-
+    position: absolute;
+    top: 35%;
+    left: 10px;
+    right: 10px;
+    text-shadow: 0px 0px 1px #666;
+    background: rgba( 255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.4s ease-in;
 }
+
 .tile-desc {
-  opacity: 0;
-  height: 0;
-  transition: all 0.4s ease-in;
+    opacity: 0;
+    height: 0;
+    transition: all 0.4s ease-in;
 }
-.tile-features {
-  bottom: 10px;
-}
-.tile-title {
-  opacity: 0.8;
-  transition: all 0.4s ease-in;
-  text-align: center;
 
+.tile-features {
+    bottom: 10px;
 }
+
+.tile-title {
+    opacity: 0.8;
+    transition: all 0.4s ease-in;
+    text-align: center;
+}
+
 .tile:hover .tile-content {
-    
     top: 30px;
 }
-.tile:hover .tile-title { 
-  top: 20px;
-  opacity: 1;
-  margin-top: 0px;
-  transform: scale(1.2);
+
+.tile:hover .tile-title {
+    top: 20px;
+    opacity: 1;
+    margin-top: 0px;
+    transform: scale(1.2);
 }
 
-.tile:hover  .tile-desc {
-  opacity: 1;
-  height:auto;
+.tile:hover .tile-desc {
+    opacity: 1;
+    height: auto;
 }
 
 .tile-features {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  text-align: right;
-  opacity: 0;
-  transition: all 0.4s ease-in;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    text-align: right;
+    opacity: 0;
+    transition: all 0.4s ease-in;
 }
-.tile:hover .tile-features {
-  opacity: 1;
 
+.tile:hover .tile-features {
+    opacity: 1;
 }
+
 .dummy-search-wrap {
     white-space: nowrap;
     position: relative;
@@ -145,40 +154,33 @@ input {
 }
 
 .dummy-search-wrap input {
-    padding:12px 12px 12px 33px;
-
+    padding: 12px 12px 12px 33px;
     border-radius: 2px;
-        border: 1px solid #dddddd;
+    border: 1px solid #dddddd;
 }
 
-
 @-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
 }
-
-
-
 
 .app-search-overlay {
     position: absolute;
@@ -204,7 +206,7 @@ input {
     overflow: hidden;
 }
 
-.app-search-opened .wrapall{
+.app-search-opened .wrapall {
     transform: scale3d(0.95, 0.95, 1);
 }
 
@@ -217,7 +219,6 @@ input {
 .search-content {
     text-align: center;
 }
-
 
 .search-content .search-app,
 .search-content .search-app:active,
@@ -243,6 +244,7 @@ input {
     color: #999;
     transition: all 0.4s ease-in;
 }
+
 .app-search-overlay .close:hover {
     color: #333;
 }
@@ -258,6 +260,7 @@ input {
 .search-wrapper.result-found {
     margin-top: 30px;
 }
+
 .search-content .fa-search {
     font-size: 30px;
 }
@@ -277,7 +280,7 @@ input {
     -o-transition: 0.5s ease-in all;
     transition: 0.5s ease-in all;
     opacity: 0;
-    -webkit-transform:  scale(0);
+    -webkit-transform: scale(0);
     transform: scale(0);
     /*max-height: 0px;*/
 }
@@ -293,7 +296,7 @@ input {
 .repeated-item.ng-enter.ng-enter-active,
 .repeated-item.ng-move.ng-move-active {
     opacity: 1;
-    -webkit-transform:  scale(1);
+    -webkit-transform: scale(1);
     transform: scale(1);
     /*max-height: 500px;*/
 }
@@ -311,7 +314,7 @@ input {
     -o-transition: 0.5s ease-in all;
     transition: 0.5s ease-in all;
     opacity: 1;
-    -webkit-transform:  scale(1);
+    -webkit-transform: scale(1);
     transform: scale(1);
     /*max-height: 500px;
   overflow: hidden;*/
@@ -319,40 +322,39 @@ input {
 
 .repeated-item.ng-leave.ng-leave-active {
     opacity: 0;
-    -webkit-transform:  scale(0);
+    -webkit-transform: scale(0);
     transform: scale(0);
     /*max-height: 0px;*/
 }
 
-
 @media (max-width: 600px) {
-  
-  .dummy-search-wrap {
-    width: 45px;
-  }
-  .dummy-search-wrap input {
-    width: 100%
-  }
-  .app-container .tile {
-    width: 100%;
-  }
-  .md-display-1 {
-    font-size: 25px;
-    margin-bottom: 20px;
-  }
-  .search-content .search-app, .search-content .search-app:active, .search-content .search-app:focus {
-    font-size: 18px;
-  }
-  .search-content .fa-search {
-      font-size: 18px;
-  }
+    .dummy-search-wrap {
+        width: 45px;
+    }
+    .dummy-search-wrap input {
+        width: 100%
+    }
+    .app-container .tile {
+        width: 100%;
+    }
+    .md-display-1 {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+    .search-content .search-app,
+    .search-content .search-app:active,
+    .search-content .search-app:focus {
+        font-size: 18px;
+    }
+    .search-content .fa-search {
+        font-size: 18px;
+    }
 }
 
-
-.app-search-overlay .app-container{
-  text-align: left;
+.app-search-overlay .app-container {
+    text-align: left;
 }
+
 .loadmore {
-  text-align: center;
+    text-align: center;
 }
-

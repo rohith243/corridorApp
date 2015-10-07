@@ -33,7 +33,9 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
                 url: '/',
                 templateUrl: 'partials/default.html',
                 controller: 'defaultController',
-                data: { isPublic: true }
+                data: {
+                    isPublic: true
+                }
             })
             .state('appstore', {
                 url: '/appstore',
@@ -84,7 +86,9 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
                 url: '/signin',
                 templateUrl: 'partials/signin.html',
                 controller: 'signInController',
-                data: { isPublic: true }
+                data: {
+                    isPublic: true
+                }
             });
     })
     .controller('appstoreController', function($scope, http, Notification) {
@@ -128,7 +132,7 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
                         }
                         Notification.success(GLOBAL.messages.appstoreadded);
                         $state.go('appstore');
-                    } );
+                    });
             }
         };
     })
@@ -303,57 +307,49 @@ angular.module('admin', ['ngMaterial', 'ui.router', 'ngSanitize', 'btford.markdo
         };
     })
     .controller('defaultController', function($scope, http, $state, Notification, Auth) {
-       console.log( 'default view' );
+        console.log('default view');
     })
     .controller('signInController', function($scope, http, $state, Notification, Auth) {
-       $scope.login = function  ( e ) {
-           
-           e.preventDefault();
-           
-           if( $scope.signinForm.$valid ) {
-                http.post( 'services/signin', {
-                    postData: {
-                        data: $scope.item
-                    }
-                } )
-                .then( function  ( res ) {
-                    Auth.setUser( res );
-                    Notification.success( 'successfully loggedIn' );
-                    $state.go( 'appstore' );
-                }, function  ( res ) {
-                    $scope.errorCode = res.code;
-                } ); 
-           }
-       };
+        $scope.login = function(e) {
+            e.preventDefault();
+            if ($scope.signinForm.$valid) {
+                http.post('services/signin', {
+                        postData: {
+                            data: $scope.item
+                        }
+                    })
+                    .then(function(res) {
+                        Auth.setUser(res);
+                        Notification.success('successfully loggedIn');
+                        $state.go('appstore');
+                    }, function(res) {
+                        $scope.errorCode = res.code;
+                    });
+            }
+        };
     })
-    
-    .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth ) {
-        $rootScope.$on('$stateChangeStart', function (event,toState,toParams,fromState,fromParams) {
-            
+.run(['$rootScope', '$state', 'Auth', function($rootScope, $state, Auth) {
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             var isAuthenticated = Auth.isLoggedIn();
-            var isPublic = angular.isObject(toState.data)&& toState.data.isPublic;    
-            if ( isPublic || isAuthenticated ) {
-              return;
+            var isPublic = angular.isObject(toState.data) && toState.data.isPublic;
+            if (isPublic || isAuthenticated) {
+                return;
             }
             event.preventDefault();
-            $state.go( 'signin' );
-
+            $state.go('signin');
         });
     }])
-    .factory('Auth', function(){
+    .factory('Auth', function() {
         var user;
-        
-        return{            
-            setUser : function(aUser){
+        return {
+            setUser: function(aUser) {
                 user = aUser;
             },
-            isLoggedIn : function(){
-                return(user)? user : false;
+            isLoggedIn: function() {
+                return (user) ? user : false;
             }
-
         };
     });
-
 angular.module('notification', ['ui-notification'])
     .config(function(NotificationProvider) {
         NotificationProvider.setOptions({

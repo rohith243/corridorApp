@@ -3,7 +3,7 @@
 
 <head>
     <%- include common/head.ejs %>
-    
+
     <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/letsbuild/index.css" />
 </head>
@@ -14,50 +14,50 @@
         <div class="page-loader"></div>
     </div>
     <div class="wrapall">
-    <section>
-        <%- include common/header.ejs %>
-    </section>
-    <section class="header-flush">
-        <div class="page-layout" ng-controller="appsController">
-            
-            <div class="pull-right dummy-search-wrap">
-                <label for="dummy-search-field"><span class="fa fa-search"></span></label>
-                <input id="dummy-search-field" class="search-field " type="text" name="search" ng-focus="searchpop()" placeholder="Search app">
-            </div>
-            <h1 class="md-display-1">Your Proposed Apps</h1>
-            <div class="app-container">
-                <md-content >
-                    <md-tabs md-dynamic-height md-border-bottom >
-                        <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
-                            <md-content class="tiles-container" >
-                                <div  ng-if="!tab || tab.length ===0">
-                                    <div class="margin-flush">
-                                        <md-toolbar class="md-warn">
-                                        <div class="md-toolbar-tools">
-                                          <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="header-flush">
+            <div class="page-layout" ng-controller="appsController">
+
+                <div class="pull-right dummy-search-wrap">
+                    <label for="dummy-search-field"><span class="fa fa-search"></span></label>
+                    <input id="dummy-search-field" class="search-field " type="text" name="search" ng-focus="searchpop()" placeholder="Search app">
+                </div>
+                <h1 class="md-display-1">Your Proposed Apps</h1>
+                <div class="app-container">
+                    <md-content>
+                        <md-tabs md-dynamic-height md-border-bottom>
+                            <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
+                                <md-content class="tiles-container">
+                                    <div ng-if="!tab || tab.length ===0">
+                                        <div class="margin-flush">
+                                            <md-toolbar class="md-warn">
+                                                <div class="md-toolbar-tools">
+                                                    <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+                                                </div>
+                                            </md-toolbar>
                                         </div>
-                                      </md-toolbar>
                                     </div>
-                                </div>
-                                <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]"  >
-                                    <div app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key">
+                                    <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]">
+                                        <div app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="loadmore" ng-if="tab.length > limit[key]">
-                                    <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 8" class="md-raised md-primary">
-                                    Loadmore
-                                    </md-button>
-                                </div>
-                            </md-content>
-                        </md-tab>
-                    </md-tabs>
-                </md-content>
+                                    <div class="loadmore" ng-if="tab.length > limit[key]">
+                                        <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 8" class="md-raised md-primary">
+                                            Loadmore
+                                        </md-button>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                </div>
             </div>
-        </div>
-    </section>
-    <section>
-        <%- include common/footer.ejs  %>
-    </section>
+        </section>
+        <section>
+            <%- include common/footer.ejs  %>
+        </section>
     </div>
     <div search-app data-is-edit="true"></div>
     <script type="text/javascript">

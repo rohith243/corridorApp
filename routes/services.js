@@ -10,12 +10,12 @@ var getSetObject = function(data, cname) {
     var map = {
         appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
         letsbuild: [
-            'name', 
-            'src', 
-            'status', 
-            'effort', 
-            'percentageOfCompletion', 
-            'category', 
+            'name',
+            'src',
+            'status',
+            'effort',
+            'percentageOfCompletion',
+            'category',
             'href',
             'division',
             'shortDesc',
@@ -25,8 +25,6 @@ var getSetObject = function(data, cname) {
             'minimumBid',
             'team',
             'proposedTeam',
-
-
             'appName',
             'shortDesc',
             'longDesc',
@@ -43,11 +41,9 @@ var getSetObject = function(data, cname) {
         ],
         globals: ['name', 'type', 'value']
     };
-
-
     for (var len = map[cname].length - 1; len >= 0; len--) {
         var key = map[cname][len];
-        if ( typeof data[key] !== 'undefined' ) {
+        if (typeof data[key] !== 'undefined') {
             objupdated = true;
             obj[key] = data[key];
         }
@@ -58,7 +54,6 @@ var getSetObject = function(data, cname) {
         return false;
     }
 };
-
 router.get('/collection', function(req, res, next) {
     var query = req.query;
     mongo.connect({
@@ -73,21 +68,18 @@ router.get('/collection', function(req, res, next) {
                 db: db,
                 collectionName: query.cname
             };
-
-            if( query.cond ) {
-                try{
-                    obj.query = JSON.parse( query.cond );     
-                } catch( e ) {
-                    console.log( 'error in parsing reqest' );
+            if (query.cond) {
+                try {
+                    obj.query = JSON.parse(query.cond);
+                } catch (e) {
+                    console.log('error in parsing reqest');
                 }
             }
-            
             obj.query = obj.query || {};
-            if( ( query.isuid === 'true' || query.isuid === true ) && req.session.cas && req.session.cas.attributes ) {
-                obj.query.owner = req.session.cas.attributes.uid[ 0 ];
+            if ((query.isuid === 'true' || query.isuid === true) && req.session.cas && req.session.cas.attributes) {
+                obj.query.owner = req.session.cas.attributes.uid[0];
             }
-
-            var cursor = mongo.find( obj );
+            var cursor = mongo.find(obj);
             cursor.stream().pipe(JSONStream.stringify()).pipe(res);
         }
     });
@@ -148,13 +140,8 @@ router.post('/update', function(req, res, next) {
     var data = req.body.data;
     var cname = req.body.cname;
     var id = req.body._id;
-
-
-
     var setObj = getSetObject(data, cname);
-
-    console.log( 'setObj', setObj );
-
+    console.log('setObj', setObj);
     if (!setObj) {
         res.json('');
         return;
@@ -169,12 +156,8 @@ router.post('/update', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.lastUpdated = +new Date();
-            setObj.lastUpdatedBy = req.session.cas.attributes.uid[ 0 ];
-            
-
-            
-
-            console.log( setObj );
+            setObj.lastUpdatedBy = req.session.cas.attributes.uid[0];
+            console.log(setObj);
             collection.update({
                 _id: new ObjectId(id)
             }, {
@@ -186,7 +169,7 @@ router.post('/update', function(req, res, next) {
                     });
                     return;
                 }
-                console.log( doc );
+                console.log(doc);
                 res.json('');
                 db.close();
             });
@@ -207,7 +190,7 @@ router.post('/adddocument', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.createdAt = +new Date();
-            setObj.owner = req.session.cas.attributes.uid[ 0 ];
+            setObj.owner = req.session.cas.attributes.uid[0];
             collection.insert(setObj, function(err, doc) {
                 if (err) {
                     console.log({
@@ -215,30 +198,23 @@ router.post('/adddocument', function(req, res, next) {
                     });
                     return;
                 }
-                res.json( setObj );
+                res.json(setObj);
                 db.close();
             });
         }
     });
 });
-
-
-
 router.get('/userdetails', function(req, res, next) {
-    res.json( req.session.cas && req.session.cas.attributes || '' );
+    res.json(req.session.cas && req.session.cas.attributes || '');
 });
-
 router.get('/logout', function(req, res, next) {
-    
-    if ( req.session.destroy ) {
+    if (req.session.destroy) {
         req.session.destroy();
     } else {
         req.session = null;
     }
-    
     res.send('');
 });
-
 router.post('/push', function(req, res, next) {
     var cname = req.body.cname;
     var id = req.body._id;
@@ -263,15 +239,11 @@ router.post('/push', function(req, res, next) {
                     });
                     return;
                 }
-                console.log( doc );
+                console.log(doc);
                 res.json('');
                 db.close();
             });
         }
     });
 });
-
-
 module.exports = router;
-
-

@@ -5,9 +5,7 @@ var user = require('./modules/user');
 router.get('/', function(req, res, next) {
     res.render('home', {
         title: 'Home | Letsbuild',
-        user : user.getDetails( req )
+        user: user.getDetails(req)
     });
 });
-
-
 module.exports = router;

@@ -1,4 +1,4 @@
-var app = angular.module('app', [ 'ngMaterial', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'httpService', 'notification', 'signin']);
+var app = angular.module('app', ['ngMaterial', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'httpService', 'notification', 'signin']);
 app.controller('appsController', [
         '$scope',
         '$http',
@@ -47,20 +47,18 @@ app.controller('appsController', [
             $scope.deleteItem = function(e, item, index, key) {
                 e.preventDefault();
                 if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                    if( key === 'proposed' ) {
+                    if (key === 'proposed') {
                         http.get('services/deletedoc?cname=letsbuild&_id=' + item._id)
-                          .then(function(res) {
-                              $scope.apps[key].splice(index, 1);
-                              Notification.success( 'app successfully deleted' );
-                          });      
+                            .then(function(res) {
+                                $scope.apps[key].splice(index, 1);
+                                Notification.success('app successfully deleted');
+                            });
                     } else {
                         $scope.apps[key].splice(index, 1);
                         Notification.success('app deleted from favourites');
                     }
-                  
                 }
             };
-
         }
     ])
     .controller('searchPopCtrl', [
@@ -87,18 +85,15 @@ app.controller('appsController', [
             $scope.deleteItem = function(e, item, index, key) {
                 e.preventDefault();
                 if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                    
                     http.get('/services/deletedoc?cname=letsbuild&_id=' + item._id)
-                      .then(function(res) {
-                          for(var i in model.appResponse) {
-                            if( item._id ===  model.appResponse[ i ]._id ) {
-                                model.appResponse.splice( i, 1 );
+                        .then(function(res) {
+                            for (var i in model.appResponse) {
+                                if (item._id === model.appResponse[i]._id) {
+                                    model.appResponse.splice(i, 1);
+                                }
                             }
-                          } 
-                          Notification.success( 'app successfully deleted' );
-                      });      
-                     
-                  
+                            Notification.success('app successfully deleted');
+                        });
                 }
             };
         }
@@ -113,7 +108,6 @@ app.controller('appsController', [
             restict: 'A',
             scope: {
                 item: '=',
-
             }
         }
     }])
@@ -124,13 +118,11 @@ app.controller('appsController', [
             scope: {
                 item: '=',
                 deleteItem: '=',
-                key : '=',
+                key: '=',
                 index: '='
             }
         }
-
     }]);;
-
 $(function(argument) {
     angular.bootstrap(document, ['app']);
     $('#app-search-popup-close').click(function(e) {

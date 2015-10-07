@@ -7,16 +7,16 @@
 
 <body ng-app="app">
     <div class="wrapall">
-     <div class="loader-wrap" ng-class="{'loader-hide': true}">
-        <div class="page-loader"></div>
-     </div>
+        <div class="loader-wrap" ng-class="{'loader-hide': true}">
+            <div class="page-loader"></div>
+        </div>
         <section>
             <%- include common/header.ejs %>
         </section>
         <section>
             <div class="header-flush" ng-controller="letsBuildController">
                 <div class="page-layout detail-page" ng-if="item">
-                     <div layout="row" layout-sm="column" class="layout-padding">
+                    <div layout="row" layout-sm="column" class="layout-padding">
                         <div flex="80" flex-sm="100" class="layout-padding">
                             <div class="app-details">
                                 <div layout="row" layout-sm="column">
@@ -24,8 +24,8 @@
                                         <img ng-src="{{item.imgurl || '/images/default.png'}}">
                                     </div>
                                     <div class="app-intro md-padding" flex="55" flex-sm="100">
-                                        <div class="md-title">  
-                                           {{item.name}}
+                                        <div class="md-title">
+                                            {{item.name}}
                                         </div>
                                         <div btf-markdown="item.shortDesc">
                                         </div>
@@ -71,50 +71,50 @@
                                 </div>
                                 <md-content layout-padding>
                                     <md-tabs md-dynamic-height md-border-bottom>
-                                      <md-tab label="Introduction" ng-if="item.longDesc">
-                                        <md-content class="md-padding">
-                                            {{item.longDesc}}
-                                        </md-content>
-                                      </md-tab>
-                                      <md-tab label="Analysis" ng-if="item.solution">
-                                        <md-content class="md-padding">
-                                            {{item.solution}}
-                                        </md-content>
-                                      </md-tab>
-                                      <md-tab label="Video Links" ng-if="item.vedioLink">
-                                        <md-content>
-                                            <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
-                                            </iframe>
-                                        </md-content>
-                                      </md-tab>
-                                      <md-tab label="Team">
-                                        <div layout="column">
+                                        <md-tab label="Introduction" ng-if="item.longDesc">
+                                            <md-content class="md-padding">
+                                                {{item.longDesc}}
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="Analysis" ng-if="item.solution">
+                                            <md-content class="md-padding">
+                                                {{item.solution}}
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="Video Links" ng-if="item.vedioLink">
                                             <md-content>
-                                                <div class="md-title">
-                                                    Team
-                                                </div>
-                                                <div class="" ng-repeat="mem in item.contributors">
-                                                    <a href="#" class="">
+                                                <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                                </iframe>
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="Team">
+                                            <div layout="column">
+                                                <md-content>
+                                                    <div class="md-title">
+                                                        Team
+                                                    </div>
+                                                    <div class="" ng-repeat="mem in item.contributors">
+                                                        <a href="#" class="">
                                                         {{mem}}
                                                     </a>
-                                                </div>
-                                            </md-content>
-                                            <md-content>
-                                                <div class="">
+                                                    </div>
+                                                </md-content>
+                                                <md-content>
+                                                    <div class="">
                                                         <span class="md-title">Total effort : </span><span class="md-subhead">{{item.effort}}</span>
-                                                </div>
-                                                <div class="">
+                                                    </div>
+                                                    <div class="">
                                                         <span class="md-title">Minimum bid : </span><span class="md-subhead">{{item.minimumBid}}</span>
-                                                </div>
-                                                <!-- <div class="">
+                                                    </div>
+                                                    <!-- <div class="">
                                                         <span class="md-title">% of completion : </span><span class="md-subhead">{{item.percentageOfCompletion}}%</span>
                                                 </div> -->
-                                            </md-content>
-                                        </div>
-                                      </md-tab>
+                                                </md-content>
+                                            </div>
+                                        </md-tab>
                                     </md-tabs>
                                 </md-content>
-                                
+
                             </div>
                         </div>
                         <div flex="20" flex-sm="100" class="layout-padding">
@@ -122,11 +122,11 @@
                                 <!-- <div>
                                     % of completion
                                     <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
-                                </div> -->  
+                                </div> -->
                                 <div>
-                                    <div class="md-title" >Proposed by</div>
+                                    <div class="md-title">Proposed by</div>
                                     <div ng-repeat="mem in item.proposedTeam">
-                                        <a href="#" >
+                                        <a href="#">
                                             {{mem}}
                                         </a>
                                     </div>
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -155,181 +155,184 @@
     <script src="/bower_components/angular-markdown-directive/markdown.js"></script>
     <script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
     <script src="/javascripts/app/notification.js"></script>
-    
+
     <script src="/javascripts/admin/http-service.js"></script>
     <script src="/javascripts/app/sign-in-tile.js"></script>
-    
-    
+
+
     <script type="text/javascript">
-        var app = angular.module('app', ['ngMaterial','ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown','notification',  'signin']);
-        app.controller('letsBuildController', ['$scope', '$http','$mdDialog','Notification','http','$timeout', function($scope,$http,$mdDialog,Notification,http,$timeout) {
+        var app = angular.module('app', ['ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngSanitize', 'btford.markdown', 'notification', 'signin']);
+        app.controller('letsBuildController', ['$scope', '$http', '$mdDialog', 'Notification', 'http', '$timeout', function($scope, $http, $mdDialog, Notification, http, $timeout) {
                 var _id;
                 var paths = location.pathname.split('/');
                 _id = paths[3];
                 $http.get('/services/getdocument?cname=letsbuild&_id=' + _id)
-                .then(function(res) {
-                    $scope.item = res.data;
-                    $scope.item.likes = res.data.likes ? res.data.likes : [];
-                    $scope.item.interests = $scope.item.interests || [];
-                    $scope.likeClass = "fa fa-thumbs-o-up";
-                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
-                        var uid = GLOBAL.user.uid;
-                        if( uid) {
-                            var likesObj = $scope.item.likes || [];
-                            var index = likesObj.indexOf(uid);
-                            $scope.likeClass = index == -1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-up";
+                    .then(function(res) {
+                        $scope.item = res.data;
+                        $scope.item.likes = res.data.likes ? res.data.likes : [];
+                        $scope.item.interests = $scope.item.interests || [];
+                        $scope.likeClass = "fa fa-thumbs-o-up";
+                        if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
+                            var uid = GLOBAL.user.uid;
+                            if (uid) {
+                                var likesObj = $scope.item.likes || [];
+                                var index = likesObj.indexOf(uid);
+                                $scope.likeClass = index == -1 ? "fa fa-thumbs-o-up" : "fa fa-thumbs-up";
+                            }
                         }
-                    }
-                });
-                $scope.updateLikes = function(){
-                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
+                    });
+                $scope.updateLikes = function() {
+                    if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
                         var uid = GLOBAL.user.uid;
-                        if( uid) {
+                        if (uid) {
                             var likesObj = $scope.item.likes ? $scope.item.likes : [];
                             var index = likesObj.indexOf(uid);
                             if (index != -1) {
                                 $scope.likeClass = "fa fa-thumbs-o-up";
-                                likesObj.splice(index,1);
+                                likesObj.splice(index, 1);
                                 http.post('/services/update', {
-                                      postData: {
-                                          data: {
-                                            likes: likesObj
-                                          },
-                                          cname: 'letsbuild',
-                                          _id: _id
-                                      }
+                                        postData: {
+                                            data: {
+                                                likes: likesObj
+                                            },
+                                            cname: 'letsbuild',
+                                            _id: _id
+                                        }
 
-                                  } )
-                                  .then(function(res) {
-                                  } );
-                            }
-                            else {
+                                    })
+                                    .then(function(res) {});
+                            } else {
                                 $http.post('/services/push', {
-                                    cname: 'letsbuild',
-                                    _id: _id,
-                                    data: {
-                                        likes: uid
-                                    }                                        
-                                })
-                                .then(function(res) {
-                                    $scope.likeClass = "fa fa-thumbs-up";
-                                    likesObj.push(uid);
-                                });     
+                                        cname: 'letsbuild',
+                                        _id: _id,
+                                        data: {
+                                            likes: uid
+                                        }
+                                    })
+                                    .then(function(res) {
+                                        $scope.likeClass = "fa fa-thumbs-up";
+                                        likesObj.push(uid);
+                                    });
                             }
-                        } 
+                        }
                     } else {
                         window.location = '/signin?redirect=' + location.pathname;
                     }
                 }
-                var selfScope =  $scope; 
+                var selfScope = $scope;
                 $scope.expressInterestDetails = function($event) {
-                    if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
+                    if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
                         var parentEl = angular.element(document.body);
                         $mdDialog.show({
-                          parent: parentEl,
-                          targetEvent: $event,
-                          templateUrl: "/partials/express-interest.html",
-                          locals: {
-                            
-                          },
-                          controller: function DialogController($scope, $mdDialog,Notification, http) {
-                            var uid = GLOBAL.user.uid;
-                            $scope.user = {
-                                uid : uid,
-                                hours : '',
-                                aboutme : ''
-                            };
-                            var isupdate = false;
+                            parent: parentEl,
+                            targetEvent: $event,
+                            templateUrl: "/partials/express-interest.html",
+                            locals: {
 
-                            var interests = selfScope.item.interests;
-                            if( uid && interests ) {
-                                for( var user in interests   ) {
+                            },
+                            controller: function DialogController($scope, $mdDialog, Notification, http) {
+                                var uid = GLOBAL.user.uid;
+                                $scope.user = {
+                                    uid: uid,
+                                    hours: '',
+                                    aboutme: ''
+                                };
+                                var isupdate = false;
 
-                                    if( interests[ user ].uid === uid  ) {
-                                        isupdate = true;
-                                        $scope.user = interests[ user ];
-                                        break;
+                                var interests = selfScope.item.interests;
+                                if (uid && interests) {
+                                    for (var user in interests) {
+
+                                        if (interests[user].uid === uid) {
+                                            isupdate = true;
+                                            $scope.user = interests[user];
+                                            break;
+                                        }
                                     }
-                                } 
-                            } 
-                            $scope.closeDialog = function() {
-                              $mdDialog.hide();
-                            }
-                            $scope.addContributor = function() {
-                                if( isupdate ) {
-                                    http.post('/services/update', {
-                                      postData: {
-                                          data: {
-                                            interests: interests
-                                          },
-                                          cname: 'letsbuild',
-                                          _id: _id
-                                      }
-
-                                  } )
-                                  .then(function(res) {
-
-                                    Notification.success( 'Successfully updated your changes' );
-                                  } );
-
-                                } else {
-                                    $http.post('/services/push', {
-                                        cname: 'letsbuild',
-                                        _id: _id,
-                                        data: {
-                                            interests: $scope.user
-                                        }                                        
-                                    })
-                                    .then(function(res) {
-
-                                          if (res.status == 200) {
-                                            interests.push( $scope.user );
-                                            Notification.success( 'Thanks for expressing interest' );
-                                          }
-                                    });    
                                 }
-                                $mdDialog.hide();  
-                            };
-                          }
-                       });
+                                $scope.closeDialog = function() {
+                                    $mdDialog.hide();
+                                }
+                                $scope.addContributor = function() {
+                                    if (isupdate) {
+                                        http.post('/services/update', {
+                                                postData: {
+                                                    data: {
+                                                        interests: interests
+                                                    },
+                                                    cname: 'letsbuild',
+                                                    _id: _id
+                                                }
+
+                                            })
+                                            .then(function(res) {
+
+                                                Notification.success('Successfully updated your changes');
+                                            });
+
+                                    } else {
+                                        $http.post('/services/push', {
+                                                cname: 'letsbuild',
+                                                _id: _id,
+                                                data: {
+                                                    interests: $scope.user
+                                                }
+                                            })
+                                            .then(function(res) {
+
+                                                if (res.status == 200) {
+                                                    interests.push($scope.user);
+                                                    Notification.success('Thanks for expressing interest');
+                                                }
+                                            });
+                                    }
+                                    $mdDialog.hide();
+                                };
+                            }
+                        });
+                    } else {
+                        window.location = '/signin?redirect=' + location.pathname;
                     }
-                    else {
-                       window.location = '/signin?redirect=' + location.pathname;
-                    } 
                 }
-            }
-        ])
-        .filter('trustAsResourceUrl', ['$sce', function($sce) {
-            return function(val) {
-                return $sce.trustAsResourceUrl(val);
-            };
-        }]);
+            }])
+            .filter('trustAsResourceUrl', ['$sce', function($sce) {
+                return function(val) {
+                    return $sce.trustAsResourceUrl(val);
+                };
+            }]);
     </script>
     <style type="text/css">
-      .tab-content {
-        padding: 20px 0
-      }
-      .update-form {
-        margin-bottom: 20px;
-      }
-      .field-wrapper {
-          padding: 2px 2px 26px;
-      }
-       body {
+        .tab-content {
+            padding: 20px 0
+        }
+        
+        .update-form {
+            margin-bottom: 20px;
+        }
+        
+        .field-wrapper {
+            padding: 2px 2px 26px;
+        }
+        
+        body {
             font: 400 13px Montserrat, Arial, Helvetica, sans-serif;
             color: #777777;
             line-height: 1.9;
         }
+        
         .detail-page {
             max-width: 1130px;
         }
+        
         img {
             max-width: 100%;
             height: auto;
         }
+        
         .md-dialog-container {
             font-size: 16px;
         }
+        
         .like-icon {
             color: rgb(63, 81, 181);
         }

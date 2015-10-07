@@ -1,15 +1,15 @@
-<form name="updateForm" class="update-form"  ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}" >
-  <div ng-if="item" >
-    <md-button ng-if="!isPublished" class="md-raised md-primary pull-right"  ng-click="togglePublish( $event, isPublished ) ">
-      Publish
-    </md-button>
-    <md-button ng-if="isPublished" class="md-raised md-warn pull-right"  ng-click="togglePublish( $event, isPublished ) ">
-      unpublish
-    </md-button>
-    <md-button class="md-raised md-primary pull-right">
-      Save to draft
-    </md-button>
-    <h1 class="md-display-1">
+<form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
+    <div ng-if="item">
+        <md-button ng-if="!isPublished" class="md-raised md-primary pull-right" ng-click="togglePublish( $event, isPublished ) ">
+            Publish
+        </md-button>
+        <md-button ng-if="isPublished" class="md-raised md-warn pull-right" ng-click="togglePublish( $event, isPublished ) ">
+            unpublish
+        </md-button>
+        <md-button class="md-raised md-primary pull-right">
+            Save to draft
+        </md-button>
+        <h1 class="md-display-1">
       <span ng-show="itemName">
         Edit: {{itemName}}
       </span>
@@ -17,158 +17,160 @@
         Welcome, We are happy for Your Idea.
       </span>
     </h1>
-    <md-content layout-padding >
-      <md-tabs md-dynamic-height md-border-bottom md-selected="global.selectedIndex">
-        <md-tab label="Introduction">
-          <md-content class="tab-content">
-            <div>
-                <div>
-                    <md-input-container>
-                      <label>App Name</label>
-                      <input md-maxlength="30" required name="appName" ng-model="item.appName">
-                      <div ng-messages="updateForm.$showValidation && updateForm.appName.$error">
-                        <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                      </div>
-                    </md-input-container>
-                </div>
-                <div>
-                    <md-input-container >
-                        <label>Short Description</label>
-                        <textarea columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
-                        <div ng-messages="updateForm.$showValidation && updateForm.shortDesc.$error">
-                          <div ng-message="required">This is required.</div>
+        <md-content layout-padding>
+            <md-tabs md-dynamic-height md-border-bottom md-selected="global.selectedIndex">
+                <md-tab label="Introduction">
+                    <md-content class="tab-content">
+                        <div>
+                            <div>
+                                <md-input-container>
+                                    <label>App Name</label>
+                                    <input md-maxlength="30" required name="appName" ng-model="item.appName">
+                                    <div ng-messages="updateForm.$showValidation && updateForm.appName.$error">
+                                        <div ng-message="required">This is required.</div>
+                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container>
+                                    <label>Short Description</label>
+                                    <textarea columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
+                                    <div ng-messages="updateForm.$showValidation && updateForm.shortDesc.$error">
+                                        <div ng-message="required">This is required.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container>
+                                    <label>Long Description</label>
+                                    <textarea columns="1" name="longDesc" ng-model="item.longDesc"></textarea>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container>
+                                    <label>Select a Category </label>
+                                    <md-select ng-model="item.category" name="category">
+                                        <md-option value="WebSite, IT and Software">
+                                            WebSite, IT and Software
+                                        </md-option>
+                                        <md-option value="Mobile">
+                                            Mobile
+                                        </md-option>
+                                        <md-option value="Sales">
+                                            Sales
+                                        </md-option>
+                                        <md-option value="Product Development">
+                                            Product Development
+                                        </md-option>
+                                        <md-option value="Entertainment">
+                                            Entertainment
+                                        </md-option>
+                                    </md-select>
+                            </div>
+
                         </div>
-                    </md-input-container>
-                </div>
-                <div>
-                    <md-input-container>
-                        <label>Long Description</label>
-                        <textarea columns="1" name="longDesc" ng-model="item.longDesc"></textarea>
-                    </md-input-container>
-                </div>
-                <div>
-                    <md-input-container>
-                        <label>Select a Category </label>
-                        <md-select ng-model="item.category" name="category">
-                          <md-option value="WebSite, IT and Software">
-                            WebSite, IT and Software
-                          </md-option>
-                          <md-option value="Mobile">
-                            Mobile
-                          </md-option>
-                          <md-option value="Sales">
-                            Sales
-                          </md-option>
-                          <md-option value="Product Development">
-                            Product Development
-                          </md-option>
-                          <md-option value="Entertainment">
-                            Entertainment
-                          </md-option>
-                        </md-select>
-                </div>                        
-            
-            </div>
-          </md-content>
-        </md-tab>
-        <md-tab label="Solution">
-          <md-content class="tab-content">
-            <div >
-                <md-input-container>
-                    <label>Analysis/Solution Approach</label>
-                    <textarea required columns="1" name="solution" ng-model="item.solution"></textarea>
-                    <div ng-messages="updateForm.$showValidation && updateForm.solution.$error">
-                      <div ng-message="required">This is required.</div>
-                    </div>
-                </md-input-container>
-               
-            </div>
-            <div >
-                <md-input-container>
-                    <label>Youtube link</label>
-                    <textarea columns="1" name="links" ng-model="item.vedioLink"></textarea>
-                </md-input-container>
-            </div>
-            <div >
-                <md-input-container>
-                    <label>Useful Links</label>
-                    <textarea columns="1" name="links" ng-model="item.links"></textarea>
-                </md-input-container>
-            </div>
-          </md-content>
-        </md-tab>
-        <md-tab label="Team">
-          <md-content class="tab-content">
-            <div class="field-wrapper">
-                <md-chips required ng-model="item.proposedTeam" name="proposedTeam" placeholder="Proposed By" secondary-placeholder="Proposed By"></md-chips>
-                <div ng-messages="updateForm.$showValidation && updateForm.proposedTeam.$error">
-                  <div ng-message="required">This is required.</div>
-                </div>
-            </div>
-            <div>
-                <md-chips ng-model="item.contributors" name="contributors" placeholder="+Contributor" secondary-placeholder="Contributors List"></md-chips>
-            </div>
-          </md-content>
-        </md-tab>
-        <md-tab label="Settings">
-          <md-content class="tab-content">
-            <!--div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Solution">
+                    <md-content class="tab-content">
+                        <div>
+                            <md-input-container>
+                                <label>Analysis/Solution Approach</label>
+                                <textarea required columns="1" name="solution" ng-model="item.solution"></textarea>
+                                <div ng-messages="updateForm.$showValidation && updateForm.solution.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Youtube link</label>
+                                <textarea columns="1" name="links" ng-model="item.vedioLink"></textarea>
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Useful Links</label>
+                                <textarea columns="1" name="links" ng-model="item.links"></textarea>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Team">
+                    <md-content class="tab-content">
+                        <div class="field-wrapper">
+                            <md-chips required ng-model="item.proposedTeam" name="proposedTeam" placeholder="Proposed By" secondary-placeholder="Proposed By"></md-chips>
+                            <div ng-messages="updateForm.$showValidation && updateForm.proposedTeam.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </div>
+                        <div>
+                            <md-chips ng-model="item.contributors" name="contributors" placeholder="+Contributor" secondary-placeholder="Contributors List"></md-chips>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Settings">
+                    <md-content class="tab-content">
+                        <!--div>
                 <div>
                     <md-checkbox md-no-ink aria-label="Publish the App" name="isPublish" ng-model="item.isPublish" class="md-primary">
                         Publish the App
                     </md-checkbox>
                 </div>
             </div-->
-            <div>
-                <div>
-                    <p>Is the App needs to be publish outside pramati</p>
-                    <md-radio-group ng-model="item.public" name="public">
-                      <md-radio-button value="public" class="md-primary"> Public </md-radio-button>
-                      <md-radio-button value="private"> Private </md-radio-button>
-                    </md-radio-group>
-              </div>
-            </div>
-            <div >
-                <md-input-container >
-                  <label>Project Status</label>
-                  <input type="text" ng-model="item.status" name="status">
-                </md-input-container>
-            </div>
-            <div class="field-wrapper">
-                <md-chips ng-model="item.invites" name="invites" placeholder="+Invite" secondary-placeholder="Invitation List">
-                </md-chips>
-            </div>
-            <div >
-                <md-input-container>
-                  <label>App Icon URL</label>
-                  <input type="text" ng-model="item.imgurl" name="imgurl">
-                </md-input-container>
-            </div>
-          </md-content>
-        </md-tab>
-      </md-tabs>
-    </md-content>
-    <div style="overflow:auto">
-    <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary pull-left" ng-if="global.selectedIndex !=0">
-      Previous
-    </md-button>
-    <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
-      Next
-    </md-button>
-    </div>
+                        <div>
+                            <div>
+                                <p>Is the App needs to be publish outside pramati</p>
+                                <md-radio-group ng-model="item.public" name="public">
+                                    <md-radio-button value="public" class="md-primary"> Public </md-radio-button>
+                                    <md-radio-button value="private"> Private </md-radio-button>
+                                </md-radio-group>
+                            </div>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Project Status</label>
+                                <input type="text" ng-model="item.status" name="status">
+                            </md-input-container>
+                        </div>
+                        <div class="field-wrapper">
+                            <md-chips ng-model="item.invites" name="invites" placeholder="+Invite" secondary-placeholder="Invitation List">
+                            </md-chips>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>App Icon URL</label>
+                                <input type="text" ng-model="item.imgurl" name="imgurl">
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+        <div style="overflow:auto">
+            <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary pull-left" ng-if="global.selectedIndex !=0">
+                Previous
+            </md-button>
+            <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
+                Next
+            </md-button>
+        </div>
 
-  </div>
-</form> 
+    </div>
+</form>
 
 <style type="text/css">
-  .tab-content {
-    padding: 20px 0
-  }
-  .update-form {
-    margin-bottom: 20px;
-  }
-  .field-wrapper {
-      padding: 2px 2px 26px;
-  }
+    .tab-content {
+        padding: 20px 0
+    }
+    
+    .update-form {
+        margin-bottom: 20px;
+    }
+    
+    .field-wrapper {
+        padding: 2px 2px 26px;
+    }
 </style>

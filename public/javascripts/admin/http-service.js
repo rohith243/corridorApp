@@ -1,5 +1,5 @@
 (function(angular) {
-    angular.module('httpService', [ 'notificationConfig' ])
+    angular.module('httpService', ['notificationConfig'])
         .factory('http', [
             '$http',
             '$q',

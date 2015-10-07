@@ -1,23 +1,23 @@
 <md-dialog aria-label="List dialog" flex="60">
-    
 
-        <form name="express-details" class=""  ng-submit="addContributor( $event )" novalidate>
-  
-            <md-toolbar>
+
+    <form name="express-details" class="" ng-submit="addContributor( $event )" novalidate>
+
+        <md-toolbar>
             <div class="md-toolbar-tools">
-              <h2>How you want to contribute.</h2>
-              <span flex></span>
-              <md-button class="md-icon-button" ng-click="cancel()">
-                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-              </md-button>
+                <h2>How you want to contribute.</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
             </div>
-          </md-toolbar>
-          <md-dialog-content>
+        </md-toolbar>
+        <md-dialog-content>
             <div class="md-padding">
                 <div>
                     <md-input-container>
-                      <label>Hours you can contribute</label>
-                      <input md-maxlength="2" ng-model="user.hours">
+                        <label>Hours you can contribute</label>
+                        <input md-maxlength="2" ng-model="user.hours">
                     </md-input-container>
                 </div>
                 <div>
@@ -28,16 +28,16 @@
                 </div>
             </div>
         </md-dialog-content>
-        
-      </form>
-  
-    
+
+    </form>
+
+
     <div class="md-actions">
-        <md-button ng-click="addContributor()" class="md-primary md-raised"> 
-            Contribute 
-        </md-button> 
-        <md-button ng-click="closeDialog()" class="md-primary"> 
-          Close Dialog 
+        <md-button ng-click="addContributor()" class="md-primary md-raised">
+            Contribute
         </md-button>
-    </div> 
+        <md-button ng-click="closeDialog()" class="md-primary">
+            Close Dialog
+        </md-button>
+    </div>
 </md-dialog>
