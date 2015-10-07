@@ -81,6 +81,11 @@ router.get('/collection', function(req, res, next) {
                     console.log( 'error in parsing reqest' );
                 }
             }
+            
+            obj.query = obj.query || {};
+            if( ( query.isuid === 'true' || query.isuid === true ) && req.session.cas && req.session.cas.attributes ) {
+                obj.query.owner = req.session.cas.attributes.uid[ 0 ];
+            }
 
             var cursor = mongo.find( obj );
             cursor.stream().pipe(JSONStream.stringify()).pipe(res);
@@ -164,6 +169,8 @@ router.post('/update', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.lastUpdated = +new Date();
+            setObj.lastUpdatedBy = req.session.cas.attributes.uid[ 0 ];
+            
 
             
 
@@ -200,6 +207,7 @@ router.post('/adddocument', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.createdAt = +new Date();
+            setObj.owner = req.session.cas.attributes.uid[ 0 ];
             collection.insert(setObj, function(err, doc) {
                 if (err) {
                     console.log({

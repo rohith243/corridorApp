@@ -6,13 +6,18 @@ input {
   margin: 0 -15px;
   padding-top: 20px;
 }
+.tiles-container>* {
+  letter-spacing: normal;
+}
+.margin-flush {
+  margin: 0 15px;
+}
 .app-container {
 
   margin:0 0 30px 0;
 
 }
 .app-container .tile{
-    
     width: 24.9%;
     display: inline-block;
     letter-spacing: normal;

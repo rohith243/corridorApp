@@ -47,7 +47,7 @@ app.controller('appsController', [
             $scope.deleteItem = function(e, item, index, key) {
                 e.preventDefault();
                 if (confirm('do you want to delete' + item.name + '?')) {
-                    if( key === 'letsbuild' ) {
+                    if( key === 'proposed' ) {
                         http.get('services/deletedoc?cname=letsbuild&_id=' + item._id)
                           .then(function(res) {
                               $scope.apps[key].splice(index, 1);

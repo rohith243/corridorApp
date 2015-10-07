@@ -30,6 +30,15 @@
                     <md-tabs md-dynamic-height md-border-bottom >
                         <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
                             <md-content class="tiles-container" >
+                                <div  ng-if="!tab || tab.length ===0">
+                                    <div class="margin-flush">
+                                        <md-toolbar class="md-warn">
+                                        <div class="md-toolbar-tools">
+                                          <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+                                        </div>
+                                      </md-toolbar>
+                                    </div>
+                                </div>
                                 <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]"  >
                                     <div app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key">
                                     </div>
@@ -54,17 +63,10 @@
     <script type="text/javascript">
         var serviceConfig = {
             app: {
-                url: '/services/collection?cname=letsbuild',
-                key: 'letsbuild'
+                url: '/services/collection?cname=letsbuild&isuid=true',
+                key: 'proposed'
             }
         }
-        var GLOBAL = {
-            featuredApps : [{
-                "_id": "56022746b14391e21be35310"
-            }, {
-                "_id": "5603bcd04127193e156b435a"
-            }]
-        };
     </script>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/lodash/lodash.min.js"></script>
