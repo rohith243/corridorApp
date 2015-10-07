@@ -39,7 +39,8 @@ var getSetObject = function(data, cname) {
             'public',
             'invites',
             'imgurl',
-            'interests'
+            'interests',
+            'likes'
         ],
         globals: ['name', 'type', 'value']
     };
@@ -239,10 +240,10 @@ router.get('/logout', function(req, res, next) {
     res.send('');
 });
 
-router.post('/expressInterest', function(req, res, next) {
+router.post('/push', function(req, res, next) {
     var cname = req.body.cname;
     var id = req.body._id;
-    var user = req.body.user;
+    var data = req.body.data;
     mongo.connect({
         callback: function(err, db) {
             if (err) {
@@ -251,14 +252,11 @@ router.post('/expressInterest', function(req, res, next) {
                 });
                 return;
             }
-            console.log("before");
             var collection = db.collection(cname);
-            console.log("after");
-
             collection.update({
                 _id: new ObjectId(id)
             }, {
-                $push: { interests: user } 
+                $push: data
             }, function(err, doc) {
                 if (err) {
                     console.log({
