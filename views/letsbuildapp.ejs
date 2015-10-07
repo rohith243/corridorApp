@@ -7,12 +7,15 @@
 
 <body ng-app="app">
     <div class="wrapall">
+     <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+     </div>
         <section>
             <%- include common/index.header.ejs %>
         </section>
         <section>
             <div class="header-flush" ng-controller="letsBuildController">
-                <div class="page-layout detail-page">
+                <div class="page-layout detail-page" ng-if="item">
                      <div layout="row" layout-sm="column" class="layout-padding">
                         <div flex="80" flex-sm="100" class="layout-padding">
                             <div class="app-details">
@@ -73,9 +76,9 @@
                                             {{item.longDesc}}
                                         </md-content>
                                       </md-tab>
-                                      <md-tab label="Stage" ng-if="item.techDetails">
+                                      <md-tab label="Analysis" ng-if="item.solution">
                                         <md-content class="md-padding">
-                                            {{item.techDetails}}
+                                            {{item.solution}}
                                         </md-content>
                                       </md-tab>
                                       <md-tab label="Video Links" ng-if="item.vedioLink">
@@ -167,21 +170,19 @@
                 .then(function(res) {
                     $scope.item = res.data;
                     $scope.item.likes = res.data.likes ? res.data.likes : [];
-                });
-                $scope.likeClass = "fa fa-thumbs-o-up";
-                //$timeout(function(){
+                    $scope.likeClass = "fa fa-thumbs-o-up";
                     if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
-                        var uid = GLOBAL.user.uid[ 0 ];
+                        var uid = GLOBAL.user.uid;
                         if( uid) {
-                            var likesObj = $scope.item.likes ? $scope.item.likes : [];
+                            var likesObj = $scope.item.likes || [];
                             var index = likesObj.indexOf(uid);
-                            $scope.likeClass = index ==-1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-o-down";
+                            $scope.likeClass = index == -1 ?"fa fa-thumbs-o-up":"fa fa-thumbs-o-down";
                         }
                     }
-                //},3000);
+                });
                 $scope.updateLikes = function(){
                     if ( typeof GLOBAL!=='undefined' && GLOBAL.user ) {
-                        var uid = GLOBAL.user.uid[ 0 ];
+                        var uid = GLOBAL.user.uid;
                         if( uid) {
                             var likesObj = $scope.item.likes ? $scope.item.likes : [];
                             var index = likesObj.indexOf(uid);
@@ -214,7 +215,9 @@
                                     likesObj.push(uid);
                                 });     
                             }
-                        }
+                        } 
+                    } else {
+                        window.location = '/signin?redirect=' + location.pathname;
                     }
                 }
                 var selfScope =  $scope; 
@@ -229,7 +232,7 @@
                             
                           },
                           controller: function DialogController($scope, $mdDialog,Notification, http) {
-                            var uid = GLOBAL.user.uid[ 0 ];
+                            var uid = GLOBAL.user.uid;
                             $scope.user = {
                                 uid : uid,
                                 hours : '',
@@ -287,7 +290,7 @@
                        });
                     }
                     else {
-                       window.location = '/signin?redirect=' + location.pathname
+                       window.location = '/signin?redirect=' + location.pathname;
                     } 
                 }
             }
