@@ -30,7 +30,6 @@
             '$stateParams',
             function($scope, Notification, http, $state, $stateParams) {
                 $scope.item = {};
-                var uid = GLOBAL.user.uid || 'defaultname';
                 $scope.item.proposedTeam = [ {
                     fullName: GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
                     mail: GLOBAL.user.mail
@@ -103,7 +102,7 @@
                         } );  
                     }
                     return $scope.emps || [];
-                };
+                }
                 var chipsugg = {};
                 var findObjectIndex = function  ( arr, key, value ) {
                     
@@ -113,7 +112,7 @@
                         }
                     }
                     return -1;
-                }
+                };
                 $scope.querySearch = function(query, key ) {
                     var index;
                     var len;
@@ -136,7 +135,7 @@
                     return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
                         (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
                   };
-                };
+                }
                 
             }
         ])
@@ -243,7 +242,7 @@
                         } );  
                     }
                     return $scope.emps || [];
-                };
+                }
                 var chipsugg = {};
                 var findObjectIndex = function  ( arr, key, value ) {
                     
@@ -253,7 +252,7 @@
                         }
                     }
                     return -1;
-                }
+                };
                 $scope.querySearch = function(query, key ) {
                     var index;
                     var len;
@@ -276,7 +275,7 @@
                     return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
                         (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
                   };
-                };
+                }
             }
         ]);
 })(angular);
