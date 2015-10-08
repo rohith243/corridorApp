@@ -151,7 +151,8 @@
                 };
                 var originalData;
                 var _id = $stateParams._id;
-                $scope.tabcount = 5;
+                tabcount = 5;
+                $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
                 if (_id) {
                     http.get('services/getdocument?cname=letsbuild&_id=' + _id)
