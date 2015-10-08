@@ -1,5 +1,5 @@
 (function(angular) {
-    var app = angular.module('proposeForm', ['commonModule', 'ngMessages', 'ui.router', 'proposeFormControllers']);
+    var app = angular.module('proposeForm', ['commonModule', 'markdownModule','ngMessages', 'ui.router', 'proposeFormControllers']);
     app.config(function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         $stateProvider

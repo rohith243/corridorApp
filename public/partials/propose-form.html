@@ -101,25 +101,48 @@
                 <md-tab label="Team">
                     <md-content class="tab-content">
                         <div class="field-wrapper">
-                            <md-chips required ng-model="item.proposedTeam" name="proposedTeam" placeholder="Proposed By" secondary-placeholder="Proposed By"></md-chips>
-                            <div ng-messages="updateForm.$showValidation && updateForm.proposedTeam.$error">
+                            <md-chips required ng-model="item.proposedTeam" name="proposedTeam"  md-autocomplete-snap md-require-match="true">
+                                <md-autocomplete
+                                    md-search-text="search.proposed"
+                                    md-items="sugg in querySearch(search.proposed, 'proposedTeam')"
+                                    placeholder="+ Proposed By "
+
+                                    >
+                                    <span>{{sugg.fullName}} :: {{sugg.mail}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                    <span>
+                                      <strong>{{$chip.fullName}}</strong>
+                                      <em>({{$chip.mail}})</em>
+                                    </span>
+                                </md-chip-template>
+                            </md-chips>
+                            <div ng-messages="updateForm.$showValidation && updateForm.
+                            proposedTeam.$error">
                                 <div ng-message="required">This is required.</div>
                             </div>
                         </div>
                         <div>
-                            <md-chips ng-model="item.contributors" name="contributors" placeholder="+Contributor" secondary-placeholder="Contributors List"></md-chips>
+                            <md-chips ng-model="item.contributors" name="contributors"  md-autocomplete-snap md-require-match="true">
+                                <md-autocomplete
+                                    md-search-text="search.contributor"
+                                    md-items="sugg in querySearch(search.contributor, 'contributors')"
+                                     placeholder="+ Add Contributors"
+                                    >
+                                    <span>{{sugg.fullName}} :: {{sugg.mail}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                    <span>
+                                      <strong>{{$chip.fullName}}</strong>
+                                      <em>({{$chip.mail}})</em>
+                                    </span>
+                                </md-chip-template>
+                            </md-chips>
                         </div>
                     </md-content>
                 </md-tab>
                 <md-tab label="Settings">
                     <md-content class="tab-content">
-                        <!--div>
-                <div>
-                    <md-checkbox md-no-ink aria-label="Publish the App" name="isPublish" ng-model="item.isPublish" class="md-primary">
-                        Publish the App
-                    </md-checkbox>
-                </div>
-            </div-->
                         <div>
                             <div>
                                 <p>Is the App needs to be publish outside pramati</p>
@@ -136,7 +159,20 @@
                             </md-input-container>
                         </div>
                         <div class="field-wrapper">
-                            <md-chips ng-model="item.invites" name="invites" placeholder="+Invite" secondary-placeholder="Invitation List">
+                            <md-chips ng-model="item.invites" name="invites" md-autocomplete-snap md-require-match="true">
+                                <md-autocomplete
+                                    md-search-text="search.invite"
+                                    md-items="sugg in querySearch(search.invite, 'invites')"
+                                    placeholder="+Invite"
+                                    >
+                                    <span>{{sugg.fullName}} :: {{sugg.mail}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                    <span>
+                                      <strong>{{$chip.fullName}}</strong>
+                                      <em>({{$chip.mail}})</em>
+                                    </span>
+                                </md-chip-template>
                             </md-chips>
                         </div>
                         <div>
@@ -172,5 +208,14 @@
     
     .field-wrapper {
         padding: 2px 2px 26px;
+    }
+    .md-chips .md-chip-input-container {
+        padding: 0;
+    }
+    md-autocomplete input:not(.md-input) {
+        font-size: 100%;
+    }
+    .md-virtual-repeat-container.md-autocomplete-suggestions-container {
+        min-width: 300px !important;
     }
 </style>

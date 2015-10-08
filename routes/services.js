@@ -205,7 +205,7 @@ router.post('/adddocument', function(req, res, next) {
     });
 });
 router.get('/userdetails', function(req, res, next) {
-    res.json( user.userdetails( req ) );
+    res.json( user.getAllDetails( req ) );
 });
 router.get('/logout', function(req, res, next) {
     if (req.session.destroy) {

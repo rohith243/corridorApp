@@ -31,7 +31,10 @@
             function($scope, Notification, http, $state, $stateParams) {
                 $scope.item = {};
                 var uid = GLOBAL.user.uid || 'defaultname';
-                $scope.item.proposedTeam = [uid];
+                $scope.item.proposedTeam = [ {
+                    fullName: GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
+                    mail: GLOBAL.user.mail
+                } ];
                 $scope.item.contributors = [];
                 $scope.item.invites = [];
                 $scope.item.public = 'public';
@@ -83,6 +86,58 @@
                     e.preventDefault();
                     $scope.global.selectedIndex = ($scope.global.selectedIndex + tabcount - 1) % tabcount;
                 };
+                
+                function loadEmployees() {
+                    if( !$scope.empRequestSent ) {
+                        $scope.empRequestSent = true;
+                        http.get( '/confidential/phonebook.json' )
+                        .then( function( res ) {
+                          $scope.emps = res.employees.map( function ( obj ) {
+                            var emp = {};
+                            emp.fullName = obj.fullName.toLowerCase();
+                            emp.mail = obj.email.toLowerCase();
+                            return emp;
+                          } );
+                        }, function  ( err ) {
+                            $scope.empRequestSent = false;
+                        } );  
+                    }
+                    return $scope.emps || [];
+                };
+                var chipsugg = {};
+                var findObjectIndex = function  ( arr, key, value ) {
+                    
+                    for( var len = arr.length -1 ;  len >= 0; len-- ) {
+                        if( arr[ len ][ key ] === value ) {
+                            return len;
+                        }
+                    }
+                    return -1;
+                }
+                $scope.querySearch = function(query, key ) {
+                    var index;
+                    var len;
+                    if( !chipsugg[ key ] && $scope.item[ key ] && $scope.emps ) {
+                        for( len = $scope.item[ key ].length - 1; len >= 0; len-- ) {
+                            index = findObjectIndex( $scope.emps, 'mail', $scope.item[ key ][ len ].mail );
+                            if( index !== -1 ) {
+                                $scope.item[ key ][ len ] = $scope.emps[ index ];
+                            }
+                        }
+                        chipsugg[ key ] = true;
+                    }
+
+                    var results = query ? ( $scope.emps || loadEmployees() ).filter( createFilterFor(query) ) : [];
+                    return results;
+                };
+                function createFilterFor(query) {
+                  var lowercaseQuery = angular.lowercase(query);
+                  return function filterFn( emp ) {
+                    return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
+                        (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
+                  };
+                };
+                
             }
         ])
         .controller('proposeFormEditController', [
@@ -171,6 +226,56 @@
                                 Notification.success('successfully unpublished');
                             }
                         });
+                };
+                function loadEmployees() {
+                    if( !$scope.empRequestSent ) {
+                        $scope.empRequestSent = true;
+                        http.get( '/confidential/phonebook.json' )
+                        .then( function( res ) {
+                          $scope.emps = res.employees.map( function ( obj ) {
+                            var emp = {};
+                            emp.fullName = obj.fullName.toLowerCase();
+                            emp.mail = obj.email.toLowerCase();
+                            return emp;
+                          } );
+                        }, function  ( err ) {
+                            $scope.empRequestSent = false;
+                        } );  
+                    }
+                    return $scope.emps || [];
+                };
+                var chipsugg = {};
+                var findObjectIndex = function  ( arr, key, value ) {
+                    
+                    for( var len = arr.length -1 ;  len >= 0; len-- ) {
+                        if( arr[ len ][ key ] === value ) {
+                            return len;
+                        }
+                    }
+                    return -1;
+                }
+                $scope.querySearch = function(query, key ) {
+                    var index;
+                    var len;
+                    if( !chipsugg[ key ] && $scope.item[ key ] && $scope.emps ) {
+                        for( len = $scope.item[ key ].length - 1; len >= 0; len-- ) {
+                            index = findObjectIndex( $scope.emps, 'mail', $scope.item[ key ][ len ].mail );
+                            if( index !== -1 ) {
+                                $scope.item[ key ][ len ] = $scope.emps[ index ];
+                            }
+                        }
+                        chipsugg[ key ] = true;
+                    }
+
+                    var results = query ? ( $scope.emps || loadEmployees() ).filter( createFilterFor(query) ) : [];
+                    return results;
+                };
+                function createFilterFor(query) {
+                  var lowercaseQuery = angular.lowercase(query);
+                  return function filterFn( emp ) {
+                    return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
+                        (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
+                  };
                 };
             }
         ]);

@@ -95,8 +95,8 @@
                                                         Team
                                                     </div>
                                                     <div class="" ng-repeat="mem in item.contributors">
-                                                        <a href="#" class="">
-                                                        {{mem}}
+                                                        <a ng-href="mailto:{{mem.mail}}" class="">
+                                                        {{mem.fullName}}
                                                     </a>
                                                     </div>
                                                 </md-content>
@@ -127,8 +127,8 @@
                                 <div>
                                     <div class="md-title">Proposed by</div>
                                     <div ng-repeat="mem in item.proposedTeam">
-                                        <a href="#">
-                                            {{mem}}
+                                        <a ng-href="mailto:{{mem.mail}}">
+                                            {{mem.fullName}}
                                         </a>
                                     </div>
 
