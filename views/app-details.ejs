@@ -36,24 +36,24 @@
                                     <div class="app-summary" flex="25" flex-sm="100">
 
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Posted date : </span>
-                                            <span flex="50" class="app-summary-value"> {{item.createdAt | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="45">Posted date : </span>
+                                            <span flex="55" class="app-summary-value"> {{item.createdAt | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Last Updated : </span><span flex="50" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Stage : </span> <span flex="50" class="app-summary-value"> {{item.status}}</span>
+                                            <span class="" flex="45">Stage : </span> <span flex="55" class="app-summary-value"> {{item.status}}</span>
                                         </div>
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Category : </span> <span flex="50" class="app-summary-value"> {{item.category}}</span>
+                                            <span class="" flex="45">Category : </span> <span flex="55" class="app-summary-value"> {{item.category}}</span>
                                         </div>
                                         <!-- <div layout="row" class="text-right">
                                             <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
                                         </div> -->
                                         <div layout="row" class="text-right">
-                                            <span class="" flex="50">Likes : </span>
-                                            <span class="app-summary-value" flex="50">
+                                            <span class="" flex="45">Likes : </span>
+                                            <span class="app-summary-value" flex="55">
                                                 {{item.likes.length}}
                                             <a href="#" ng-click="updateLikes( $event )" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
                                             </span>
@@ -114,6 +114,7 @@
                                             </div>
                                         </md-tab>
                                     </md-tabs>
+                                    <div id="disqus_thread"></div>
                                 </md-content>
 
                             </div>
@@ -139,15 +140,39 @@
                 </div>
             </div>
         </section>
+        
         <section>
             <%- include common/footer.ejs %>
         </section>
     </div>
-
     <%- include common/footer.script.includes.ejs %>
     <script src="/javascripts/controllers/app-details-controller.js"></script>
     <script src="/javascripts/controllers/express-interest-controller.js"></script>
     <script src="/javascripts/modules/app-details.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'letsbuild-pramati';
+        
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'letsbuild-pramati';
+        
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
     <style type="text/css">
         .tab-content {
             padding: 20px 0
@@ -203,6 +228,9 @@
         .app-summary-value {
             text-align: left;
             padding-left: 5px;
+        }
+        .color-for-down-vote {
+            color : #B5B0B0;
         }
     </style>
 </body>
