@@ -41,7 +41,7 @@ app.use(session({secret: 'corridorApp'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
-app.use('/gallary', require( './routes/gallary' ) );
+app.use('/gallery', require( './routes/gallery' ) );
 app.use('/dashboard', require( './routes/dashboard' ) );
 app.use('/signin', require( './routes/signin' ) );
 app.use('/services', require( './routes/services' ) );

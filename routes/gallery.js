@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var user = require('./modules/user');
 router.get('/', function(req, res, next) {
-    res.render('gallary', {
-        title: 'Gallary | Letsbuild',
+    res.render('gallery', {
+        title: 'Gallery | Letsbuild',
         user: user.getDetails(req)
     });
 });
