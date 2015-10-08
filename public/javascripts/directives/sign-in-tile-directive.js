@@ -1,5 +1,5 @@
-if ( typeof GLOBAL === 'undefined' ) {
-    GLOBAL = {};
+if ( typeof window.GLOBAL === 'undefined' ) {
+    window.GLOBAL = {};
 }
 (function(angular) {
     angular.module('signInTileModule', [])
