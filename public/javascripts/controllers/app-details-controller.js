@@ -13,7 +13,7 @@
             return;
         });
     };
-    angular.module('angularppsDetailCtrlModule', [])
+    angular.module('appsDetailCtrlModule', [])
         .controller('appDetailController', [
             '$scope', '$http', '$mdDialog', 'Notification', 'http', 'model',
             function(
