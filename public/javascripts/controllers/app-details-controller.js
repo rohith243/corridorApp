@@ -28,13 +28,13 @@
                         $scope.item = res.data;
                         $scope.item.likes = res.data.likes ? res.data.likes : [];
                         $scope.item.interests = $scope.item.interests || [];
-                        $scope.likeClass = 'fa fa-thumbs-o-up';
+                        $scope.likeClass = 'fa fa-thumbs-up color-for-down-vote';
                         var likesObj = $scope.item.likes || [];
                         if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
                             var uid = GLOBAL.user.uid;
                             if (uid) {
                                 var index = likesObj.indexOf(uid);
-                                $scope.likeClass = index === -1 ? 'fa fa-thumbs-o-up' : 'fa fa-thumbs-up';
+                                $scope.likeClass = index === -1 ? 'fa fa-thumbs-up color-for-down-vote' : 'fa fa-thumbs-up';
                             }
                         }
                         model.item = $scope.item;
@@ -47,7 +47,7 @@
                             var likesObj = $scope.item.likes ? $scope.item.likes : [];
                             var index = likesObj.indexOf(uid);
                             if (index !== -1) {
-                                $scope.likeClass = 'fa fa-thumbs-o-up';
+                                $scope.likeClass = 'fa fa-thumbs-up color-for-down-vote';
                                 likesObj.splice(index, 1);
                                 http.post('/services/update', {
                                         postData: {
