@@ -5,7 +5,9 @@
             function($scope, $mdDialog, Notification, http, model, $http) {
                 var uid = GLOBAL.user.uid;
                 $scope.user = {
+                    mail: GLOBAL.user.mail,
                     uid: uid,
+                    fullName : GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
                     hours: '',
                     aboutme: ''
                 };

@@ -89,7 +89,7 @@
                 function loadEmployees() {
                     if( !$scope.empRequestSent ) {
                         $scope.empRequestSent = true;
-                        http.get( 'http://corridor.pramati.com/store/ldap_data.json' )
+                        http.get( '/confidential/phonebook.json' )
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};
@@ -229,7 +229,7 @@
                 function loadEmployees() {
                     if( !$scope.empRequestSent ) {
                         $scope.empRequestSent = true;
-                        http.get( 'http://corridor.pramati.com/store/ldap_data.json' )
+                        http.get( '/confidential/phonebook.json' )
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};

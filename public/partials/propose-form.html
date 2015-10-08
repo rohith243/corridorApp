@@ -183,6 +183,15 @@
                         </div>
                     </md-content>
                 </md-tab>
+                 <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
+                    <md-content class="tab-content">
+                       
+
+                        <div>
+                           {{item.interests}}
+                        </div>
+                    </md-content>
+                </md-tab>
             </md-tabs>
         </md-content>
         <div style="overflow:auto">
