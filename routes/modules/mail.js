@@ -19,7 +19,7 @@ var mailOptions = {
 };
 
 mail.send = function  ( item , user ) {
-    console.log(item, user)
+
     mailOptions.to = item.owner.mail;
     mailOptions.cc = user.mail;
     mailOptions.subject = 'Letsbuild Notification: Interest ' + item.appName;
