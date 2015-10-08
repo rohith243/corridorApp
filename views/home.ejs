@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include common/head.ejs %>
+</head>
+
+<body>
+    <div class="wrapall">
+        <div class="loader-wrap" ng-class="{'loader-hide': true}">
+            <div class="page-loader"></div>
+        </div>
+
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+
+        <section>
+
+            <div class="banner-container header-flush">
+                <div class="banner banner3" style="background-image: url( 'images/cover-image-1.jpg' )">
+                </div>
+                <div class="banner banner1" style="background-image: url( 'images/cover-image-nasa.jpg' )">
+                </div>
+                <div class="banner banner2" style="background-image: url( 'images/cover-image-2.jpg' )">
+                </div>
+                <div class="banner banner3" style="background-image: url( 'images/cover-image-1.jpg' )">
+                </div>
+                <div layout="row" layout-sm="column">
+                    <div flex>
+                        <div class="welcome-section1">
+                            <div class="page-layout-2">
+                                <div class="welcome-content">
+                                    <h1 class="md-display-1">
+                                    I have An Idea
+                                </h1>
+                                    <p>
+                                        I want contributors to help me build an Idea
+                                    </p>
+                                    <div class="button-container">
+                                        <md-button href="/propose-form" class="md-raised md-primary">
+                                            Propose An App
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex>
+                        <div class="welcome-section2">
+                            <div class="page-layout-2">
+                                <div class="welcome-content">
+                                    <h1 class="md-display-1">
+                                    I would like to contribute 
+                                </h1>
+                                    <p>
+                                        I want to help people to build an Idea
+                                    </p>
+                                    <div class="button-container">
+                                        <md-button href="/gallary" class="md-raised md-primary">Be a Contributor</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <div class="stats-section">
+                <div class="page-layout">
+                    <div layout="row" layout-sm="column">
+                        <div flex layout class="tile">
+                            <div class="tile-data md-whiteframe-2dp">
+                                <p class="count md-display-1">
+                                    20,271
+                                </p>
+                                <p class="count-item-text md-subhead">
+                                    Proposed Ideas
+                                </p>
+                            </div>
+                        </div>
+                        <div flex layout class="tile">
+                            <div class="tile-data md-whiteframe-2dp">
+                                <p class="count md-display-1">
+                                    20,568
+                                </p>
+                                <p class="count-item-text md-subhead">
+                                    Contributors
+                                </p>
+                            </div>
+                        </div>
+                        <div flex layout class="tile">
+                            <div class="tile-data md-whiteframe-2dp">
+                                <p class="count md-display-1">
+                                    504
+                                </p>
+                                <p class="count-item-text md-subhead">
+                                    Successfull ideas
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+    <%- include common/footer.script.includes.ejs %>
+
+
+    <script type="text/javascript">
+        setTimeout(function(argument) {
+            angular.bootstrap(document, ['commonModule']);
+        }, 0)
+    </script>
+
+</body>
+
+</html>

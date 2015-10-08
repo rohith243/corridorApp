@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <%- include common/head.ejs %>
+</head>
+
+<body>
+    <div class="wrapall">
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section>
+
+            <div class="header-flush">
+                <div class="page-layout">
+                    <div ui-view></div>
+
+                </div>
+            </div>
+
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+
+    <%- include common/footer.script.includes.ejs %>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.js"></script>
+    <script src="/javascripts/controllers/propose-form-controllers.js"></script>
+    <script src="/javascripts/modules/propose-form.js"></script>
+
+    <style type="text/css">
+        .tab-content {
+            padding: 20px 0
+        }
+        
+        .update-form {
+            margin-bottom: 20px;
+        }
+        
+        .field-wrapper {
+            padding: 2px 2px 26px;
+        }
+    </style>
+</body>
+
+</html>

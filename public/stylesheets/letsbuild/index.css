@@ -1,0 +1,360 @@
+input {
+    outline: 0px;
+}
+
+.tiles-container {
+    letter-spacing: -6px;
+    margin: 0 -15px;
+    padding-top: 20px;
+}
+
+.tiles-container>* {
+    letter-spacing: normal;
+}
+
+.margin-flush {
+    margin: 0 15px;
+}
+
+.app-container {
+    margin: 0 0 30px 0;
+}
+
+.app-container .tile {
+    width: 24.9%;
+    display: inline-block;
+    letter-spacing: normal;
+}
+
+.tile-data {
+    position: relative;
+    overflow: hidden;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.tile-data a {
+    color: #333;
+}
+
+.tile .image-holder {
+    overflow: hidden;
+    position: relative;
+    height: 250px;
+    background: #fff;
+}
+
+.tile .info-holder {
+    height: 150px;
+    overflow: auto;
+    padding: 0 15px;
+    background: #fff;
+}
+
+.tile .image-holder img {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease-in;
+}
+
+.tile:hover .image-holder img {
+    -webkit-transform: translate(-50%, -50%) scale(1.3);
+    -moz-transform: translate(-50%, -50%) scale(1.3);
+    -ms-transform: translate(-50%, -50%) scale(1.3);
+    -o-transform: translate(-50%, -50%) scale(1.3);
+    transform: translate(-50%, -50%) scale(1.3);
+}
+
+
+/*.tile-title {
+  position: absolute;
+  left: 10px;
+  top: 35%;
+  right: 10px;
+  text-align: center;
+  opacity: 0.8;
+  transition: all 0.4s ease-in;
+}*/
+
+.tile-content {
+    position: absolute;
+    top: 35%;
+    left: 10px;
+    right: 10px;
+    text-shadow: 0px 0px 1px #666;
+    background: rgba( 255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.4s ease-in;
+}
+
+.tile-desc {
+    opacity: 0;
+    height: 0;
+    transition: all 0.4s ease-in;
+}
+
+.tile-features {
+    bottom: 10px;
+}
+
+.tile-title {
+    opacity: 0.8;
+    transition: all 0.4s ease-in;
+    text-align: center;
+}
+
+.tile:hover .tile-content {
+    top: 30px;
+}
+
+.tile:hover .tile-title {
+    top: 20px;
+    opacity: 1;
+    margin-top: 0px;
+    transform: scale(1.2);
+}
+
+.tile:hover .tile-desc {
+    opacity: 1;
+    height: auto;
+}
+
+.tile-features {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    text-align: right;
+    opacity: 0;
+    transition: all 0.4s ease-in;
+}
+
+.tile:hover .tile-features {
+    opacity: 1;
+}
+
+.dummy-search-wrap {
+    white-space: nowrap;
+    position: relative;
+    float: right;
+}
+
+.dummy-search-wrap label {
+    position: absolute;
+    top: 10px;
+    left: 13px;
+    color: #999;
+}
+
+.dummy-search-wrap input {
+    padding: 12px 12px 12px 33px;
+    border-radius: 2px;
+    border: 1px solid #dddddd;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.app-search-overlay {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    -webkit-transition: opacity 0.2s ease-in;
+    background: rgba(245, 245, 245, 0.9);
+}
+
+.wrapall {
+    -webkit-transition: transform 1200ms cubic-bezier(0.175, 0.885, 0.335, 1.05);
+    -moz-transition: transform 1200ms cubic-bezier(0.175, 0.885, 0.335, 1.05);
+    -o-transition: transform 1200ms cubic-bezier(0.175, 0.885, 0.335, 1.05);
+    transition: transform 1200ms cubic-bezier(0.175, 0.885, 0.335, 1.05);
+}
+
+.app-search-opened {
+    overflow: hidden;
+}
+
+.app-search-opened .wrapall {
+    transform: scale3d(0.95, 0.95, 1);
+}
+
+.app-search-opened .app-search-overlay {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+}
+
+.search-content {
+    text-align: center;
+}
+
+.search-content .search-app,
+.search-content .search-app:active,
+.search-content .search-app:focus {
+    display: inline-block;
+    background: none;
+    font-size: 30px;
+    border: 0;
+    width: 90%;
+    max-width: 400px
+}
+
+.search-content .glyphicon-search {
+    font-size: 30px;
+}
+
+.app-search-overlay .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #999;
+    transition: all 0.4s ease-in;
+}
+
+.app-search-overlay .close:hover {
+    color: #333;
+}
+
+.search-wrapper {
+    margin-top: 16%;
+    -webkit-transition: all 0.4s ease-in;
+    /* Safari */
+    transition: all 0.4s ease-in;
+    color: #999;
+}
+
+.search-wrapper.result-found {
+    margin-top: 30px;
+}
+
+.search-content .fa-search {
+    font-size: 30px;
+}
+
+
+/*
+  We're using CSS transitions for when
+  the enter and move events are triggered
+  for the element that has the .repeated-item
+  class
+*/
+
+.repeated-item.ng-enter,
+.repeated-item.ng-move {
+    -webkit-transition: 0.5s ease-in all;
+    -moz-transition: 0.5s ease-in all;
+    -o-transition: 0.5s ease-in all;
+    transition: 0.5s ease-in all;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    /*max-height: 0px;*/
+}
+
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    /*max-height: 500px;*/
+}
+
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+
+.repeated-item.ng-leave {
+    -webkit-transition: 0.5s ease-in all;
+    -moz-transition: 0.5s ease-in all;
+    -o-transition: 0.5s ease-in all;
+    transition: 0.5s ease-in all;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    /*max-height: 500px;
+  overflow: hidden;*/
+}
+
+.repeated-item.ng-leave.ng-leave-active {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    /*max-height: 0px;*/
+}
+
+@media (max-width: 600px) {
+    .dummy-search-wrap {
+        width: 45px;
+    }
+    .dummy-search-wrap input {
+        width: 100%
+    }
+    .app-container .tile {
+        width: 100%;
+    }
+    .md-display-1 {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+    .search-content .search-app,
+    .search-content .search-app:active,
+    .search-content .search-app:focus {
+        font-size: 18px;
+    }
+    .search-content .fa-search {
+        font-size: 18px;
+    }
+}
+
+.app-search-overlay .app-container {
+    text-align: left;
+}
+
+.loadmore {
+    text-align: center;
+}
