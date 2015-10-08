@@ -18,6 +18,8 @@
     "markdown": "^0.5.0",
     "mongodb": "^2.0.42",
     "morgan": "~1.5.1",
+    "nodemailer": "^1.8.0",
+    "nodemailer-smtp-transport": "^1.0.3",
     "request": "^2.63.0",
     "serve-favicon": "~2.2.0"
   },

@@ -75,10 +75,15 @@ router.get('/collection', function(req, res, next) {
                     console.log('error in parsing reqest');
                 }
             }
-            obj.query = obj.query || {};
-            if ((query.isuid === 'true' || query.isuid === true) && req.session.cas && req.session.cas.attributes) {
-                obj.query.owner = req.session.cas.attributes.uid[0];
+            obj.query = obj.query || {
+            };
+            
+            var udetails = user.getDetails();
+            if ( (query.isuid === 'true' || query.isuid === true ) && udetails ) {
+                obj.query['owner.mail'] = udetails.mail;
             }
+            console.log( obj );
+
             var cursor = mongo.find(obj);
             cursor.stream().pipe(JSONStream.stringify()).pipe(res);
         }
@@ -156,8 +161,12 @@ router.post('/update', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.lastUpdated = +new Date();
-            setObj.lastUpdatedBy = req.session.cas.attributes.uid[0];
-            console.log(setObj);
+            var udetails = user.getDetails( req );
+            console.log( 'udetails', udetails ); 
+            setObj.lastUpdatedBy = {
+                uid: udetails.uid,
+                mail: udetails.mail
+            };
             collection.update({
                 _id: new ObjectId(id)
             }, {
@@ -190,7 +199,12 @@ router.post('/adddocument', function(req, res, next) {
             }
             var collection = db.collection(cname);
             setObj.createdAt = +new Date();
-            setObj.owner = req.session.cas.attributes.uid[0];
+            var udetails = user.getDetails( req );
+            setObj.owner =  {
+                uid: udetails.uid,
+                mail: udetails.mail
+            };
+
             collection.insert(setObj, function(err, doc) {
                 if (err) {
                     console.log({
@@ -240,9 +254,25 @@ router.post('/push', function(req, res, next) {
                     });
                     return;
                 }
-                console.log(doc);
+                if( key === 'expressinterest' ) {
+                    collection.findOne({_id:new ObjectId(id)}, function(err, item) {
+                        
+                        if( err ) {
+                            console.log({
+                                'error': '_error_mongo'
+                            });
+                            return;
+                        }
+                        var mail = require('./modules/mail.js');
+                        mail.send( item, data );
+
+                        db.close();    
+                    });
+                }
+                
+                
                 res.json('');
-                db.close();
+                
             });
         }
     });
