@@ -15,6 +15,9 @@
         <md-button ng-if="isPublished" class="md-raised md-warn" ng-click="togglePublish( $event, isPublished ) ">
             unpublish
         </md-button>
+        <md-button ng-if="item._id"  class="md-raised md-primary" target="_blank" ng-href="/gallery/id/{{item._id}}">
+            Preview
+        </md-button>
         </div>
         
         <h1 class="md-display-1">
@@ -191,10 +194,13 @@
                         </div>
                     </md-content>
                 </md-tab>
-                 <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
+                <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
                     <md-content class="tab-content">
                         <h2>Interested People</h2>
-
+                        <div ng-if="!item.interests || item.interests.length===0">
+                            <p>This an Awesome Idea</p>
+                            <p>We are looking for Interested people</p>
+                        </div>
                         <div class="interested-peoples">
                            <div ng-repeat="user in item.interests">
                                 <p>{{user.fullName}}</p>
@@ -252,5 +258,8 @@
     }
     .md-chips .md-chip .md-chip-content em {
         font-size: 10px;
+    }
+    .md-button {
+        vertical-align: middle;
     }
 </style>

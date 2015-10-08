@@ -151,7 +151,7 @@
                 };
                 var originalData;
                 var _id = $stateParams._id;
-                $scope.tabcount = tabcount;
+                $scope.tabcount = 5;
                 $scope.template = 'editItem';
                 if (_id) {
                     http.get('services/getdocument?cname=letsbuild&_id=' + _id)
@@ -164,9 +164,6 @@
                             $scope.item.invites = $scope.item.invites || [];
                             $scope.isPublished = $scope.item.isPublish;
                             $scope.item.interests = $scope.item.interests || []; 
-                            if( $scope.item.interests.length > 0 ) {
-                                $scope.tabcount = tabcount + 1;    
-                            }
                             
                         });
                 }
