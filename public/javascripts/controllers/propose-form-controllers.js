@@ -163,6 +163,11 @@
                             $scope.item.proposedTeam = $scope.item.proposedTeam || [];
                             $scope.item.invites = $scope.item.invites || [];
                             $scope.isPublished = $scope.item.isPublish;
+                            $scope.item.interests = $scope.item.interests || []; 
+                            if( $scope.item.interests.length > 0 ) {
+                                $scope.tabcount = tabcount + 1;    
+                            }
+                            
                         });
                 }
                 $scope.saveApp = function(e) {

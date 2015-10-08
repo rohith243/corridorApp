@@ -1,14 +1,22 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
-        <md-button ng-if="!isPublished" class="md-raised md-primary pull-right" ng-click="togglePublish( $event, isPublished ) ">
+        <div class="pull-right">
+        <md-button class="md-raised md-primary">
+            <span ng-if="isPublished">
+                Update Changes
+            </span>
+            <span ng-if="!isPublished">
+                Save to draft
+            </span>
+        </md-button>
+        <md-button ng-if="!isPublished" class="md-raised md-primary" ng-click="togglePublish( $event, isPublished ) ">
             Publish
         </md-button>
-        <md-button ng-if="isPublished" class="md-raised md-warn pull-right" ng-click="togglePublish( $event, isPublished ) ">
+        <md-button ng-if="isPublished" class="md-raised md-warn" ng-click="togglePublish( $event, isPublished ) ">
             unpublish
         </md-button>
-        <md-button class="md-raised md-primary pull-right">
-            Save to draft
-        </md-button>
+        </div>
+        
         <h1 class="md-display-1">
       <span ng-show="itemName">
         Edit: {{itemName}}
@@ -185,10 +193,15 @@
                 </md-tab>
                  <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
                     <md-content class="tab-content">
-                       
+                        <h2>Interested People</h2>
 
-                        <div>
-                           {{item.interests}}
+                        <div class="interested-peoples">
+                           <div ng-repeat="user in item.interests">
+                                <p>{{user.fullName}}</p>
+                                <p>{{user.mail}}</p>
+                                <p>hours: {{user.hours}}</p>
+                                <p>About: {{user.aboutme}}</p>
+                           </div>
                         </div>
                     </md-content>
                 </md-tab>
@@ -208,7 +221,7 @@
 
 <style type="text/css">
     .tab-content {
-        padding: 20px 0
+        padding: 20px;
     }
     
     .update-form {
@@ -226,5 +239,18 @@
     }
     .md-virtual-repeat-container.md-autocomplete-suggestions-container {
         min-width: 300px !important;
+    }
+    .interested-peoples > div{
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    @media (max-width: 600px){
+        .interested-peoples > div{
+            width: auto;
+        }
+    }
+    .md-chips .md-chip .md-chip-content em {
+        font-size: 10px;
     }
 </style>
