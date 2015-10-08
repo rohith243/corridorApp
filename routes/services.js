@@ -219,6 +219,7 @@ router.post('/push', function(req, res, next) {
     var cname = req.body.cname;
     var id = req.body._id;
     var data = req.body.data;
+    var key = req.body.key;
     mongo.connect({
         callback: function(err, db) {
             if (err) {

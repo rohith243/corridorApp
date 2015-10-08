@@ -44,7 +44,8 @@
                                 cname: 'letsbuild',
                                 _id: model._id,
                                 data: {
-                                    interests: $scope.user
+                                    interests: $scope.user,
+                                    key: 'expressinterest'
                                 }
                             })
                             .then(function(res) {
