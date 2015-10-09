@@ -3,6 +3,5 @@ public/bower_components/
 npm-debug.log
 views/cached-pages/
 data/
-public/confidential
 routes/confidential
 .vagrant

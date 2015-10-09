@@ -14,7 +14,7 @@ gulp.task('format-js-dev', function() {
     .pipe(gulp.dest('./routes/'));
 });
 
-gulp.task('format-html', function() {
+gulp.task('format-html', function() { 
   gulp.src(['./views/**/*.ejs','!./views/cached-pages/**/*.ejs'])
     .pipe(prettify({indent_size: 4}))
     .pipe(gulp.dest('./views/'))
