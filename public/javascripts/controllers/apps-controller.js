@@ -36,7 +36,7 @@
                         model.appResponse = res;
                         $scope.apps = {};
                         $scope.apps[key] = res;
-                        for (index in $scope.apps[key]) {
+                        for( var index in $scope.apps[key]) {
                             var item = $scope.apps[key][index];
                             if (item) {
                                 item.class=$scope.bgColors()[Math.ceil(Math.random()*5)];
@@ -61,7 +61,7 @@
                 };
                 $scope.bgColors = function(){
                    return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
-                }
+                };
             }
         ]);
 })(angular);
