@@ -1,9 +1,11 @@
 (function(angular) {
+    var videoRegEx = /(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/i;
+
     var openSinginWarning = function($mdDialog, e) {
         var confirm = $mdDialog.confirm()
             .title('You have not signin Please sign.')
             .content('It seems you are not signed in please signin')
-            .ariaLabel('Lucky day')
+            .ariaLabel('Signin here')
             .targetEvent(e)
             .ok('signin here')
             .cancel('Ignore');
@@ -27,6 +29,9 @@
                     .then(function(res) {
                         $scope.item = res.data;
                         $scope.item.likes = res.data.likes ? res.data.likes : [];
+                        if( !( $scope.item.vedioLink && videoRegEx.test( $scope.item.vedioLink ) ) ) {
+                            $scope.item.vedioLink = false;
+                        }
                         $scope.item.interests = $scope.item.interests || [];
                         $scope.likeClass = 'fa fa-thumbs-up color-for-down-vote';
                         var likesObj = $scope.item.likes || [];

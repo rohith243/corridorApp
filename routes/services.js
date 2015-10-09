@@ -4,56 +4,8 @@ var mongo = require('./mongo-db/index.js');
 var JSONStream = require('JSONStream');
 var ObjectId = require('mongodb').ObjectID;
 var user = require('./modules/user');
-var getSetObject = function(data, cname) {
-    var obj = {};
-    var objupdated = false;
-    var map = {
-        appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
-        letsbuild: [
-            'name',
-            'src',
-            'status',
-            'effort',
-            'percentageOfCompletion',
-            'category',
-            'href',
-            'division',
-            'shortDesc',
-            'longDesc',
-            'techDetails',
-            'vedioLink',
-            'minimumBid',
-            'team',
-            'proposedTeam',
-            'appName',
-            'shortDesc',
-            'longDesc',
-            'proposedTeam',
-            'links',
-            'solution',
-            'contributors',
-            'isPublish',
-            'public',
-            'invites',
-            'imgurl',
-            'interests',
-            'likes'
-        ],
-        globals: ['name', 'type', 'value']
-    };
-    for (var len = map[cname].length - 1; len >= 0; len--) {
-        var key = map[cname][len];
-        if (typeof data[key] !== 'undefined') {
-            objupdated = true;
-            obj[key] = data[key];
-        }
-    }
-    if (objupdated) {
-        return obj;
-    } else {
-        return false;
-    }
-};
+var siteUtils = require('./modules/site-utils');
+
 router.get('/collection', function(req, res, next) {
     var query = req.query;
     mongo.connect({
@@ -145,8 +97,7 @@ router.post('/update', function(req, res, next) {
     var data = req.body.data;
     var cname = req.body.cname;
     var id = req.body._id;
-    var setObj = getSetObject(data, cname);
-    console.log('setObj', setObj);
+    var setObj = siteUtils.getSetObject( data, cname );
     if (!setObj) {
         res.json('');
         return;
@@ -188,7 +139,7 @@ router.post('/update', function(req, res, next) {
 router.post('/adddocument', function(req, res, next) {
     var data = req.body.data;
     var cname = req.body.cname;
-    var setObj = getSetObject(data, cname);
+    var setObj = siteUtils.getSetObject(data, cname);
     mongo.connect({
         callback: function(err, db) {
             if (err) {
@@ -204,7 +155,7 @@ router.post('/adddocument', function(req, res, next) {
                 uid: udetails.uid,
                 mail: udetails.mail
             };
-
+        
             collection.insert(setObj, function(err, doc) {
                 if (err) {
                     console.log({
