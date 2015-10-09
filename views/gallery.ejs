@@ -25,7 +25,17 @@
                 </div>
                 <h1 class="md-display-1">Proposed Apps</h1>
                 <div class="app-container">
-
+                    <div style="position: relative;">
+                        <div class="sort-by">
+                            <md-input-container>
+                                <label ng-init="sortBy='-lastUpdated'">Sort By</label>
+                                <md-select ng-model="sortBy">
+                                  <md-option value="-lastUpdated">Updated Date</md-option>
+                                  <md-option value="-createdAt">Created Date</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
                     <md-content>
                         <md-tabs md-dynamic-height md-border-bottom>
                             <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
@@ -39,7 +49,7 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="tile repeated-item" ng-repeat="item in tab | limitTo: limit[key]">
+                                    <div class="tile repeated-item" ng-repeat="item in tab | orderBy: sortBy | limitTo: limit[key]">
                                         <div app-tile data-item="item">
                                         </div>
                                     </div>
