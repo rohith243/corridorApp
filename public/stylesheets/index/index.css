@@ -560,7 +560,7 @@ footer a {
     -o-animation-name: slideDown;
     animation-name: slideDown;
 }
-@-webkit-keyframes slideUp {
+@-webkit-keyframes headerSlideUp {
     0% {
     -webkit-transform: translateY(0);
     }
@@ -569,7 +569,7 @@ footer a {
     }
 }
 
-@-moz-keyframes slideUp {
+@-moz-keyframes headerSlideUp {
     0% {
     -moz-transform: translateY(0);
     }
@@ -578,7 +578,7 @@ footer a {
     }
 }
 
-@-o-keyframes slideUp {
+@-o-keyframes headerSlideUp {
     0% {
     -o-transform: translateY(0);
     }
@@ -587,9 +587,9 @@ footer a {
     }
 }
 
-@keyframes slideUp {
+@keyframes headerSlideUp {
     0% {
-    transform: translateY(0);
+    transform: translateY(0`);
     }
     100% {
         transform: translateY(-100%);
@@ -597,21 +597,21 @@ footer a {
 }
 
 .animated.slideUp {
-    -webkit-animation-name: slideUp;
-    -moz-animation-name: slideUp;
-    -o-animation-name: slideUp;
-    animation-name: slideUp;
+    -webkit-animation-name: headerSlideUp;
+    -moz-animation-name:` headerSlideUp;
+    -o-animation-name: headerSlideUp;
+    animation-name: headerSlideUp;
 }
 
 
 
 
 
-
-.nav-menu {
-    color: #fff;   
-    margin-top: 10px;
-    display: inline-block;
+`
+.nav-menu {`
+    color: #fff;   `
+    margin-top: 10px;`
+    display: inline-block;`
     color: rgb(63,81,181);
     font-size: 20px;
     margin-right: 10px;
