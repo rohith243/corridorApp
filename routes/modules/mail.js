@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-var mailConfig = require( './../confidentials/mail-config.js' );
+var mailConfig = require( './../confidentials/mail-config.json' );
 var mail = {
     //dummy function 
     send: function() {
@@ -24,7 +24,7 @@ var mailOptions = {
 };
 
 mail.send = function  ( item , user ) {
-
+    console.log( 'sending mails' );
     mailOptions.to = item.owner.mail;
     mailOptions.cc = user.mail;
     mailOptions.subject = 'Letsbuild Notification: Interest ' + item.appName;
