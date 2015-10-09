@@ -276,6 +276,12 @@ footer a {
     .wrapall {
         padding-bottom: 204px;
     }
+    .welcome-section2 .page-layout-2 {
+        text-align: left;
+    }
+    .welcome-section2 .md-display-1 {
+        margin: 10px 0;
+    }
 }
 
 @-webkit-keyframes slidefade {
