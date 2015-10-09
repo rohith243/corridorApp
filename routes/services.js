@@ -264,7 +264,7 @@ router.post('/push', function(req, res, next) {
                             return;
                         }
                         var mail = require('./modules/mail.js');
-                        mail.send( item, data );
+                        mail.send( item, data.interests );
 
                         db.close();    
                     });
