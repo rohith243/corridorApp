@@ -1,21 +1,26 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-var mail = {};
-
+var mailConfig = require( './../confidentials/mail-config.js' );
+var mail = {
+    //dummy function 
+    send: function() {
+    
+    } 
+};
 var transporter = nodemailer.createTransport(smtpTransport({
     service: 'Gmail',
     auth: {
-        user: 'notifications.message@gmail.com',
-        pass: '8123424252'
+        user: mailConfig.mail,
+        pass: mailConfig.pass
     }
 }));
 
 var mailOptions = {
-    from: 'notifications.message@gmail.com', // sender address
-    to: 'notifications.message@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
+    from: mailConfig.mail, // sender address
+    to: '', // list of receivers
+    subject: '', // Subject line
     //text: 'Hello world ✔', // plaintext body
-    html: '<b>Hello world ✔</b>' // html body
+    html: '' // html body
 };
 
 mail.send = function  ( item , user ) {
@@ -28,12 +33,11 @@ mail.send = function  ( item , user ) {
     mailOptions.html += '<p><b>Cotribution Hours :</b> '+ user.hours +'</p>';
     mailOptions.html += '<p><b>Comments: </b>'+ user.aboutme +'</p>';
     transporter.sendMail(mailOptions, function(error, info){
-        if(error){
+        if(error) {
             return console.log(error);
         }
         console.log('Message sent: ' + info.response);
     });  
 };
-
 module.exports = mail;
 
