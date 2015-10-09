@@ -1,24 +1,29 @@
-<div class="tile-data md-whiteframe-2dp">
-    <a ng-href="/gallary/id/{{item._id}}">
-        <div class="image-holder">
-            <img ng-src="{{item.imgurl || ('/images/default.png')}}">
-        </div>
-
-        <div class="tile-content">
-            <div class="tile-title">
-                <h3>{{item.appName}}</h3>
+<div class="card" ng-style="item.class">
+   <a ng-href="/gallary/id/{{item._id}}">
+      <div class="card-img-container">
+         <img ng-src="{{item.imgurl || ('/images/default.png')}}" class="card-img"/>
+         <div class="card-favorite">
+            <span class="wpfp-span">
+                <md-button class="wpfp-link" href="#" title="Add to Favorites">
+                     <div class="tile-features">
+                         <md-button class="md-fab md-primary md-mini" ng-href="/propose-form#edit/{{item._id}}">
+                             <i class="fa fa-edit"></i>
+                         </md-button>
+                         <md-button href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
+                             <i class="fa fa-trash-o"></i>
+                         </md-button>
+                     </div>
+                </md-button>
+            </span>
+         </div>
+      </div>
+      <div class="card-content">
+           <div class="md-headline app-title">{{item.appName}}</div>
+           <div class="md-subhead app-desc">
+            <div btf-markdown="item.shortDesc">
             </div>
-            <div class="tile-desc">
-                <div btf-markdown="item.shortDesc"></div>
-            </div>
-        </div>
-        <div class="tile-features">
-            <md-button class="md-fab md-primary md-mini" ng-href="/propose-form#edit/{{item._id}}">
-                <i class="fa fa-edit"></i>
-            </md-button>
-            <md-button href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
-                <i class="fa fa-trash-o"></i>
-            </md-button>
-        </div>
-    </a>
+           </div>
+      </div>
+   </a>
 </div>
+
