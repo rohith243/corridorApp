@@ -673,3 +673,14 @@ footer a {
         display: none;
     }
 }
+
+.sort-by{
+    width: 145px;
+    position: absolute;
+    right: 0;
+    top: -5px;
+    z-index: 1;
+}
+.sort-by md-select .md-select-value {
+    border: 0 !important;
+}

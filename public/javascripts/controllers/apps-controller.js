@@ -30,6 +30,7 @@
                 http
             ) {
                 $scope.category = serviceConfig.app.key;
+                $scope.sortBy = '-lastUpdated' ;
                 http.get(serviceConfig.app.url)
                     .then(function(res) {
                         var key = serviceConfig.app.key;
@@ -38,7 +39,9 @@
                         $scope.apps[key] = res;
                         for( var index in $scope.apps[key]) {
                             var item = $scope.apps[key][index];
+
                             if (item) {
+                                item.lastUpdated = item.lastUpdated || item.createdAt;
                                 item.class=$scope.bgColors()[Math.ceil(Math.random()*5)];
                             }
                             
