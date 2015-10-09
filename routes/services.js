@@ -78,7 +78,7 @@ router.get('/collection', function(req, res, next) {
             obj.query = obj.query || {
             };
             
-            var udetails = user.getDetails();
+            var udetails = user.getDetails( req );
             if ( (query.isuid === 'true' || query.isuid === true ) && udetails ) {
                 obj.query['owner.mail'] = udetails.mail;
             }
