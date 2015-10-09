@@ -1,15 +1,23 @@
-<div class="tile-data md-whiteframe-2dp">
-    <a ng-href="/gallery/id/{{item._id}}">
-        <div class="image-holder">
-            <img ng-src="{{item.imgurl || ('/images/default.png') }}">
-        </div>
-        <div class="tile-content">
-            <div class="tile-title">
-                <h3>{{item.appName}}</h3>
+<div class="card" ng-style="item.class">
+   <a ng-href="/gallary/id/{{item._id}}">
+      <div class="card-img-container">
+         <img ng-src="{{item.imgurl || ('/images/default.png')}}" class="card-img"/>
+         <div class="card-favorite">
+           <span class="wpfp-span">
+                   <md-button class="wpfp-link" href="#" title="Add to Favorites">
+                       <span class="icon ion-android-star-outline">
+                           <i class="fa fa-star-o fa-lg"></i>
+                       </span> Favorite
+                   </md-button>
+           </span>
+         </div>
+      </div>
+      <div class="card-content">
+           <div class="md-headline app-title">{{item.appName}}</div>
+           <div class="md-subhead app-desc">
+            <div btf-markdown="item.shortDesc">
             </div>
-            <div class="tile-desc">
-                <div btf-markdown="item.shortDesc"></div>
-            </div>
-        </div>
-    </a>
+           </div>
+      </div>
+   </a>
 </div>
