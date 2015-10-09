@@ -39,8 +39,8 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="tiles repeated-item" layout="row" layout-wrap>
-                                        <div flex="30" flex-sm="100" class="tile-container" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key" ng-repeat="item in tab | limitTo: limit[key]">
+                                    <div class="tiles" layout="row" layout-wrap>
+                                        <div flex="30" flex-sm="100" class="tile-container fadein" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key" ng-repeat="item in tab | limitTo: limit[key]">
                                         </div>
                                     </div>
                                     <div class="loadmore" ng-if="tab.length > limit[key]">
