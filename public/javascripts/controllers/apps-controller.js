@@ -76,6 +76,28 @@
                             });
                     }
                 };
+                
+                $scope.togglePublish = function(e, item) {
+                    e.preventDefault();
+                    if (item.appName && item.solution) {
+                        http.post('/services/updateDoc', {
+                            postData: {
+                                data: {
+                                    isPublish : !item.isPublish
+                                },
+                                _id: item._id
+                            }
+                        })
+                        .then(function(res) {
+                            item.isPublish = !item.isPublish;
+                            Notification.success('successfully updated');
+                        });
+                    }
+                    else {
+                        Notification.error('Fill required details and then publish');
+                    }
+                }
+                
                 $scope.bgColors = function(){
                    return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
                 };
