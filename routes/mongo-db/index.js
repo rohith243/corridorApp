@@ -26,7 +26,7 @@ mongo.getCollection = function(obj) {
 mongo.find = function(obj) {
     var query = obj.query || {};
     var proj = obj.projection || {};
-    return obj.db.collection(obj.collectionName ).find( query, obj.projection || {} );
+    return obj.db.collection(obj.collectionName ).find( query, proj );
 };
 mongo.findOne = function( obj ) {
     
@@ -62,7 +62,7 @@ mongo.remove = function ( obj ) {
 
 mongo.update = function ( obj ) {
     var query = obj.query || {};
-    obj.collection.update(obj.query, obj.setData, function(err, doc) {
+    obj.collection.update( query, obj.setData, function(err, doc) {
         if (err) {
             obj.json({
                 'error': '_error_mongo'

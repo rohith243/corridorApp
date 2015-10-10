@@ -17,5 +17,5 @@ user.getAllDetails = function(req) {
 user.checkMail = function ( req, email ) {
     var detail = user.getDetails();
     return detail && ( detail.mail === email );
-}
+};
 module.exports = user;

@@ -2,6 +2,7 @@ var utils = {};
 utils.getSetObject = function(data, cname, isRequiredValidation) {
     var obj = {};
     var objupdated = false;
+    var key;
     var map = {
         appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
         letsbuild: [
@@ -29,7 +30,7 @@ utils.getSetObject = function(data, cname, isRequiredValidation) {
         ]
     };
     for (var len = map[cname].length - 1; len >= 0; len--) {
-        var key = map[cname][len];
+        key = map[cname][len];
         if (typeof data[key] !== 'undefined') {
             objupdated = true;
             obj[key] = data[key];
@@ -38,7 +39,7 @@ utils.getSetObject = function(data, cname, isRequiredValidation) {
 
     if( isRequiredValidation  ) {
         obj.errorFields = [];
-        for( var key in requiredMap[ cname ] ) {
+        for( key in requiredMap[ cname ] ) {
             if( !obj[ requiredMap[ cname ][ key ] ] ) {
                 obj.errorFields.push( requiredMap[ cname ][ key ] );
             } 

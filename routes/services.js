@@ -13,7 +13,7 @@ router.get( '/publishedApps', function ( req, res, next ) {
         callback: function(err, db) {
             var proj = {}; 
             try {
-                proj = JSON.parse( req.query.projection )
+                proj = JSON.parse( req.query.projection );
             } catch( e ) {
 
             }
@@ -48,7 +48,7 @@ router.get( '/myProposedApps', function ( req, res, next ) {
         callback: function(err, db) {
             var proj = {}; 
             try {
-                proj = JSON.parse( req.query.projection )
+                proj = JSON.parse( req.query.projection );
             } catch( e ) {
 
             }
@@ -82,7 +82,7 @@ router.post( '/addDocument', function ( req, res, next ) {
             var data = req.body.data;
             var setObj = siteUtils.getSetObject( data, collectionName, data.isPublish );
             
-            if( !( obj.errorFields && setObj.errorFields.length ) ) {
+            if( !( setObj.errorFields && setObj.errorFields.length ) ) {
                 console.log( '_missing_required fields' + setObj.errorFields );
                 res.statusCode = 400;
                 res.json( {
@@ -122,7 +122,7 @@ router.get('/getDocument', function ( req, res, next ) {
             var collection = db.collection( collectionName );
             var proj = {};
              try {
-                proj = JSON.parse( req.query.projection )
+                proj = JSON.parse( req.query.projection );
             } catch( e ) {
 
             }
@@ -198,7 +198,6 @@ router.get('/deleteDoc', function ( req, res, next ) {
 router.post('/updateDoc', function(req, res, next) {
     
     var data = req.body.data;
-    var cname = req.body.cname;
     var id = req.body._id;
     var oid = new ObjectId( id );
     var udetails = user.getDetails( req );
@@ -305,7 +304,7 @@ router.post('/expressInterest', function(req, res, next) {
                             for (var i = doc.interests.length - 1; i >= 0; i--) {
                                 
                                 if( doc.interests[ i ].mail === udetails.mail ) {
-                                    var isExists = true;    
+                                    isExists = true;    
                                     doc.interests[ i ].hours = data.hours;
                                     doc.interests[ i ].aboutme = data.aboutme;
                                     break;
@@ -342,7 +341,7 @@ router.post('/expressInterest', function(req, res, next) {
 });
 
 router.post('/toggleVote', function(req, res, next) {
-    var data = req.body.data;
+
     var id = req.body._id;
     var oid = new ObjectId( id );
     var udetails = user.getDetails( req );
