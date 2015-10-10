@@ -25,7 +25,7 @@
                 var paths = location.pathname.split('/');
                 _id = paths[3];
                 model._id = _id;
-                $scope.currentUser = GLOBAL.user
+                $scope.currentUser = GLOBAL.user;
                 $http.get('/services/getDocument?_id=' + _id)
                     .then(function(res) {
                         $scope.item = res.data;
