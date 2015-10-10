@@ -8,7 +8,11 @@ if ( typeof window.GLOBAL === 'undefined' ) {
                 templateUrl: '/partials/global-navigation.html',
                 restict: 'A',
                 scope: {},
-                controller: 'globalNavCtrl'
+                controller: 'globalNavCtrl',
+                link: function  ( scope, ele ) {
+                    $( 'body' ).prepend( ele.find( '#aside-nav' ) );
+                    $( 'body' ).prepend( ele.find( '#opened-page-mask' ) );
+                }
             };
         }])
         .controller('globalNavCtrl', function($scope, http) {
@@ -25,11 +29,11 @@ if ( typeof window.GLOBAL === 'undefined' ) {
             };
             $scope.openMenu = function( e ) {
                 e.preventDefault();
-                angular.element( 'body' ).addClass( 'menu-opened' );
+                angular.element( 'body' ).addClass( 'open-navigation' );
             };
             $scope.closeMenu = function( e ) {
                 e.preventDefault();
-                angular.element( 'body' ).removeClass( 'menu-opened' );   
+                angular.element( 'body' ).removeClass( 'open-navigation' );   
             };
         });
 })(angular);

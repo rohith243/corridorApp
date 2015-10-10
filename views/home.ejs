@@ -4,13 +4,20 @@
 <head>
     <%- include common/head.ejs %>
 </head>
-
+<style type="text/css">
+    header {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .nav-menu {
+        color: #2b3340
+    }
+</style>
 <body>
+
     <div class="wrapall">
         <div class="loader-wrap" ng-class="{'loader-hide': true}">
             <div class="page-loader"></div>
         </div>
-
         <section>
             <%- include common/header.ejs %>
         </section>
