@@ -203,7 +203,8 @@ input {
 .dummy-search-wrap {
     white-space: nowrap;
     position: relative;
-    float: right;
+    max-width: 100%;
+
 }
 
 .dummy-search-wrap label {
@@ -213,10 +214,20 @@ input {
     color: #999;
 }
 
+.filter-panel md-input-container{
+   padding-bottom: 0; 
+}
+.filter-panel .sort-by{
+    margin-top: -10px;
+    margin-right: 10px;
+}
+
+
 .dummy-search-wrap input {
     padding: 12px 12px 12px 33px;
     border-radius: 2px;
     border: 1px solid #dddddd;
+    max-width: 100%;
 }
 
 @-webkit-keyframes fadeIn {
@@ -388,11 +399,18 @@ input {
 }
 
 @media (max-width: 600px) {
-    .dummy-search-wrap {
+    /*.dummy-search-wrap {
         width: 45px;
     }
     .dummy-search-wrap input {
         width: 100%
+    }*/
+    .card {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .dashboard-filter.filter-panel {
+        margin-bottom: 10px;
     }
     .app-container .tile {
         width: 100%;
@@ -426,6 +444,9 @@ input {
     /*border-radius: 5px;*/
     padding: 0;
     /*margin-bottom: 30px;*/
+    -webkit-box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
+    -moz-box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
+    box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
 }
 .card .card-actions a, .card .card-meta a, .card a {
     -webkit-transition: .3s ease all;
@@ -688,9 +709,6 @@ input {
     background-color: #fff;
     margin: 10px;
     /*padding: 10px;*/
-    -webkit-box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
-    -moz-box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
-    box-shadow: 2px 2px 15px -1px rgba(0,0,0,0.34);
 }
 
 .card-content .app-title {

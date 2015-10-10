@@ -1,4 +1,10 @@
 (function(angular) {
+    // in future remove this method as it is already available in apps-controller.js
+    var closeSearchApps = function() {
+        $(document).off('keydown.opensearch');
+        $('body').removeClass('app-search-opened');
+        $('body').focus();
+    };
     angular.module('searchAppModule', [])
         .directive('searchApp', [function() {
             return {
@@ -7,7 +13,13 @@
                 scope: {
                     isEdit: '='
                 },
-                controller: 'searchOverlayController'
+                controller: 'searchOverlayController',
+                link: function( scope, ele ) {
+                    $('#app-search-popup-close',ele).click(function(e) {
+                        e.preventDefault();
+                        closeSearchApps();
+                    });
+                }
             };
         }])
         .controller('searchOverlayController', [

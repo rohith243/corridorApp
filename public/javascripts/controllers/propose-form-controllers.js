@@ -28,7 +28,8 @@
             'http',
             '$state',
             '$stateParams',
-            function($scope, Notification, http, $state, $stateParams) {
+            '$timeout',
+            function($scope, Notification, http, $state, $stateParams,$timeout) {
                 $scope.item = {};
                 $scope.item.proposedTeam = [ {
                     fullName: GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
@@ -41,6 +42,16 @@
                     selectedIndex: 0
                 };
                 $scope.tabcount = tabcount;
+                $scope.$watch(
+                    function() { return $scope.global.selectedIndex; },
+                        function(newValue, oldValue,scope) {
+                            $timeout(function() {
+                                if ($(':input',$('md-tab-content')[newValue])[0]) {
+                                  $(':input',$('md-tab-content')[newValue])[0].focus();
+                                }
+                            }, 300);
+                        }
+                );
                 $scope.saveApp = function(e) {
                     e.preventDefault();
                     http.post('/services/adddocument', {
@@ -145,7 +156,8 @@
             'http',
             '$state',
             '$stateParams',
-            function($scope, Notification, http, $state, $stateParams) {
+            '$timeout',
+            function($scope, Notification, http, $state, $stateParams, $timeout) {
                 $scope.global = {
                     selectedIndex: 0
                 };
@@ -154,6 +166,16 @@
                 tabcount = 5;
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
+                $scope.$watch(
+                    function() { return $scope.global.selectedIndex; },
+                        function(newValue, oldValue,scope) {
+                            $timeout(function() {
+                                if ($(':input',$('md-tab-content')[newValue])[0]) {
+                                  $(':input',$('md-tab-content')[newValue])[0].focus();
+                                }
+                            }, 300);
+                        }
+                );
                 if (_id) {
                     http.get('services/getdocument?cname=letsbuild&_id=' + _id)
                         .then(function(res) {
