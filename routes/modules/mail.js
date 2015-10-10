@@ -23,7 +23,7 @@ var mailOptions = {
     html: '' // html body
 };
 
-mail.send = function  ( item , user ) {
+mail.send = function  ( item, user ) {
     console.log( 'sending mails' );
     mailOptions.to = item.owner.mail;
     mailOptions.cc = user.mail;

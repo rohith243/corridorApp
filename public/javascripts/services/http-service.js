@@ -15,7 +15,6 @@
                         //console.log( 'get call' );
                         $http.get(url)
                             .success(function(response) {
-                                //console.log( 'inside success' );
                                 defer.resolve(response);
                             })
                             .error(function(err, status) {
@@ -32,6 +31,7 @@
                                 defer.resolve(response, success);
                             })
                             .error(function(data, status) {
+                                Notification.error( 'Error in Request' );
                                 defer.reject(data, status);
                             });
                         return defer.promise;
