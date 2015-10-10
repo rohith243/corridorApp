@@ -1,16 +1,16 @@
 <div class="main-nav">
     <div class="links">
         <md-button href="/propose-form#/" class="md-primary md-hue-1">
-            propose An App
+            Propose An App
         </md-button>
         <md-button href="/gallery" class="md-primary md-hue-1">
-            gallery
+            All Proposals
         </md-button>
         <md-button ng-if="!username" ng-href="{{signinurl}}" class="md-primary md-hue-1">
             SIGNIN
         </md-button>
         <md-button ng-if="username" href="/dashboard" class="md-primary md-hue-1">
-            Dashboard
+            My Proposals
         </md-button>
         <md-button ng-if="username" href="#" ng-click="logout($event)" class="md-primary md-hue-1">
             LOGOUT, {{username}}
