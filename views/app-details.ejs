@@ -17,7 +17,7 @@
             <div class="header-flush" ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
-                        <div flex="80" flex-sm="100">
+                        <div flex="75" flex-sm="100">
                             <div class="app-details">
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
@@ -29,9 +29,6 @@
                                         </div>
                                         <div btf-markdown="item.shortDesc">
                                         </div>
-                                        <md-button class="md-raised md-primary pull-right" ng-click="expressInterestDetails($event)">
-                                            Express Interest
-                                        </md-button>
                                     </div>
                                     <div class="app-summary" flex="25" flex-sm="100">
 
@@ -51,12 +48,21 @@
                                         <!-- <div layout="row" class="text-right">
                                             <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
                                         </div> -->
-                                        <div layout="row" class="text-right">
-                                            <span class="" flex="45">Likes : </span>
-                                            <span class="app-summary-value" flex="55">
+                                        <div layout="row" class="text-center">
+                                            <span flex>
+                                                <a href="#" ng-click="updateLikes($event)">
+                                                    <div ng-class="likeClass">
+                                                        <span flex="80" class="" >Upvote</span>
+                                                        <span class="upvote-line"> | </span>
+                                                        <span class="upvote-count">{{item.likes.length}}</span>
+                                                    </div>
+                                                </a>
+                                            </span>
+                                            
+                                            <!--<span class="app-summary-value" flex="55">
                                                 {{item.likes.length}}
                                             <a href="#" ng-click="updateLikes( $event )" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
-                                            </span>
+                                            </span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +115,7 @@
 
                             </div>
                         </div>
-                        <div flex="20" flex-sm="100">
+                        <div flex="25" flex-sm="100">
                             <div class="proposer-details">
                                 <!-- <div>
                                     % of completion
@@ -119,13 +125,18 @@
                                     <div class="md-title">Proposed by</div>
                                     <div class="proposed-team-wrap">
                                         <div ng-repeat="mem in item.proposedTeam">
-                                            <md-button class="md-primary md-hue-1" ng-href="mailto:{{mem.mail}}">
+                                            <a ng-href="mailto:{{mem.mail}}">
                                                 <i class="fa fa-envelope-o"></i>
                                                 &nbsp;{{mem.fullName}}
-                                            </md-button>
+                                            </a>
                                         </div>
+                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary" ng-click="expressInterestDetails($event)">
+                                            Express Interest
+                                        </md-button>
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary" ng-href="/propose-form#edit/{{item._id}}">
+                                            Edit
+                                        </md-button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

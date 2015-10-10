@@ -25,6 +25,7 @@
                 var paths = location.pathname.split('/');
                 _id = paths[3];
                 model._id = _id;
+                $scope.currentUser = GLOBAL.user
                 $http.get('/services/getDocument?_id=' + _id)
                     .then(function(res) {
                         $scope.item = res.data;
@@ -33,13 +34,13 @@
                             $scope.item.vedioLink = false;
                         }
                         $scope.item.interests = $scope.item.interests || [];
-                        $scope.likeClass = 'fa fa-thumbs-up color-for-down-vote';
+                        $scope.likeClass = 'upvote-container-down';
                         var likesObj = $scope.item.likes || [];
                         if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
                             var uid = GLOBAL.user.uid;
                             if (uid) {
                                 var index = likesObj.indexOf(uid);
-                                $scope.likeClass = index === -1 ? 'fa fa-thumbs-up color-for-down-vote' : 'fa fa-thumbs-up';
+                                $scope.likeClass = index === -1 ? 'upvote-container-down' : 'upvote-container';
                             }
                         }
                         model.item = $scope.item;
@@ -59,11 +60,11 @@
                                 var likesObj = $scope.item.likes ? $scope.item.likes : [];
                                 var index = likesObj.indexOf( mail );
                                 if ( index !== -1 ) {
-                                    $scope.likeClass = 'fa fa-thumbs-up';
+                                    $scope.likeClass = 'upvote-container';
                                     likesObj.splice( index, 1 );
                                 } else {
                                     $scope.item.likes.push( mail );
-                                    $scope.likeClass = 'fa fa-thumbs-up color-for-down-vote';
+                                    $scope.likeClass = 'upvote-container-down';
                                 }
                                 Notification.success( 'Updated Your changes successfully' );
                             });
