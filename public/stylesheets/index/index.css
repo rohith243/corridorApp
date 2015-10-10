@@ -784,6 +784,8 @@ footer a {
 }
 
 .header-flush .md-button.md-default-theme:focus,.header-flush .md-button.md-default-theme:active {
-   outline: 2px outset #2692F0;
+   -webkit-box-shadow: 0 0 1px 3px #57A7AB inset; 
+   -moz-box-shadow: 0 0 1px 3px #57A7AB inset; 
+   box-shadow: 0 0 1px 3px #57A7AB inset;
 }
 
