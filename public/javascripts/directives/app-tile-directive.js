@@ -16,6 +16,7 @@
                 scope: {
                     item: '=',
                     deleteItem: '=',
+                    togglePublish: '=',
                     key: '=',
                     index: '='
                 }

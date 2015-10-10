@@ -7,10 +7,16 @@
             <span class="wpfp-span">
                 <md-button class="wpfp-link" href="#">
                      <div class="tile-features">
-                         <md-button title="Edit your Proposal" class="md-fab md-primary md-mini" ng-href="/propose-form#edit/{{item._id}}">
+                        <md-button ng-if="!item.isPublish" title="Move {{item.appName}} to Publish" href="#" class="md-fab md-primary md-mini" ng-click="togglePublish($event,item)">
+                             <i class="fa fa-share"></i>
+                         </md-button>
+                        <md-button ng-if="item.isPublish" title="Move {{item.appName}} to Draft" href="#" class="md-fab md-primary md-mini" ng-click="togglePublish($event,item)">
+                             <i class="fa fa-reply"></i>
+                         </md-button>
+                         <md-button title="Edit {{item.appName}}" class="md-fab md-primary md-mini" ng-href="/propose-form#edit/{{item._id}}">
                              <i class="fa fa-edit"></i>
                          </md-button>
-                         <md-button title="Delete your Proposal" href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
+                         <md-button title="Delete {{item.appName}}" href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
                              <i class="fa fa-trash-o"></i>
                          </md-button>
                      </div>
