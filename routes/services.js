@@ -81,7 +81,7 @@ router.post( '/addDocument', function ( req, res, next ) {
             
             var data = req.body.data;
             var setObj = siteUtils.getSetObject( data, collectionName, data.isPublish );
-            
+            /*
             if( !( setObj.errorFields && setObj.errorFields.length ) ) {
                 console.log( '_missing_required fields' + setObj.errorFields );
                 res.statusCode = 400;
@@ -90,7 +90,7 @@ router.post( '/addDocument', function ( req, res, next ) {
                 } );
                 db.close();
                 return;
-            }
+            }*/
 
             setObj.createdAt = +new Date();
             setObj.owner =  {
@@ -181,12 +181,15 @@ router.get('/deleteDoc', function ( req, res, next ) {
         },
         collectionName: collectionName,
         callback: function ( obj ) {
+
+
             mongo.remove( { 
                 collection: obj.collection,
                 query: {
                     _id: oid
                 },
-                callback: function ( err, res ) {
+                res: res,
+                callback: function () {
                     res.json('');
                     obj.db.close();
                 }

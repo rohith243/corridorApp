@@ -75,13 +75,14 @@ mongo.update = function ( obj ) {
 
 
 mongo.authorizedUser = function ( obj ) {
-    
+    console.log( 'authorizedUser' );
     mongo.connect( {
         res: obj.res,
         callback: function( err, db ) {
             obj.db = db;
             var collection = db.collection( obj.collectionName );
             obj.collection = collection;
+            console.log( 'authorizedUserin' );
             mongo.findOne( {
                 res: obj.res,
                 query: obj.query,
@@ -94,8 +95,11 @@ mongo.authorizedUser = function ( obj ) {
                         db.close();
                         return;
                     }
+                    console.log( 'before check' );
                     if( user.checkMail( obj.req, doc.owner.mail ) ) {
+                        console.log( 'checkMail' );
                         obj.callback( obj );
+                        console.log( 'end---------------end' );
                     } else {
                         obj.res.statusCode = 403;
                         obj.res.json( {

@@ -45,7 +45,7 @@
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();
                     if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                        http.get('/services/deletedoc?cname=letsbuild&_id=' + item._id)
+                        http.get('/services/deleteDoc?_id=' + item._id)
                             .then(function(res) {
                                 for (var i in model.appResponse) {
                                     if (item._id === model.appResponse[i]._id) {

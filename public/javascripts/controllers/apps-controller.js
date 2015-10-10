@@ -63,7 +63,7 @@
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();
                     if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                        http.get('/services/deletedoc?cname=letsbuild&_id=' + item._id)
+                        http.get('/services/deleteDoc?_id=' + item._id)
                             .then(function(res) {
                                 index = findObjectIndex(model.appResponse,'_id',item._id);
                                 if (index !== -1) {
@@ -93,8 +93,8 @@
                             data.push( model.appResponse[len] );
                         }
                     }
-                    data = $filter('orderBy')(data, $scope.sortBy, true);
-                    return $filter('limitTo')( data, $scope.limit[ key ]);
+                    return data;
+                    
                                          
                 };
             }
