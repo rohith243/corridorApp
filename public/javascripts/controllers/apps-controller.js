@@ -66,7 +66,7 @@
                         http.get('/services/deletedoc?cname=letsbuild&_id=' + item._id)
                             .then(function(res) {
                                 index = findObjectIndex(model.appResponse,'_id',item._id);
-                                if (index != -1) {
+                                if (index !== -1) {
                                     model.appResponse.splice(index, 1);
                                     Notification.success('app successfully deleted');
                                 }
