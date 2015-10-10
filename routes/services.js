@@ -5,173 +5,416 @@ var JSONStream = require('JSONStream');
 var ObjectId = require('mongodb').ObjectID;
 var user = require('./modules/user');
 var siteUtils = require('./modules/site-utils');
+var collectionName = 'letsbuild';
 
-router.get('/collection', function(req, res, next) {
-    var query = req.query;
+router.get( '/publishedApps', function ( req, res, next ) {
     mongo.connect({
+        res: res,
         callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
-                return;
+            var proj = {}; 
+            try {
+                proj = JSON.parse( req.query.projection )
+            } catch( e ) {
+
             }
+
             var obj = {
                 db: db,
-                collectionName: query.cname
+                collectionName: collectionName,
+                query: {
+                    isPublish: true
+                },
+                projection: proj
             };
-            if (query.cond) {
-                try {
-                    obj.query = JSON.parse(query.cond);
-                } catch (e) {
-                    console.log('error in parsing reqest');
-                }
-            }
-            obj.query = obj.query || {
-            };
-            
-            var udetails = user.getDetails( req );
-            if ( (query.isuid === 'true' || query.isuid === true ) && udetails ) {
-                obj.query['owner.mail'] = udetails.mail;
-            }
-            console.log( obj );
 
             var cursor = mongo.find(obj);
             cursor.stream().pipe(JSONStream.stringify()).pipe(res);
         }
-    });
-});
-router.get('/deletedoc', function(req, res, next) {
-    var query = req.query;
-    mongo.connect({
-        callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
-                return;
-            }
-            var collection = db.collection(query.cname);
-            collection.remove({
-                _id: new ObjectId(query._id)
-            }, function(err, count) {
-                if (err) {
-                    console.log({
-                        'error': '_error_mongo'
-                    });
-                    return;
-                }
-                res.json('');
-                db.close();
-            });
-        }
-    });
-});
-router.get('/getdocument', function(req, res, next) {
-    var query = req.query;
-    mongo.connect({
-        callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
-                return;
-            }
-            var collection = db.collection(query.cname);
-            collection.findOne({
-                _id: new ObjectId(query._id)
-            }, function(err, doc) {
-                if (err) {
-                    console.log({
-                        'error': '_error_mongo'
-                    });
-                    return;
-                }
-                res.json(doc);
-                db.close();
-            });
-        }
-    });
-});
-router.post('/update', function(req, res, next) {
-    var data = req.body.data;
-    var cname = req.body.cname;
-    var id = req.body._id;
-    var setObj = siteUtils.getSetObject( data, cname );
-    if (!setObj) {
-        res.json('');
+    });      
+} );
+
+router.get( '/myProposedApps', function ( req, res, next ) {
+    
+    var udetails = user.getDetails( req );
+    if( ! ( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
         return;
     }
+
     mongo.connect({
+        res: res,
         callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
-                return;
+            var proj = {}; 
+            try {
+                proj = JSON.parse( req.query.projection )
+            } catch( e ) {
+
             }
-            var collection = db.collection(cname);
-            setObj.lastUpdated = +new Date();
-            var udetails = user.getDetails( req );
-            console.log( 'udetails', udetails ); 
-            setObj.lastUpdatedBy = {
-                uid: udetails.uid,
-                mail: udetails.mail
+
+            var obj = {
+                db: db,
+                collectionName: collectionName,
+                query: {
+                    'owner.mail' : udetails.mail
+                },
+                projection: proj
             };
-            collection.update({
-                _id: new ObjectId(id)
-            }, {
-                $set: setObj
-            }, function(err, doc) {
-                if (err) {
-                    console.log({
-                        'error': '_error_mongo'
-                    });
-                    return;
-                }
-                console.log(doc);
-                res.json('');
-                db.close();
-            });
+            var cursor = mongo.find( obj );
+            cursor.stream().pipe(JSONStream.stringify()).pipe(res);
         }
     });
-});
-router.post('/adddocument', function(req, res, next) {
-    var data = req.body.data;
-    var cname = req.body.cname;
-    var setObj = siteUtils.getSetObject(data, cname);
-    mongo.connect({
+} );
+
+router.post( '/addDocument', function ( req, res, next ) {
+    var udetails = user.getDetails( req );
+    if( ! ( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    mongo.connect( {
+        res: res,
         callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
+            
+            var data = req.body.data;
+            var setObj = siteUtils.getSetObject( data, collectionName, data.isPublish );
+            
+            if( !( obj.errorFields && setObj.errorFields.length ) ) {
+                console.log( '_missing_required fields' + setObj.errorFields );
+                res.statusCode = 400;
+                res.json( {
+                    error: '_missing_required'
+                } );
+                db.close();
                 return;
             }
-            var collection = db.collection(cname);
+
             setObj.createdAt = +new Date();
-            var udetails = user.getDetails( req );
             setObj.owner =  {
                 uid: udetails.uid,
                 mail: udetails.mail
             };
-        
+            var collection = db.collection( collectionName );
             collection.insert(setObj, function(err, doc) {
-                if (err) {
+                if ( err ) {
                     console.log({
                         'error': '_error_mongo'
                     });
                     return;
                 }
-                res.json(setObj);
+                res.json( setObj );
                 db.close();
             });
         }
     });
+} );
+
+router.get('/getDocument', function ( req, res, next ) {
+    
+    var query = req.query;
+    var oid =  ObjectId( query._id );
+    mongo.connect( {
+        res: res,
+        callback: function( err, db ) {
+            var collection = db.collection( collectionName );
+            var proj = {};
+             try {
+                proj = JSON.parse( req.query.projection )
+            } catch( e ) {
+
+            }
+            mongo.findOne( {
+                res: res,
+                query: {
+                    _id: oid
+                },
+                projection: proj,
+                collection: collection,
+                callback: function  ( err, doc ) {
+                    if( !doc ) {
+                        res.json( doc );
+                        db.close();
+                        return;
+                    }
+
+                    if( doc.isPublish ) {
+                        
+                        res.json(doc);
+                    
+                    } else {
+
+                        if( user.checkMail( req, doc.owner.mail ) ) {
+                            res.json( doc );
+                        } else {
+                            res.statusCode = 403;
+                            res.json( {
+                                error: '_unauthorised_user'
+                            } );
+                        }
+                    }
+                    db.close();
+                }
+            } );
+        }
+    } );
+} );
+
+router.get('/deleteDoc', function ( req, res, next ) {
+    var query = req.query;
+    var oid =  ObjectId( query._id );
+    var udetails = user.getDetails( req );
+    if( ! ( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+    mongo.authorizedUser( {
+        res: res,
+        req: req,
+        query: {
+            _id: oid
+        },
+        collectionName: collectionName,
+        callback: function ( obj ) {
+            mongo.remove( { 
+                collection: obj.collection,
+                query: {
+                    _id: oid
+                },
+                callback: function ( err, res ) {
+                    res.json('');
+                    obj.db.close();
+                }
+            } );
+        }
+    } );
+} );
+
+router.post('/updateDoc', function(req, res, next) {
+    
+    var data = req.body.data;
+    var cname = req.body.cname;
+    var id = req.body._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+    if( !( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    var setObj = siteUtils.getSetObject( data, collectionName );
+    if ( !setObj ) {
+        res.json('');
+        return;
+    }
+
+    mongo.authorizedUser( {
+        res: res,
+        req: req,
+        query: {
+            _id: oid
+        },
+        collectionName: collectionName,
+        callback: function ( obj ) {
+            console.log( 'even here' );
+            setObj.lastUpdated = +new Date();
+            setObj.lastUpdatedBy = {
+                uid: udetails.uid,
+                mail: udetails.mail
+            };
+            mongo.update( {
+                res: res,
+                collection: obj.collection,
+                query: {
+                    _id: oid    
+                },
+                setData: {
+                    $set: setObj
+                },
+                callback: function  ( err, doc ) {
+                    res.json('');
+                    obj.db.close();    
+                }
+            } );
+        }
+    } );
 });
+
+router.post('/expressInterest', function(req, res, next) {    
+    var data = req.body.data;
+    var id = req.body._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+    if( !( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+    mongo.connect({
+        res: res,
+        callback: function(err, db) {
+            var collection = db.collection( collectionName );
+            mongo.findOne( {
+                res: res,
+                query: {
+                    _id: oid
+                },
+                collection: collection,
+                callback: function  ( err, doc ) {
+                    console.log( 'even here', doc );
+                    if( !doc ) {
+                        console.log( 'error 404' );
+                        res.statusCode = 404;
+                        res.json( {
+                            error: '_item_not_found'
+                        } );
+                        db.close();
+                        return;
+                    } 
+                    else {
+                        console.log( 'eles' );
+                        doc.interests = doc.interests || [];
+                        console.log( 'doc.owner.mail: ' ,doc.owner.mail);
+                        console.log( 'udetails.mail: ' ,udetails.mail);
+                        if( udetails.mail ===  doc.owner.mail ) {
+                            console.log( 'error:403' );
+
+                            res.statusCode = 403;
+                            res.json( {
+                                error: '_item_owner'
+                            } );
+                            db.close();
+                        } else {
+                            var currentItem = {
+                                hours: data.hours,
+                                aboutme: data.aboutme,
+                                mail: udetails.mail,
+                                fullName: udetails.firstname + ' ' + udetails.lastname,
+                                uid: udetails.uid
+                            };
+
+                            var isExists = false;
+                            for (var i = doc.interests.length - 1; i >= 0; i--) {
+                                
+                                if( doc.interests[ i ].mail === udetails.mail ) {
+                                    var isExists = true;    
+                                    doc.interests[ i ].hours = data.hours;
+                                    doc.interests[ i ].aboutme = data.aboutme;
+                                    break;
+                                }
+                            }
+                            if( !isExists ) {
+                                doc.interests.push( currentItem );
+                            }
+
+                            mongo.update( {
+                                res: res,
+                                collection: collection,
+                                query: {
+                                    _id: oid    
+                                },
+                                setData: {
+                                    $set: {
+                                        interests: doc.interests
+                                    }
+                                },  
+                                callback: function  ( err, udoc ) {
+                                    res.json('');
+                                    var mail = require('./modules/mail.js');
+                                    mail.send( doc, currentItem );
+                                    db.close();    
+                                }
+                            } );
+                        }
+                    }
+                }
+            } );
+        }
+    });
+});
+
+router.post('/toggleVote', function(req, res, next) {
+    var data = req.body.data;
+    var id = req.body._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+    if( !( udetails && udetails.mail ) ) {
+        req.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    mongo.connect( {
+        res: res,
+        callback: function(err, db) {
+            var collection = db.collection( collectionName );
+            mongo.findOne( {
+                res: res,
+                query: {
+                    _id: oid
+                },
+                collection: collection,
+                callback: function  ( err, doc ) {
+                    console.log( 'even here', doc );
+                    if( !doc ) {
+                        console.log( 'error 404' );
+                        res.statusCode = 404;
+                        res.json( {
+                            error: '_item_not_found'
+                        } );
+                        db.close();
+                        return;
+                    } 
+                    else {
+                        
+                        doc.likes = doc.likes || [];
+                        var index = doc.likes.indexOf( udetails.mail );
+                        if( index !== -1 ) {
+                            
+                            doc.likes.splice( index, 1 );
+                        
+                        } else {
+
+                            doc.likes.push( udetails.mail );
+
+                        }
+
+                        mongo.update( {
+                            res: res,
+                            collection: collection,
+                            query: {
+                                _id: oid    
+                            },
+                            setData: {
+                                $set: {
+                                    likes: doc.likes
+                                }
+                            },  
+                            callback: function  ( err, udoc ) {
+                                res.json('');
+                                db.close();
+                            }
+                        } );
+                    }
+                }
+            } );
+        }
+    });
+});
+
+
 router.get('/userdetails', function(req, res, next) {
     res.json( user.getAllDetails( req ) );
 });
+
 router.get('/logout', function(req, res, next) {
     if (req.session.destroy) {
         req.session.destroy();
@@ -180,52 +423,5 @@ router.get('/logout', function(req, res, next) {
     }
     res.send('');
 });
-router.post('/push', function(req, res, next) {
-    var cname = req.body.cname;
-    var id = req.body._id;
-    var data = req.body.data;
-    var key = req.body.key;
-    mongo.connect({
-        callback: function(err, db) {
-            if (err) {
-                console.log({
-                    'error': '_error_mongo'
-                });
-                return;
-            }
-            var collection = db.collection(cname);
-            collection.update({
-                _id: new ObjectId(id)
-            }, {
-                $push: data
-            }, function(err, doc) {
-                if (err) {
-                    console.log({
-                        'error': '_error_mongo'
-                    });
-                    return;
-                }
-                if( key === 'expressinterest' ) {
-                    collection.findOne({_id:new ObjectId(id)}, function(err, item) {
-                        
-                        if( err ) {
-                            console.log({
-                                'error': '_error_mongo'
-                            });
-                            return;
-                        }
-                        var mail = require('./modules/mail.js');
-                        mail.send( item, data.interests );
 
-                        db.close();    
-                    });
-                }
-                
-                
-                res.json('');
-                
-            });
-        }
-    });
-});
 module.exports = router;

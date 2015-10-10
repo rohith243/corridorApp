@@ -26,7 +26,28 @@
                     $mdDialog.hide();
                 };
                 $scope.addContributor = function() {
-                    if (isupdate) {
+
+                    http.post( '/services/expressInterest', {
+                        postData: {
+                            data: {
+                                hours:  $scope.user.hours,
+                                aboutme: $scope.user.aboutme
+                            },
+                            _id: model._id
+                        }
+                    } )
+                    .then( function  ( res ) {
+                        console.log(  res );
+                        if ( isupdate ) {
+                            Notification.success('Successfully updated your changes');
+                        } else {
+                            interests.push($scope.user);
+                            Notification.success('Thanks for expressing interest');
+                        }
+                        
+                    } );
+
+                    /*if ( isupdate ) {
                         http.post('/services/update', {
                                 postData: {
                                     data: {
@@ -54,7 +75,7 @@
                                     Notification.success('Thanks for expressing interest');
                                 }
                             });
-                    }
+                    }*/
                     $mdDialog.hide();
                 };
             }

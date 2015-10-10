@@ -1,40 +1,32 @@
 var utils = {};
-utils.getSetObject = function(data, cname) {
+utils.getSetObject = function(data, cname, isRequiredValidation) {
     var obj = {};
     var objupdated = false;
     var map = {
         appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
         letsbuild: [
-            'name',
-            'src',
-            'status',
-            'effort',
-            'percentageOfCompletion',
-            'category',
-            'href',
-            'division',
-            'shortDesc',
-            'longDesc',
-            'techDetails',
-            'vedioLink',
-            'minimumBid',
-            'team',
-            'proposedTeam',
             'appName',
             'shortDesc',
             'longDesc',
-            'proposedTeam',
-            'links',
+            'category',
             'solution',
+            'vedioLink',
+            'links',
+            'proposedTeam',
             'contributors',
-            'isPublish',
             'public',
+            'status',
             'invites',
             'imgurl',
-            'interests',
-            'likes'
+            'isPublish'          
         ],
         globals: ['name', 'type', 'value']
+    };
+    var requiredMap = {
+        letsbuild: [
+           'appName',
+           'solution'
+        ]
     };
     for (var len = map[cname].length - 1; len >= 0; len--) {
         var key = map[cname][len];
@@ -43,6 +35,16 @@ utils.getSetObject = function(data, cname) {
             obj[key] = data[key];
         }
     }
+
+    if( isRequiredValidation  ) {
+        obj.errorFields = [];
+        for( var key in requiredMap[ cname ] ) {
+            if( !obj[ requiredMap[ cname ][ key ] ] ) {
+                obj.errorFields.push( requiredMap[ cname ][ key ] );
+            } 
+        }
+    }
+
     if ( objupdated ) {
         utils.validateVideoLink( obj );
         return obj;

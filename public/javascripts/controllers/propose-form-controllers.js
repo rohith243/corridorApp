@@ -3,22 +3,34 @@
     var getPostData = function(data, originalData, cname) {
         var map = {
             appstore: ['name', 'category', 'src', 'srcLg', 'infotext', 'href', 'desc'],
-            letsbuild: ['name', 'src', 'status', 'effort', 'percentageOfCompletion',
-                'category', 'href', 'division', 'shortDesc', 'longDesc',
-                'techDetails', 'vedioLink', 'minimumBid', 'team', 'proposedTeam',
-                'appName', 'shortDesc', 'longDesc', 'proposedTeam', 'links',
-                'solution', 'contributors', 'isPublish', 'public', 'invites',
-                'imgurl'
+            letsbuild: [
+                'appName',
+                'shortDesc',
+                'longDesc',
+                'category',
+                'solution',
+                'vedioLink',
+                'links',
+                'proposedTeam',
+                'contributors',
+                'public',
+                'status',
+                'invites',
+                'imgurl',
+                'isPublish' 
             ],
             globals: ['name', 'type', 'value']
         };
+        
+
         var obj = {};
         for (var len = map[cname].length - 1; len >= 0; len--) {
             var key = map[cname][len];
-            if (data[key] !== originalData[key]) {
+            if ( data[key] !== originalData[key] ) {
                 obj[key] = data[key];
             }
         }
+        
         return obj;
     };
     angular.module('proposeFormControllers', [])
@@ -43,7 +55,7 @@
                 $scope.tabcount = tabcount;
                 $scope.saveApp = function(e) {
                     e.preventDefault();
-                    http.post('/services/adddocument', {
+                    http.post('/services/addDocument', {
                             postData: {
                                 data: $scope.item,
                                 cname: 'letsbuild'
@@ -61,7 +73,7 @@
                     $scope.updateForm.$showValidation = true;
                     if ($scope.updateForm && $scope.updateForm.$valid) {
                         $scope.item.isPublish = true;
-                        http.post('/services/adddocument', {
+                        http.post('/services/addDocument', {
                                 postData: {
                                     data: $scope.item,
                                     cname: 'letsbuild'
@@ -155,7 +167,7 @@
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
                 if (_id) {
-                    http.get('services/getdocument?cname=letsbuild&_id=' + _id)
+                    http.get('services/getDocument?_id=' + _id)
                         .then(function(res) {
                             originalData = res;
                             $scope.item = angular.copy(res);
@@ -171,7 +183,7 @@
                 $scope.saveApp = function(e) {
                     e.preventDefault();
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
-                    http.post('/services/update', {
+                    http.post('/services/updateDoc', {
                             postData: {
                                 data: setData,
                                 cname: 'letsbuild',
@@ -205,7 +217,7 @@
                     }
                     $scope.item.isPublish = !isPublished;
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
-                    http.post('/services/update', {
+                    http.post('/services/updateDoc', {
                             postData: {
                                 data: setData,
                                 cname: 'letsbuild',
