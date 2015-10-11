@@ -1319,8 +1319,8 @@ input {
     margin-right: 5px;
 }
 .project-card.project-card-tall .project-stats-value, .project-card.project-card-tall-big .project-stats-value {
-    color: #0f2105;
-    font-weight: bold;
+    /*color: #0f2105;
+    font-weight: bold;*/
 }
 @media (max-width: 640px) {
     body: not(.widget) .project-card.project-card-tall .project-stats-value, body:not(.widget) .project-card.project-card-tall-big .project-stats-value {
@@ -1386,7 +1386,6 @@ input {
     color: inherit;
 }
 .project-card--spotlight .project-profile-blurb {
-    font-family: "Tiempos",  Georgia,  serif;
     text-align: center;
     height: 88px;
     overflow: hidden;
@@ -1595,4 +1594,8 @@ input {
     -webkit-transform: none;
     transform: none;
   }
+}
+
+.project-card.project-card-tall .project-stats, .project-card.project-card-tall-big .project-stats {
+    padding-left: 0px;
 }

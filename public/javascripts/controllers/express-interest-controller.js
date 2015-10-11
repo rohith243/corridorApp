@@ -12,7 +12,16 @@
                     aboutme: ''
                 };
                 var isupdate = false;
-                var interests = model.item.interests;
+                var item = model.item;
+                var totalEffort = 0;
+                for (var interest in item.interests) {
+                    var user = item.interests[interest];
+                    if (user.hours && !isNaN(user.hours)) {
+                        totalEffort = totalEffort + parseInt(user.hours);
+                    }                        
+                }
+                $scope.remainingEffort = item.effort - totalEffort;
+                var interests = item.interests;
                 if (uid && interests) {
                     for (var user in interests) {
                         if (interests[user].uid === uid) {
@@ -25,27 +34,34 @@
                 $scope.closeDialog = function() {
                     $mdDialog.hide();
                 };
-                $scope.addContributor = function() {
 
-                    http.post( '/services/expressInterest', {
-                        postData: {
-                            data: {
-                                hours:  $scope.user.hours,
-                                aboutme: $scope.user.aboutme
-                            },
-                            _id: model._id
-                        }
-                    } )
-                    .then( function  ( res ) {
-                        console.log(  res );
-                        if ( isupdate ) {
-                            Notification.success('Successfully updated your changes');
-                        } else {
-                            interests.push($scope.user);
-                            Notification.success('Thanks for expressing interest');
-                        }
-                        
-                    } );
+                $scope.addContributor = function() {
+                    if ($scope.user.hours > $scope.remainingEffort) {
+                        Notification.error('You can Enter more than remaining hours left');
+                        return;
+                    }
+                    else {
+                        http.post( '/services/expressInterest', {
+                            postData: {
+                                data: {
+                                    hours:  $scope.user.hours,
+                                    aboutme: $scope.user.aboutme
+                                },
+                                _id: model._id
+                            }
+                        } )
+                        .then( function  ( res ) {
+                            console.log(  res );
+                            if ( isupdate ) {
+                                Notification.success('Successfully updated your changes');
+                            } else {
+                                interests.push($scope.user);
+                                Notification.success('Thanks for expressing interest');
+                            }
+                            
+                        } );
+                    }
+                    
 
                     /*if ( isupdate ) {
                         http.post('/services/update', {
