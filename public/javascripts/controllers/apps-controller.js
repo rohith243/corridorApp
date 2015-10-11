@@ -96,7 +96,7 @@
                     else {
                         Notification.error('Fill required details and then publish');
                     }
-                }
+                };
                 
                 $scope.bgColors = function(){
                    return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];

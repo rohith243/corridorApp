@@ -13,8 +13,8 @@
         <section>
             <%- include common/header.ejs %>
         </section>
-        <section>
-            <div class="header-flush" ng-controller="appDetailController">
+        <section class="main-content header-flush">
+            <div  ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
                         <div flex="75" flex-sm="100">
@@ -129,10 +129,10 @@
                                                 &nbsp;{{mem.fullName}}
                                             </a>
                                         </div>
-                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary" ng-click="expressInterestDetails($event)">
+                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
                                             Express Interest
                                         </md-button>
-                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary" ng-href="/propose-form#edit/{{item._id}}">
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="/propose-form#edit/{{item._id}}">
                                             Edit
                                         </md-button>
                                     </div>

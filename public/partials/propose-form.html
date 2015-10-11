@@ -1,7 +1,7 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-        <md-button class="md-raised md-primary">
+        <md-button class="md-raised md-primary primary-button">
             <span ng-if="isPublished">
                 Update Changes
             </span>
@@ -9,13 +9,13 @@
                 Save to draft
             </span>
         </md-button>
-        <md-button ng-if="!isPublished" class="md-raised md-primary" ng-click="togglePublish( $event, isPublished ) ">
+        <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) ">
             Publish
         </md-button>
-        <md-button ng-if="isPublished" class="md-raised md-warn" ng-click="togglePublish( $event, isPublished ) ">
+        <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
             unpublish
         </md-button>
-        <md-button ng-if="item._id"  class="md-raised md-primary" target="_blank" ng-href="/gallery/id/{{item._id}}">
+        <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="/gallery/id/{{item._id}}">
             Preview
         </md-button>
         </div>
@@ -218,10 +218,10 @@
             </md-tabs>
         </md-content>
         <div style="overflow:auto">
-            <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary pull-left" ng-if="global.selectedIndex !=0">
+            <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary primary-button pull-left" ng-if="global.selectedIndex !=0">
                 Previous
             </md-button>
-            <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
+            <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary primary-button pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
                 Next
             </md-button>
         </div>
