@@ -47,19 +47,9 @@
                         $scope.limit = {};
                         for (var key in keys) {
                             $scope.apps[keys[key]] = res; // drafts,published
-                            $scope.limit[ keys[key] ] = 8;
+                            $scope.limit[ keys[key] ] = 6;
                         }
-                        //tile slow loading only in gallery page
-                        if( keys[0] === 'letsbuild') {
-                            $scope.apps.letsbuild = [];
-                            for( var len= res.length-1 ; len >=0 ; len-- ) {
-                                (function( j ){
-                                    $timeout( function () {
-                                        $scope.apps.letsbuild.push( res[ j ] ); 
-                                    }, j*100 );
-                                })( len );
-                            }
-                        }
+                        
 
                         for( var index in res) { 
                             var item = res[index];

@@ -12,10 +12,10 @@
                     <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
                 </div>
                 <div class="tiles-container" ng-if="!loading">
-                        <div class="tiles grid-row">
-                            <div ng-if="!isEdit" class="cardstyle2 fadeInUp  grid grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4" app-tile data-item="item" ng-repeat="item in allFilteredApps">
+                        <div class="gridlayout grid-row layout-wrap">
+                            <div ng-if="!isEdit" class="fadeInUp  grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile data-item="item" ng-repeat="item in allFilteredApps">
                             </div>
-                            <div ng-if="isEdit"  class="cardstyle2 fadeInUp grid grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key" ng-repeat="item in allFilteredApps">
+                            <div ng-if="isEdit"  class="fadeInUp grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-key="key" ng-repeat="item in allFilteredApps">
                             </div>
                         </div>
                         <div class="loadmore" ng-if="tab.length > limit[key]">

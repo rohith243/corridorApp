@@ -1,23 +1,40 @@
-<div class="c-offering-tile-wrapper">
-   <div class="rc-OfferingTile">
-      <a ng-href="/gallery/id/{{item._id}}">
-         <div class="c-course-image" ng-style="{'background-image': 'url( {{item.imgurl || 'images/default.png' }})'}">
-            <div class="card-favorite">
-            <span class="wpfp-span">
-                    <div class="wpfp-link" href="#" title="Add to Favorites">
-                        <span class="icon ion-android-star-outline">
-                            <i class="fa fa-star-o fa-lg"></i>
-                        </span> Favorite
-                    </div>
-            </span>
-          </div>
-        </div>
-        <div class="c-course-details">
-            <div class="c-course-title">{{item.appName}}</div>
-            <div class="c-course-partner">
-                <span>{{item.shortDesc}}</span>
+<div class="apptilescontainer">
+   <a ng-href="/gallery/id/{{item._id}}">
+      <div class="project-card project-card-tall-big">
+         <div class="project-thumbnail">
+            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || 'images/default.png' }}" width="100%">
+         </div>
+         <div class="project-card-content">
+            <h6 class="project-title">{{item.appName}}</h6>
+             <!-- <p class="project-byline">{{item.appName}}</p>  -->
+            <p class="project-blurb">
+               {{item.shortDesc}}
+            </p>
+         </div>
+         <div class="project-card-footer">
+            <p class="project-byline">Category : {{item.category}}</p>
+            <div class="project-stats-container">
+               <div class="project-progress-bar">
+                  <div class="project-percent-pledged" style="width: 23.8%"></div>
+               </div>
+               <ul class="project-stats">
+                  <li>
+                     <div class="project-stats-value">23%</div>
+                     <span class="project-stats-label">funded</span>
+                  </li>
+                  <li>
+                     <div class="project-stats-value"><span class="money usd no-code">$2,023</span></div>
+                     <span class="project-stats-label">pledged</span>
+                  </li>
+                  <li class="ksr_page_timer">
+                     <div class="project-stats-value">
+                        <div class="num">35</div>
+                     </div>
+                     <div class="project-stats-label text">days to go</div>
+                  </li>
+               </ul>
             </div>
          </div>
-      </a>
-   </div>
+      </div>
+   </a>
 </div>
