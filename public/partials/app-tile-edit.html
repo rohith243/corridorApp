@@ -68,25 +68,17 @@
             </p>
          </div>
          <div class="project-card-footer">
-            <p class="project-byline">Category : {{item.category}}</p>
+            <p class="project-byline">Category : {{item.category || "N/A"}}</p>
             <div class="project-stats-container">
                <div class="project-progress-bar">
-                  <div class="project-percent-pledged" style="width: 23.8%"></div>
+                  <div class="project-percent-pledged" ng-style="{'width':getEffortFunded(item)}"></div>
                </div>
                <ul class="project-stats">
-                  <li>
-                     <div class="project-stats-value">23%</div>
-                     <span class="project-stats-label">funded</span>
+                  <li style="float: left;">
+                     <div class="project-stats-value">{{getEffortFunded(item)}} hours filled</div>
                   </li>
-                  <li>
-                     <div class="project-stats-value"><span class="money usd no-code">$2,023</span></div>
-                     <span class="project-stats-label">pledged</span>
-                  </li>
-                  <li class="ksr_page_timer">
-                     <div class="project-stats-value">
-                        <div class="num">35</div>
-                     </div>
-                     <div class="project-stats-label text">days to go</div>
+                  <li style="float: right;">
+                     <div class="project-stats-value"><span class="money usd no-code">Total Upvotes : {{item.likes.length}}</span></div>
                   </li>
                </ul>
             </div>

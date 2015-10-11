@@ -19,7 +19,8 @@ utils.getSetObject = function(data, cname, isRequiredValidation) {
             'status',
             'invites',
             'imgurl',
-            'isPublish'          
+            'isPublish',
+            'effort'          
         ],
         globals: ['name', 'type', 'value']
     };

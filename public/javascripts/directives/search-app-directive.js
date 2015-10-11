@@ -88,6 +88,20 @@
                             });
                     }
                 };
+                $scope.getEffortFunded = function(item) {
+                    var effortFunded = 0;
+                    for (var interest in item.interests) {
+                        var user = item.interests[interest];
+                        if (user.hours && !isNaN(user.hours)) {
+                            effortFunded = effortFunded + parseInt(user.hours);
+                        }                        
+                    }
+                    var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
+                    if (isNaN(effortFundedPerc)) {
+                        return "0%";
+                    }
+                    return effortFundedPerc+"%";
+                };
             }
         ]);
 })(angular);

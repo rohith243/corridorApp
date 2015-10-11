@@ -5,7 +5,8 @@
                 templateUrl: '/partials/app-tile.html',
                 restict: 'A',
                 scope: {
-                    item: '='
+                    item: '=',
+                    getEffortFunded: '='
                 }
             };
         }])
@@ -16,6 +17,7 @@
                 scope: {
                     item: '=',
                     deleteItem: '=',
+                    getEffortFunded: '=',
                     togglePublish: '=',
                     key: '=',
                     index: '='
