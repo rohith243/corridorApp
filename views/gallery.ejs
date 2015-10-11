@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="gridlayout grid grid-row" layout-wrap>
-                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="item" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
                                         </div>
                                     </div>
                                     <div class="loadmore" ng-if="tab.length > limit[key]">

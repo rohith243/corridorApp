@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="gridlayout grid grid-row" layout-wrap>
-                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-toggle-publish="togglePublish" data-key="key" ng-repeat="item in  getData( key ) | orderBy:sortBy | limitTo:limit[key]">
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-edit data-item="item" data-index="$index" data-get-effort-funded="getEffortFunded" data-delete-item="deleteItem" data-toggle-publish="togglePublish" data-key="key" ng-repeat="item in  getData( key ) | orderBy:sortBy | limitTo:limit[key]">
                                         </div>
                                     </div>
                                     <div class="loadmore" ng-if="getData(key).length > limit[key]">
