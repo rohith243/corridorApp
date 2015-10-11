@@ -8,11 +8,13 @@ mongo.connect = function(obj) {
     var connectUrl = url + (obj.dbname || +dbname);
     MongoClient.connect(connectUrl, function( err, db ) {
         if( err ) {
-            console.log( 'mongo connection error' );
+            console.log( 'Mongo connection error' );
             if( obj.res ) {
+                obj.res.statusCode = 500;
                 obj.res.json( {
                     'error': '_error_mongo'
                 } );
+                return;
             }
         }
         

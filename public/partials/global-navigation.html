@@ -1,25 +1,37 @@
-<div class="main-nav">
-    <div class="links">
-        <md-button href="/propose-form#/" class="md-primary md-hue-1">
-            Propose An App
-        </md-button>
-        <md-button href="/gallery" class="md-primary md-hue-1">
-            All Proposals
-        </md-button>
-        <md-button ng-if="!username" ng-href="{{signinurl}}" class="md-primary md-hue-1">
-            SIGNIN
-        </md-button>
-        <md-button ng-if="username" href="/dashboard" class="md-primary md-hue-1">
-            My Proposals
-        </md-button>
-        <md-button ng-if="username" href="#" ng-click="logout($event)" class="md-primary md-hue-1">
-            LOGOUT, {{username}}
-        </md-button>
+<div class="aside-nav" id="aside-nav">
+    <div class="aside-nav-content">
+        <ul class="nav-links">
+            <li>
+                <a href="/propose-form#/" >
+                    Propose An App
+                </a>
+            </li>
+            <li>
+                <a href="/gallery" >
+                    All Proposals
+                </a>
+            </li>
+            <li ng-if="!username">
+                <a  ng-href="{{signinurl}}" >
+                    SIGNIN
+                </a>
+            </li>
+            <li ng-if="username">
+                <a  href="/dashboard" >
+                    My Proposals
+                </a>
+            </li>
+            <li ng-if="username">
+                <a  href="#" ng-click="logout($event)">
+                    LOGOUT, {{username}}
+                </a>
+            </li>
+        </ul>
     </div>
-    <div class="menu-layer" ng-click="closeMenu( $event )"></div>
-   
 </div>
+<div id="opened-page-mask" class="opened-page-mask" ng-click="closeMenu( $event )"></div>
 <a href="#" class="nav-menu" ng-click="openMenu( $event )">
     <i class="fa fa-bars"></i>
 </a>
+
 

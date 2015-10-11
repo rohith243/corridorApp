@@ -16,8 +16,8 @@
             <div class="md-padding">
                 <div>
                     <md-input-container>
-                        <label>Hours you can contribute</label>
-                        <input md-maxlength="2" ng-model="user.hours">
+                        <label>Hours you can contribute (Effort left {{remainingEffort}})</label>
+                        <input type="number" ng-model="user.hours">
                     </md-input-container>
                 </div>
                 <div>
@@ -33,10 +33,10 @@
 
 
     <div class="md-actions">
-        <md-button ng-click="addContributor()" class="md-primary md-raised">
+        <md-button ng-click="addContributor()" class="md-primary md-raised primary-button">
             Contribute
         </md-button>
-        <md-button ng-click="closeDialog()" class="md-primary">
+        <md-button ng-click="closeDialog()" class="md-primary primary-button">
             Close Dialog
         </md-button>
     </div>

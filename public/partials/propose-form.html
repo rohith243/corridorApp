@@ -1,7 +1,7 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-        <md-button class="md-raised md-primary">
+        <md-button class="md-raised md-primary primary-button" data-step="2" data-intro="Save your changes and publish later.">
             <span ng-if="isPublished">
                 Update Changes
             </span>
@@ -9,13 +9,13 @@
                 Save to draft
             </span>
         </md-button>
-        <md-button ng-if="!isPublished" class="md-raised md-primary" ng-click="togglePublish( $event, isPublished ) ">
+        <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) " data-step="3" data-intro="Publish to make it available for others.">
             Publish
         </md-button>
-        <md-button ng-if="isPublished" class="md-raised md-warn" ng-click="togglePublish( $event, isPublished ) ">
+        <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
             unpublish
         </md-button>
-        <md-button ng-if="item._id"  class="md-raised md-primary" target="_blank" ng-href="/gallery/id/{{item._id}}">
+        <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="/gallery/id/{{item._id}}">
             Preview
         </md-button>
         </div>
@@ -29,26 +29,27 @@
       </span>
     </h1>
         <md-content layout-padding>
-            <md-tabs md-dynamic-height md-border-bottom md-selected="global.selectedIndex">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="global.selectedIndex" data-step="1" data-intro="Fill in your application details." data-position="top">
                 <md-tab label="Introduction">
                     <md-content class="tab-content">
                         <div>
                             <div>
                                 <md-input-container>
                                     <label>App Name</label>
-                                    <input md-maxlength="30" required name="appName" ng-model="item.appName">
+                                    <input md-maxlength="30" maxlength="30" required name="appName" ng-model="item.appName">
                                     <div ng-messages="updateForm.$showValidation && updateForm.appName.$error">
                                         <div ng-message="required">This is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                        <div ng-message="maxlength">The name has to be less than 30 characters long.</div>
                                     </div>
                                 </md-input-container>
                             </div>
                             <div>
                                 <md-input-container>
                                     <label>Short Description</label>
-                                    <textarea columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
+                                    <textarea md-maxlength="140" maxlength="140" columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
                                     <div ng-messages="updateForm.$showValidation && updateForm.shortDesc.$error">
                                         <div ng-message="required">This is required.</div>
+                                        <div ng-message="maxlength">ShortName has to be less than 140 characters long.</div>
                                     </div>
                                 </md-input-container>
                             </div>
@@ -78,6 +79,12 @@
                                             Entertainment
                                         </md-option>
                                     </md-select>
+                            </div>
+                            <div>
+                                <md-input-container>
+                                    <label>Estimated effort needs to finish the Idea</label>
+                                    <input type="number" required name="effort" ng-model="item.effort">
+                                </md-input-container>
                             </div>
 
                         </div>
@@ -217,10 +224,10 @@
             </md-tabs>
         </md-content>
         <div style="overflow:auto">
-            <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary pull-left" ng-if="global.selectedIndex !=0">
+            <md-button href="#" ng-click="prevTab( $event )" class="md-raised md-primary primary-button pull-left" ng-if="global.selectedIndex !=0">
                 Previous
             </md-button>
-            <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
+            <md-button href="#" ng-click="nextTab( $event )" class="md-raised md-primary primary-button pull-right" ng-if="global.selectedIndex !=(tabcount - 1)">
                 Next
             </md-button>
         </div>
@@ -266,3 +273,14 @@
         vertical-align: middle;
     }
 </style>
+
+<script type="text/javascript">
+if(!localStorage.getItem( 'visited-propose-form')){
+    localStorage.setItem('visited-propose-form', true);
+    setTimeout(function(){
+    introJs().setOption('doneLabel', 'Next Gallery').start().oncomplete(function() {
+        window.location.href = 'gallery?multipage=true';
+    });
+}, 1000);
+}
+</script>
