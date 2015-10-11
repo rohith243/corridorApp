@@ -436,7 +436,7 @@ input {
     left: 0;
     z-index: 9999;
     -webkit-transition: opacity 0.2s ease-in;
-    background: rgba(245, 245, 245, 0.9);
+    background: #fff;
 }
 
 .app-search-overlay .gridlayout {
