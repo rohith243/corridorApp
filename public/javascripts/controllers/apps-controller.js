@@ -45,7 +45,7 @@
                         $scope.limit = {};
                         for (var key in keys) {
                             $scope.apps[keys[key]] = res; // drafts,published
-                             $scope.limit[ keys[key] ] = 6;
+                             $scope.limit[ keys[key] ] = 8;
                         }
                         for( var index in res) { 
                             var item = res[index];
@@ -96,7 +96,7 @@
                     else {
                         Notification.error('Fill required details and then publish');
                     }
-                }
+                };
                 
                 $scope.bgColors = function(){
                    return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
