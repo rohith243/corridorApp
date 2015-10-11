@@ -5,7 +5,7 @@ html {
 
 .wrapall {
     position: relative;
-    padding-bottom: 93px;
+    padding-bottom: 60px;
 }
 .main-content {
     min-height: 100vh;
@@ -48,7 +48,7 @@ header {
 
 .logo {
     display: inline-block;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .logo img {
@@ -81,7 +81,7 @@ header {
 }
 
 .header-flush {
-    padding-top: 70px;
+    padding-top: 58px;
 }
 
 .banner-container {
@@ -123,14 +123,14 @@ header {
 }
 
 .welcome-section1 {
-    height: 530px;
+    height: 542px;
     background: rgba( 255, 255, 255, 0.3);
     text-shadow: 2px 0px 6px #fff;
     color: #333;
 }
 
 .welcome-section2 {
-    height: 530px;
+    height: 542px;
     background: rgba( 0, 0, 0, 0.5);
     text-shadow: 2px 0px 6px #000;
     color: #fff;
@@ -205,6 +205,9 @@ footer a {
     text-decoration: none;
 }
 
+footer p {
+    margin: 0;
+}
 .page-loader {
     overflow: hidden;
     font-size: 10px;
@@ -620,7 +623,6 @@ footer a {
 .nav-menu {
     font-size: 24px;
     margin-right: 10px;
-    margin-top: 5px;
     display: inline-block;
     color: #fff;
     position: absolute;

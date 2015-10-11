@@ -28,19 +28,51 @@
             '$filter',
             'http',
             'Notification',
+            '$timeout',
             function(
                 $scope,
                 model,
                 $filter,
                 http,
-                Notification
+                Notification,
+                $timeout
             ) {
+                $scope.allFilteredApps = [];
+
                 $scope.filteredApps = function() {
+
                     if ($scope.searchText) {
+
                         return $filter('filter')(model.appResponse && model.appResponse, $scope.searchText);
                     } else {
                         return [];
                     }
+                };
+                var callFunction = function(){
+                    $scope.allFilteredApps = [];
+                    var data = $scope.filteredApps();
+                    if( !data.length ) {
+                        $scope.searchResultZero = true;
+                    } else {
+                        $scope.allFilteredApps[0] = data[0];
+                        for( var i=1; i < data.length; i++ ) {
+                            (function( j ){
+                                $timeout( function () {
+                                    $scope.allFilteredApps.push( data[ j ] ); 
+                                }, j*100 );
+                            })( i );
+                        }
+                    }
+                };
+                var timeoutvar;
+                $scope.searchFilter = function() {
+                    $scope.searchResultZero = false;
+                    $scope.loading = true;
+                    $timeout.cancel( timeoutvar );
+                    timeoutvar = $timeout( function() {
+                        $scope.loading = false;
+                        callFunction();
+                    }, 500 );
                 };
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();

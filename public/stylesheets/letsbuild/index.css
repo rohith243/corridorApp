@@ -378,7 +378,65 @@ input {
     animation:0.5s repeatedItemAnimate ease-in;  
 }
 
-.tile-container.ng-leave {
+/*.cardstyle2.ng-enter {
+       -webkit-transition: 0.5s ease-in all;
+    -moz-transition: 0.5s ease-in all;
+    -o-transition: 0.5s ease-in all;
+    transition: 0.5s ease-in all;
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    /*max-height: 500px;
+  overflow: hidden;
+}
+.cardstyle2.ng-enter.ng-enter-active {
+        opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}*/
+
+
+.fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.search-loader md-progress-circular{
+    display: inline-block;
+}
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+
+.cardstyle2.ng-leave {
     -webkit-transition: 0.5s ease-in all;
     -moz-transition: 0.5s ease-in all;
     -o-transition: 0.5s ease-in all;
@@ -389,10 +447,11 @@ input {
     /*max-height: 500px;
   overflow: hidden;*/
 }
-.tile-container.ng-leave.ng-leave-active {
+.cardstyle2.ng-leave.ng-leave-active {
     opacity: 0;
     -webkit-transform: scale(0);
     transform: scale(0);
+
     /*max-height: 0px;*/
 }
 
@@ -707,7 +766,7 @@ input {
 }
 
 .tile-container {
-    background-color: #fff;
+    /*background-color: #fff;*/
     /*margin: 10px;*/
     padding: 10px;
 }
@@ -893,21 +952,22 @@ input {
 }
 .rc-OfferingTile .c-course-title {
     color: #428bca;
-    font-size: 1.2em;
-    overflow-y: hidden;
+    font-size: 18px;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-height: 1.2em;
-    max-height: 2.4em;
-    max-height: 2.5em
+    -webkit-line-clamp: 1;
+    padding: 5px 0;
+    height: 25px;
+    overflow: hidden;
 }
 .rc-OfferingTile .c-course-partner {
     /*height: 1.3em;*/
     height: 38px;
     overflow: hidden;
+    font-size: 14px;
+    margin-top: 2px;
     /*-o-text-overflow: ellipsis;
     text-overflow: ellipsis;*/
     /*overflow: hidden;
@@ -938,7 +998,7 @@ input {
     width: 100%;
 }
 .cardstyle2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .rc-OfferingTile .card-favorite .tile-features a {
@@ -965,7 +1025,7 @@ input {
     position: absolute;
     text-align: center;
     left: 0;
-    bottom: 0;
+    bottom: -2px;
     width: 100%;
     -webkit-transition: .4s cubic-bezier(.69, .1, .09, .94) all;
     transition: .4s cubic-bezier(.69, .1, .09, .94) all;
@@ -995,4 +1055,12 @@ input {
 
 .rc-OfferingTile:hover .tile-features {
     opacity: 1;
+}
+.rc-OfferingTile a {
+    text-decoration: none;
+}
+
+.grid-row {
+    text-align: left;
+    justify-content: left;
 }
