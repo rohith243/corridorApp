@@ -50,7 +50,8 @@
                             $scope.limit[ keys[key] ] = 6;
                         }
                         
-
+                        getFirstId = res[ 0 ]._id;
+                        
                         for( var index in res) { 
                             var item = res[index];
                             if (item) {

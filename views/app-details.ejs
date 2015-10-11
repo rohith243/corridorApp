@@ -17,8 +17,8 @@
             <div ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
-                        <div flex="75" flex-sm="100" class="app-details-wrap">
-                            <div class="app-details">
+                        <div flex="75" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
+                            <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
                                         <img ng-src="{{item.imgurl || '/images/default.png'}}">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div flex="25" flex-sm="100" class="proposer-details-wrap">
+                        <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
                                 <!-- <div>
                                     % of completion
@@ -100,13 +100,13 @@
                     </div>
                 </div>
 
-                <div class="content-separators" ng-if="item.longDesc">
+                <div class="content-separators" ng-if="item.longDesc" >
                     <div class="icon-holder">
                         <div class="icon-parent">
                             <span class="fa fa-info"></span>
                         </div>    
                     </div>
-                    <div class="page-layout">
+                    <div class="page-layout"  data-step="6" data-intro="Introduction to App">
                         <h1 class="content-heading">Introduction</h1>
                         <div class="content-data">
                             <div btf-markdown="item.longDesc"></div>
@@ -120,9 +120,9 @@
                             <span class="fa fa-television"></span>
                         </div>    
                     </div>
-                    <div class="page-layout">
+                    <div class="page-layout"  data-step="7" data-intro="Click to watch video.">
                         <h1 class="content-heading">Video</h1>
-                        <div class="content-data">
+                        <div class="content-data" >
                             <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
                                                 </iframe>
                         </div>
@@ -135,7 +135,7 @@
                             <span class="fa fa-sitemap"></span>
                         </div>    
                     </div>
-                    <div class="page-layout">
+                    <div class="page-layout"  data-step="8" data-intro="Application analysis.">
                         <h1 class="content-heading">Analysis</h1>
                         <div class="content-data">
                             <div btf-markdown="item.solution"></div>
@@ -149,7 +149,7 @@
                             <span class="fa fa-users"></span>
                         </div>    
                     </div>
-                    <div class="page-layout" >
+                    <div class="page-layout" data-step="9" data-intro="Team Members">
                         <h1 class="content-heading">Team</h1>
                         <div class="content-data">
                             <div >
@@ -299,6 +299,16 @@
             }
         }  
     </style>
+
+     <script type="text/javascript">
+        if(!localStorage.getItem( 'appdetails-visited')){
+            localStorage.setItem( 'appdetails-visited', true);
+            setTimeout(function(){
+                introJs().start();
+            }, 1000);
+        }
+</script>
+
 </body>
 
 </html>
