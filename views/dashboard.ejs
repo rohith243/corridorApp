@@ -37,10 +37,9 @@
                                     </md-input-container>
                                 </div>
                             </div>
-                            <div flex="50">
+                            <div>
                                 <div class="dummy-search-wrap">
-                                    <label for="dummy-search-field"><span class="fa fa-search"></span></label>
-                                    <input id="dummy-search-field" class="search-field " type="text" name="search" ng-focus="searchpop()" placeholder="Search app">
+                                    <span ng-click="searchpop()" class="fa fa-search"></span>
                                 </div>
                             </div>
                         </div>
@@ -61,8 +60,8 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="tiles" layout="row" layout-wrap>
-                                        <div  flex="30" flex-sm="100" class="tile-container fadein" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-toggle-publish="togglePublish" data-key="key" ng-repeat="item in  getData( key ) | orderBy:sortBy | limitTo:limit[key]">
+                                    <div class="" layout="row" layout-wrap>
+                                        <div  flex="25" flex-sm="100" class="cardstyle2" app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-toggle-publish="togglePublish" data-key="key" ng-repeat="item in  getData( key ) | orderBy:sortBy | limitTo:limit[key]">
                                         </div>
                                     </div>
                                     <div class="loadmore" ng-if="getData(key).length > limit[key]">

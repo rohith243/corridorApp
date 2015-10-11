@@ -36,19 +36,20 @@
                             <div>
                                 <md-input-container>
                                     <label>App Name</label>
-                                    <input md-maxlength="30" required name="appName" ng-model="item.appName">
+                                    <input md-maxlength="30" maxlength="30" required name="appName" ng-model="item.appName">
                                     <div ng-messages="updateForm.$showValidation && updateForm.appName.$error">
                                         <div ng-message="required">This is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                        <div ng-message="maxlength">The name has to be less than 30 characters long.</div>
                                     </div>
                                 </md-input-container>
                             </div>
                             <div>
                                 <md-input-container>
                                     <label>Short Description</label>
-                                    <textarea columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
+                                    <textarea md-maxlength="140" maxlength="140" columns="1" name="shortDesc" ng-model="item.shortDesc"></textarea>
                                     <div ng-messages="updateForm.$showValidation && updateForm.shortDesc.$error">
                                         <div ng-message="required">This is required.</div>
+                                        <div ng-message="maxlength">ShortName has to be less than 140 characters long.</div>
                                     </div>
                                 </md-input-container>
                             </div>
