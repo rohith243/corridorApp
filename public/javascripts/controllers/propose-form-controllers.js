@@ -17,7 +17,8 @@
                 'status',
                 'invites',
                 'imgurl',
-                'isPublish' 
+                'isPublish',
+                'effort'
             ],
             globals: ['name', 'type', 'value']
         };

@@ -30,12 +30,14 @@
             'Notification',
             'http',
             '$filter',
+            '$timeout',
             function(
                 $scope,
                 model,
                 Notification,
                 http,
-                $filter
+                $filter,
+                $timeout
             ) {
                 http.get(serviceConfig.app.url)
                     .then(function(res) {
@@ -45,8 +47,11 @@
                         $scope.limit = {};
                         for (var key in keys) {
                             $scope.apps[keys[key]] = res; // drafts,published
-                             $scope.limit[ keys[key] ] = 6;
+                            $scope.limit[ keys[key] ] = 6;
                         }
+                        
+                        getFirstId = res[ 0 ]._id;
+                        
                         for( var index in res) { 
                             var item = res[index];
                             if (item) {
@@ -96,7 +101,7 @@
                     else {
                         Notification.error('Fill required details and then publish');
                     }
-                }
+                };
                 
                 $scope.bgColors = function(){
                    return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
@@ -116,9 +121,21 @@
                         }
                     }
                     return data;
-                    
-                                         
                 };
+                $scope.getEffortFunded = function(item) {
+                    var effortFunded = 0;
+                    for (var interest in item.interests) {
+                        var user = item.interests[interest];
+                        if (user.hours && !isNaN(user.hours)) {
+                            effortFunded = effortFunded + parseInt(user.hours);
+                        }                        
+                    }
+                    var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
+                    if (isNaN(effortFundedPerc)) {
+                        return "0%";
+                    }
+                    return effortFundedPerc+"%";
+                }
             }
         ]);
 })(angular);

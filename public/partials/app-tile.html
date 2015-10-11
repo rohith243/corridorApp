@@ -1,23 +1,32 @@
-<div class="card" ng-style="item.class">
+<div class="apptilescontainer">
    <a ng-href="/gallery/id/{{item._id}}">
-      <div class="card-img-container">
-         <img ng-src="{{item.imgurl || ('/images/default.png')}}" class="card-img"/>
-         <div class="card-favorite">
-           <span class="wpfp-span">
-                   <md-button class="wpfp-link" href="#" title="Add to Favorites">
-                       <span class="icon ion-android-star-outline">
-                           <i class="fa fa-star-o fa-lg"></i>
-                       </span> Favorite
-                   </md-button>
-           </span>
+      <div class="project-card project-card-tall-big">
+         <div class="project-thumbnail">
+            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || 'images/default.png' }}" width="100%">
          </div>
-      </div>
-      <div class="card-content">
-           <div class="md-headline app-title">{{item.appName}}</div>
-           <div class="md-subhead app-desc">
-            <div btf-markdown="item.shortDesc">
+         <div class="project-card-content">
+            <h6 class="project-title">{{item.appName}}</h6>
+             <!-- <p class="project-byline">{{item.appName}}</p>  -->
+            <p class="project-blurb">
+               {{item.shortDesc}}
+            </p>
+         </div>
+         <div class="project-card-footer">
+            <p class="project-byline">Category : {{item.category || "N/A"}}</p>
+            <div class="project-stats-container">
+               <div class="project-progress-bar">
+                  <div class="project-percent-pledged" ng-style="{'width':getEffortFunded(item)}"></div>
+               </div>
+               <ul class="project-stats">
+                  <li style="float: left;">
+                     <div class="project-stats-value">{{getEffortFunded(item)}} hours filled</div>
+                  </li>
+                  <li style="float: right;">
+                     <div class="project-stats-value"><span class="money usd no-code">Total Upvotes : {{item.likes.length}}</span></div>
+                  </li>
+               </ul>
             </div>
-           </div>
+         </div>
       </div>
    </a>
 </div>
