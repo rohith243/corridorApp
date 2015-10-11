@@ -13,34 +13,37 @@
         <section>
             <%- include common/header.ejs %>
         </section>
-        <section>
-            <div class="header-flush" ng-controller="appDetailController">
+        <section class="main-content header-flush">
+            <div ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
-                        <div flex="75" flex-sm="100">
-                            <div class="app-details">
+                        <div flex="75" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
+                            <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
                                         <img ng-src="{{item.imgurl || '/images/default.png'}}">
                                     </div>
-                                    <div class="app-intro" flex="55" flex-sm="100">
+                                    <div class="app-intro" flex="50" flex-sm="100">
                                         <div class="md-title">
-                                            {{item.name}}
+                                            {{item.appName}}
                                         </div>
                                         <div btf-markdown="item.shortDesc">
                                         </div>
                                     </div>
-                                    <div class="app-summary" flex="25" flex-sm="100">
+                                    <div class="app-summary" flex="30" flex-sm="100">
 
                                         <div layout="row" class="text-right" ng-if="item.createdAt">
                                             <span class="" flex="45">Posted date : </span>
-                                            <span flex="55" class="app-summary-value"> {{item.createdAt | date:'yyyy-MM-dd'}}</span>
+                                            <span flex="55" class="app-summary-value"> {{item.createdAt | date:'dd-mmm-yyyy'}}</span>
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.lastUpdated">
-                                            <span class="" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'yyyy-MM-dd'}}</span>
+                                            <span class="" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-mmm-yyyy'}}</span>
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.status">
                                             <span class="" flex="45">Stage : </span> <span flex="55" class="app-summary-value"> {{item.status}}</span>
+                                        </div>
+                                        <div layout="row" class="text-right" ng-if="item.effort">
+                                            <span class="" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}</span>
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.category">
                                             <span class="" flex="45">Category : </span> <span flex="55" class="app-summary-value"> {{item.category}}</span>
@@ -66,55 +69,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <md-content layout-padding>
-                                    <md-tabs md-dynamic-height md-border-bottom>
-                                        <md-tab label="Introduction" ng-if="item.longDesc">
-                                            <md-content class="md-padding">
-                                                <div btf-markdown="item.longDesc"></div>
-                                            </md-content>
-                                        </md-tab>
-                                        <md-tab label="Analysis" ng-if="item.solution">
-                                            <md-content class="md-padding">
-                                                <div btf-markdown="item.solution"></div>
-                                            </md-content>
-                                        </md-tab>
-                                        <md-tab label="Video Links" ng-if="item.vedioLink">
-                                            <md-content class="md-padding">
-                                                <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
-                                                </iframe>
-                                            </md-content>
-                                        </md-tab>
-                                        <md-tab label="Team">
-                                            <div layout="column" class="md-padding">
-                                                <md-content ng-if="item.contributors&&item.contributors.length">
-                                                    <div class="md-title">
-                                                        Team
-                                                    </div>
-                                                    <div class="" ng-repeat="mem in item.contributors">
-                                                        <a ng-href="mailto:{{mem.mail}}" class="">
-                                                        {{mem.fullName}}
-                                                    </a>
-                                                    </div>
-                                                </md-content>
-                                                <md-content >
-                                                    <div ng-if="item.effort">
-                                                        <span class="md-title">Total effort : </span><span class="md-subhead">{{item.effort}}</span>
-                                                    </div>
-                                                    <div ng-if="item.minimumBid">
-                                                        <span class="md-title">Minimum bid : </span><span class="md-subhead">{{item.minimumBid}}</span>
-                                                    </div>
-                                                    <!-- <div class="">
-                                                        <span class="md-title">% of completion : </span><span class="md-subhead">{{item.percentageOfCompletion}}%</span>
-                                                </div> -->
-                                                </md-content>
-                                            </div>
-                                        </md-tab>
-                                    </md-tabs>
-                                </md-content>
-
                             </div>
                         </div>
-                        <div flex="25" flex-sm="100">
+                        <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
                                 <!-- <div>
                                     % of completion
@@ -129,18 +86,84 @@
                                                 &nbsp;{{mem.fullName}}
                                             </a>
                                         </div>
-                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary" ng-click="expressInterestDetails($event)">
+                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
                                             Express Interest
                                         </md-button>
-                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary" ng-href="/propose-form#edit/{{item._id}}">
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="/propose-form#edit/{{item._id}}">
                                             Edit
                                         </md-button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                 </div>
+
+                <div class="content-separators" ng-if="item.longDesc" >
+                    <div class="icon-holder">
+                        <div class="icon-parent">
+                            <span class="fa fa-info"></span>
+                        </div>    
+                    </div>
+                    <div class="page-layout"  data-step="6" data-intro="Introduction to App">
+                        <h1 class="content-heading">Introduction</h1>
+                        <div class="content-data">
+                            <div btf-markdown="item.longDesc"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-separators" ng-if="item.vedioLink">
+                    <div class="icon-holder">
+                        <div class="icon-parent">
+                            <span class="fa fa-television"></span>
+                        </div>    
+                    </div>
+                    <div class="page-layout"  data-step="7" data-intro="Click to watch video.">
+                        <h1 class="content-heading">Video</h1>
+                        <div class="content-data" >
+                            <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                                </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-separators" ng-if="item.solution">
+                    <div class="icon-holder">
+                        <div class="icon-parent">
+                            <span class="fa fa-sitemap"></span>
+                        </div>    
+                    </div>
+                    <div class="page-layout"  data-step="8" data-intro="Application analysis.">
+                        <h1 class="content-heading">Analysis</h1>
+                        <div class="content-data">
+                            <div btf-markdown="item.solution"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-separators" ng-if="item.interests &&item.interests.length>0">
+                    <div class="icon-holder">
+                        <div class="icon-parent">
+                            <span class="fa fa-users"></span>
+                        </div>    
+                    </div>
+                    <div class="page-layout" data-step="9" data-intro="Team Members">
+                        <h1 class="content-heading">Team</h1>
+                        <div class="content-data">
+                            <div >
+                                <ul class="" ng-repeat="mem in item.interests">
+                                    <li>
+                                        <p>{{mem.fullName}}</p>
+                                        <p>{{mem.mail}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
         
@@ -182,9 +205,9 @@
         
         .detail-page {
             margin-top: 20px;
-            font-size: 13px;
+            font-size: 16px;
             line-height: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
         }
         
         @media (max-width: 600px) {
@@ -204,8 +227,11 @@
         
         .app-intro {
             padding-left: 15px;
+            padding-left: 15px;
         }
-        
+        .app-summary {
+            font-size: 14px;
+        }
         .app-summary-value {
             text-align: left;
             padding-left: 5px;
@@ -214,12 +240,75 @@
             color : #B5B0B0;
         }
         .proposed-team-wrap {
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .proposed-team-wrap a {
             text-decoration :none;
         }
+        .proposer-details-wrap {
+            margin-left: -1px;
+            border-left: 1px solid #ccc;
+        }
+        .app-details-wrap {
+
+            border-right: 1px solid #ccc;
+
+        }
+        .content-separators {
+            border-top: 1px solid #f1f1f1;
+            padding: 50px 0;
+        }
+        .detail-page .md-title {
+            font-weight: bold;
+        }
+        .icon-holder {
+                position: relative;
+        }
+        .icon-parent {
+            height: 80px;
+            width: 80px;
+            background: #fff;
+            display: inline-block;
+            position: absolute;
+            left: calc( 50% - 40px);
+            top: -90px;
+            font-size: 29px;
+            padding: 20px;
+            border: 1px solid #f1f1f1;
+            border-radius: 50%;
+            text-align: center; 
+        }
+       
+       .content-heading {
+            text-align: center;
+            font-weight: 500;
+       }
+       .content-data {
+
+       }
+       .main-content {
+            text-align: justify;
+       }
+    
+        @media (max-width:600px) {
+            .proposer-details-wrap {
+                border-left: 0;
+            }
+            .app-details-wrap {
+                    border-right: 0px;
+            }
+        }  
     </style>
+
+     <script type="text/javascript">
+        if(!localStorage.getItem( 'appdetails-visited')){
+            localStorage.setItem( 'appdetails-visited', true);
+            setTimeout(function(){
+                introJs().start();
+            }, 1000);
+        }
+</script>
+
 </body>
 
 </html>
