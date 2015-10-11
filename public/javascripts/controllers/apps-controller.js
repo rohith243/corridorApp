@@ -45,7 +45,7 @@
                         $scope.limit = {};
                         for (var key in keys) {
                             $scope.apps[keys[key]] = res; // drafts,published
-                             $scope.limit[ keys[key] ] = 8;
+                             $scope.limit[ keys[key] ] = 6;
                         }
                         for( var index in res) { 
                             var item = res[index];
