@@ -30,12 +30,14 @@
             'Notification',
             'http',
             '$filter',
+            '$timeout',
             function(
                 $scope,
                 model,
                 Notification,
                 http,
-                $filter
+                $filter,
+                $timeout
             ) {
                 http.get(serviceConfig.app.url)
                     .then(function(res) {
@@ -45,8 +47,10 @@
                         $scope.limit = {};
                         for (var key in keys) {
                             $scope.apps[keys[key]] = res; // drafts,published
-                             $scope.limit[ keys[key] ] = 6;
+                            $scope.limit[ keys[key] ] = 6;
                         }
+                        
+
                         for( var index in res) { 
                             var item = res[index];
                             if (item) {
@@ -116,9 +120,9 @@
                         }
                     }
                     return data;
-                    
-                                         
                 };
+
+
             }
         ]);
 })(angular);
