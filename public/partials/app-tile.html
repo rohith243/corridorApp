@@ -1,23 +1,23 @@
-<div class="card" ng-style="item.class">
-   <a ng-href="/gallery/id/{{item._id}}">
-      <div class="card-img-container">
-         <img ng-src="{{item.imgurl || ('/images/default.png')}}" class="card-img"/>
-         <div class="card-favorite">
-           <span class="wpfp-span">
-                   <md-button class="wpfp-link" href="#" title="Add to Favorites">
-                       <span class="icon ion-android-star-outline">
-                           <i class="fa fa-star-o fa-lg"></i>
-                       </span> Favorite
-                   </md-button>
-           </span>
-         </div>
-      </div>
-      <div class="card-content">
-           <div class="md-headline app-title">{{item.appName}}</div>
-           <div class="md-subhead app-desc">
-            <div btf-markdown="item.shortDesc">
+<div class="c-offering-tile-wrapper">
+   <div class="rc-OfferingTile">
+      <a ng-href="/gallery/id/{{item._id}}">
+         <div class="c-course-image" ng-style="{'background-image': 'url( {{item.imgurl || 'images/default.png' }})'}">
+            <div class="card-favorite">
+            <span class="wpfp-span">
+                    <div class="wpfp-link" href="#" title="Add to Favorites">
+                        <span class="icon ion-android-star-outline">
+                            <i class="fa fa-star-o fa-lg"></i>
+                        </span> Favorite
+                    </div>
+            </span>
+          </div>
+        </div>
+        <div class="c-course-details">
+            <div class="c-course-title">{{item.appName}}</div>
+            <div class="c-course-partner">
+                <span>{{item.shortDesc}}</span>
             </div>
-           </div>
-      </div>
-   </a>
+         </div>
+      </a>
+   </div>
 </div>

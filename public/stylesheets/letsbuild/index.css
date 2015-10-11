@@ -160,9 +160,9 @@ input {
     transition: all 0.4s ease-in;
 }
 
-.tile-features {
+/*.tile-features {
     bottom: 10px;
-}
+}*/
 
 .tile-title {
     opacity: 0.8;
@@ -187,10 +187,10 @@ input {
 }
 
 .tile-features {
-    position: absolute;
+    /*position: absolute;
     bottom: 10px;
     left: 10px;
-    right: 10px;
+    right: 10px;*/
     text-align: right;
     opacity: 0;
     transition: all 0.4s ease-in;
@@ -207,11 +207,12 @@ input {
 
 }
 
-.dummy-search-wrap label {
+.dummy-search-wrap span {
     position: absolute;
-    top: 10px;
+    top: 4px;
     left: 13px;
     color: #999;
+    cursor: pointer;
 }
 
 .filter-panel md-input-container{
@@ -486,8 +487,11 @@ input {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 200px;
+    /*height: 200px;*/
+    height: 150px;
     background-color: #fff;
+    /*background-image: url('//m.c.lnkd.licdn.com/mpr/mpr/p/8/005/0a5/087/189df8a.jpg');*/
+    background-size: cover;
 }
 .card .card-img-container .card-img {
     /*background-size: cover;
@@ -707,13 +711,17 @@ input {
 
 .tile-container {
     background-color: #fff;
-    margin: 10px;
-    /*padding: 10px;*/
+    /*margin: 10px;*/
+    padding: 10px;
 }
 
 .card-content .app-title {
-    margin: 10px 5px 20px 5px;
-    color: #ffffff;
+    /* margin: 10px 5px 20px 5px; */
+    color: #333;
+}
+
+.card .md-headline {
+    font-size: 18px;
 }
 
 .card-content .app-desc {
@@ -833,3 +841,161 @@ input {
 	}	
 }
 
+
+
+
+.c-offering-tile-wrapper {
+    /*float: left;*/
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+.rc-OfferingTile .c-course-details,
+.rc-FrontPage a.c-view-all-link,
+.rc-CdpRelatedCourses .c-crc-view-all-link {
+    font-family: 'sofiapro-light', Arial, sans-serif
+}
+
+.rc-OfferingTile {
+    display: inline-block;
+    width: 100%;
+}
+.rc-OfferingTile:hover img {
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80)
+}
+.rc-OfferingTile .c-course-image {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: 50% 50%
+}
+.rc-OfferingTile .c-course-image img {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-height: 150px;
+    -webkit-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0
+}
+.rc-OfferingTile .c-course-details {
+    padding-top: 2px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #717171;
+    margin: 3px;
+    height: 75px;
+}
+.rc-OfferingTile .c-course-title {
+    color: #428bca;
+    font-size: 1.2em;
+    overflow-y: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1.2em;
+    max-height: 2.4em;
+    max-height: 2.5em
+}
+.rc-OfferingTile .c-course-partner {
+    /*height: 1.3em;*/
+    height: 38px;
+    overflow: hidden;
+    /*-o-text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
+    /*overflow: hidden;
+    white-space: nowrap*/
+}
+@media (max-width: 767px) {
+    .rc-OfferingTile .c-course-details {
+        font-size: 10px
+    }
+    .rc-OfferingTile .c-course-title {
+        font-size: 16px;
+        line-height: 18px;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        margin-bottom: 2px
+    }
+    .rc-OfferingTile .c-course-partner {
+        font-size: 14px
+    }
+}
+
+.rc-OfferingTile .c-course-image {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    height: 125px;
+    width: 100%;
+}
+.cardstyle2 {
+    margin-bottom: 10px;
+}
+
+.rc-OfferingTile .card-favorite .tile-features a {
+    display: inline-block;
+    padding: 0;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
+    margin: 0 0 0 5px;
+
+}
+
+/*.rc-OfferingTile .card-favorite .wpfp-link {
+    min-height: 40px;
+}*/
+
+.rc-OfferingTile:hover .card-favorite {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.rc-OfferingTile .card-favorite {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    -webkit-transition: .4s cubic-bezier(.69, .1, .09, .94) all;
+    transition: .4s cubic-bezier(.69, .1, .09, .94) all;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+}
+.rc-OfferingTile .card-favorite .wpfp-link {
+    display: block;
+    /* padding: 10px 20px; */
+    text-transform: uppercase;
+    background: rgba(33, 26, 26, 0.51);
+    font-size: 14px;
+    width: 100%;
+    margin: 0 auto;
+    color: #EEE;
+    -webkit-transition: .3s ease all;
+    transition: .3s ease all;
+    padding: 5px;
+    
+}
+/*.rc-OfferingTile .card-favorite a span {
+    font-size: 18px;
+}*/
+.rc-OfferingTile .card-favorite .wpfp-link:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.rc-OfferingTile:hover .tile-features {
+    opacity: 1;
+}
