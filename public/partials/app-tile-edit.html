@@ -68,7 +68,7 @@
             </p>
          </div>
          <div class="project-card-footer">
-            <p class="project-byline">Category : {{item.category}}</p>
+            <p class="project-byline">Category : {{item.category || "N/A"}}</p>
             <div class="project-stats-container">
                <div class="project-progress-bar">
                   <div class="project-percent-pledged" ng-style="{'width':getEffortFunded(item)}"></div>
