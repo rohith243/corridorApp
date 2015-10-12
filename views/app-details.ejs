@@ -67,10 +67,10 @@
                             <div class="proposer-details">
                                 <div>
                                     <div class="md-title">Proposed by</div>
-                                    <div class="proposed-team-wrap">
+                                    <div class="proposed-team-wrap grid-row">
 
 
-                                        <div ng-repeat="mem in item.proposedTeam" class="mem-container">
+                                        <div ng-repeat="mem in item.proposedTeam | getImages" class="grid grid-xs-6 grid-sm-12 mem-container">
                                             <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
 
                                             </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="page-layout positionR">
                     <div class="section-content">
-                        <div class="content-separators info-section" id="team" ng-if="item.interests &&item.interests.length>0">
+                        <div class="content-separators info-section"  ng-if="item.interests &&item.interests.length>0">
                             <div class="icon-holder">
                                 <div class="icon-parent">
                                     <span class="fa fa-users"></span>
@@ -106,10 +106,10 @@
                                 <h1 class="content-heading">Team</h1>
                                 <div class="content-data">
                                     <div class="grid-row">
-                                        <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests" style="list-style:none;">
+                                        <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" style="list-style:none;">
                                             <li>
                                                 <div>
-                                                    <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                                    <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
 
                                                     </div>
                                                     <div ng-if="!mem.src" class="background-name">
@@ -239,6 +239,9 @@
         
         .proposer-details {
             padding: 15px;
+            padding-left: 50px;
+            text-align: left;
+
         }
         
         .app-intro {
@@ -307,15 +310,7 @@
        .main-content {
             text-align: justify;
        }
-    
-        @media (max-width:600px) {
-            .proposer-details-wrap {
-                border-left: 0;
-            }
-            .app-details-wrap {
-                    border-right: 0px;
-            }
-        }  
+
         .thiker {
             font-weight: 600;
         }
@@ -357,7 +352,21 @@
             .section-navigator {
                 display: none;
             }
+            .proposer-details-wrap {
+                border-left: 0;
+            }
+            .app-details-wrap {
+                border-right: 0px;
+            }
+            .proposer-details {
+                padding-left: 15px;
+            }
+            .mem-container {
+                vertical-align: top;
+            }
         }
+
+
     </style>
 
      <script type="text/javascript">

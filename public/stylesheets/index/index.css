@@ -964,7 +964,7 @@ header {
     border-radius: 50%;
     text-align: center;
     background-color: #39A2CA;
-    font-size: 60px;
+    font-size: 35px;
     color: #fff;
     font-weight: bold;
     vertical-align: middle;
@@ -976,15 +976,15 @@ header {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-size: cover;
-    background-position: 50% 50%;
+    background-size: 100%;
+    /*background-position: 50% 50%;*/
     vertical-align: middle;
 }
 
 .mem-container {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
-.mem-container .background-name, .mem-container .background-name .backname-prof-pic {
+.mem-container .background-name, .mem-container .backname-prof-pic {
     height: 50px;
     width: 50px;
     line-height: 50px;
@@ -1001,13 +1001,13 @@ header {
     margin-bottom: 15px;
     vertical-align: top;
 }
-.interested-tile .background-name {
+.interested-tile .background-name,.interested-tile .backname-prof-pic {
     float: left;
  }
  
 .interested-tile  .name-container {
     display: block;
-    margin-left: 110px;
+    margin-left: 100px;
     margin-right: 10px;
 }
 
