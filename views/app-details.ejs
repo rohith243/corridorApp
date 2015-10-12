@@ -30,24 +30,24 @@
                                         <div btf-markdown="item.shortDesc">
                                         </div>
                                         <div layout="row" ng-if="item.status">
-                                            <span><strong>Stage </strong>: {{item.status}}</span> 
+                                            <span><span class="thiker">Stage </span>: {{item.status}}</span> 
                                         </div>
                                         <div layout="row"  ng-if="item.category">
-                                            <span><strong>Category </strong> : {{item.category}}</span> 
+                                            <span><span class="thiker">Category </span> : {{item.category}}</span> 
                                         </div>
                                     </div>
                                     <div class="app-summary" flex="30" flex-sm="100">
 
                                         <div layout="row" class="text-right" ng-if="item.createdAt">
-                                            <span class="" flex="45">Posted date : </span>
-                                            <span flex="55" class="app-summary-value"> {{item.createdAt | date:'dd-mmm-yyyy'}}</span>
+                                            <span class="thiker" flex="45">Posted date : </span>
+                                            <span flex="55" class="app-summary-value"> {{item.createdAt | date:'dd-MMM-yyyy'}}</span>
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.lastUpdated">
-                                            <span class="" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-mmm-yyyy'}}</span>
+                                            <span class="thiker" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-MMM-yyyy'}}</span>
                                         </div>
                                         
                                         <div layout="row" class="text-right" ng-if="item.effort">
-                                            <span class="" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}</span>
+                                            <span class="thiker" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}</span>
                                         </div>
 
                                         <!-- <div layout="row" class="text-right">
@@ -56,7 +56,7 @@
                                         <div layout="row" class="text-center">
                                             <span flex>
                                                 <a href="#" ng-click="updateLikes($event)">
-                                                    <div ng-class="likeClass">
+                                                    <div ng-class="likeClass" class="like-button">
                                                         <span flex="80" class="" >Upvote</span>
                                                         <span class="upvote-line"> | </span>
                                                         <span class="upvote-count">{{item.likes.length}}</span>
@@ -101,69 +101,76 @@
                        
                     </div>
                 </div>
-
-                <div class="content-separators" ng-if="item.longDesc" >
-                    <div class="icon-holder">
-                        <div class="icon-parent">
-                            <span class="fa fa-info"></span>
-                        </div>    
-                    </div>
-                    <div class="page-layout"  data-step="6" data-intro="Introduction to App">
-                        <h1 class="content-heading">Introduction</h1>
-                        <div class="content-data">
-                            <div btf-markdown="item.longDesc"></div>
+                <div class="page-layout">
+                    <div class="section-content">
+                    <div class="content-separators" ng-if="item.longDesc" >
+                        <div class="icon-holder">
+                            <div class="icon-parent">
+                                <span class="fa fa-info"></span>
+                            </div>    
                         </div>
-                    </div>
-                </div>
-
-                <div class="content-separators" ng-if="item.vedioLink">
-                    <div class="icon-holder">
-                        <div class="icon-parent">
-                            <span class="fa fa-television"></span>
-                        </div>    
-                    </div>
-                    <div class="page-layout"  data-step="7" data-intro="Click to watch video.">
-                        <h1 class="content-heading">Video</h1>
-                        <div class="content-data" >
-                            <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
-                                                </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-separators" ng-if="item.solution">
-                    <div class="icon-holder">
-                        <div class="icon-parent">
-                            <span class="fa fa-sitemap"></span>
-                        </div>    
-                    </div>
-                    <div class="page-layout"  data-step="8" data-intro="Application analysis.">
-                        <h1 class="content-heading">Analysis</h1>
-                        <div class="content-data">
-                            <div btf-markdown="item.solution"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-separators" ng-if="item.interests &&item.interests.length>0">
-                    <div class="icon-holder">
-                        <div class="icon-parent">
-                            <span class="fa fa-users"></span>
-                        </div>    
-                    </div>
-                    <div class="page-layout" data-step="9" data-intro="Team Members">
-                        <h1 class="content-heading">Team</h1>
-                        <div class="content-data">
-                            <div >
-                                <ul class="" ng-repeat="mem in item.interests">
-                                    <li>
-                                        <p>{{mem.fullName}}</p>
-                                        <p>{{mem.mail}}</p>
-                                    </li>
-                                </ul>
+                        <div   data-step="6" data-intro="Introduction to App">
+                            <h1 class="content-heading">Introduction</h1>
+                            <div class="content-data">
+                                <div btf-markdown="item.longDesc"></div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="content-separators" ng-if="item.vedioLink">
+                        <div class="icon-holder">
+                            <div class="icon-parent">
+                                <span class="fa fa-television"></span>
+                            </div>    
+                        </div>
+                        <div   data-step="7" data-intro="Click to watch video.">
+                            <h1 class="content-heading">Video</h1>
+                            <div class="content-data" >
+                                <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                                    </iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-separators" ng-if="item.solution">
+                        <div class="icon-holder">
+                            <div class="icon-parent">
+                                <span class="fa fa-sitemap"></span>
+                            </div>    
+                        </div>
+                        <div   data-step="8" data-intro="Application analysis.">
+                            <h1 class="content-heading">Analysis</h1>
+                            <div class="content-data">
+                                <div btf-markdown="item.solution"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-separators" ng-if="item.interests &&item.interests.length>0">
+                        <div class="icon-holder">
+                            <div class="icon-parent">
+                                <span class="fa fa-users"></span>
+                            </div>    
+                        </div>
+                        <div  data-step="9" data-intro="Team Members">
+                            <h1 class="content-heading">Team</h1>
+                            <div class="content-data">
+                                <div >
+                                    <ul class="" ng-repeat="mem in item.interests">
+                                        <li>
+                                            <p>{{mem.fullName}}</p>
+                                            <p>{{mem.mail}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                    <div class="section-navigator">
+                    </div>
+
                 </div>
 
             </div>
@@ -257,14 +264,16 @@
 
         }
         .content-separators {
-            border-top: 1px solid #ccc;
+            
             padding: 50px 0;
         }
         .detail-page .md-title {
             font-weight: bold;
         }
         .icon-holder {
-                position: relative;
+            position: relative;
+            border-top: 1px solid #ccc;
+            top: -50px;
         }
         .icon-parent {
             height: 80px;
@@ -273,7 +282,7 @@
             display: inline-block;
             position: absolute;
             left: calc( 50% - 40px);
-            top: -90px;
+            top: -40px;
             font-size: 29px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -300,6 +309,12 @@
                     border-right: 0px;
             }
         }  
+        .thiker {
+            font-weight: 600;
+        }
+        .like-button {
+            margin-left: -5%;
+        }
     </style>
 
      <script type="text/javascript">
