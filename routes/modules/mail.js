@@ -28,8 +28,8 @@ mail.send = function  ( item, user ) {
     mailOptions.to = item.owner.mail;
     mailOptions.cc = user.mail;
     mailOptions.subject = 'LetsBuild Notification: Interest ' + item.appName;
-    mailOptions.html = '<p>Hi '+ ( item.owner.uid )+'</p>';
-    mailOptions.html += '<p><b>'+ ( user.fullName || user.uid ) +'</b> has expressed interest in the app</p>';
+    mailOptions.html = '<p>Hi '+ ( item.owner.firstName || item.owner.uid )+'</p>';
+    mailOptions.html += '<p><b>'+ ( user.firstName || user.uid ) +'</b> has expressed interest in the app</p>';
     mailOptions.html += '<p><b>Contribution Hours :</b> '+ user.hours +'</p>';
     mailOptions.html += '<p><b>Comments: </b>'+ user.aboutme +'</p>';
     transporter.sendMail(mailOptions, function(error, info){

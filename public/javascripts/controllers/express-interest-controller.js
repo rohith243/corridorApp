@@ -7,7 +7,7 @@
                 $scope.user = {
                     mail: GLOBAL.user.mail,
                     uid: uid,
-                    fullName : GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
+                    fullName : GLOBAL.user.firstName + ' ' + GLOBAL.user.lastName,
                     hours: '',
                     aboutme: ''
                 };

@@ -82,7 +82,7 @@
                                 <div>
                                     <div class="md-title">Proposed by</div>
                                     <div class="proposed-team-wrap">
-                                        <div ng-repeat="mem in item.proposedTeam">
+                                        <div ng-repeat="mem in item.proposedTeam | getImages">
                                             <a ng-href="mailto:{{mem.mail}}">
                                                 <i class="fa fa-envelope-o"></i>
                                                 &nbsp;{{mem.fullName}}
@@ -348,6 +348,14 @@
         }
         .page-navigator-link li.active-link {
             border-left: 2px solid #888;
+        }
+        @media (max-width:600px) {
+            .section-content {
+                width: 100%;
+            }
+            .section-navigator {
+                display: none;
+            }
         }
     </style>
 

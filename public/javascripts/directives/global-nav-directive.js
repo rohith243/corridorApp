@@ -18,7 +18,7 @@ if ( typeof window.GLOBAL === 'undefined' ) {
         .controller('globalNavCtrl', function($scope, http) {
             $scope.signinurl = '/signin?redirect=' + window.location.pathname;
             if ( GLOBAL.user ) {
-                $scope.username = GLOBAL.user.firstname;
+                $scope.username = GLOBAL.user.firstName;
             }
             $scope.logout = function(e) {
                 e.preventDefault();

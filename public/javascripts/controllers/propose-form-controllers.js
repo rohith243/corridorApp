@@ -45,7 +45,8 @@
             function($scope, Notification, http, $state, $stateParams,$timeout) {
                 $scope.item = {};
                 $scope.item.proposedTeam = [ {
-                    fullName: GLOBAL.user.firstname + ' ' + GLOBAL.user.lastname,
+                    firstName: GLOBAL.user.firstName,
+                    lastName: GLOBAL.user.lastName,
                     mail: GLOBAL.user.mail
                 } ];
                 $scope.item.contributors = [];
@@ -117,7 +118,8 @@
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};
-                            emp.fullName = obj.fullName.toLowerCase();
+                            emp.firstName = obj.firstName.toLowerCase();
+                            emp.lastName = obj.lastName.toLowerCase();
                             emp.mail = obj.email.toLowerCase();
                             return emp;
                           } );
@@ -156,7 +158,7 @@
                 function createFilterFor(query) {
                   var lowercaseQuery = angular.lowercase(query);
                   return function filterFn( emp ) {
-                    return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
+                    return ((emp.firstName + ' ' +  emp.lastName ).toLowerCase().indexOf(lowercaseQuery) === 0) ||
                         (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
                   };
                 }
@@ -271,7 +273,8 @@
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};
-                            emp.fullName = obj.fullName.toLowerCase();
+                            emp.firstName = obj.firstName.toLowerCase();
+                            emp.lastName = obj.lastName.toLowerCase();
                             emp.mail = obj.email.toLowerCase();
                             return emp;
                           } );
@@ -310,7 +313,7 @@
                 function createFilterFor(query) {
                   var lowercaseQuery = angular.lowercase(query);
                   return function filterFn( emp ) {
-                    return (emp.fullName.toLowerCase().indexOf(lowercaseQuery) === 0) ||
+                    return ( ( emp.firstName + ' ' +  emp.lastName ).toLowerCase().indexOf(lowercaseQuery) === 0) ||
                         (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
                   };
                 }

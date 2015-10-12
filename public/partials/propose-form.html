@@ -129,11 +129,11 @@
                                     placeholder="+ Proposed By "
 
                                     >
-                                    <span>{{sugg.fullName}} :: {{sugg.mail}}</span>
+                                    <span>{{sugg.firstName}} {{sugg.lastName}} :: {{sugg.mail}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>
                                     <span>
-                                      <strong>{{$chip.fullName}}</strong>
+                                      <strong>{{$chip.firstName}} {{$chip.lastName}}</strong>
                                       <em>({{$chip.mail}})</em>
                                     </span>
                                 </md-chip-template>
