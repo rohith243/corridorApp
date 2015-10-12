@@ -633,11 +633,11 @@ footer p {
 
 .nav-menu {
     font-size: 24px;
-    margin-right: 10px;
-    display: inline-block;
+    margin-right: 20px;
+    /*display: inline-block;
     color: #fff;
     position: absolute;
-    right: 20px;
+    right: 20px;*/
 }    
 @media (max-width: 600px ) {
 
@@ -688,6 +688,9 @@ footer p {
     .menu-opened .main-nav {
         right: 0px;
         background: rgba(0,0,0,0.6);
+    }
+    .welcome-username {
+        display: none;
     }
 }
 
