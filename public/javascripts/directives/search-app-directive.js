@@ -8,7 +8,7 @@
     angular.module('searchAppModule', [])
         .directive('searchApp', [function() {
             return {
-                templateUrl: '/partials/app-overlay.html',
+                templateUrl: basePath + 'partials/app-overlay.html',
                 restict: 'A',
                 scope: {
                     isEdit: '='
@@ -78,7 +78,7 @@
                 $scope.togglePublish = function(e, item) {
                     e.preventDefault();
                     if (item.appName && item.solution) {
-                        http.post('/services/updateDoc', {
+                        http.post( basePath + 'services/updateDoc', {
                             postData: {
                                 data: {
                                     isPublish : !item.isPublish
@@ -98,7 +98,7 @@
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();
                     if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                        http.get('/services/deleteDoc?_id=' + item._id)
+                        http.get( basePath + 'services/deleteDoc?_id=' + item._id)
                             .then(function(res) {
                                 for (var i in model.appResponse) {
                                     if (item._id === model.appResponse[i]._id) {

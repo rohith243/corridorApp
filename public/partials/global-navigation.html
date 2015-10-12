@@ -2,17 +2,17 @@
     <div class="aside-nav-content">
         <ul class="nav-links">
             <li>
-                <a href="/" >
+                <a ng-href="{{basePath}}" >
                     Home
                 </a>
             </li>
             <li>
-                <a href="/propose-form#/" >
+                <a href="{{basePath}}propose-form#/" >
                     Propose An App
                 </a>
             </li>
             <li>
-                <a href="/gallery" >
+                <a href="{{basePath}}gallery" >
                     All Proposals
                 </a>
             </li>
@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li ng-if="username">
-                <a  href="/dashboard" >
+                <a  href="{{basePath}}dashboard" >
                     My Proposals
                 </a>
             </li>
@@ -42,16 +42,5 @@
     <i class="fa fa-bars"></i>
 </a>
 
-<style type="text/css">
-    .welcome-username {
-        font-size: 14px;
-    }
-    .nav-menu {
-        text-decoration: none;
-        color: #333;
-    }
-    .nav-menu .fa {
-        vertical-align: middle;
-    }
-</style>
+
 

@@ -95,6 +95,8 @@ router.post( '/addDocument', function ( req, res, next ) {
             setObj.createdAt = +new Date();
             setObj.owner =  {
                 uid: udetails.uid,
+                firstName: udetails.firstName,
+                lastName: udetails.lastName,
                 mail: udetails.mail
             };
             var collection = db.collection( collectionName );
@@ -299,7 +301,8 @@ router.post('/expressInterest', function(req, res, next) {
                                 hours: data.hours,
                                 aboutme: data.aboutme,
                                 mail: udetails.mail,
-                                fullName: udetails.firstname + ' ' + udetails.lastname,
+                                firstName: udetails.firstName,
+                                lastName: udetails.lastName,
                                 uid: udetails.uid
                             };
 

@@ -68,7 +68,7 @@
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();
                     if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                        http.get('/services/deleteDoc?_id=' + item._id)
+                        http.get( basePath + 'services/deleteDoc?_id=' + item._id)
                             .then(function(res) {
                                 index = findObjectIndex(model.appResponse,'_id',item._id);
                                 if (index !== -1) {
@@ -85,7 +85,7 @@
                 $scope.togglePublish = function(e, item) {
                     e.preventDefault();
                     if (item.appName && item.solution) {
-                        http.post('/services/updateDoc', {
+                        http.post( basePath + 'services/updateDoc', {
                             postData: {
                                 data: {
                                     isPublish : !item.isPublish

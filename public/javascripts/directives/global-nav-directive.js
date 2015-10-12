@@ -5,7 +5,7 @@ if ( typeof window.GLOBAL === 'undefined' ) {
     angular.module('globalNavigation', [])
         .directive('globalNav', [function() {
             return {
-                templateUrl: '/partials/global-navigation.html',
+                templateUrl: basePath + 'partials/global-navigation.html',
                 restict: 'A',
                 scope: {},
                 controller: 'globalNavCtrl',
@@ -16,15 +16,19 @@ if ( typeof window.GLOBAL === 'undefined' ) {
             };
         }])
         .controller('globalNavCtrl', function($scope, http) {
-            $scope.signinurl = '/signin?redirect=' + window.location.pathname;
+
+            $scope.basePath = basePath;
+
+
+            $scope.signinurl = basePath + 'signin?redirect=' + window.location.pathname;
             if ( GLOBAL.user ) {
-                $scope.username = GLOBAL.user.firstname;
+                $scope.username = GLOBAL.user.firstName;
             }
             $scope.logout = function(e) {
                 e.preventDefault();
-                http.get('/services/logout')
+                http.get( basePath + 'services/logout' )
                     .then(function(res) {
-                        window.location = '/';
+                        window.location = basePath;
                     });
             };
             $scope.openMenu = function( e ) {

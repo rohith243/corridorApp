@@ -15,7 +15,7 @@
         <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
             unpublish
         </md-button>
-        <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="/gallery/id/{{item._id}}">
+        <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item._id}}">
             Preview
         </md-button>
         </div>
@@ -129,11 +129,11 @@
                                     placeholder="+ Proposed By "
 
                                     >
-                                    <span>{{sugg.fullName}} :: {{sugg.mail}}</span>
+                                    <span>{{sugg.firstName}} {{sugg.lastName}} :: {{sugg.mail}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>
                                     <span>
-                                      <strong>{{$chip.fullName}}</strong>
+                                      <strong>{{$chip.firstName}} {{$chip.lastName}}</strong>
                                       <em>({{$chip.mail}})</em>
                                     </span>
                                 </md-chip-template>
@@ -206,17 +206,24 @@
                 </md-tab>
                 <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
                     <md-content class="tab-content">
-                        <h2>Interested People</h2>
+                        <!-- <h2>Interested People</h2> -->
                         <div ng-if="!item.interests || item.interests.length===0">
                             <p>This an Awesome Idea</p>
                             <p>We are looking for Interested people</p>
                         </div>
-                        <div class="interested-peoples">
-                           <div ng-repeat="user in item.interests">
-                                <p>{{user.fullName}}</p>
-                                <p>{{user.mail}}</p>
-                                <p>hours: {{user.hours}}</p>
-                                <p>About: {{user.aboutme}}</p>
+                        <div class="grid-row">
+                           <div ng-repeat="user in item.interests | getImages" class="grid grid-md-4 grid-sm-6 grid-xs-12 interested-tile">
+                                <div ng-if="user.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{user.src }})'}">
+                                </div>
+                                <div ng-if="!user.src" class="background-name">
+                                    {{user.firstName[0]}}{{user.lastName[0]}}
+                                </div>
+                                <div class="name-container">
+                                  <div>{{user.firstName}}</div>
+                                  <div>mail : {{user.mail}}</div>
+                                  <div>hours : {{user.hours}}</div>
+                                  <div><b>About</b> : {{user.aboutme}}</div>
+                                </div>
                            </div>
                         </div>
                     </md-content>

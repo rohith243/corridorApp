@@ -21,7 +21,7 @@
                             <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
-                                        <img ng-src="{{item.imgurl || '/images/default.png'}}">
+                                        <img ng-src="{{item.imgurl || '<%= basePath %>images/default.png'}}">
                                     </div>
                                     <div class="app-intro" flex="50" flex-sm="100">
                                         <div class="md-title">
@@ -44,15 +44,10 @@
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.lastUpdated">
                                             <span class="thiker" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-MMM-yyyy'}}</span>
-                                        </div>
-                                        
+                                        </div>                                        
                                         <div layout="row" class="text-right" ng-if="item.effort">
                                             <span class="thiker" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
                                         </div>
-
-                                        <!-- <div layout="row" class="text-right">
-                                            <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
-                                        </div> -->
                                         <div layout="row" class="text-center">
                                             <span flex>
                                                 <a href="#" ng-click="updateLikes($event)">
@@ -63,11 +58,6 @@
                                                     </div>
                                                 </a>
                                             </span>
-                                            
-                                            <!--<span class="app-summary-value" flex="55">
-                                                {{item.likes.length}}
-                                            <a href="#" ng-click="updateLikes( $event )" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
-                                            </span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -75,23 +65,26 @@
                         </div>
                         <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
-                                <!-- <div>
-                                    % of completion
-                                    <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
-                                </div> -->
                                 <div>
                                     <div class="md-title">Proposed by</div>
-                                    <div class="proposed-team-wrap">
-                                        <div ng-repeat="mem in item.proposedTeam">
+                                    <div class="proposed-team-wrap grid-row">
+
+
+                                        <div ng-repeat="mem in item.proposedTeam | getImages" class="grid grid-xs-6 grid-sm-12 mem-container">
+                                            <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+
+                                            </div>
+                                            <div ng-if="!mem.src" class="background-name">
+                                                {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                            </div>
                                             <a ng-href="mailto:{{mem.mail}}">
-                                                <i class="fa fa-envelope-o"></i>
-                                                &nbsp;{{mem.fullName}}
+                                                &nbsp;{{mem.firstName}}
                                             </a>
                                         </div>
                                         <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
                                             Express Interest
                                         </md-button>
-                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="/propose-form#edit/{{item._id}}">
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="../../propose-form#edit/{{item._id}}">
                                             Edit
                                         </md-button>
                                     </div>
@@ -103,6 +96,36 @@
                 </div>
                 <div class="page-layout positionR">
                     <div class="section-content">
+                        <div class="content-separators info-section"  ng-if="item.interests &&item.interests.length>0">
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-users"></span>
+                                </div>    
+                            </div>
+                            <div  data-step="9" data-intro="Team Members">
+                                <h1 class="content-heading">Team</h1>
+                                <div class="content-data">
+                                    <div class="grid-row">
+                                        <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" style="list-style:none;">
+                                            <li>
+                                                <div>
+                                                    <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
+
+                                                    </div>
+                                                    <div ng-if="!mem.src" class="background-name">
+                                                        {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                                    </div>
+                                                    <div class="name-container">
+                                                        <p class="ng-binding">{{mem.firstName}}</p>
+                                                        <p class="ng-binding">{{mem.mail}}</p>
+                                                    </div>
+                                                 </div>                                            
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="content-separators info-section" id="introduction" ng-if="item.longDesc"  >
                             <div class="icon-holder">
                                 <div class="icon-parent">
@@ -145,35 +168,13 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="content-separators info-section" id="team" ng-if="item.interests &&item.interests.length>0">
-                            <div class="icon-holder">
-                                <div class="icon-parent">
-                                    <span class="fa fa-users"></span>
-                                </div>    
-                            </div>
-                            <div  data-step="9" data-intro="Team Members">
-                                <h1 class="content-heading">Team</h1>
-                                <div class="content-data">
-                                    <div >
-                                        <ul class="" ng-repeat="mem in item.interests">
-                                            <li>
-                                                <p>{{mem.fullName}}</p>
-                                                <p>{{mem.mail}}</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="section-navigator">
                         <ul class="page-navigator-link">
+                            <li id="team-li" ng-if="item.interests &&item.interests.length>0"><a href="#team">Team</a></li>
                             <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
                             <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
                             <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
-                            <li id="team-li" ng-if="item.interests &&item.interests.length>0"><a href="#team">Team</a></li>
                         </ul>
                     </div>
 
@@ -188,9 +189,9 @@
     </div>
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
-    <script src="/javascripts/controllers/app-details-controller.js"></script>
-    <script src="/javascripts/controllers/express-interest-controller.js"></script>
-    <script src="/javascripts/modules/app-details.js"></script>
+    <script src="<%= basePath %>javascripts/controllers/app-details-controller.js"></script>
+    <script src="<%= basePath %>javascripts/controllers/express-interest-controller.js"></script>
+    <script src="<%= basePath %>javascripts/modules/app-details.js"></script>
     <style type="text/css">
         .tab-content {
             padding: 20px 0
@@ -238,6 +239,9 @@
         
         .proposer-details {
             padding: 15px;
+            padding-left: 50px;
+            text-align: left;
+
         }
         
         .app-intro {
@@ -306,15 +310,7 @@
        .main-content {
             text-align: justify;
        }
-    
-        @media (max-width:600px) {
-            .proposer-details-wrap {
-                border-left: 0;
-            }
-            .app-details-wrap {
-                    border-right: 0px;
-            }
-        }  
+
         .thiker {
             font-weight: 600;
         }
@@ -349,6 +345,28 @@
         .page-navigator-link li.active-link {
             border-left: 2px solid #888;
         }
+        @media (max-width:600px) {
+            .section-content {
+                width: 100%;
+            }
+            .section-navigator {
+                display: none;
+            }
+            .proposer-details-wrap {
+                border-left: 0;
+            }
+            .app-details-wrap {
+                border-right: 0px;
+            }
+            .proposer-details {
+                padding-left: 15px;
+            }
+            .mem-container {
+                vertical-align: top;
+            }
+        }
+
+
     </style>
 
      <script type="text/javascript">
@@ -360,7 +378,7 @@
         }
     </script>
     <!--script type="text/javascript" src="/javascripts/vendors/jquery.smoothscroll.js"></script-->
-    <script type="text/javascript" src="/javascripts/vendors/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="<%= basePath %>javascripts/vendors/jquery.easing.min.js"></script>
     <script type="text/javascript">
         $( window ).scroll( function  (argument) {
             var win = $( this );

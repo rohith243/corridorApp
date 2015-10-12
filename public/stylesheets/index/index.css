@@ -1,7 +1,21 @@
+
+html, body {
+    height: 100%;
+}
 body,
 html {
     z-index: -1;
 }
+footer, .push {
+    height: 48px; /* '.push' must be the same height as 'footer' */
+}
+
+.wrapper {
+    min-height: 100%;
+    margin: 0 auto -48px; /* the bottom margin is the negative value of the footer's height */
+}
+
+
 .fixed-menu-button {
     margin-top: 10px;
     position: fixed;
@@ -49,17 +63,23 @@ body {
 header {
     
     width: 100%;
-    background: #fff;
-    border-bottom: solid 1px #d9d9de;
+    z-index: 1;
+    
+    border-bottom: solid 1px #A2A2A2;
     position: absolute;
-    background-color: rgba(255,255,255,0.8);
+    /*background-color: #FF5722;*/
+    background-color: #f7f7f9;
     height: 58px;
     
 }
 
 .logo {
     display: inline-block;
-    padding: 5px 0;
+    padding: 10px 0;
+    color: #FF5722;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 28px;
 }
 
 .logo img {
@@ -78,6 +98,9 @@ header {
     padding: 0 10px;
 }
 
+.welcome-section2 {
+    border-left: 1px solid #A2A2A2;
+}
 .welcome-section1 .page-layout-2 {
     margin-right: 0
 }
@@ -97,7 +120,7 @@ header {
 }
 
 .banner-container {
-    height: 600px;
+    height: 91vh;
     position: relative;
 }
 
@@ -135,17 +158,17 @@ header {
 }
 
 .welcome-section1 {
-    height: 542px;
+    height: 85vh;
     background: rgba( 255, 255, 255, 0.3);
     text-shadow: 2px 0px 6px #fff;
     color: #333;
 }
 
 .welcome-section2 {
-    height: 542px;
-    background: rgba( 0, 0, 0, 0.5);
+    height: 85vh;
+    /*background: rgba( 0, 0, 0, 0.5);
     text-shadow: 2px 0px 6px #000;
-    color: #fff;
+    color: #fff;*/
 }
 
 .welcome-content {}
@@ -179,6 +202,7 @@ header {
     display: inline-block;
     vertical-align: middle;
     margin-top: -20px;
+    max-width: 95%;
 }
 
 .stats-section {
@@ -203,7 +227,7 @@ header {
 
 footer {
     background: #2b3340;
-    padding: 20px 0;
+    line-height: 48px;
     color: #fff;
     text-align: center;
     position: absolute;
@@ -635,11 +659,22 @@ footer p {
 .nav-menu {
     font-size: 24px;
     margin-right: 20px;
+    color: #FF5722;
     /*display: inline-block;
     color: #fff;
     position: absolute;
     right: 20px;*/
-}    
+}  
+
+.welcome-username {
+    font-size: 14px;
+}
+.nav-menu {
+    text-decoration: none;
+}
+.nav-menu .fa {
+    vertical-align: middle;
+}  
 @media (max-width: 600px ) {
 
     .main-nav {
@@ -897,9 +932,9 @@ header {
     transition:all 0.3s ease-in-out;
 }
 .nav-links a:hover,.nav-links a:focus{
-    background: #fff;
+    background: #f7f7f9;
     font-weight: bold;
-    color: rgb(43, 51, 64);
+    color: #FF5722;
 }
 
 
@@ -916,4 +951,64 @@ header {
     .page-layout {
         max-width: 800px;
     }
-} 
+}
+
+.md-raised.md-primary.primary-button.home-btn:hover {
+    background-color: #2b3340 !important;
+}
+
+.background-name {
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #39A2CA;
+    font-size: 35px;
+    color: #fff;
+    font-weight: bold;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.backname-prof-pic {
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-size: 100%;
+    /*background-position: 50% 50%;*/
+    vertical-align: middle;
+}
+
+.mem-container {
+    margin-bottom: 10px;
+}
+.mem-container .background-name, .mem-container .backname-prof-pic {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: 25px;
+}
+
+.name-container {
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.interested-tile {
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+.interested-tile .background-name,.interested-tile .backname-prof-pic {
+    float: left;
+ }
+ 
+.interested-tile  .name-container {
+    display: block;
+    margin-left: 100px;
+    margin-right: 10px;
+}
+
