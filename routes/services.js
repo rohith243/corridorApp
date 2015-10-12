@@ -302,7 +302,7 @@ router.post('/expressInterest', function(req, res, next) {
                                 aboutme: data.aboutme,
                                 mail: udetails.mail,
                                 firstName: udetails.firstName,
-                                lastName: userdetails.lastName,
+                                lastName: udetails.lastName,
                                 uid: udetails.uid
                             };
 
