@@ -43,6 +43,7 @@
             '$stateParams',
             '$timeout',
             function($scope, Notification, http, $state, $stateParams,$timeout) {
+                $scope.basePath = basePath;
                 $scope.item = {};
                 $scope.item.proposedTeam = [ {
                     firstName: GLOBAL.user.firstName,
@@ -68,7 +69,7 @@
                 );
                 $scope.saveApp = function(e) {
                     e.preventDefault();
-                    http.post('/services/addDocument', {
+                    http.post( basePath + 'services/addDocument', {
                             postData: {
                                 data: $scope.item,
                                 cname: 'letsbuild'
@@ -86,7 +87,7 @@
                     $scope.updateForm.$showValidation = true;
                     if ($scope.updateForm && $scope.updateForm.$valid) {
                         $scope.item.isPublish = true;
-                        http.post('/services/addDocument', {
+                        http.post( basePath + 'services/addDocument', {
                                 postData: {
                                     data: $scope.item,
                                     cname: 'letsbuild'
@@ -114,7 +115,7 @@
                 function loadEmployees() {
                     if( !$scope.empRequestSent ) {
                         $scope.empRequestSent = true;
-                        http.get( '/confidential/phonebook.json' )
+                        http.get( basePath + 'confidential/phonebook.json' )
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};
@@ -173,6 +174,7 @@
             '$stateParams',
             '$timeout',
             function($scope, Notification, http, $state, $stateParams, $timeout) {
+                $scope.basePath = basePath;
                 $scope.global = {
                     selectedIndex: 0
                 };
@@ -192,7 +194,7 @@
                         }
                 );
                 if (_id) {
-                    http.get('services/getDocument?_id=' + _id)
+                    http.get( basePath + 'services/getDocument?_id=' + _id)
                         .then(function(res) {
                             originalData = res;
                             $scope.item = angular.copy(res);
@@ -208,7 +210,7 @@
                 $scope.saveApp = function(e) {
                     e.preventDefault();
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
-                    http.post('/services/updateDoc', {
+                    http.post( basePath + 'services/updateDoc', {
                             postData: {
                                 data: setData,
                                 cname: 'letsbuild',
@@ -242,7 +244,7 @@
                     }
                     $scope.item.isPublish = !isPublished;
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
-                    http.post('/services/updateDoc', {
+                    http.post( basePath + 'services/updateDoc', {
                             postData: {
                                 data: setData,
                                 cname: 'letsbuild',
@@ -269,7 +271,7 @@
                 function loadEmployees() {
                     if( !$scope.empRequestSent ) {
                         $scope.empRequestSent = true;
-                        http.get( '/confidential/phonebook.json' )
+                        http.get( basePath + 'confidential/phonebook.json' )
                         .then( function( res ) {
                           $scope.emps = res.employees.map( function ( obj ) {
                             var emp = {};

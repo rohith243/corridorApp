@@ -44,7 +44,7 @@
                         return;
                     }
                     else {
-                        http.post( '/services/expressInterest', {
+                        http.post( basePath + 'services/expressInterest', {
                             postData: {
                                 data: {
                                     hours:  $scope.user.hours,

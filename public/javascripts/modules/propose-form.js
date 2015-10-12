@@ -5,12 +5,12 @@
         $stateProvider
             .state('default', {
                 url: '/',
-                templateUrl: 'partials/propose-form.html',
+                templateUrl: basePath + 'partials/propose-form.html',
                 controller: 'proposeFormController'
             })
             .state('editItem', {
                 url: '/edit/:_id',
-                templateUrl: 'partials/propose-form.html',
+                templateUrl: basePath + 'partials/propose-form.html',
                 controller: 'proposeFormEditController'
             });
     });

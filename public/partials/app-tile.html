@@ -1,8 +1,8 @@
 <div class="apptilescontainer">
-   <a ng-href="/gallery/id/{{item._id}}">
+   <a ng-href="{{basePath}}gallery/id/{{item._id}}">
       <div class="project-card project-card-tall-big">
          <div class="project-thumbnail">
-            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || 'images/default.png' }}" width="100%">
+            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || (basePath + 'images/default.png') }}" width="100%">
          </div>
          <div class="project-card-content">
             <h6 class="project-title">{{item.appName}}</h6>

@@ -10,7 +10,7 @@
             .ok('signin here')
             .cancel('Ignore');
         $mdDialog.show(confirm).then(function() {
-            window.location = '/signin?redirect=' + location.pathname;
+            window.location = basePath + '/signin?redirect=' + location.pathname;
         }, function() {
             return;
         });
@@ -23,10 +23,10 @@
             ) {
                 var _id;
                 var paths = location.pathname.split('/');
-                _id = paths[3];
+                _id = paths[ paths.length - 1 ];
                 model._id = _id;
                 $scope.currentUser = GLOBAL.user;
-                $http.get('/services/getDocument?_id=' + _id)
+                $http.get( basePath + 'services/getDocument?_id=' + _id)
                     .then(function(res) {
                         $scope.item = res.data;
                         $scope.item.likes = res.data.likes ? res.data.likes : [];
@@ -50,7 +50,7 @@
                     if (typeof GLOBAL !== 'undefined' && GLOBAL.user) {
  
                             
-                            http.post('/services/toggleVote', {
+                            http.post( basePath + 'services/toggleVote', {
                                 postData: {
                                     _id: _id
                                 }
@@ -80,7 +80,7 @@
                         $mdDialog.show({
                             parent: parentEl,
                             targetEvent: e,
-                            templateUrl: '/partials/express-interest.html',
+                            templateUrl: basePath + 'partials/express-interest.html',
                             controller: 'expressInterestController',
                         });
                     } else {

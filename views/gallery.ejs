@@ -4,8 +4,8 @@
 <head>
     <%- include common/head.ejs %>
 
-    <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/stylesheets/letsbuild/index.css" />
+    <link rel="stylesheet" href="<%= basePath %>bower_components/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= basePath %>stylesheets/letsbuild/index.css" />
 </head>
 
 <body >
@@ -87,7 +87,7 @@
     <script type="text/javascript">
         var serviceConfig = {
             app: {
-                url: '/services/publishedApps',
+                url: '<%= basePath %>services/publishedApps',
                 keys: ['letsbuild']
             }
         }
@@ -105,10 +105,10 @@
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
     
-    <script src="/javascripts/controllers/apps-controller.js"></script>
-    <script src="/javascripts/directives/app-tile-directive.js"></script>
-    <script src="/javascripts/directives/search-app-directive.js"></script>
-    <script src="/javascripts/modules/gallery.js"></script>
+    <script src="<%= basePath %>javascripts/controllers/apps-controller.js"></script>
+    <script src="<%= basePath %>javascripts/directives/app-tile-directive.js"></script>
+    <script src="<%= basePath %>javascripts/directives/search-app-directive.js"></script>
+    <script src="<%= basePath %>javascripts/modules/gallery.js"></script>
 
 <style type="text/css">
     .introjs-fixParent {

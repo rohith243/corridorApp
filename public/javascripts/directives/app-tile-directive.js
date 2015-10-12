@@ -2,17 +2,20 @@
     angular.module('appTileModules', [])
         .directive('appTile', [function() {
             return {
-                templateUrl: '/partials/app-tile.html',
+                templateUrl: basePath + 'partials/app-tile.html',
                 restict: 'A',
                 scope: {
                     item: '=',
                     getEffortFunded: '='
-                }
+                },
+                controller: ['$scope',function($scope) {
+                    $scope.basePath = basePath;
+                }]
             };
         }])
         .directive('appTileEdit', [function() {
             return {
-                templateUrl: '/partials/app-tile-edit.html',
+                templateUrl: basePath + 'partials/app-tile-edit.html',
                 restict: 'A',
                 scope: {
                     item: '=',
@@ -21,7 +24,10 @@
                     togglePublish: '=',
                     key: '=',
                     index: '='
-                }
+                },
+                controller: ['$scope',function($scope) {
+                    $scope.basePath = basePath;
+                }]
             };
         }]);
 })(angular);

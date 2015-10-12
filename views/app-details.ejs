@@ -21,7 +21,7 @@
                             <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
-                                        <img ng-src="{{item.imgurl || '/images/default.png'}}">
+                                        <img ng-src="{{item.imgurl || '<%= basePath %>images/default.png'}}">
                                     </div>
                                     <div class="app-intro" flex="50" flex-sm="100">
                                         <div class="md-title">
@@ -84,7 +84,7 @@
                                         <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
                                             Express Interest
                                         </md-button>
-                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="/propose-form#edit/{{item._id}}">
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="../../propose-form#edit/{{item._id}}">
                                             Edit
                                         </md-button>
                                     </div>
@@ -189,9 +189,9 @@
     </div>
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
-    <script src="/javascripts/controllers/app-details-controller.js"></script>
-    <script src="/javascripts/controllers/express-interest-controller.js"></script>
-    <script src="/javascripts/modules/app-details.js"></script>
+    <script src="<%= basePath %>javascripts/controllers/app-details-controller.js"></script>
+    <script src="<%= basePath %>javascripts/controllers/express-interest-controller.js"></script>
+    <script src="<%= basePath %>javascripts/modules/app-details.js"></script>
     <style type="text/css">
         .tab-content {
             padding: 20px 0
@@ -378,7 +378,7 @@
         }
     </script>
     <!--script type="text/javascript" src="/javascripts/vendors/jquery.smoothscroll.js"></script-->
-    <script type="text/javascript" src="/javascripts/vendors/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="<%= basePath %>javascripts/vendors/jquery.easing.min.js"></script>
     <script type="text/javascript">
         $( window ).scroll( function  (argument) {
             var win = $( this );

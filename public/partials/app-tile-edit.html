@@ -35,10 +35,10 @@
 
 
 <div class="apptilescontainer">
-   <a ng-href="/propose-form#edit/{{item._id}}">
+   <a ng-href="{{basePath}}propose-form#edit/{{item._id}}">
       <div class="project-card project-card-tall-big">
          <div class="project-thumbnail">
-            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || 'images/default.png' }}" width="100%">
+            <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || (basePath + 'images/default.png') }}" width="100%">
             <div class="card-favorite">
                <span class="wpfp-span">
                    <div class="wpfp-link" href="#">
