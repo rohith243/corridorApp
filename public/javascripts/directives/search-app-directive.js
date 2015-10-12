@@ -74,6 +74,27 @@
                         callFunction();
                     }, 500 );
                 };
+                
+                $scope.togglePublish = function(e, item) {
+                    e.preventDefault();
+                    if (item.appName && item.solution) {
+                        http.post('/services/updateDoc', {
+                            postData: {
+                                data: {
+                                    isPublish : !item.isPublish
+                                },
+                                _id: item._id
+                            }
+                        })
+                        .then(function(res) {
+                            item.isPublish = !item.isPublish;
+                            Notification.success('successfully updated');
+                        });
+                    }
+                    else {
+                        Notification.error('Fill required details and then publish');
+                    }
+                };
                 $scope.deleteItem = function(e, item, index, key) {
                     e.preventDefault();
                     if (confirm('do you want to delete "' + item.appName + '" ?')) {

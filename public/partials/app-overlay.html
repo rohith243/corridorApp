@@ -13,9 +13,9 @@
                 </div>
                 <div class="tiles-container" ng-if="!loading">
                         <div class="gridlayout grid-row layout-wrap">
-                            <div ng-if="!isEdit" class="fadeInUp  grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in allFilteredApps">
+                            <div ng-if="!isEdit" class="fadeInUp  grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in allFilteredApps" data-toggle-publish="togglePublish">
                             </div>
-                            <div ng-if="isEdit"  class="fadeInUp grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-get-effort-funded="getEffortFunded" data-key="key" ng-repeat="item in allFilteredApps">
+                            <div ng-if="isEdit"  class="fadeInUp grid grid-xs-12 grid-sm-6 grid-md-4 " app-tile-edit data-item="item" data-index="$index" data-delete-item="deleteItem" data-get-effort-funded="getEffortFunded" data-key="key" ng-repeat="item in allFilteredApps" data-toggle-publish="togglePublish">
                             </div>
                         </div>
                         <div class="loadmore" ng-if="tab.length > limit[key]">
