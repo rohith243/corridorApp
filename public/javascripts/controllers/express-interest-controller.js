@@ -13,6 +13,7 @@
                 };
                 var isupdate = false;
                 var item = model.item;
+                var currentUserOldEffort = 0;
                 var totalEffort = 0;
                 for (var interest in item.interests) {
                     var user = item.interests[interest];
@@ -26,7 +27,8 @@
                     for (var user in interests) {
                         if (interests[user].uid === uid) {
                             isupdate = true;
-                            $scope.user = interests[user];
+                            $scope.user  = interests[user];
+                            currentUserOldEffort = interests[user].hours ? interests[user].hours : 0;
                             break;
                         }
                     }
@@ -35,8 +37,8 @@
                     $mdDialog.hide();
                 };
 
-                $scope.addContributor = function() {
-                    if ($scope.user.hours > $scope.remainingEffort) {
+                $scope.addContributor = function() {debugger;
+                    if ($scope.user.hours > ($scope.remainingEffort + currentUserOldEffort) ) {
                         Notification.error('You can Enter more than remaining hours left');
                         return;
                     }
