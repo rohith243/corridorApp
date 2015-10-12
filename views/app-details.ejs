@@ -101,74 +101,80 @@
                        
                     </div>
                 </div>
-                <div class="page-layout">
+                <div class="page-layout positionR">
                     <div class="section-content">
-                    <div class="content-separators" ng-if="item.longDesc" >
-                        <div class="icon-holder">
-                            <div class="icon-parent">
-                                <span class="fa fa-info"></span>
-                            </div>    
-                        </div>
-                        <div   data-step="6" data-intro="Introduction to App">
-                            <h1 class="content-heading">Introduction</h1>
-                            <div class="content-data">
-                                <div btf-markdown="item.longDesc"></div>
+                        <div class="content-separators info-section" id="introduction" ng-if="item.longDesc"  >
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-info"></span>
+                                </div>    
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="content-separators" ng-if="item.vedioLink">
-                        <div class="icon-holder">
-                            <div class="icon-parent">
-                                <span class="fa fa-television"></span>
-                            </div>    
-                        </div>
-                        <div   data-step="7" data-intro="Click to watch video.">
-                            <h1 class="content-heading">Video</h1>
-                            <div class="content-data" >
-                                <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
-                                                    </iframe>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-separators" ng-if="item.solution">
-                        <div class="icon-holder">
-                            <div class="icon-parent">
-                                <span class="fa fa-sitemap"></span>
-                            </div>    
-                        </div>
-                        <div   data-step="8" data-intro="Application analysis.">
-                            <h1 class="content-heading">Analysis</h1>
-                            <div class="content-data">
-                                <div btf-markdown="item.solution"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-separators" ng-if="item.interests &&item.interests.length>0">
-                        <div class="icon-holder">
-                            <div class="icon-parent">
-                                <span class="fa fa-users"></span>
-                            </div>    
-                        </div>
-                        <div  data-step="9" data-intro="Team Members">
-                            <h1 class="content-heading">Team</h1>
-                            <div class="content-data">
-                                <div >
-                                    <ul class="" ng-repeat="mem in item.interests">
-                                        <li>
-                                            <p>{{mem.fullName}}</p>
-                                            <p>{{mem.mail}}</p>
-                                        </li>
-                                    </ul>
+                            <div   data-step="6" data-intro="Introduction to App">
+                                <h1 class="content-heading">Introduction</h1>
+                                <div class="content-data">
+                                    <div btf-markdown="item.longDesc"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div>
+                        <div class="content-separators info-section" id="video" ng-if="item.vedioLink">
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-television"></span>
+                                </div>    
+                            </div>
+                            <div   data-step="7" data-intro="Click to watch video.">
+                                <h1 class="content-heading">Video</h1>
+                                <div class="content-data" >
+                                    <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                                        </iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-separators info-section" id="analysis" ng-if="item.solution">
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-sitemap"></span>
+                                </div>    
+                            </div>
+                            <div   data-step="8" data-intro="Application analysis.">
+                                <h1 class="content-heading">Analysis</h1>
+                                <div class="content-data">
+                                    <div btf-markdown="item.solution"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-separators info-section" id="team" ng-if="item.interests &&item.interests.length>0">
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-users"></span>
+                                </div>    
+                            </div>
+                            <div  data-step="9" data-intro="Team Members">
+                                <h1 class="content-heading">Team</h1>
+                                <div class="content-data">
+                                    <div >
+                                        <ul class="" ng-repeat="mem in item.interests">
+                                            <li>
+                                                <p>{{mem.fullName}}</p>
+                                                <p>{{mem.mail}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="section-navigator">
+                        <ul class="page-navigator-link">
+                            <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
+                            <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
+                            <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
+                            <li id="team-li" ng-if="item.interests &&item.interests.length>0"><a href="#team">Team</a></li>
+                        </ul>
                     </div>
 
                 </div>
@@ -236,7 +242,7 @@
         
         .app-intro {
             padding-left: 15px;
-            padding-left: 15px;
+            padding-right: 15px;
         }
         .app-summary {
             font-size: 14px;
@@ -315,6 +321,34 @@
         .like-button {
             margin-left: -5%;
         }
+        .positionR {
+            position: relative;
+        }
+        .section-content {
+            width: 85%;
+        }
+        .section-navigator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10%;
+        }
+        .page-navigator-link {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .page-navigator-link li {
+            border-left: 2px solid #fff;
+        }
+        .page-navigator-link  a{
+            text-decoration: none;
+            padding: 2px 0 2px 5px;
+            display: block;
+        }
+        .page-navigator-link li.active-link {
+            border-left: 2px solid #888;
+        }
     </style>
 
      <script type="text/javascript">
@@ -324,7 +358,53 @@
                 introJs().start();
             }, 1000);
         }
-</script>
+    </script>
+    <script type="text/javascript" src="/javascripts/vendors/jquery.smoothscroll.js"></script>
+    <script type="text/javascript" src="/javascripts/vendors/jquery.easing.min.js"></script>
+    <script type="text/javascript">
+        $( window ).scroll( function  (argument) {
+            var win = $( this );
+            var top = $( '.section-content' ).offset().top - win.scrollTop() ;
+            if( top < 20  ) {
+                $( '.section-navigator' ).css( 'top', -top + 20 );
+            } else {
+                $( '.section-navigator' ).css( 'top', '' );
+            }
+            
+            $( '.info-section' ).each( function( index, ele ) {
+                var dim = ele.getBoundingClientRect();
+
+                if( dim.top - 75 < 0  && dim.bottom > 0 )  {
+                    $( '.page-navigator-link li' ).removeClass( 'active-link' );
+                    $( '#' + ele.id + '-li' ).addClass( 'active-link' );
+                }
+                /*if( top > 50 ) {
+                    
+                } */
+            } );
+
+            //if( $( '.info-section' ).offset().top )
+
+        } );
+        setTimeout( function() {
+            $( '.page-navigator-link a' ).click( function( e ) {
+                e.preventDefault();
+                var id = $(this).attr( 'href' );
+
+                $("html, body").animate(
+                    {
+                        scrollTop: $( id ).offset().top - 50 + 'px'
+                    } ,
+                    1500 ,
+                    'easeInOutQuint',
+                    function() {
+                        location.hash = id;
+                    }
+                )
+            } );    
+        }, 1000 )
+        
+    </script>
 
 </body>
 
