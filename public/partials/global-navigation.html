@@ -31,7 +31,19 @@
 </div>
 <div id="opened-page-mask" class="opened-page-mask" ng-click="closeMenu( $event )"></div>
 <a href="#" class="nav-menu" ng-click="openMenu( $event )">
+    <span class="welcome-username" ng-if="username">Welcome {{username}}</span>
     <i class="fa fa-bars"></i>
 </a>
 
+<style type="text/css">
+    .welcome-username {
+        font-size: 14px;
+    }
+    .nav-menu {
+        text-decoration: none;
+    }
+    .nav-menu .fa {
+        vertical-align: middle;
+    }
+</style>
 
