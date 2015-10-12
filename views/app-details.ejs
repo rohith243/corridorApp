@@ -29,6 +29,12 @@
                                         </div>
                                         <div btf-markdown="item.shortDesc">
                                         </div>
+                                        <div layout="row" ng-if="item.status">
+                                            <span><strong>Stage </strong>: {{item.status}}</span> 
+                                        </div>
+                                        <div layout="row"  ng-if="item.category">
+                                            <span><strong>Category </strong> : {{item.category}}</span> 
+                                        </div>
                                     </div>
                                     <div class="app-summary" flex="30" flex-sm="100">
 
@@ -39,15 +45,11 @@
                                         <div layout="row" class="text-right" ng-if="item.lastUpdated">
                                             <span class="" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-mmm-yyyy'}}</span>
                                         </div>
-                                        <div layout="row" class="text-right" ng-if="item.status">
-                                            <span class="" flex="45">Stage : </span> <span flex="55" class="app-summary-value"> {{item.status}}</span>
-                                        </div>
+                                        
                                         <div layout="row" class="text-right" ng-if="item.effort">
                                             <span class="" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}</span>
                                         </div>
-                                        <div layout="row" class="text-right" ng-if="item.category">
-                                            <span class="" flex="45">Category : </span> <span flex="55" class="app-summary-value"> {{item.category}}</span>
-                                        </div>
+
                                         <!-- <div layout="row" class="text-right">
                                             <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
                                         </div> -->
@@ -255,7 +257,7 @@
 
         }
         .content-separators {
-            border-top: 1px solid #f1f1f1;
+            border-top: 1px solid #ccc;
             padding: 50px 0;
         }
         .detail-page .md-title {
@@ -274,7 +276,7 @@
             top: -90px;
             font-size: 29px;
             padding: 20px;
-            border: 1px solid #f1f1f1;
+            border: 1px solid #ccc;
             border-radius: 50%;
             text-align: center; 
         }

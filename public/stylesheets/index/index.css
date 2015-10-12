@@ -58,7 +58,7 @@ header {
 .page-layout {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 .page-layout-2 {
@@ -892,3 +892,13 @@ header {
     width: 30px !important;
     height: 30px !important;
 }
+
+
+@media (min-width: 600px) and (max-width: 992px ) {
+    .page-layout {
+        padding: 0 50px;
+    }
+    .page-layout {
+        max-width: 800px;
+    }
+} 
