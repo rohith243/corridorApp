@@ -50,16 +50,20 @@ header {
     
     width: 100%;
     background: #fff;
-    border-bottom: solid 1px #d9d9de;
+    /*border-bottom: solid 1px #d9d9de;*/
     position: absolute;
-    background-color: rgba(255,255,255,0.8);
+    background-color: #FF5722;
     height: 58px;
     
 }
 
 .logo {
     display: inline-block;
-    padding: 5px 0;
+    padding: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 28px;
 }
 
 .logo img {
@@ -78,6 +82,9 @@ header {
     padding: 0 10px;
 }
 
+.welcome-section2 {
+    border-left: 1px solid #FF5722;
+}
 .welcome-section1 .page-layout-2 {
     margin-right: 0
 }
@@ -143,9 +150,9 @@ header {
 
 .welcome-section2 {
     height: 542px;
-    background: rgba( 0, 0, 0, 0.5);
+    /*background: rgba( 0, 0, 0, 0.5);
     text-shadow: 2px 0px 6px #000;
-    color: #fff;
+    color: #fff;*/
 }
 
 .welcome-content {}
@@ -635,11 +642,22 @@ footer p {
 .nav-menu {
     font-size: 24px;
     margin-right: 20px;
+    color: #fff;
     /*display: inline-block;
     color: #fff;
     position: absolute;
     right: 20px;*/
-}    
+}  
+
+.welcome-username {
+    font-size: 14px;
+}
+.nav-menu {
+    text-decoration: none;
+}
+.nav-menu .fa {
+    vertical-align: middle;
+}  
 @media (max-width: 600px ) {
 
     .main-nav {

@@ -42,7 +42,7 @@ var stylish = require('jshint-stylish');
 var jshint = require('gulp-jshint');
 var gulp   = require('gulp');
 gulp.task('jshint', function() {
-  return gulp.src(['./public/javascripts/**/*.js','./routes/**/*.js','!./public/javascripts/config/**/*.js'] )
+  return gulp.src(['./public/javascripts/**/*.js','./routes/**/*.js','!./public/javascripts/config/**/*.js','!./public/javascripts/vendors/**/*.js'] )
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });

@@ -15,8 +15,9 @@
                 var item = model.item;
                 var currentUserOldEffort = 0;
                 var totalEffort = 0;
+                var user;
                 for (var interest in item.interests) {
-                    var user = item.interests[interest];
+                    user = item.interests[interest];
                     if (user.hours && !isNaN(user.hours)) {
                         totalEffort = totalEffort + parseInt(user.hours);
                     }                        
@@ -24,7 +25,7 @@
                 $scope.remainingEffort = item.effort - totalEffort;
                 var interests = item.interests;
                 if (uid && interests) {
-                    for (var user in interests) {
+                    for (user in interests) {
                         if (interests[user].uid === uid) {
                             isupdate = true;
                             $scope.user  = interests[user];
@@ -37,7 +38,7 @@
                     $mdDialog.hide();
                 };
 
-                $scope.addContributor = function() {debugger;
+                $scope.addContributor = function() {
                     if ($scope.user.hours > ($scope.remainingEffort + currentUserOldEffort) ) {
                         Notification.error('You can Enter more than remaining hours left');
                         return;
