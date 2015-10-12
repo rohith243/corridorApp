@@ -5,7 +5,7 @@ var user = require('./modules/user');
 //var handleContent = require('./modules/handleContent.js');
 router.get('/', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(), function(req, res) {
     res.render('dashboard', {
-        title: 'Dashboard | Letsbuild',
+        title: 'Dashboard | LetsBuild',
         editAppTile: true,
         user: user.getDetails(req)
     });

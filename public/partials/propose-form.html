@@ -25,7 +25,7 @@
         Edit: {{itemName}}
       </span>
       <span ng-show="!itemName">
-        Welcome, We are happy for Your Idea.
+        Propose your Idea.
       </span>
     </h1>
         <md-content layout-padding>
@@ -61,28 +61,28 @@
                             </div>
                             <div>
                                 <md-input-container>
-                                    <label>Select a Category </label>
+                                    <label>Category </label>
                                     <md-select ng-model="item.category" name="category">
-                                        <md-option value="WebSite, IT and Software">
-                                            WebSite, IT and Software
-                                        </md-option>
                                         <md-option value="Mobile">
                                             Mobile
                                         </md-option>
-                                        <md-option value="Sales">
-                                            Sales
+                                        <md-option value="Finance">
+                                            Finance
                                         </md-option>
-                                        <md-option value="Product Development">
-                                            Product Development
+                                        <md-option value="Insurance">
+                                            Insurance
                                         </md-option>
-                                        <md-option value="Entertainment">
-                                            Entertainment
+                                        <md-option value="Health Care">
+                                            Health Care
+                                        </md-option>
+                                        <md-option value="Educational Services">
+                                            Educational Services
                                         </md-option>
                                     </md-select>
                             </div>
                             <div>
                                 <md-input-container>
-                                    <label>Estimated effort needs to finish the Idea ( in hours )</label>
+                                    <label>Estimated effort ( in hours )</label>
                                     <input type="number" required name="effort" ng-model="item.effort">
                                 </md-input-container>
                             </div>
@@ -104,7 +104,7 @@
                         </div>
                         <div>
                             <md-input-container>
-                                <label>Youtube link</label>
+                                <label>YouTube (Embed code)</label>
                                 <input  name="vedioLink" ng-model="item.vedioLink" ng-pattern="/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/i"/>
                                 <div ng-messages="updateForm.$showValidation && updateForm.vedioLink.$error">
                                     <div ng-message="pattern">Invalid url</div>
@@ -113,7 +113,7 @@
                         </div>
                         <div>
                             <md-input-container>
-                                <label>Useful Links</label>
+                                <label>Reference URL's</label>
                                 <textarea columns="1" name="links" ng-model="item.links"></textarea>
                             </md-input-container>
                         </div>

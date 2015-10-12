@@ -4,7 +4,7 @@ var user = require('./modules/user');
 var router = express.Router();
 router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
     res.render('propose-form', {
-        title: 'Propose form',
+        title: 'Proposal | LetsBuild',
         user: user.getDetails(req)
     });
 });
