@@ -44,15 +44,10 @@
                                         </div>
                                         <div layout="row" class="text-right" ng-if="item.lastUpdated">
                                             <span class="thiker" flex="45">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-MMM-yyyy'}}</span>
-                                        </div>
-                                        
+                                        </div>                                        
                                         <div layout="row" class="text-right" ng-if="item.effort">
                                             <span class="thiker" flex="45">Effort : </span> <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
                                         </div>
-
-                                        <!-- <div layout="row" class="text-right">
-                                            <span class="" flex="50">Effort :</span> <span flex="50" class="">{{item.effort}}</span> 
-                                        </div> -->
                                         <div layout="row" class="text-center">
                                             <span flex>
                                                 <a href="#" ng-click="updateLikes($event)">
@@ -63,11 +58,6 @@
                                                     </div>
                                                 </a>
                                             </span>
-                                            
-                                            <!--<span class="app-summary-value" flex="55">
-                                                {{item.likes.length}}
-                                            <a href="#" ng-click="updateLikes( $event )" class="like-icon"><i ng-class="likeClass" style="font-size:18px"></i></a>
-                                            </span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -75,16 +65,17 @@
                         </div>
                         <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
-                                <!-- <div>
-                                    % of completion
-                                    <md-progress-linear md-mode="determinate" value="20">20</md-progress-linear>
-                                </div> -->
                                 <div>
                                     <div class="md-title">Proposed by</div>
                                     <div class="proposed-team-wrap">
-                                        <div ng-repeat="mem in item.proposedTeam">
+                                        <div ng-repeat="mem in item.proposedTeam" class="mem-container">
+                                            <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+
+                                            </div>
+                                            <div ng-if="!mem.src" class="background-name">
+                                                {{mem.fullName[0]}}{{mem.fullName[0]}}
+                                            </div>
                                             <a ng-href="mailto:{{mem.mail}}">
-                                                <i class="fa fa-envelope-o"></i>
                                                 &nbsp;{{mem.fullName}}
                                             </a>
                                         </div>
@@ -103,6 +94,36 @@
                 </div>
                 <div class="page-layout positionR">
                     <div class="section-content">
+                        <div class="content-separators info-section" id="team" ng-if="item.interests &&item.interests.length>0">
+                            <div class="icon-holder">
+                                <div class="icon-parent">
+                                    <span class="fa fa-users"></span>
+                                </div>    
+                            </div>
+                            <div  data-step="9" data-intro="Team Members">
+                                <h1 class="content-heading">Team</h1>
+                                <div class="content-data">
+                                    <div class="grid-row">
+                                        <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests" style="list-style:none;">
+                                            <li>
+                                                <div>
+                                                    <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+
+                                                    </div>
+                                                    <div ng-if="!mem.src" class="background-name">
+                                                        {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                                    </div>
+                                                    <div class="name-container">
+                                                        <p class="ng-binding">{{mem.firstName}}</p>
+                                                        <p class="ng-binding">{{mem.mail}}</p>
+                                                    </div>
+                                                 </div>                                            
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="content-separators info-section" id="introduction" ng-if="item.longDesc"  >
                             <div class="icon-holder">
                                 <div class="icon-parent">
@@ -145,35 +166,13 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="content-separators info-section" id="team" ng-if="item.interests &&item.interests.length>0">
-                            <div class="icon-holder">
-                                <div class="icon-parent">
-                                    <span class="fa fa-users"></span>
-                                </div>    
-                            </div>
-                            <div  data-step="9" data-intro="Team Members">
-                                <h1 class="content-heading">Team</h1>
-                                <div class="content-data">
-                                    <div >
-                                        <ul class="" ng-repeat="mem in item.interests">
-                                            <li>
-                                                <p>{{mem.fullName}}</p>
-                                                <p>{{mem.mail}}</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="section-navigator">
                         <ul class="page-navigator-link">
+                            <li id="team-li" ng-if="item.interests &&item.interests.length>0"><a href="#team">Team</a></li>
                             <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
                             <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
                             <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
-                            <li id="team-li" ng-if="item.interests &&item.interests.length>0"><a href="#team">Team</a></li>
                         </ul>
                     </div>
 

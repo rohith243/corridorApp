@@ -206,17 +206,24 @@
                 </md-tab>
                 <md-tab label="interested People" ng-if="item.interests &&item.interests.length>=0">
                     <md-content class="tab-content">
-                        <h2>Interested People</h2>
+                        <!-- <h2>Interested People</h2> -->
                         <div ng-if="!item.interests || item.interests.length===0">
                             <p>This an Awesome Idea</p>
                             <p>We are looking for Interested people</p>
                         </div>
-                        <div class="interested-peoples">
-                           <div ng-repeat="user in item.interests">
-                                <p>{{user.fullName}}</p>
-                                <p>{{user.mail}}</p>
-                                <p>hours: {{user.hours}}</p>
-                                <p>About: {{user.aboutme}}</p>
+                        <div class="grid-row">
+                           <div ng-repeat="user in item.interests" class="grid grid-md-4 grid-sm-6 grid-xs-12 interested-tile">
+                                <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="background-name">
+                                    {{user.firstName[0]}}{{user.lastName[0]}}
+                                </div>
+                                <div class="name-container">
+                                  <div>{{user.firstName}}</div>
+                                  <div>mail : {{user.mail}}</div>
+                                  <div>hours : {{user.hours}}</div>
+                                  <div><b>About</b> : {{user.aboutme}}</div>
+                                </div>
                            </div>
                         </div>
                     </md-content>
