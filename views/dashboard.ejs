@@ -21,7 +21,7 @@
             <div class="page-layout" ng-controller="appsController">
                 <div layout="row"  layout-wrap layout-align="start center">
                     <div flex="70" flex-sm="100">
-                        <h1 class="md-display-1">Your Proposed Apps</h1>
+                        <h1 class="md-display-1">Your proposed apps</h1>
                     </div>
                     <div flex="30" flex-sm="100" class="filter-panel dashboard-filter" >
                         <div layout="row"  layout-align="center center">
@@ -55,7 +55,7 @@
                                         <div class="margin-flush">
                                             <md-toolbar class="md-warn">
                                                 <div class="md-toolbar-tools">
-                                                    <h2 class="md-flex">You dont have any items under <strong>{{key}}</strong></h2>
+                                                    <h2 class="md-flex">You don't have any items in <strong>{{key}}</strong></h2>
                                                 </div>
                                             </md-toolbar>
                                         </div>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="loadmore" ng-if="getData(key).length > limit[key]">
                                         <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
-                                            Loadmore
+                                            Load more
                                         </md-button>
                                     </div>
                                 </md-content>

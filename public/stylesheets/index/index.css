@@ -78,6 +78,7 @@ header {
 
 .welcome-content {
     padding: 20px;
+    text-align: left;
 }
 
 .header-flush {
