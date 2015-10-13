@@ -12,7 +12,7 @@ router.get('/id/:_id', function(req, res, next) {
     res.render('app-details', {
         title: 'App Details | LetsBuild',
         user: user.getDetails(req),
-        basePath: './../../../'
+        basePath: '../../../'
     });
 });
 module.exports = router;

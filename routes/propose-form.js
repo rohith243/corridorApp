@@ -6,7 +6,7 @@ router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), funct
     res.render('propose-form', {
         title: 'Proposal | LetsBuild',
         user: user.getDetails(req),
-        basePath: './../'
+        basePath: '../'
     });
 });
 module.exports = router;
