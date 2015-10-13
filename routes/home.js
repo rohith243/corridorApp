@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     res.render('home', {
         title: 'Home | LetsBuild',
         user: user.getDetails(req),
-        basePath: ''
+        basePath: './'
     });
 });
 module.exports = router;
