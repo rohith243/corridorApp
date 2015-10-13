@@ -27,6 +27,12 @@ var app = express();
 
 app.locals.stringify = JSON.stringify;
 
+app.use(function(req, res, next) {
+  req.headers.host = "cev3.pramati.com/letsbuild";
+  console.log( 'header updated' );
+  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
