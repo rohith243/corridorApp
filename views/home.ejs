@@ -2,6 +2,17 @@
 <html>
 
 <head>
+    <script type="text/javascript">
+        /*
+         * solution for the url hit without '/' 
+         * i.e cev3.pramati.com/letsbuild
+         * instead of cev3.pramati.com/letsbuild/ 
+         */
+        var path = location.pathname; 
+        if( path[path.length-1] !== '/' ) {
+            location.pathname = path + '/';
+        }
+    </script>
     <%- include common/head.ejs %>
 </head>
 <body>
