@@ -96,13 +96,13 @@
                 </div>
                 <div class="page-layout positionR">
                     <div class="section-content">
-                        <div class="content-separators info-section"  ng-if="item.interests &&item.interests.length>0">
+                        <div class="content-separators info-section"  id="team" ng-if="item.interests &&item.interests.length>0">
                             <div class="icon-holder">
                                 <div class="icon-parent">
                                     <span class="fa fa-users"></span>
                                 </div>    
                             </div>
-                            <div  data-step="9" data-intro="Team Members">
+                            <div  data-step="6" data-intro="Team Members">
                                 <h1 class="content-heading">Team</h1>
                                 <div class="content-data">
                                     <div class="grid-row">
@@ -132,7 +132,7 @@
                                     <span class="fa fa-info"></span>
                                 </div>    
                             </div>
-                            <div   data-step="6" data-intro="Introduction to App">
+                            <div   data-step="7" data-intro="Introduction to App">
                                 <h1 class="content-heading">Introduction</h1>
                                 <div class="content-data">
                                     <div btf-markdown="item.longDesc"></div>
@@ -146,7 +146,7 @@
                                     <span class="fa fa-television"></span>
                                 </div>    
                             </div>
-                            <div   data-step="7" data-intro="Click to watch video.">
+                            <div   data-step="8" data-intro="Click to watch video.">
                                 <h1 class="content-heading">Video</h1>
                                 <div class="content-data" >
                                     <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
@@ -161,7 +161,7 @@
                                     <span class="fa fa-sitemap"></span>
                                 </div>    
                             </div>
-                            <div   data-step="8" data-intro="Application analysis.">
+                            <div   data-step="9" data-intro="Application analysis.">
                                 <h1 class="content-heading">Analysis</h1>
                                 <div class="content-data">
                                     <div btf-markdown="item.solution"></div>
