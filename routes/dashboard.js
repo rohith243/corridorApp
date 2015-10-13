@@ -8,7 +8,7 @@ router.get('/', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate
         title: 'Dashboard | LetsBuild',
         editAppTile: true,
         user: user.getDetails(req),
-        basePath: '../'
+        basePath: './'
     });
 });
 module.exports = router;
