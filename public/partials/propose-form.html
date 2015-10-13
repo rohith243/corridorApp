@@ -63,6 +63,12 @@
                                 <md-input-container>
                                     <label>Category </label>
                                     <md-select ng-model="item.category" name="category">
+                                      <md-option value="Website, IT and Software">
+                                            Website, IT and Software
+                                      </md-option>
+                                      <md-option value="ESS">
+                                            ESS
+                                      </md-option>
                                         <md-option value="Mobile">
                                             Mobile
                                         </md-option>
@@ -143,7 +149,7 @@
                                 <div ng-message="required">This is required.</div>
                             </div>
                         </div>
-                        <div>
+                        <!-- <div>
                             <md-chips ng-model="item.contributors" name="contributors"  md-autocomplete-snap md-require-match="true">
                                 <md-autocomplete
                                     md-search-text="search.contributor"
@@ -159,7 +165,7 @@
                                     </span>
                                 </md-chip-template>
                             </md-chips>
-                        </div>
+                        </div> -->
                     </md-content>
                 </md-tab>
                 <md-tab label="Settings">

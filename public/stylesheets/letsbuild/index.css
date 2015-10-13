@@ -1240,6 +1240,7 @@ input {
 }
 .project-card.project-card-tall .project-thumbnail-img, .project-card.project-card-tall-big .project-thumbnail-img {
     display: block;
+    height: 100%;
 }
 .project-card.project-card-tall .project-card-content, .project-card.project-card-tall .project-card-footer, .project-card.project-card-tall-big .project-card-content, .project-card.project-card-tall-big .project-card-footer {
     padding: 10px;
