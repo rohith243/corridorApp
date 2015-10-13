@@ -10,7 +10,7 @@
             .ok('signin here')
             .cancel('Ignore');
         $mdDialog.show(confirm).then(function() {
-            window.location = basePath + '/signin?redirect=' + location.pathname;
+            window.location = basePath + 'signin?redirect=' + location.pathname;
         }, function() {
             return;
         });
