@@ -9,6 +9,16 @@ html {
 footer, .push {
     height: 48px; /* '.push' must be the same height as 'footer' */
 }
+.corr-home-btn {
+    float: right;
+    margin-top: 10px;
+    background: rgba(250, 203, 59, 0.85) !important;
+}
+.primary-button.md-button.md-default-theme.corr-home-btn:focus,.primary-button.md-button.md-default-theme.corr-home-btn:active {
+   -webkit-box-shadow: none; 
+   -moz-box-shadow: none; 
+   box-shadow: none;
+}
 
 .wrapper {
     min-height: 100%;
