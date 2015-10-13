@@ -311,8 +311,9 @@ router.post('/expressInterest', function(req, res, next) {
                                 
                                 if( doc.interests[ i ].mail === udetails.mail ) {
                                     isExists = true;    
-                                    doc.interests[ i ].hours = data.hours;
-                                    doc.interests[ i ].aboutme = data.aboutme;
+                                    /*doc.interests[ i ].hours = data.hours;
+                                    doc.interests[ i ].aboutme = data.aboutme;*/
+                                    doc.interests[ i ] = currentItem;
                                     break;
                                 }
                             }
