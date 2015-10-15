@@ -132,10 +132,10 @@
                     }
                     var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
                     if (isNaN(effortFundedPerc)) {
-                        return "0%";
+                        return '0%';
                     }
-                    return effortFundedPerc+"%";
-                }
+                    return effortFundedPerc+'%';
+                };
             }
         ]);
 })(angular);

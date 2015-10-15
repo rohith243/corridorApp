@@ -37,7 +37,7 @@ router.get( '/myProposedApps', function ( req, res, next ) {
     
     var udetails = user.getDetails( req );
     if( ! ( udetails && udetails.mail ) ) {
-        req.json( {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -70,7 +70,7 @@ router.get( '/myProposedApps', function ( req, res, next ) {
 router.post( '/addDocument', function ( req, res, next ) {
     var udetails = user.getDetails( req );
     if( ! ( udetails && udetails.mail ) ) {
-        req.json( {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -168,8 +168,8 @@ router.get('/deleteDoc', function ( req, res, next ) {
     var query = req.query;
     var oid =  ObjectId( query._id );
     var udetails = user.getDetails( req );
-    if( ! ( udetails && udetails.mail ) ) {
-        req.json( {
+    if( ! ( udetails && udetails.mail )  ) {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -187,10 +187,10 @@ router.get('/deleteDoc', function ( req, res, next ) {
 
             mongo.remove( { 
                 collection: obj.collection,
+                res: res,
                 query: {
                     _id: oid
                 },
-                res: res,
                 callback: function () {
                     res.json('');
                     obj.db.close();
@@ -207,7 +207,7 @@ router.post('/updateDoc', function(req, res, next) {
     var oid = new ObjectId( id );
     var udetails = user.getDetails( req );
     if( !( udetails && udetails.mail ) ) {
-        req.json( {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -256,7 +256,7 @@ router.post('/expressInterest', function(req, res, next) {
     var oid = new ObjectId( id );
     var udetails = user.getDetails( req );
     if( !( udetails && udetails.mail ) ) {
-        req.json( {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -353,7 +353,7 @@ router.post('/toggleVote', function(req, res, next) {
     var oid = new ObjectId( id );
     var udetails = user.getDetails( req );
     if( !( udetails && udetails.mail ) ) {
-        req.json( {
+        res.json( {
             error: '_invalid_user'
         } );
         return;
@@ -416,6 +416,78 @@ router.post('/toggleVote', function(req, res, next) {
     });
 });
 
+router.post('/adminUpdate', function(req, res, next) {
+    var data = req.body.data;
+    var id = req.body._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+
+    if( !( udetails.admin ) ) {
+        res.statusCode = '403';
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+    var setObj = data;
+    mongo.connect({
+        res: res,
+        callback: function(err, db) {
+            
+            var collection = db.collection( collectionName );
+            
+            mongo.update( {
+                res: res,
+                collection: collection,
+                query: {
+                    _id: oid    
+                },
+                setData: {
+                    $set: setObj
+                },
+                callback: function  ( err, doc ) {
+
+                    res.json('');
+                    db.close();
+                }
+            } );
+        }
+    });
+});
+
+router.get('/deleteAdmin', function(req, res, next) {
+    var id = req.query._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+
+    if( !( udetails.admin ) ) {
+        res.statusCode = '403';
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    mongo.connect({
+        res: res,
+        callback: function(err, db) {
+            
+            var collection = db.collection( collectionName );
+            
+            mongo.remove( { 
+                collection: collection,
+                res: res,
+                query: {
+                    _id: oid
+                },
+                callback: function () {
+                    res.json('');
+                    db.close();
+                }
+            } );
+        }
+    });
+});
 
 router.get('/userdetails', function(req, res, next) {
     res.json( user.getAllDetails( req ) );

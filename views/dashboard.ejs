@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html manifest="<%= basePath %>cache.manifest">
 
 <head>
     <%- include common/head.ejs %>
@@ -80,7 +80,7 @@
             <%- include common/footer.ejs  %>
         </section>
     </div>
-    <div search-app data-is-edit="true"></div>
+    <div search-app data-mode="edit"></div>
     <script type="text/javascript">
         var serviceConfig = {
             app: {

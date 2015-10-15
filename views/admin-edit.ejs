@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html manifest="<%= basePath %>cache.manifest">
+
+<head>
+    <%- include common/head.ejs %>
+    <link href="<%= basePath %>bower_components/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <div class="wrapall footer-flush">
+        
+        <div class="loader-wrap" ng-class="{'loader-hide': true}">
+            <div class="page-loader"></div>
+        </div>
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="header-flush">
+            
+            <div class="page-content page-layout" >
+                <div style="margin-bottom: 50px" ng-controller="adminEditController">
+                    <div class="pull-right">
+                        <md-button class="md-raised md-primary primary-button" ng-click="update($event)">
+                            <span >
+                                Update Changes
+                            </span>
+                        </md-button>
+                        <md-button class="md-raised md-primary primary-button" ng-click="reset($event)">
+                            <span>
+                                Reset
+                            </span>
+                        </md-button>
+                        <md-button  class="md-raised md-primary primary-button" target="_blank" ng-href="<%=basePath %>../../gallery/id/{{_id}}">
+                            Preview
+                        </md-button>
+                    </div>
+                    <h1 class="md-display-1">
+                        Admin, Edit {{item.appName}}
+                    </h1>
+                    <div id="jsoneditor"></div>
+                    <div class="button-container">
+                        <div class="pull-right">
+                            <md-button class="md-raised md-primary primary-button"  ng-click="update($event)">
+                                <span >
+                                    Update Changes
+                                </span>
+                            </md-button>
+                            <md-button class="md-raised md-primary primary-button"  ng-click="reset($event)">
+                                <span>
+                                    Reset
+                                </span>
+                            </md-button>
+                            <md-button  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item._id}}">
+                                Preview
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+    
+    <%- include common/footer.script.includes.ejs %>
+    <script src="<%= basePath %>bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
+
+
+    <script type="text/javascript">
+            var originalResponse;
+            angular.module( 'adminEdit', [])
+            .controller( 'adminEditController',[
+                '$scope',
+                'http',
+                'Notification',
+                function  (
+                    $scope,
+                    http,
+                    Notification
+                ) {
+                    var _id;
+                    var paths = location.pathname.split('/');
+                    _id = paths[ paths.length - 1 ];
+                    var container = document.getElementById("jsoneditor");
+                    var editor = new JSONEditor(container);
+
+                    http.get( basePath + 'services/getDocument?_id=' + _id )
+                    .then( function( res ) {
+                        $scope.item = angular.copy(res);
+                        $scope._id = $scope.item._id
+                        delete( $scope.item._id ); //preventing to accidental change _id
+                        originalResponse = res;
+                        editor.set( $scope.item );
+
+                    } );
+
+                    $scope.reset = function( e ) {
+                        e.preventDefault();
+                        editor.set( originalResponse );
+                    };
+
+                    $scope.update = function( e ) {
+                        e.preventDefault();
+                        http.post( basePath + 'services/adminUpdate?_id=' + _id, {
+                            postData: {
+                                data: editor.get(),
+                                _id: originalResponse._id
+                            }
+                        } )
+                        .then( function( res ) {
+                            $scope.item =  editor.get();
+                            Notification.success( 'Updated Successfully' );
+                        } );
+                    }
+                }            
+            ] );
+            angular.bootstrap(document, ['commonModule', 'adminEdit']);
+    </script>
+    
+    
+    <style>
+        .footer-flush{
+            padding-bottom: 48px;
+        }
+        .page-content{
+            min-height: calc( 100vh - 58px - 48px );
+        }
+        .welcome-section {
+            padding: 50px;
+        }
+        /*.welcome-section:after{
+            content: '';
+        }*/
+        .md-button {
+            vertical-align: middle;
+        }
+        
+        .welcome-content1 {
+            border-right:1px solid #A2A2A2;
+            min-height: calc( 100vh - 58px - 48px )
+        }
+        @media (max-width:600px) {
+            .welcome-content1 {
+                min-height: auto;
+                border-right:0;
+                border-bottom:1px solid #A2A2A2;
+                
+            }
+        }
+        .button-container {
+            margin-top: 10px;
+            overflow: auto;
+        }
+
+    </style>
+
+</body>
+
+</html>

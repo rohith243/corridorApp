@@ -37,6 +37,7 @@ mongo.findOne = function( obj ) {
     obj.collection.findOne( query, projection, function (  err, doc ) {
         if( err )  {
             if( obj.res ) {
+                obj.res.statusCode = 500;
                 obj.res.json( {
                     'error': '_error_mongo'
                 } );
@@ -51,6 +52,7 @@ mongo.remove = function ( obj ) {
     obj.collection.remove( query, function (  err, doc ) {
         if( err )  {
             if( obj.res ) {
+                obj.res.statusCode = 500;
                 obj.res.json( {
                     'error': '_error_mongo'
                 } );
@@ -65,11 +67,16 @@ mongo.remove = function ( obj ) {
 mongo.update = function ( obj ) {
     var query = obj.query || {};
     obj.collection.update( query, obj.setData, function(err, doc) {
+
         if (err) {
-            obj.json({
-                'error': '_error_mongo'
-            });
-            return;
+            if( obj.res ) {
+                obj.res.statusCode = 500;
+                obj.res.json({
+                    'error': '_error_mongo'
+                });
+                return;    
+            }
+            
         }
         obj.callback( err, doc );
     } );  
@@ -84,7 +91,7 @@ mongo.authorizedUser = function ( obj ) {
             obj.db = db;
             var collection = db.collection( obj.collectionName );
             obj.collection = collection;
-            console.log( 'authorizedUserin' );
+            
             mongo.findOne( {
                 res: obj.res,
                 query: obj.query,

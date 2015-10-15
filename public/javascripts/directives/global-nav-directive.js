@@ -23,6 +23,7 @@ if ( typeof window.GLOBAL === 'undefined' ) {
             $scope.signinurl = basePath + 'signin?redirect=' + window.location.pathname;
             if ( GLOBAL.user ) {
                 $scope.username = GLOBAL.user.firstName;
+                $scope.admin = GLOBAL.user.admin;
             }
             $scope.logout = function(e) {
                 e.preventDefault();
