@@ -11,7 +11,7 @@
                 templateUrl: basePath + 'partials/app-overlay.html',
                 restict: 'A',
                 scope: {
-                    isEdit: '='
+                    mode: '@'
                 },
                 controller: 'searchOverlayController',
                 link: function( scope, ele ) {
@@ -37,6 +37,8 @@
                 Notification,
                 $timeout
             ) {
+
+                
                 $scope.allFilteredApps = [];
 
                 $scope.filteredApps = function() {
@@ -119,9 +121,9 @@
                     }
                     var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
                     if (isNaN(effortFundedPerc)) {
-                        return "0%";
+                        return '0%';
                     }
-                    return effortFundedPerc+"%";
+                    return effortFundedPerc+'%';
                 };
             }
         ]);

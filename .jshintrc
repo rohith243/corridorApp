@@ -6,7 +6,8 @@
 		"GLOBAL" : false,
 		"_": false,
 		"require": false,
-		"module": false
+		"module": false,
+		"basePath": false
 	},
     "laxcomma": true,       // Suppresses warnings about comma-first coding style http://www.jshint.com/docs/options/#laxcomma
 	"browser": true,        // This option defines globals exposed by modern browsers http://www.jshint.com/docs/options/#browser

@@ -29,7 +29,6 @@ app.locals.stringify = JSON.stringify;
 
 app.use(function(req, res, next) {
   req.headers.host = "cev3.pramati.com/letsbuild";
-  console.log( 'header updated' );
   next();
 });
 
@@ -52,6 +51,7 @@ app.use('/dashboard', require( './routes/dashboard' ) );
 app.use('/signin', require( './routes/signin' ) );
 app.use('/services', require( './routes/services' ) );
 app.use('/propose-form', require( './routes/propose-form' ) );
+app.use('/admin', require( './routes/admin' ) );
 
 
 

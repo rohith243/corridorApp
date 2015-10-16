@@ -26,6 +26,11 @@
                     My Proposals
                 </a>
             </li>
+            <li ng-if="admin">
+                <a  href="{{basePath}}admin" >
+                    Admin Dashboard
+                </a>
+            </li>
             <li ng-if="username">
                 <a  href="#" ng-click="logout($event)">
                     LOGOUT, {{username}}

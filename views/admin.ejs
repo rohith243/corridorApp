@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head >
+    <%- include common/head.ejs %>
+    <link rel="stylesheet" href="<%= basePath %>stylesheets/letsbuild/index.css" />
+</head>
+
+<body >
+
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div>
+    
+    <div class="wrapall">
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="main-content header-flush">
+            <div class="page-layout" ng-controller="appsController">
+                <div layout="row"  layout-wrap layout-align="start center">
+                    <div flex="70" flex-sm="100">
+                        <h1 class="md-display-1">Welcome ADMIN</h1>
+                    </div>
+                    <div flex="30" flex-sm="100" class="filter-panel">
+                        <div layout="row"  layout-align="center center">
+                            <div flex="50">
+                                <div class="sort-by">
+                                    <md-input-container>
+                                        <label >Sort By</label>
+                                        <md-select ng-model="sortBy">
+                                          <md-option value="-lastUpdated">Updated Date</md-option>
+                                          <md-option value="-createdAt">Created Date</md-option>
+                                          <md-option value="-likes.length">Upvote Count</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="dummy-search-wrap">
+                                    <span ng-click="searchpop()" class="fa fa-search"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="app-container" >
+                    <!-- <md-content> -->
+                        <!--  <md-tabs md-dynamic-height md-border-bottom> -->
+                            <!-- <md-tab label="{{key}}" ng-repeat="(key,tab) in apps"> -->
+                                <md-content class="tiles-container" ng-repeat="(key,tab) in apps" >
+                                    <div ng-if="!tab || tab.length ===0">
+                                        <div class="margin-flush">
+                                            <md-toolbar class="md-warn">
+                                                <div class="md-toolbar-tools">
+                                                    <h2 class="md-flex">You don't have any items in <strong>{{key}}</strong></h2>
+                                                </div>
+                                            </md-toolbar>
+                                        </div>
+                                    </div>
+                                    <div class="gridlayout grid-row" layout-wrap >
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-admin data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+                                        </div>
+                                    </div>
+                                    <div class="loadmore" ng-if="tab.length > limit[key]">
+                                        <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
+                                            Loadmore
+                                        </md-button>
+                                    </div>
+                                </md-content>
+                            <!-- </md-tab> -->
+                       <!--  </md-tabs> -->
+                    <!-- </md-content>  -->
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+    <div search-app data-mode="admin" ></div>
+    <script type="text/javascript">
+        var serviceConfig = {
+            app: {
+                url: '<%= basePath %>services/publishedApps',
+                keys: ['letsbuild']
+            }
+        }
+        if (typeof GLOBAL === 'undefined') {
+            var GLOBAL = {};
+        }
+        GLOBAL.featuredApps = [{
+            "_id": "56022746b14391e21be35310"
+        }, {
+            "_id": "5603bcd04127193e156b435a"
+        }];
+    </script>
+ 
+
+    <%- include common/footer.script.includes.ejs %>
+    <%- include common/footer.script.markdown.includes.ejs %>
+    
+    <script src="<%= basePath %>javascripts/controllers/apps-controller.js"></script>
+    <script src="<%= basePath %>javascripts/directives/app-tile-directive.js"></script>
+    <script src="<%= basePath %>javascripts/directives/search-app-directive.js"></script>
+    <script src="<%= basePath %>javascripts/modules/gallery.js"></script>
+
+</body>
+
+</html>

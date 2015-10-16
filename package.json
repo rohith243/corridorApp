@@ -24,7 +24,9 @@
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {
+    "cli-color": "^1.1.0",
     "gulp": "^3.9.0",
+    "gulp-change": "^1.0.0",
     "gulp-jsbeautifier": "^1.0.1",
     "gulp-jshint": "^1.11.2",
     "gulp-prettify": "^0.3.0",

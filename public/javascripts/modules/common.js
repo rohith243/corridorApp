@@ -11,7 +11,7 @@
         'kvp@pramati.com': basePath + 'images/kvp.jpg'
     };
 
-    angular.module('commonModule', ['ngMaterial', 'httpService', 'globalNavigation','headroom'])
+    angular.module('commonModule', ['ngMaterial', 'httpService', 'globalNavigation'])
         .factory('model', [function() {            
             var data = {};
             return data;
@@ -19,7 +19,7 @@
         .filter('getImages', function() {
           return function( inputArray ) {
             if( !inputArray ) {
-                return []
+                return [];
             }
             for( var i = 0; i < inputArray.length; i++ ) {
                 if( tempImages[ inputArray[i].mail ] ) {

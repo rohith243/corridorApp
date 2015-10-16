@@ -1,3 +1,4 @@
+var siteConfig = require( './../confidentials/site-config');
 var user = {};
 user.getDetails = function(req) {
 
@@ -9,6 +10,7 @@ user.getDetails = function(req) {
         user.mail = attr.mail[0];
         user.lastName = attr.lastname[0];
         user.uid = attr.uid[0];
+        user.admin = siteConfig.admin.indexOf( user.mail ) !== -1;
     }
     return user;
 };
