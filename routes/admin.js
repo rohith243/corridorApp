@@ -12,7 +12,7 @@ router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), funct
             basePath: './'
         });    
     } else {
-        res.redirect( './../' );
+        res.redirect( './' );
     }
 });
 
