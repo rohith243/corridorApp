@@ -12,7 +12,7 @@ router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), funct
             basePath: './'
         });    
     } else {
-        res.redirect( '/' );
+        res.redirect( './../' );
     }
 });
 
@@ -26,7 +26,7 @@ router.get('/edit/:_id',cas.ssout('/edit/:_id'), cas.serviceValidate(), cas.auth
             basePath: '../../'
         });    
     } else {
-        res.redirect( '/' );
+        res.redirect( './../' );
     }
     
 });
