@@ -106,8 +106,8 @@
                                 <h1 class="content-heading">Team</h1>
                                 <div class="content-data">
                                     <div class="grid-row">
-                                        <ul class="grid grid-sm-12 grid-md-6"  style="list-style:none;">
-                                            <li ng-repeat="mem in item.interests | getImages">
+                                        <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" style="list-style:none;">
+                                            <li>
                                                 <div>
                                                     <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
 
