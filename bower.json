@@ -4,7 +4,9 @@
   "authors": [
     "Kiran <akiran547@gmail.com>"
   ],
-  "devDependencies": {
+  "dependencies": {
+    "headroom.js": "~0.7.0",
+    "jsoneditor": "~4.2.1",
     "angular": "~1.4.5",
     "bootstrap": "~3.3.5",
     "angular-bootstrap": "~0.13.4",
@@ -16,9 +18,5 @@
     "angular-markdown-directive": "~0.3.1",
     "angular-messages": "~1.4.6",
     "angular-ui-notification": "~0.0.14"
-  },
-  "dependencies": {
-    "headroom.js": "~0.7.0",
-    "jsoneditor": "~4.2.1"
   }
 }
