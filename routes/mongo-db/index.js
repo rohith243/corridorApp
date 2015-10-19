@@ -1,7 +1,8 @@
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var dbname = 'corridorApp';
-var url = 'mongodb://db:27017/';
+var dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
+var url = 'mongodb://'+dbHost+':27017/';
 var mongo = {};
 var user = require('./../modules/user');
 mongo.connect = function(obj) {
