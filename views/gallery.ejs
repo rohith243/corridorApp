@@ -59,7 +59,7 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="gridlayout grid-row" layout-wrap style="position:relative">
+                                    <div ng-if="tab && tab.length > 0" class="gridlayout grid-row" layout-wrap style="position:relative">
                                         <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="tab[0]" style="position:absolute;width:30%;left:2.5%;top:0;z-index:-1" data-step="3" data-intro="Click on the app to view details." data-position="top"></div>
 
                                         <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">

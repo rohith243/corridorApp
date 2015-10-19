@@ -49,8 +49,11 @@
                             $scope.apps[keys[key]] = res; // drafts,published
                             $scope.limit[ keys[key] ] = 6;
                         }
+                        debugger;
+                        if (res[ 0 ]) {
+                           getFirstId = res[ 0 ]._id;
+                        }
                         
-                        getFirstId = res[ 0 ]._id;
                         
                         for( var index in res) { 
                             var item = res[index];
