@@ -3,7 +3,7 @@ var router = express.Router();
 var user = require('./modules/user');
 router.get('/', function(req, res, next) {
     res.render('aboutus', {
-        title: 'AboutUs',
+        title: 'About',
         user: user.getDetails(req),
         basePath: './'
     });
