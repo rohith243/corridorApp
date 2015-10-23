@@ -1,0 +1,61 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+    <%- include common/head.ejs %>
+</head>
+<body>
+
+     <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div> 
+    <div class="wrapall">
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="main-content header-flush">
+            <div class="page-layout">
+                <div class="about-container">
+                    <div layout="column"  layout-wrap layout-align="start center">
+                        <div>
+                            <h2 style="color:rgb(16,108,200);">About Us</h2>
+                        </div>
+                        <md-content class="layout-padding flex">
+                            When you are thinking of trying out a new hairdresser, dentist or even a fish and chip shop, you don't base your decision on what they say about themselves. You turn to those around you. By including a few glowing (and up-to-date) customer testimonials on your about page, you can create a hub of information.
+    
+    Be sure to include the customer or client's full name and any relevant details that could add credibility to your testimonials. Better still, include photos of your customers, if possible. It all helps to build trust in your brand.
+    Include customer-focused awards and accreditations. Perhaps you were voted your area's favorite provider of security products in 2013, or maybe you are part of some authoritative bodies or organisations within your industry. Exploit the instinctive human need to seek reassurance from our peers.
+                        </md-content>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+    <style>
+        .about-container {
+            margin : 2% 8%;
+            background-color: #f7f7f9;
+        }
+        .about-container md-content {
+            padding: 0px 15px 15px;
+            background-color: #f7f7f9;
+        }
+        /*@media (max-width:800px) {
+            .about-container {
+                margin : 10px;
+            }
+        }*/
+    </style>
+    <%- include common/footer.script.includes.ejs %>
+    <%- include common/footer.script.markdown.includes.ejs %>
+    <script type="text/javascript">
+        setTimeout(function(argument) {
+            angular.bootstrap(document, ['commonModule']);
+        }, 0)
+    </script>
+</body>
+
+</html>

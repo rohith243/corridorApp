@@ -13,6 +13,7 @@ footer, .push {
     float: right;
     margin-top: 10px;
     background: rgba(250, 203, 59, 0.85) !important;
+    margin-right: 40px;
 }
 .primary-button.md-button.md-default-theme.corr-home-btn:focus,.primary-button.md-button.md-default-theme.corr-home-btn:active {
    -webkit-box-shadow: none; 

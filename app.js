@@ -52,6 +52,7 @@ app.use('/signin', require( './routes/signin' ) );
 app.use('/services', require( './routes/services' ) );
 app.use('/propose-form', require( './routes/propose-form' ) );
 app.use('/admin', require( './routes/admin' ) );
+app.use('/aboutus', require( './routes/aboutus' ) );
 
 
 
