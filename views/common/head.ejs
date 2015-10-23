@@ -1,44 +1,5 @@
 <head>
-
-    <!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
-    <!--link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'-->
-
-    <link rel="stylesheet" href="<%= basePath %>bower_components/angular-material/angular-material.min.css">
-    <link rel="stylesheet" href="<%= basePath %>bower_components/components-font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<%= basePath %>stylesheets/index/grid-system.css" />
-    <link rel="stylesheet" href="<%= basePath %>stylesheets/index/index.css" />
-    <link rel="stylesheet" href="<%= basePath %>stylesheets/vendors/introjs.min.css" />
-
-    <link rel="stylesheet" href="<%= basePath %>bower_components/angular-ui-notification/dist/angular-ui-notification.min.css" />
-
-    <title>
-        <%= title %>
-    </title>
-    <style type="text/css">
-        @charset "UTF-8";
-        [ng\:cloak],
-        [ng-cloak],
-        [data-ng-cloak],
-        [x-ng-cloak],
-        .ng-cloak,
-        .x-ng-cloak,
-        .ng-hide:not(.ng-hide-animate) {
-            display: none !important;
-        }
-        
-        ng\:form {
-            display: block;
-        }
-        
-        .ng-animate-shim {
-            visibility: hidden;
-        }
-        
-        .ng-anchor {
-            position: absolute;
-        }
-    </style>
-    <style type="text/css">
+<style type="text/css">
         .page-loader {
             overflow: hidden;
             font-size: 10px;
@@ -119,6 +80,45 @@
         }
 
     </style>
+    <!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+    <!--link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'-->
+
+    <link rel="stylesheet" href="<%= basePath %>bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="<%= basePath %>bower_components/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= basePath %>stylesheets/index/grid-system.css" />
+    <link rel="stylesheet" href="<%= basePath %>stylesheets/index/index.css" />
+    <link rel="stylesheet" href="<%= basePath %>stylesheets/vendors/introjs.min.css" />
+
+    <link rel="stylesheet" href="<%= basePath %>bower_components/angular-ui-notification/dist/angular-ui-notification.min.css" />
+
+    <title>
+        <%= title %>
+    </title>
+    <style type="text/css">
+        @charset "UTF-8";
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak,
+        .ng-hide:not(.ng-hide-animate) {
+            display: none !important;
+        }
+        
+        ng\:form {
+            display: block;
+        }
+        
+        .ng-animate-shim {
+            visibility: hidden;
+        }
+        
+        .ng-anchor {
+            position: absolute;
+        }
+    </style>
+    
 
     <% if(user) {%>
         <script>
