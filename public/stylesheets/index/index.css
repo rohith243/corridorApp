@@ -1024,3 +1024,10 @@ header {
     margin-right: 10px;
 }
 
+.switch-btn md-switch {
+    display: inline-block;
+    margin: 0px;
+}
+.switch-btn .md-container {
+    top:6px;
+}

@@ -13,8 +13,7 @@
                     aboutme: ''
                 };
                 var isupdate = false;
-                var item = model.item;
-                var currentUserOldEffort = 0;
+                var item = model.item;                
                 var totalEffort = 0;
                 var user;
                 for (var interest in item.interests) {
@@ -30,7 +29,6 @@
                         if (interests[user].uid === uid) {
                             isupdate = true;
                             $scope.user  = interests[user];
-                            currentUserOldEffort = interests[user].hours ? interests[user].hours : 0;
                             break;
                         }
                     }
@@ -40,62 +38,24 @@
                 };
 
                 $scope.addContributor = function() {
-                    if ($scope.user.hours > ($scope.remainingEffort + currentUserOldEffort) ) {
-                        Notification.error('You can Enter more than remaining hours left');
-                        return;
-                    }
-                    else {
-                        http.post( basePath + 'services/expressInterest', {
-                            postData: {
-                                data: {
-                                    hours:  $scope.user.hours,
-                                    aboutme: $scope.user.aboutme
-                                },
-                                _id: model._id
-                            }
-                        } )
-                        .then( function  ( res ) {
-                            console.log(  res );
-                            if ( isupdate ) {
-                                Notification.success('Successfully updated your changes');
-                            } else {
-                                interests.push($scope.user);
-                                Notification.success('Thanks for expressing interest');
-                            }
-                            
-                        } );
-                    }
-                    
-
-                    /*if ( isupdate ) {
-                        http.post('/services/update', {
-                                postData: {
-                                    data: {
-                                        interests: interests
-                                    },
-                                    cname: 'letsbuild',
-                                    _id: model._id
-                                }
-                            })
-                            .then(function(res) {
-                                Notification.success('Successfully updated your changes');
-                            });
-                    } else {
-                        $http.post('/services/push', {
-                                cname: 'letsbuild',
-                                _id: model._id,
-                                data: {
-                                    interests: $scope.user
-                                },
-                                key: 'expressinterest'
-                            })
-                            .then(function(res) {
-                                if (res.status === 200) {
-                                    interests.push($scope.user);
-                                    Notification.success('Thanks for expressing interest');
-                                }
-                            });
-                    }*/
+                    http.post( basePath + 'services/expressInterest', {
+                        postData: {
+                            data: {
+                                hours:  $scope.user.hours,
+                                aboutme: $scope.user.aboutme
+                            },
+                            _id: model._id
+                        }
+                    } )
+                    .then( function  ( res ) {
+                        if ( isupdate ) {
+                            Notification.success('Successfully updated your changes');
+                        } else {
+                            interests.push($scope.user);
+                            Notification.success('Thanks for expressing interest');
+                        }
+                        
+                    } );
                     $mdDialog.hide();
                 };
             }
