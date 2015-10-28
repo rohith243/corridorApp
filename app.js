@@ -28,7 +28,11 @@ var app = express();
 app.locals.stringify = JSON.stringify;
 
 app.use(function(req, res, next) {
-  //req.headers.host = "cev3.pramati.com/letsbuild";
+  
+  if( req.headers.hostName === '192.168.2.135' ) {
+    req.headers.host = "cev3.pramati.com/letsbuild";
+  }
+
   next();
 });
 

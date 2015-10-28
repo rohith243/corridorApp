@@ -77,7 +77,6 @@ mongo.update = function ( obj ) {
                 });
                 return;    
             }
-            
         }
         obj.callback( err, doc );
     } );  
@@ -85,7 +84,6 @@ mongo.update = function ( obj ) {
 
 
 mongo.authorizedUser = function ( obj ) {
-    console.log( 'authorizedUser' );
     mongo.connect( {
         res: obj.res,
         callback: function( err, db ) {
@@ -105,11 +103,9 @@ mongo.authorizedUser = function ( obj ) {
                         db.close();
                         return;
                     }
-                    console.log( 'before check' );
                     if( user.checkMail( obj.req, doc.owner.mail ) ) {
-                        console.log( 'checkMail' );
+                        obj.oldDoc = doc;
                         obj.callback( obj );
-                        console.log( 'end---------------end' );
                     } else {
                         obj.res.statusCode = 403;
                         obj.res.json( {

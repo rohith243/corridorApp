@@ -16,6 +16,7 @@
                 'public',
                 'status',
                 'invites',
+                'interests',
                 'imgurl',
                 'isPublish',
                 'effort'
@@ -180,7 +181,7 @@
                 };
                 var originalData;
                 var _id = $stateParams._id;
-                tabcount = 5;
+                tabcount = 6;
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
                 $scope.$watch(
@@ -268,6 +269,18 @@
                             }
                         });
                 };
+                $scope.isContributorsAvailable = function(interestedPeople) {
+                    var flag = true;
+                    if (interestedPeople) {
+                        for (var index in interestedPeople) {
+                            if (interestedPeople[index].isContributor) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    return flag;
+                }
                 function loadEmployees() {
                     if( !$scope.empRequestSent ) {
                         $scope.empRequestSent = true;

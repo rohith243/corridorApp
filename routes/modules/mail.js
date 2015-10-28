@@ -41,5 +41,18 @@ mail.send = function  ( item, user ) {
         console.log('Message sent: ' + info.response);
     });  
 };
+mail.notifyContributor = function  ( item, contributor, info ) {
+    mailOptions.to = contributor.mail;
+    mailOptions.cc = item.owner.mail;
+    mailOptions.subject = 'LetsBuild Notification: Contributor ' + item.appName;
+    mailOptions.html = '<p>Hi '+ ( contributor.firstName || contributor.uid )+',</p>';
+    mailOptions.html += '<p>'+ info + item.appName+' idea</p>';
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error) {
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });  
+};
 module.exports = mail;
 
