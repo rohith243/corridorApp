@@ -17,7 +17,7 @@ paths: {
         serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0
         proxyValidate: '/cas/p3/proxyValidate', // CAS 3.0
         proxy: '/cas/proxy',
-        login: '/cas/login',
+        login: '/',
         logout: '/cas/logout'
     }
 });
