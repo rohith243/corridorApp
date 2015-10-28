@@ -87,6 +87,18 @@
                         openSinginWarning($mdDialog, e);
                     }
                 };
+                $scope.isContributorsAvailable = function(interestedPeople) {
+                    var flag = false;
+                    if (interestedPeople) {
+                        for (var index in interestedPeople) {
+                            if (interestedPeople[index].isContributor) {
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                    return flag;
+                };
             }
         ]);
 })(angular);

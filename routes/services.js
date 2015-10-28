@@ -6,6 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 var user = require('./modules/user');
 var siteUtils = require('./modules/site-utils');
 var collectionName = 'letsbuild';
+var mail = require('./modules/mail.js');
 
 router.get( '/publishedApps', function ( req, res, next ) {
     mongo.connect({
@@ -226,7 +227,6 @@ router.post('/updateDoc', function(req, res, next) {
         },
         collectionName: collectionName,
         callback: function ( obj ) {
-            console.log( 'even here' );
             setObj.lastUpdated = +new Date();
             setObj.lastUpdatedBy = {
                 uid: udetails.uid,
@@ -242,6 +242,29 @@ router.post('/updateDoc', function(req, res, next) {
                     $set: setObj
                 },
                 callback: function  ( err, doc ) {
+                    var oldIntColl = obj.oldDoc.interests,
+                    newIntcoll = setObj.interests,
+                    oldIntIndex,newIntIndex;
+                    if (newIntcoll && oldIntColl) {
+                        for(oldIntIndex in oldIntColl) {
+                            for(newIntIndex in newIntcoll) {
+                                if (oldIntColl[oldIntIndex].mail == newIntcoll[newIntIndex].mail) {
+                                    if (oldIntColl[oldIntIndex].isContributor != newIntcoll[newIntIndex].isContributor) {
+                                        //send mail
+                                        if (newIntcoll[newIntIndex].isContributor) {
+                                            // added to contributors list
+                                            mail.notifyContributor(obj.oldDoc,newIntcoll[newIntIndex],"You are added to contributors of "); 
+                                        }
+                                        else {
+                                            // removed from contributors list
+                                            mail.notifyContributor(obj.oldDoc,newIntcoll[newIntIndex],"You are removed from contributors of ");
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     res.json('');
                     obj.db.close();    
                 }
@@ -261,7 +284,6 @@ router.post('/expressInterest', function(req, res, next) {
         } );
         return;
     }
-
     mongo.connect({
         res: res,
         callback: function(err, db) {
@@ -273,7 +295,6 @@ router.post('/expressInterest', function(req, res, next) {
                 },
                 collection: collection,
                 callback: function  ( err, doc ) {
-                    console.log( 'even here', doc );
                     if( !doc ) {
                         console.log( 'error 404' );
                         res.statusCode = 404;
@@ -284,10 +305,7 @@ router.post('/expressInterest', function(req, res, next) {
                         return;
                     } 
                     else {
-                        console.log( 'eles' );
                         doc.interests = doc.interests || [];
-                        console.log( 'doc.owner.mail: ' ,doc.owner.mail);
-                        console.log( 'udetails.mail: ' ,udetails.mail);
                         if( udetails.mail ===  doc.owner.mail ) {
                             console.log( 'error:403' );
 
@@ -296,7 +314,9 @@ router.post('/expressInterest', function(req, res, next) {
                                 error: '_item_owner'
                             } );
                             db.close();
-                        } else {
+                            return;
+                        }
+                        else {
                             var currentItem = {
                                 hours: data.hours,
                                 aboutme: data.aboutme,
@@ -305,22 +325,18 @@ router.post('/expressInterest', function(req, res, next) {
                                 lastName: udetails.lastName,
                                 uid: udetails.uid
                             };
-
                             var isExists = false;
                             for (var i = doc.interests.length - 1; i >= 0; i--) {
-                                
                                 if( doc.interests[ i ].mail === udetails.mail ) {
                                     isExists = true;    
-                                    /*doc.interests[ i ].hours = data.hours;
-                                    doc.interests[ i ].aboutme = data.aboutme;*/
                                     doc.interests[ i ] = currentItem;
                                     break;
                                 }
                             }
                             if( !isExists ) {
+                                currentItem.isContributor = false;
                                 doc.interests.push( currentItem );
                             }
-
                             mongo.update( {
                                 res: res,
                                 collection: collection,
@@ -334,7 +350,6 @@ router.post('/expressInterest', function(req, res, next) {
                                 },  
                                 callback: function  ( err, udoc ) {
                                     res.json('');
-                                    var mail = require('./modules/mail.js');
                                     mail.send( doc, currentItem );
                                     db.close();    
                                 }
