@@ -28,5 +28,40 @@
             }
             return inputArray;
           };
-        });
+        })
+        .directive( 'checkFeature', [
+            function() {
+                return {
+                    restrict: 'A',
+                    controller: [
+                        '$scope',
+                        'http',
+                        function( $scope, http ) {
+                            
+                            var requestSent = {};
+                            $scope.checkFeatureStatus = $scope.checkFeatureStatus || {};
+                            $scope.getStatus = function( id ) {
+                                if( typeof $scope.checkFeatureStatus[ id ] !== 'undefined' )
+                                    return $scope.checkFeatureStatus[ id ];
+                                else {
+                                    if( requestSent[ id ] ) {
+                                        return;
+                                    }
+                                    requestSent[ id ] = true;
+                                    
+                                    http.get( basePath + 'services/verifyFeature?_id=' + id )
+                                    .then( function( res ) {
+                                        $scope.checkFeatureStatus[ id ] = res.status;
+                                    }, function() {
+                                        requestSent[ id ] = false;
+                                    } );
+
+                                }
+                                
+                            }
+                        }
+                    ]
+                }
+            }
+        ] );
 })(angular);

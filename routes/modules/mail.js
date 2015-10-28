@@ -1,6 +1,8 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-var mailConfig = require( './../confidentials/mail-config.json' );
+var siteConfig = require( './../confidentials/site-config' );
+var mailConfig = siteConfig.mailConfig;
+
 var mail = {
     //dummy function 
     send: function() {

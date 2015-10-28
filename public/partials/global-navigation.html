@@ -31,6 +31,26 @@
                     Admin Dashboard
                 </a>
             </li>
+            <li ng-if="admin">
+                <a  href="{{basePath}}site-config" >
+                    Site config
+                </a>
+            </li>
+            <li ng-if="admin">
+                <a  href="{{basePath}}feature-config" >
+                    Feature config
+                </a>
+            </li>
+            <li>
+                <a  href="https://github.com/uidev547/corridorApp/issues" target="_new">
+                    Create a github issue
+                </a>
+            </li>
+            <li>
+                <a  href="{{basePath}}aboutus" >
+                    About
+                </a>
+            </li> 
             <li ng-if="username">
                 <a  href="#" ng-click="logout($event)">
                     LOGOUT, {{username}}

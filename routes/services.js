@@ -169,6 +169,7 @@ router.get('/deleteDoc', function ( req, res, next ) {
     var oid =  ObjectId( query._id );
     var udetails = user.getDetails( req );
     if( ! ( udetails && udetails.mail )  ) {
+        res.statusCode = 403;
         res.json( {
             error: '_invalid_user'
         } );
@@ -492,6 +493,211 @@ router.get('/deleteAdmin', function(req, res, next) {
 router.get('/userdetails', function(req, res, next) {
     res.json( user.getAllDetails( req ) );
 });
+
+
+router.post('/updateSiteConfig', function(req, res, next) {
+    var udetails =  user.getDetails( req );
+    if( !udetails.admin ) {
+        res.statusCode = '403';
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    
+    user.setConfig( {
+        res: res,
+        data: req.body.data,
+        callback : function() {
+            res.end( '' ); 
+        }
+    } );
+});
+
+
+router.post('/addFeatureConfig', function(req, res, next) {
+    var udetails =  user.getDetails( req );
+    if( !udetails.admin ) {
+        res.statusCode = '403';
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+    mongo.connect( {
+        res: res,
+        callback: function(err, db) {
+            var data = req.body.data;
+            var setObj = siteUtils.getSetObject( data, 'featureConfig' );
+            setObj.createdAt = +new Date();
+            setObj.owner =  {
+                uid: udetails.uid,
+                firstName: udetails.firstName,
+                lastName: udetails.lastName,
+                mail: udetails.mail
+            };
+            
+            var collection = db.collection( 'featureConfig' );
+            collection.insert(setObj, function(err, doc) {
+                if ( err ) {
+                    console.log({
+                        'error': '_error_mongo'
+                    });
+                    return;
+                }
+                res.json( setObj );
+                db.close();
+            });
+        }
+    });
+});
+
+router.get('/allFeatureConfigs', function(req, res, next) {
+    var udetails =  user.getDetails( req );
+    if( !udetails.admin ) {
+        res.statusCode = '403';
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    mongo.connect( {
+        res: res,
+        callback: function(err, db) {
+            var proj = {}; 
+            try {
+                proj = JSON.parse( req.query.projection );
+            } catch( e ) {
+
+            }
+
+            var obj = {
+                db: db,
+                collectionName: 'featureConfig',
+                projection: proj
+            };
+
+            var cursor = mongo.find(obj);
+            cursor.stream().pipe(JSONStream.stringify()).pipe(res);
+        }
+    });
+});
+
+router.post('/updateFeatureConfig', function(req, res, next) {
+    var data = req.body.data;
+    var id = req.body._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+    if( !( udetails && udetails.admin ) ) {
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+    
+    var setObj = siteUtils.getSetObject( data, 'featureConfig' );
+    if ( !setObj ) {
+        res.json('');
+        return;
+    }
+
+    mongo.connect( {
+        res: res,
+        callback: function(err, db) {            
+            var collection = db.collection( 'featureConfig' );
+            setObj.lastUpdated = +new Date();
+            setObj.lastUpdatedBy = {
+                uid: udetails.uid,
+                mail: udetails.mail
+            };
+
+            mongo.update( {
+                res: res,
+                collection: collection,
+                query: {
+                    _id: oid    
+                },
+                setData: {
+                    $set: setObj
+                },
+                callback: function  ( err, doc ) {
+                    res.json('');
+                    db.close();    
+                }
+            } );
+        }
+    });
+});
+
+
+router.get('/deleteFeatureConfig', function ( req, res, next ) {
+    var query = req.query;
+    var oid =  ObjectId( query._id );
+    var udetails = user.getDetails( req );
+    if( ! ( udetails && udetails.admin )  ) {
+        res.statusCode = 403;
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+     mongo.connect( {
+        res: res,
+        callback: function(err, db) {            
+            var collection = db.collection( 'featureConfig' );
+            mongo.remove( { 
+                collection: collection,
+                res: res,
+                query: {
+                    _id: oid
+                },
+                callback: function () {
+                    res.json('');
+                    db.close();
+                }
+            } );
+        }
+    });
+} );
+
+
+router.get('/verifyFeature', function ( req, res, next ) {
+    
+    var query = req.query;
+    var oid =  ObjectId( query._id );
+    var udetails = user.getDetails( req );
+    
+    mongo.connect( {
+        res: res,
+        callback: function( err, db ) {
+            var collection = db.collection( 'featureConfig' );
+            var proj = {};
+             try {
+                proj = JSON.parse( req.query.projection );
+            } catch( e ) {
+
+            }
+            mongo.findOne( {
+                res: res,
+                query: {
+                    _id: oid
+                },
+                projection: proj,
+                collection: collection,
+                callback: function  ( err, doc ) {
+                    res.json( {
+                        status: user.checkFeatureConfig( doc, udetails )    
+                    } )
+                    db.close();
+                }
+            } );
+        }
+    } );    
+} );
+
+
 
 router.get('/logout', function(req, res, next) {
     if (req.session.destroy) {

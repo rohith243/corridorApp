@@ -22,7 +22,7 @@ utils.getSetObject = function(data, cname, isRequiredValidation) {
             'isPublish',
             'effort'          
         ],
-        globals: ['name', 'type', 'value']
+        featureConfig: [ 'featureText', 'list', 'featureKey', 'open' ]
     };
     var requiredMap = {
         letsbuild: [

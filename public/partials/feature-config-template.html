@@ -1,0 +1,53 @@
+<md-dialog aria-label="List dialog" flex="60">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add / Update Features</h2>
+        </div>
+    </md-toolbar>
+
+    <form name="express-details" ng-submit="updateFeatureConfig( $event )" novalidate>
+
+        <md-dialog-content>
+            <md-input-container>
+                <label>Add feature help text</label>
+                <input required name="featureText" ng-model="item.featureText" />
+            </md-input-container>
+            
+            <!--md-input-container>
+                <label>Add Key</label>
+                <input required name="featureKey" ng-model="item.featureKey" />
+            </md-input-container-->
+
+            <div >
+                <div>Open for? </div>
+                <md-radio-group ng-model="item.open" layout="row">
+                  <md-radio-button value="none" class="md-primary" flex> none </md-radio-button>
+                  <md-radio-button value="all" flex> All </md-radio-button>
+                  <md-radio-button value="few" flex> Few People </md-radio-button>
+                </md-radio-group>
+            </div>
+            <div  class="field-wrapper" ng-if="item.open === 'few'">
+                <md-chips required ng-model="item.list" name="list" placeholder="
+                + open for" secondary-placeholder="show for"></md-chips>
+            </div>
+
+        </md-dialog-content>
+
+        <div class="md-actions">
+            <md-button class="md-primary md-raised primary-button">
+                Update / add
+            </md-button>
+            <md-button ng-click="closeDialog()" class="md-primary primary-button">
+                Close
+            </md-button>
+        </div>
+
+    </form>
+    <style type="text/css">
+    .md-switch-thumb, md-radio-button {
+        margin-left: 0;
+    }
+    </style>
+
+    
+</md-dialog>

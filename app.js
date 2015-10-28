@@ -28,7 +28,7 @@ var app = express();
 app.locals.stringify = JSON.stringify;
 
 app.use(function(req, res, next) {
-  req.headers.host = "cev3.pramati.com/letsbuild";
+  //req.headers.host = "cev3.pramati.com/letsbuild";
   next();
 });
 
@@ -52,6 +52,9 @@ app.use('/signin', require( './routes/signin' ) );
 app.use('/services', require( './routes/services' ) );
 app.use('/propose-form', require( './routes/propose-form' ) );
 app.use('/admin', require( './routes/admin' ) );
+app.use('/aboutus', require( './routes/aboutus' ) );
+app.use('/feature-config', require( './routes/feature-config' ) );
+app.use('/site-config', require( './routes/site-config' ) );
 
 
 
