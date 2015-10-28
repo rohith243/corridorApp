@@ -1,5 +1,4 @@
 var siteConfig = require( './../confidentials/site-config' );
-var featureConfig = require( './../confidentials/feature-config' );
 var user = {};
 user.getDetails = function(req) {
 
