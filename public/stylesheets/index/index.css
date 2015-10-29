@@ -1030,3 +1030,8 @@ header {
 .switch-btn .md-container {
     top:6px;
 }
+.yj-share-button {
+    margin: 6px 8px;
+    display: inline-block;
+    vertical-align: middle;
+}

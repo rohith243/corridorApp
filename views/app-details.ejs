@@ -17,7 +17,7 @@
             <div ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
-                        <div flex="75" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
+                        <div flex="70" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
                             <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
+                        <div flex="30" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
                                 <div>
                                     <div class="md-title">Proposed by</div>
@@ -88,6 +88,7 @@
                                             Edit
                                         </md-button>
                                     </div>
+                                    <div id="yj-share-button" class="yj-share-button"></div>
                                 </div>
                             </div>
                         </div>
@@ -187,6 +188,7 @@
             <%- include common/footer.ejs %>
         </section>
     </div>
+    <script type="text/javascript" src="https://c64.assets-yammer.com/assets/platform_social_buttons.min.js"></script>
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
     <script src="<%= basePath %>javascripts/controllers/app-details-controller.js"></script>
@@ -423,7 +425,6 @@
         }, 1000 )
         
     </script>
-
 </body>
 
 </html>
