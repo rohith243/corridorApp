@@ -6,6 +6,9 @@
 </head>
 
 <body>
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div>
     <div class="wrapall">
         <section>
             <%- include common/header.ejs %>
@@ -23,13 +26,15 @@
                 
                 <div>
                     <div layout="row" style="font-weight: bold; margin-bottom: 10px;">
+                        <div flex="20" style="padding-right: 10px">
+                            Key
+                        </div>
+
                         <div flex="50" style="padding-right: 10px">
                             Feature
                         </div>
-                        <div flex="30" style="padding-right: 10px">
-                            _id
-                        </div>
-                        <div flex="10" style="padding-right: 10px">
+                        
+                        <div flex="20" style="padding-right: 10px">
                             Open for
                         </div>
                         <div flex="10" style="padding-right: 10px">
@@ -39,13 +44,15 @@
 
                     </div>
                     <div ng-repeat="config in configs" layout="row" >
+                        <div flex="20" style="padding-right: 10px">
+                            {{config.featureKey}}
+                        </div>
+
                         <div flex="50" style="padding-right: 10px">
                             {{config.featureText}}
                         </div>
-                        <div flex="30" style="padding-right: 10px">
-                            {{config._id}}
-                        </div>
-                        <div flex="10" style="padding-right: 10px">
+                        
+                        <div flex="20" style="padding-right: 10px">
                             {{config.open}}
                         </div>
                         <div flex="10" style="padding-right: 10px">
@@ -67,10 +74,11 @@
     </div>
 
     <%- include common/footer.script.includes.ejs %>
+    <script src="<%= basePath %>/bower_components/angular-messages/angular-messages.js"></script>
     
     <script type="text/javascript">
         
-            angular.module( 'featureConfig', [ 'commonModule' ] )
+            angular.module( 'featureConfig', [ 'commonModule', 'ngMessages' ] )
             .controller( 'featureConfigController', [
                 '$scope',
                 'http',
@@ -109,6 +117,23 @@
                         });
                     };
                     
+                    model.isUniqueKey = function( key, _id ) {
+
+                        for( var i = 0; i< $scope.configs.length ; i++ ) {
+                            if( typeof _id !== 'undefined' ) {
+                                if( $scope.configs[ i ].featureKey === key && $scope.configs[i]._id != _id ) {
+                                    return true;
+                                }    
+                            } else {
+                                if( $scope.configs[ i ].featureKey === key ) {
+                                    return true;
+                                }
+                            }
+                            
+                        } 
+                        return false;
+                    };
+
                     $scope.editFeature = function( e, index ) {
                         
                         e.preventDefault();
@@ -137,7 +162,7 @@
                     $scope.deleteFeature = function( e, index ) {
                         var item = $scope.configs[ index ];
 
-                        if(confirm( 'do you want to delete feature' + item.featureText + ' ?' ) ) {
+                        if(confirm( 'do you want to delete feature "' + item.featureKey + '" ?' ) ) {
 
                             http.get( basePath + 'services/deleteFeatureConfig?_id=' + item._id)
                             .then( function() {
@@ -162,25 +187,37 @@
                     model
                 ) {
                     $scope.item = model.featureConfig || {
-                        list: []
+                        list: [],
+                        open: 'none'
                     };
-                    $scope.closeDialog = function() {
+                    $scope.updateItem = model.featureConfig ? true : false; 
+                    $scope.closeDialog = function( e ) {
+                        e.preventDefault();
                         $mdDialog.cancel();
                     };
 
                     $scope.updateFeatureConfig = function( e ) {
+                        $scope.featureConfigForm.$showValidation = true;
+                        
+                        if(  model.isUniqueKey( $scope.item.featureKey, $scope.item._id ) ) {
+                            alert( 'key :"' + $scope.item.featureKey + '" is already exists Please choose another name'  )
+                            return;
+                        } 
 
-                        e.preventDefault();
-                        var url = model.featureConfig ? 'services/updateFeatureConfig' : 'services/addFeatureConfig';
-                        http.post( basePath + url, {
-                            postData: {
-                                data: $scope.item,
-                                _id : $scope.item._id  
-                            }
-                        })
-                        .then( function( res ) {
-                            $mdDialog.hide( res || $scope.item );
-                        } );
+                        if( $scope.featureConfigForm.$valid ) {
+                            e.preventDefault();
+                            var url = model.featureConfig ? 'services/updateFeatureConfig' : 'services/addFeatureConfig';
+                            http.post( basePath + url, {
+                                postData: {
+                                    data: $scope.item,
+                                    _id : $scope.item._id  
+                                }
+                            })
+                            .then( function( res ) {
+                                $mdDialog.hide( res || $scope.item );
+                            } );    
+                        }
+                        
                     };                    
                 }
             ] )

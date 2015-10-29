@@ -1,23 +1,32 @@
 <md-dialog aria-label="List dialog" flex="60">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add / Update Features</h2>
+            <h2 ng-if="updateItem">Update Feature</h2>
+            <h2 ng-if="!updateItem">Add Feature</h2>
         </div>
     </md-toolbar>
 
-    <form name="express-details" ng-submit="updateFeatureConfig( $event )" novalidate>
+    <form name="featureConfigForm" ng-submit="updateFeatureConfig( $event )"  novalidate>
 
         <md-dialog-content>
             <md-input-container>
-                <label>Add feature help text</label>
+                <label>Key Name</label>
+                <input required name="featureKey" ng-model="item.featureKey" />
+                <div ng-messages="featureConfigForm.$showValidation && featureConfigForm.featureKey.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="uniqueKey">Key is already exists.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Feature help text</label>
                 <input required name="featureText" ng-model="item.featureText" />
+                <div ng-messages="featureConfigForm.$showValidation && featureConfigForm.featureText.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+
             </md-input-container>
             
-            <!--md-input-container>
-                <label>Add Key</label>
-                <input required name="featureKey" ng-model="item.featureKey" />
-            </md-input-container-->
-
             <div >
                 <div>Open for? </div>
                 <md-radio-group ng-model="item.open" layout="row">
@@ -34,10 +43,14 @@
         </md-dialog-content>
 
         <div class="md-actions">
-            <md-button class="md-primary md-raised primary-button">
-                Update / add
+
+            <md-button ng-if="updateItem" class="md-primary md-raised primary-button">
+                Update
             </md-button>
-            <md-button ng-click="closeDialog()" class="md-primary primary-button">
+            <md-button ng-if="!updateItem" class="md-primary md-raised primary-button">
+                Add
+            </md-button>
+            <md-button href="#" ng-click="closeDialog( $event )" class="md-primary primary-button">
                 Close
             </md-button>
         </div>

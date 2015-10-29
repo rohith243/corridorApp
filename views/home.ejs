@@ -2,87 +2,8 @@
 <html>
 
 <head>
-    <style type="text/css">
-        .page-loader {
-            overflow: hidden;
-            font-size: 10px;
-            /* margin: 50px auto; */
-            text-indent: -9999em;
-            width: 11em;
-            height: 11em;
-            border-radius: 50%;
-            background: #FFF;
-            background: linear-gradient(to right, #FFF 10%, rgba(255, 255, 255, 0) 42%);
-            position: relative;
-            animation: load3 1.4s infinite linear;
-            transform: translateZ(0);
-            display: inline-block;
-            top: calc( 50% - 50px);
-            position: absolute;
-        }
-        
-        .page-loader:before {
-            width: 50%;
-            height: 50%;
-            background: #FFF;
-            border-radius: 100% 0 0 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            content: '';
-        }
-        
-        .page-loader:after {
-            background: #0dc5c1;
-            width: 75%;
-            height: 75%;
-            border-radius: 50%;
-            content: '';
-            margin: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            opacity: 0.5;
-        }
-        
-        .loader-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999999;
-            background: rgba(245, 245, 245, 1);
-            transition: all 0.8s ease-in;
-            text-align: center;
-        }
-        
-        .loader-wrap.loader-hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-        
-        @-webkit-keyframes load3 {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        @keyframes load3 {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-    </style>
+    
+    <%- include common/head.ejs %>
     <script type="text/javascript">
         /*
          * solution for the url hit without '/' 
@@ -94,7 +15,6 @@
             location.pathname = path + '/';
         }
     </script>
-    <%- include common/head.ejs %>
 </head>
 <body>
 
@@ -123,7 +43,7 @@
         <section class="header-flush">
             
             <div class="page-content page-layout" layout="row"  layout-sm="column" layout-align="center center"
-            check-feature>
+            >
                 <div flex class="welcome-section welcome-content1" layout="row" layout-align="center center">
                     <div flex  class="welcome-content">
                         
@@ -133,7 +53,7 @@
                         <p>
                             I want contributors to help me build an Idea
                         </p>
-                        <div class="button-container home-btn-container" ng-if="getStatus( '563099eaa409af065fda3c51' )">
+                        <div class="button-container home-btn-container" check-feature="show_propose_app_btn">
                             <md-button href="<%= basePath %>propose-form" class="md-raised md-primary primary-button home-btn">
                                 Propose An App
                             </md-button>
@@ -149,7 +69,7 @@
                         <p>
                             I want to help people build ideas
                         </p>
-                        <div class="button-container home-btn-container" ng-if="getStatus( '56309a03a409af065fda3c52' )">
+                        <div class="button-container home-btn-container" check-feature="show_contributor">
                             <md-button href="<%= basePath %>gallery" class="md-raised md-primary primary-button home-btn">
                                 Be a Contributor
                             </md-button>

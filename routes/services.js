@@ -545,6 +545,7 @@ router.post('/addFeatureConfig', function(req, res, next) {
         callback: function(err, db) {
             var data = req.body.data;
             var setObj = siteUtils.getSetObject( data, 'featureConfig' );
+
             setObj.createdAt = +new Date();
             setObj.owner =  {
                 uid: udetails.uid,
@@ -570,13 +571,13 @@ router.post('/addFeatureConfig', function(req, res, next) {
 
 router.get('/allFeatureConfigs', function(req, res, next) {
     var udetails =  user.getDetails( req );
-    if( !udetails.admin ) {
+    /*if( !udetails.admin ) {
         res.statusCode = '403';
         res.json( {
             error: '_invalid_user'
         } );
         return;
-    }
+    }*/
     mongo.connect( {
         res: res,
         callback: function(err, db) {
@@ -621,6 +622,7 @@ router.post('/updateFeatureConfig', function(req, res, next) {
         res: res,
         callback: function(err, db) {            
             var collection = db.collection( 'featureConfig' );
+            collection.ensureIndex("featureKey");
             setObj.lastUpdated = +new Date();
             setObj.lastUpdatedBy = {
                 uid: udetails.uid,

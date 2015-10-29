@@ -1,4 +1,8 @@
 (function(angular) {
+
+    var checkFeatureRequest;
+    var checkFeatureResponse = {};
+
     if(typeof basePath === 'undefined' ) {
         basePath = '';
     }
@@ -29,7 +33,7 @@
             return inputArray;
           };
         })
-        .directive( 'checkFeature', [
+        /*.directive( 'checkFeature', [
             function() {
                 return {
                     restrict: 'A',
@@ -37,7 +41,6 @@
                         '$scope',
                         'http',
                         function( $scope, http ) {
-                            
                             var requestSent = {};
                             $scope.checkFeatureStatus = $scope.checkFeatureStatus || {};
                             $scope.getStatus = function( id ) {
@@ -59,6 +62,55 @@
                                 }
                                 
                             }
+                        }
+                    ]
+                }
+            }
+        ] )*/
+        .directive( 'checkFeature', [
+            function() {
+                return {
+                    restrict: 'A',
+                    controller: [
+                        
+                        '$scope',
+                        'http',
+                        '$attrs',
+                        '$element',
+
+                        function( $scope, http, $attrs, $element ) {
+
+                            var key = $attrs.checkFeature;
+                            var udetails = GLOBAL.user;
+                            if( !checkFeatureRequest ) {
+                                checkFeatureRequest = true;
+                                http.get( basePath + 'services/allFeatureConfigs' )
+                                .then( function( res ) {
+                                    for( var i = 0; i < res.length; i++ ) {
+                                        if( res[ i ].open === 'all' )
+                                            checkFeatureResponse[ res[i].featureKey ] = true;
+                                        else if( res[ i ].open === 'none' ) 
+                                            checkFeatureResponse[ res[i].featureKey ] = false;
+                                        else if( res[ i ].list ) {
+                                            if( udetails &&  udetails.mail )
+                                                checkFeatureResponse[ res[i].featureKey ] =  res[ i ].list.indexOf( udetails.mail ) !== -1;
+                                        } else {
+                                            checkFeatureResponse[ res[i].featureKey ] =  false;
+                                        }
+                                    }
+                                } );
+                            }
+
+                            $scope.$watch( function() {
+                                return checkFeatureResponse[ key ];
+                            }, function( newVal ) {
+                                if( newVal ) {
+                                    $element.show();
+                                } else {
+                                    $element.hide();
+                                }
+                            }  );
+                            
                         }
                     ]
                 }
