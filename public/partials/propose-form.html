@@ -1,23 +1,24 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-        <md-button class="md-raised md-primary primary-button" data-step="2" data-intro="Save your changes and publish later.">
-            <span ng-if="isPublished">
-                Update Changes
-            </span>
-            <span ng-if="!isPublished">
-                Save to draft
-            </span>
-        </md-button>
-        <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) " data-step="3" data-intro="Publish to make it available for others.">
-            Publish
-        </md-button>
-        <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
-            unpublish
-        </md-button>
-        <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item._id}}">
-            Preview
-        </md-button>
+            <div ng-show="isPublished" id="yj-share-button" class="yj-share-button"></div>
+            <md-button class="md-raised md-primary primary-button" data-step="2" data-intro="Save your changes and publish later.">
+                <span ng-if="isPublished">
+                    Update Changes
+                </span>
+                <span ng-if="!isPublished">
+                    Save to draft
+                </span>
+            </md-button>
+            <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) " data-step="3" data-intro="Publish to make it available for others.">
+                Publish
+            </md-button>
+            <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
+                unpublish
+            </md-button>
+            <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item._id}}">
+                Preview
+            </md-button>
         </div>
         
         <h1 class="md-display-1">
