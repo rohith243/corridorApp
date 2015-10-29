@@ -17,7 +17,7 @@
             <div ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
-                        <div flex="75" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
+                        <div flex="70" flex-sm="100" class="app-details-wrap"  data-step="4" data-intro="Application description.">
                             <div class="app-details" >
                                 <div layout="row" layout-sm="column">
                                     <div class="image-section text-center" flex="20" flex-sm="100">
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div flex="25" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
+                        <div flex="30" flex-sm="100" class="proposer-details-wrap"   data-step="5" data-intro="Questions? Mail us....">
                             <div class="proposer-details">
                                 <div>
                                     <div class="md-title">Proposed by</div>
@@ -81,12 +81,36 @@
                                                 &nbsp;{{mem.firstName}}
                                             </a>
                                         </div>
-                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
-                                            Express Interest
-                                        </md-button>
-                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="../../propose-form#edit/{{item._id}}">
-                                            Edit
-                                        </md-button>
+                                        <div class="slide-right" ng-if="item.owner.mail != currentUser.mail" ng-click="expressInterestDetails($event)">
+                                            <md-button class="md-fab md-primary md-mini trigger-btn">
+                                                <i class="fa fa-hand-paper-o"></i>
+                                            </md-button>
+                                            <span class="actionbtn-container">
+                                                <md-button class="md-raised md-primary primary-button action-btn">
+                                                    Express Interest
+                                                </md-button>
+                                            </span>
+                                        </div>
+                                        <div class="slide-right" ng-if="item.owner.mail == currentUser.mail" ng-href="../../propose-form#edit/{{item._id}}">
+                                            <md-button class="md-fab md-primary md-mini trigger-btn">
+                                                <i class="fa fa-edit"></i>
+                                            </md-button>
+                                            <span class="actionbtn-container">
+                                                <md-button class="md-raised md-primary primary-button action-btn">
+                                                    Edit
+                                                </md-button>
+                                            </span>
+                                        </div>
+                                        <div class="yammer-share slide-right">
+                                            <md-button class="md-fab md-primary md-mini trigger-btn">
+                                                <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
+                                            </md-button>
+                                            <span class="actionbtn-container">
+                                                <md-button class="md-raised md-primary primary-button action-btn">
+                                                Share on yammer
+                                                </md-button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -187,6 +211,7 @@
             <%- include common/footer.ejs %>
         </section>
     </div>
+    <script type="text/javascript" src="https://c64.assets-yammer.com/assets/platform_social_buttons.min.js"></script>
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
     <script src="<%= basePath %>javascripts/controllers/app-details-controller.js"></script>
@@ -423,7 +448,6 @@
         }, 1000 )
         
     </script>
-
 </body>
 
 </html>

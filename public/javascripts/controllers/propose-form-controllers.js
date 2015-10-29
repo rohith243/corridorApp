@@ -332,6 +332,16 @@
                         (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
                   };
                 }
+                window.setTimeout(function(){
+                    var shareConf = {
+                        defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')',
+                        pageUrl : location.origin+'/gallery/id/'+$scope.item._id
+                    }
+                    yam.platform.yammerShare(shareConf);
+                    $('#yj-share-button').on("click", 'a', function(e) {
+                        e.preventDefault();
+                    });
+                },100);
             }
         ]);
 })(angular);
