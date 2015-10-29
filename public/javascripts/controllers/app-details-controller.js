@@ -46,7 +46,8 @@
                         model.item = $scope.item;
                         window.setTimeout(function(){
                             var shareConf = {
-                                defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')'
+                                defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')',
+                                classSelector : 'yammer-share'
                             }
                             yam.platform.yammerShare(shareConf);
                             $('#yj-share-button a').on("click",function(e) {
