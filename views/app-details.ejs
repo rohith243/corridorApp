@@ -14,6 +14,9 @@
             <%- include common/header.ejs %>
         </section>
         <section class="main-content header-flush">
+            <md-button title="Share on yammer" class="md-fab md-primary md-lg yammer-share share-btn">
+                <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
+            </md-button>
             <div ng-controller="appDetailController">
                 <div class="page-layout detail-page" ng-if="item">
                     <div layout="row" layout-sm="column">
@@ -68,8 +71,6 @@
                                 <div>
                                     <div class="md-title">Proposed by</div>
                                     <div class="proposed-team-wrap grid-row">
-
-
                                         <div ng-repeat="mem in item.proposedTeam | getImages" class="grid grid-xs-6 grid-sm-12 mem-container">
                                             <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
 
@@ -81,36 +82,12 @@
                                                 &nbsp;{{mem.firstName}}
                                             </a>
                                         </div>
-                                        <div class="slide-right" ng-if="item.owner.mail != currentUser.mail" ng-click="expressInterestDetails($event)">
-                                            <md-button class="md-fab md-primary md-mini trigger-btn">
-                                                <i class="fa fa-hand-paper-o"></i>
-                                            </md-button>
-                                            <span class="actionbtn-container">
-                                                <md-button class="md-raised md-primary primary-button action-btn">
-                                                    Express Interest
-                                                </md-button>
-                                            </span>
-                                        </div>
-                                        <div class="slide-right" ng-if="item.owner.mail == currentUser.mail" ng-href="../../propose-form#edit/{{item._id}}">
-                                            <md-button class="md-fab md-primary md-mini trigger-btn">
-                                                <i class="fa fa-edit"></i>
-                                            </md-button>
-                                            <span class="actionbtn-container">
-                                                <md-button class="md-raised md-primary primary-button action-btn">
-                                                    Edit
-                                                </md-button>
-                                            </span>
-                                        </div>
-                                        <div class="yammer-share slide-right">
-                                            <md-button class="md-fab md-primary md-mini trigger-btn">
-                                                <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
-                                            </md-button>
-                                            <span class="actionbtn-container">
-                                                <md-button class="md-raised md-primary primary-button action-btn">
-                                                Share on yammer
-                                                </md-button>
-                                            </span>
-                                        </div>
+                                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
+                                            Express Interest
+                                        </md-button>
+                                        <md-button ng-if="item.owner.mail == currentUser.mail" class="md-raised md-primary primary-button" ng-href="../../propose-form#edit/{{item._id}}">
+                                            Edit
+                                        </md-button>
                                     </div>
                                 </div>
                             </div>
