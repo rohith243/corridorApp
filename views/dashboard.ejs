@@ -1,17 +1,16 @@
 <!doctype html>
 <html>
 
-<head >
+<head>
     <%- include common/head.ejs %>
     <link rel="stylesheet" href="<%= basePath %>stylesheets/letsbuild/index.css" />
 </head>
 
-<body >
+<body>
 
     <div class="loader-wrap" ng-class="{'loader-hide': true}">
         <div class="page-loader"></div>
     </div>
-    
     <div class="wrapall">
         <section>
             <%- include common/header.ejs %>
@@ -20,9 +19,9 @@
             <div class="page-layout" ng-controller="appsController">
                 <div layout="row"  layout-wrap layout-align="start center">
                     <div flex="70" flex-sm="100">
-                        <h1 class="md-display-1">Welcome ADMIN</h1>
+                        <h1 class="md-display-1">Your proposed apps</h1>
                     </div>
-                    <div flex="30" flex-sm="100" class="filter-panel">
+                    <div flex="30" flex-sm="100" class="filter-panel dashboard-filter" >
                         <div layout="row"  layout-align="center center">
                             <div flex="50">
                                 <div class="sort-by">
@@ -31,7 +30,7 @@
                                         <md-select ng-model="sortBy">
                                           <md-option value="-lastUpdated">Updated Date</md-option>
                                           <md-option value="-createdAt">Created Date</md-option>
-                                          <md-option value="-likes.length">Upvote Count</md-option>
+                                          <md-option value="-likes.length">Likes Count</md-option>
                                         </md-select>
                                     </md-input-container>
                                 </div>
@@ -44,12 +43,13 @@
                         </div>
                     </div>
                 </div>
-                <div  class="app-container" >
-                    <!-- <md-content> -->
-                        <!--  <md-tabs md-dynamic-height md-border-bottom> -->
-                            <!-- <md-tab label="{{key}}" ng-repeat="(key,tab) in apps"> -->
-                                <md-content class="tiles-container" ng-repeat="(key,tab) in apps" >
-                                    <div ng-if="!tab || tab.length ===0">
+                <div class="app-container">
+                    
+                    <md-content>
+                        <md-tabs md-dynamic-height md-border-bottom>
+                            <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
+                                <md-content class="tiles-container">
+                                    <div ng-if=" getData(key).length ===0">
                                         <div class="margin-flush">
                                             <md-toolbar class="md-warn">
                                                 <div class="md-toolbar-tools">
@@ -58,53 +58,44 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="gridlayout grid-row" layout-wrap >
-                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-admin data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+                                    <div class="gridlayout grid-row" layout-wrap>
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-edit data-item="item" data-index="$index" data-get-effort-funded="getEffortFunded"  data-delete-item="deleteItem" data-toggle-publish="togglePublish" data-key="key" ng-repeat="item in  getData( key ) | orderBy:sortBy | limitTo:limit[key]">
                                         </div>
                                     </div>
-                                    <div class="loadmore" ng-if="tab.length > limit[key]">
+                                    <div class="loadmore" ng-if="getData(key).length > limit[key]">
                                         <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
-                                            Loadmore
+                                            Load more
                                         </md-button>
                                     </div>
                                 </md-content>
-                            <!-- </md-tab> -->
-                       <!--  </md-tabs> -->
-                    <!-- </md-content>  -->
-
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
                 </div>
             </div>
         </section>
         <section>
-            <%- include common/footer.ejs %>
+            <%- include common/footer.ejs  %>
         </section>
     </div>
-    <div search-app data-mode="admin" ></div>
+    <div search-app data-mode="edit"></div>
     <script type="text/javascript">
         var serviceConfig = {
             app: {
-                url: '<%= basePath %>services/publishedApps',
-                keys: ['letsbuild']
+                url: '<%= basePath %>services/myProposedApps',
+                keys: ['drafts','published']
+
             }
         }
-        if (typeof GLOBAL === 'undefined') {
-            var GLOBAL = {};
-        }
-        GLOBAL.featuredApps = [{
-            "_id": "56022746b14391e21be35310"
-        }, {
-            "_id": "5603bcd04127193e156b435a"
-        }];
     </script>
- 
-
     <%- include common/footer.script.includes.ejs %>
     <%- include common/footer.script.markdown.includes.ejs %>
-    
     <script src="<%= basePath %>javascripts/controllers/apps-controller.js"></script>
     <script src="<%= basePath %>javascripts/directives/app-tile-directive.js"></script>
     <script src="<%= basePath %>javascripts/directives/search-app-directive.js"></script>
     <script src="<%= basePath %>javascripts/modules/gallery.js"></script>
+
+
 
 </body>
 

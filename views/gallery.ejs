@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
 
-<head >
+<head>
     <%- include common/head.ejs %>
+
     <link rel="stylesheet" href="<%= basePath %>stylesheets/letsbuild/index.css" />
 </head>
 
@@ -20,12 +21,12 @@
             <div class="page-layout" ng-controller="appsController">
                 <div layout="row"  layout-wrap layout-align="start center">
                     <div flex="70" flex-sm="100">
-                        <h1 class="md-display-1">Welcome ADMIN</h1>
+                        <h1 class="md-display-1">Proposed Apps</h1>
                     </div>
                     <div flex="30" flex-sm="100" class="filter-panel">
                         <div layout="row"  layout-align="center center">
                             <div flex="50">
-                                <div class="sort-by">
+                                <div class="sort-by" data-step="2" data-intro="Sort listed apps. <br> By default they are sorted by updated date.">
                                     <md-input-container>
                                         <label >Sort By</label>
                                         <md-select ng-model="sortBy">
@@ -44,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div  class="app-container" >
+                <div  class="app-container" data-intro="Lists out all the published apps." data-position="top">
                     <!-- <md-content> -->
                         <!--  <md-tabs md-dynamic-height md-border-bottom> -->
                             <!-- <md-tab label="{{key}}" ng-repeat="(key,tab) in apps"> -->
@@ -58,8 +59,10 @@
                                             </md-toolbar>
                                         </div>
                                     </div>
-                                    <div class="gridlayout grid-row" layout-wrap >
-                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile-admin data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+                                    <div ng-if="tab && tab.length > 0" class="gridlayout grid-row" layout-wrap style="position:relative">
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="tab[0]" style="position:absolute;width:30%;left:2.5%;top:0;z-index:-1" data-step="3" data-intro="Click on the app to view details." data-position="top"></div>
+
+                                        <div class="grid grid-xs-12 grid-sm-6 grid-md-4" app-tile data-item="item" data-get-effort-funded="getEffortFunded" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
                                         </div>
                                     </div>
                                     <div class="loadmore" ng-if="tab.length > limit[key]">
@@ -79,7 +82,7 @@
             <%- include common/footer.ejs %>
         </section>
     </div>
-    <div search-app data-mode="admin" ></div>
+    <div search-app data-mode="tile"></div>
     <script type="text/javascript">
         var serviceConfig = {
             app: {
@@ -105,6 +108,26 @@
     <script src="<%= basePath %>javascripts/directives/app-tile-directive.js"></script>
     <script src="<%= basePath %>javascripts/directives/search-app-directive.js"></script>
     <script src="<%= basePath %>javascripts/modules/gallery.js"></script>
+
+<style type="text/css">
+    .introjs-fixParent {
+        position: inherit !important;
+    }
+</style>
+ <script type="text/javascript">
+ if(!localStorage.getItem( 'gallery-visited')){
+        localStorage.setItem( 'gallery-visited', true);
+        setTimeout(function(){
+            introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+                    window.location.href = 'gallery/id/'+ getFirstId +'?multipage=true';
+                });
+        }, 1000);
+
+    }
+</script>
+
+
+
 
 </body>
 

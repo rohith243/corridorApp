@@ -1,0 +1,16 @@
+{
+  "employees": [
+    {
+      "lastName": "Kiran",
+      "email": "kiran.dummyemail@gmail.com",
+      "fullName": "Kiran Adep",
+      "firstName": "Kiran"
+    },
+    {
+      "lastName": "Kumar",
+      "email": "kiran.dummyemail@gmail.com",
+      "fullName": "Kumar A",
+      "firstName": "Kumar"
+    }
+  ]
+}

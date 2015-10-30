@@ -1,28 +1,35 @@
 var express = require('express');
+var cas = require('connect-cas');
 var router = express.Router();
-//var mongo = require('./mongo-db/index.js');
-//var JSONStream = require( 'JSONStream' );
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-	
-	mongo.connect( function( err, db ) {
-		
-		if ( err ) {
-		    res.send( 'Unable to connect to the mongoDB server. Error:', err );
-		}
-
-		var cursor = mongo.find( {
-			db: db,
-			collectionName: 'appstore'
-		} );
-	    cursor.stream().pipe( JSONStream.stringify() ).pipe( res );
-
-	} );
-
-});*/
-router.get('/', function(req, res, next) {
-    res.render('admin', {
-        title: 'Express'
-    });
+var user = require('./modules/user');
+//var handleContent = require('./modules/handleContent.js');
+router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), function(req, res) {
+    var udetails = user.getDetails(req);
+    if(  udetails.admin  ) {
+        res.render('admin', {
+            title: 'Admin | LetsBuild',
+            user: user.getDetails(req),
+            basePath: './'
+        });    
+    } else {
+        res.redirect( './' );
+    }
 });
+
+router.get('/edit/:_id',cas.ssout('/edit/:_id'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
+    
+    var udetails = user.getDetails(req);
+    if(  udetails.admin  ) {
+        res.render('admin-edit', {
+            title: 'Admin Edit | LetsBuild',
+            user: user.getDetails(req),
+            basePath: '../../'
+        });    
+    } else {
+        res.redirect( './../' );
+    }
+    
+});
+
+
 module.exports = router;

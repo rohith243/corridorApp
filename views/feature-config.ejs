@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+
+<head>
+    <%- include common/head.ejs %>
+</head>
+
+<body>
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader"></div>
+    </div>
+    <div class="wrapall">
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="main-content header-flush">
+            <div class="page-layout" ng-controller="featureConfigController">
+                <div class="pull-right">
+                    <md-button class="md-raised md-primary primary-button"  data-step="3" data-intro="Publish to make it available for others." ng-click="addNewConfig( $event )">
+                        Add new feature flag
+                    </md-button>
+                </div>
+                <h1 class="md-display-1">
+                  Feature configurations
+                </h1>
+                
+                <div class="feature-table">
+                    <div  class="table-row table-header" layout="row" >
+                        <div flex="20">
+                            Key
+                        </div>
+
+                        <div flex="50">
+                            Feature
+                        </div>
+                        
+                        <div flex="20">
+                            Open for
+                        </div>
+                        <div flex="10">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="table-row" ng-repeat="config in configs" layout="row"  >
+                        <div flex="20">
+                            {{config.featureKey}}
+                        </div>
+
+                        <div flex="50">
+                            {{config.featureText}}
+                        </div>
+                        
+                        <div flex="20">
+                            {{config.open}}
+                        </div>
+                        <div flex="10">
+                            <a title="Edit" href="#" style="text-decoration: none" ng-click="editFeature( $event, $index )">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a title="Edit" href="#" style="text-decoration: none" ng-click="deleteFeature( $event, $index )">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+
+    <%- include common/footer.script.includes.ejs %>
+    <script src="<%= basePath %>/bower_components/angular-messages/angular-messages.js"></script>
+    
+    <script type="text/javascript">
+        
+            angular.module( 'featureConfig', [ 'commonModule', 'ngMessages' ] )
+            .controller( 'featureConfigController', [
+                '$scope',
+                'http',
+                'Notification',
+                '$mdDialog',
+                'model',
+                function  (
+                    $scope,
+                    http,
+                    Notification,
+                    $mdDialog,
+                    model
+                ) {
+                    $scope.configs = [];
+                    http.get( basePath + 'services/allFeatureConfigs' )
+                    .then( function( res ) {
+                        $scope.configs = res;
+                    } )
+
+                    $scope.addNewConfig = function( ev ) {
+                        
+                        $mdDialog.show({
+                          controller: 'featureConfigTemplateController',
+                          templateUrl: basePath + 'partials/feature-config-template.html',
+                          parent: angular.element(document.body),
+                          targetEvent: ev,
+                          clickOutsideToClose:true
+                        })
+                        .then(function( item ) {
+                            $scope.configs.push( item );
+                            Notification.success( 'Addedd successfully...' );
+                        }, function() {
+                            
+                            console.log( 'then cancelled..' );
+
+                        });
+                    };
+                    
+                    model.isUniqueKey = function( key, _id ) {
+
+                        for( var i = 0; i< $scope.configs.length ; i++ ) {
+                            if( typeof _id !== 'undefined' ) {
+                                if( $scope.configs[ i ].featureKey === key && $scope.configs[i]._id != _id ) {
+                                    return true;
+                                }    
+                            } else {
+                                if( $scope.configs[ i ].featureKey === key ) {
+                                    return true;
+                                }
+                            }
+                            
+                        } 
+                        return false;
+                    };
+
+                    $scope.editFeature = function( e, index ) {
+                        
+                        e.preventDefault();
+                        model.featureConfig = angular.copy( $scope.configs[ index ] );
+                        $mdDialog.show({
+                          controller: 'featureConfigTemplateController',
+                          templateUrl: basePath + 'partials/feature-config-template.html',
+                          parent: angular.element(document.body),
+                          targetEvent: e,
+                          clickOutsideToClose:true
+                        })
+                        .then(function( ) {
+                            Notification.success( 'updated successfully...' );
+                            $scope.configs[ index ] = model.featureConfig;
+                            model.featureConfig= null;
+                            
+                        }, function() {
+                         
+                            console.log( 'then cancelled..' );
+                            model.featureConfig= null;
+
+                        });
+
+                    };
+
+                    $scope.deleteFeature = function( e, index ) {
+                        var item = $scope.configs[ index ];
+
+                        if(confirm( 'do you want to delete feature "' + item.featureKey + '" ?' ) ) {
+
+                            http.get( basePath + 'services/deleteFeatureConfig?_id=' + item._id)
+                            .then( function() {
+                                $scope.configs.splice( index , 1 );
+                                Notification.success( 'successfully Deleted' );
+                            } );    
+                        }
+                        
+
+                    };
+                } 
+            ] )
+            .controller( 'featureConfigTemplateController', [
+                '$scope',
+                '$mdDialog',
+                'http',
+                'model',
+                function(
+                    $scope,
+                    $mdDialog,
+                    http,
+                    model
+                ) {
+                    $scope.item = model.featureConfig || {
+                        list: [],
+                        open: 'none'
+                    };
+                    $scope.updateItem = model.featureConfig ? true : false; 
+                    $scope.closeDialog = function( e ) {
+                        e.preventDefault();
+                        $mdDialog.cancel();
+                    };
+
+                    $scope.updateFeatureConfig = function( e ) {
+                        $scope.featureConfigForm.$showValidation = true;
+                        
+                        if(  model.isUniqueKey( $scope.item.featureKey, $scope.item._id ) ) {
+                            alert( 'key :"' + $scope.item.featureKey + '" is already exists Please choose another name'  )
+                            return;
+                        } 
+
+                        if( $scope.featureConfigForm.$valid ) {
+                            e.preventDefault();
+                            var url = model.featureConfig ? 'services/updateFeatureConfig' : 'services/addFeatureConfig';
+                            http.post( basePath + url, {
+                                postData: {
+                                    data: $scope.item,
+                                    _id : $scope.item._id  
+                                }
+                            })
+                            .then( function( res ) {
+                                $mdDialog.hide( res || $scope.item );
+                            } );    
+                        }
+                        
+                    };                    
+                }
+            ] )
+            
+            
+            
+            angular.bootstrap(document, ['featureConfig'])
+            ;
+        
+    </script>
+
+    <style type="text/css">
+        
+        .update-form {
+            margin-bottom: 20px;
+        }
+        
+        .field-wrapper {
+            padding: 2px 2px 26px;
+        }
+        md-switch {
+            margin-left: 0
+        }
+        .feature-table {
+
+        }
+        .feature-table .table-header {
+            font-weight: bold; 
+            margin-bottom: 10px;
+        }
+        .feature-table .table-row>div {
+            padding-right: 10px;
+        }
+        .feature-table .table-row {
+            padding: 3px 0;
+        }
+
+
+    </style>
+</body>
+
+</html>

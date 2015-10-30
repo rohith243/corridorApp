@@ -1,0 +1,134 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+    
+    <%- include common/head.ejs %>
+    <script type="text/javascript">
+        /*
+         * solution for the url hit without '/' 
+         * i.e cev3.pramati.com/letsbuild
+         * instead of cev3.pramati.com/letsbuild/ 
+         */
+        var path = location.pathname; 
+        if( path[path.length-1] !== '/' ) {
+            location.pathname = path + '/';
+        }
+    </script>
+</head>
+<body>
+
+    <div class="wrapall footer-flush">
+        <style>
+            .footer-flush{
+                padding-bottom: 48px;
+            }
+            .page-content{
+                min-height: calc( 100vh - 58px - 48px );
+            }
+            .welcome-section {
+                padding: 50px;
+            }
+            /*.welcome-section:after{
+                content: '';
+            }*/
+        </style>
+        
+        <div class="loader-wrap" ng-class="{'loader-hide': true}">
+            <div class="page-loader"></div>
+        </div>
+        <section>
+            <%- include common/header.ejs %>
+        </section>
+        <section class="header-flush">
+            
+            <div class="page-content page-layout" layout="row"  layout-sm="column" layout-align="center center"
+            >
+                <div flex class="welcome-section welcome-content1" layout="row" layout-align="center center">
+                    <div flex  class="welcome-content">
+                        
+                        <h1 class="md-display-1">
+                            I have an Idea
+                        </h1>
+                        <p>
+                            I want contributors to help me build an Idea
+                        </p>
+                        <div class="button-container home-btn-container" >
+                            <md-button href="<%= basePath %>propose-form" class="md-raised md-primary primary-button home-btn">
+                                Propose An App
+                            </md-button>
+                        </div>
+                                
+                    </div>
+                </div>
+                <div flex class="welcome-section" layout="row" layout-align="center center">
+                    <div flex class="welcome-content">
+                        <h1 class="md-display-1">
+                            I would like to contribute 
+                        </h1>
+                        <p>
+                            I want to help people build ideas
+                        </p>
+                        <div class="button-container home-btn-container" >
+                            <md-button href="<%= basePath %>gallery" class="md-raised md-primary primary-button home-btn">
+                                Be a Contributor
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <!--div class="banner-container header-flush">
+                <div layout="row" layout-sm="column">
+                    <div flex>
+                        <div class="welcome-section1">
+                            <div class="page-layout-2">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div flex>
+                        <div class="welcome-section2">
+                            <div class="page-layout-2">
+                                <div class="welcome-content">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+
+        </section>
+        <section>
+            <%- include common/footer.ejs %>
+        </section>
+    </div>
+    
+    <%- include common/footer.script.includes.ejs %>
+
+
+    <script type="text/javascript">
+        setTimeout(function(argument) {
+            angular.bootstrap(document, ['commonModule']);
+        }, 0)
+    </script>
+    
+    <style>
+        .welcome-content1 {
+            border-right:1px solid #A2A2A2;
+            min-height: calc( 100vh - 58px - 48px )
+        }
+        @media (max-width:600px) {
+            .welcome-content1 {
+                min-height: auto;
+                border-right:0;
+                border-bottom:1px solid #A2A2A2;
+                
+            }
+        }
+    </style>
+
+</body>
+
+</html>

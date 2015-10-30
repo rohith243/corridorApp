@@ -1,14 +1,40 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
-   var favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cas = require('connect-cas');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+cas.configure({ 'host': 'cev3.pramati.com',protocol:'http',
+paths: {
+        validate: '/cas/validate', 
+        serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0
+        proxyValidate: '/cas/p3/proxyValidate', // CAS 3.0
+        proxy: '/cas/proxy',
+        login: '/cas/login',
+        logout: '/cas/logout'
+    }
+});
+
 
 var app = express();
+
+app.locals.stringify = JSON.stringify;
+
+app.use(function(req, res, next) {
+  
+  if( req.headers.hostName === '192.168.2.135' ) {
+    req.headers.host = "cev3.pramati.com/letsbuild";
+  }
+
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,17 +46,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'corridorApp'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-
-app.use('/apps', require( './routes/apps' ) );
-app.use('/letsbuild', require( './routes/letsbuild' ) );
-
-
-app.use('/admin', require( './routes/admin' ) );
+app.use('/', require('./routes/home'));
+app.use('/gallery', require( './routes/gallery' ) );
+app.use('/dashboard', require( './routes/dashboard' ) );
+app.use('/signin', require( './routes/signin' ) );
 app.use('/services', require( './routes/services' ) );
+app.use('/propose-form', require( './routes/propose-form' ) );
+app.use('/admin', require( './routes/admin' ) );
+app.use('/aboutus', require( './routes/aboutus' ) );
+app.use('/feature-config', require( './routes/feature-config' ) );
+app.use('/site-config', require( './routes/site-config' ) );
 
 
 
