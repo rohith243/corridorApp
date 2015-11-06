@@ -64,3 +64,4 @@ gulp.task( 'build-copy',[ 'less', 'copy-common', 'copy-modules','copy-server', '
 } );
 
 
+gulp.task('pre-commit', ['less']);
