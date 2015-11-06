@@ -5,18 +5,12 @@
     "Kiran <akiran547@gmail.com>"
   ],
   "dependencies": {
-    "headroom.js": "~0.7.0",
-    "jsoneditor": "~4.2.1",
     "angular": "~1.4.5",
-    "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.13.4",
     "components-font-awesome": "~4.4.0",
     "angular-ui-router": "~0.2.15",
-    "lodash": "~3.10.1",
     "angular-material": "#0.11.2",
-    "angular-sanitize": "~1.4.6",
-    "angular-markdown-directive": "~0.3.1",
     "angular-messages": "~1.4.6",
-    "angular-ui-notification": "~0.0.14"
+    "angular-ui-notification": "~0.0.14",
+    "oclazyload": "~1.0.8"
   }
 }

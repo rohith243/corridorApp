@@ -1,7 +1,7 @@
 node_modules
-public/bower_components/
+client/bower_components/
+client/css/
 npm-debug.log
-views/cached-pages/
-data/
+
 routes/confidential
 .vagrant

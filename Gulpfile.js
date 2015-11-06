@@ -1,75 +1,45 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-
-var prettify = require('gulp-jsbeautifier');
-gulp.task('format-js', ['format-js-dev'], function() {
-  gulp.src(['./public/javascripts/**/*.js'])
-    .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_AND_WRITE'}))
-    .pipe(gulp.dest('./public/javascripts/'));
+var less = require('gulp-less');
+/*less conversion*/
+var sourcemaps = require('gulp-sourcemaps');
+var cssmin = require('gulp-cssmin');
+gulp.task('less-css', function () {
+  return gulp.src('./client/less/**/index.less')
+    .pipe(sourcemaps.init())
+    .pipe( less() )
+    .pipe( cssmin() )
+    .pipe( sourcemaps.write() )
+    .pipe(gulp.dest('./client/css/'));
 });
 
-gulp.task('format-js-dev', function() {
-  gulp.src(['./routes/**/*.js'])
-    .pipe(prettify({config: '.jsbeautifyrc', mode: 'VERIFY_AND_WRITE'}))
-    .pipe(gulp.dest('./routes/'));
+gulp.task('copy-fonts', function () {
+  return gulp.src('./client/bower_components/components-font-awesome/fonts/**/*.*')
+    .pipe(gulp.dest('./client/css/fonts/'));
+});
+gulp.task( 'less', ['less-css', 'copy-fonts'] );
+
+gulp.task('copy-common', function() {
+   return gulp.src('./common/**/*.*')
+   .pipe(gulp.dest('./../build/common/'));
 });
 
-gulp.task('format-html', function() { 
-  gulp.src(['./views/**/*.ejs','!./views/cached-pages/**/*.ejs'])
-    .pipe(prettify({indent_size: 4}))
-    .pipe(gulp.dest('./views/'))
+gulp.task('copy-modules', function() {
+   return gulp.src('./modules/**/*.*')
+   .pipe(gulp.dest('./../build/modules/'));
 });
 
-gulp.task('format-partials', function() {
-  gulp.src(['./public/partials/**/*.html'])
-    .pipe(prettify({indent_size: 4}))
-    .pipe(gulp.dest('./public/partials/'))
+gulp.task('copy-server', function() {
+   return gulp.src('./server/**/*.*')
+   .pipe(gulp.dest('./../build/server/'));
+});
+
+gulp.task('copy-client', function() {
+   return gulp.src(['./client/**/*.*','!./client/bower_components/**/*.*','!./client/less/**/*.*'])
+   .pipe(gulp.dest('./../build/client/'));
 });
 
 
-gulp.task('format-css', function() {
-  gulp.src(['./public/stylesheets/**/*.css'])
-    .pipe(prettify({indent_size: 4}))
-    .pipe(gulp.dest('./public/stylesheets/'))
-});
-
-gulp.task( 'format', [ 'format-js', 'format-html', 'format-partials', 'format-css' ], function() {
-	console.log( 'Formatting completed..' );
-});
-
-/*jshint comes here*/
-var stylish = require('jshint-stylish');
-var jshint = require('gulp-jshint');
-var gulp   = require('gulp');
-gulp.task('jshint', function() {
-  return gulp.src(['./public/javascripts/**/*.js','./routes/**/*.js','!./public/javascripts/config/**/*.js','!./public/javascripts/vendors/**/*.js'] )
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
-});
-
-gulp.task('pre-commit', ['jshint']);
-
-
-
-
-
-/*copiying files to build folder*/
-gulp.task('copy-views', function() {
-   return gulp.src('./views/**/*.ejs')
-   .pipe(gulp.dest('./../build/views'));
-});
-gulp.task('copy-routes', function() {
-   return gulp.src('./routes/**/*.*')
-   .pipe(gulp.dest('./../build/routes'));
-});
-gulp.task('copy-bin', function() {
-   return gulp.src('./bin/**/*')
-   .pipe(gulp.dest('./../build/bin/'));
-});
-gulp.task('copy-root-files', function() {
-   return gulp.src(['./app.js','.bowerrc'])
-   .pipe(gulp.dest('./../build/'));
-});
 var change = require('gulp-change');
 gulp.task('copy-packages', function() {
    return gulp.src( [ './bower.json','package.json' ] )
@@ -81,37 +51,16 @@ gulp.task('copy-packages', function() {
    .pipe(gulp.dest('./../build/'));
 });
 
-gulp.task('copy-public-folder', function() {
-    return gulp.src(['./public/**/*.*','!./public/bower_components/**/*.*'])
-   .pipe(gulp.dest('./../build/public'));
+
+gulp.task('copy-root-files', function() {
+   return gulp.src(['.bowerrc'])
+   .pipe(gulp.dest('./../build/'));
 });
 
-gulp.task( 'build-copy',[ 'copy-packages','copy-bin','copy-views','copy-routes','copy-root-files', 'copy-public-folder'], function() {
-  var clc = require('cli-color');  
-  console.warn( clc.red('verifiy public/confidential/phonebook.json file' ) );
-  console.warn( clc.red('verify routes/confidentials/mail-config.json file' ) );
+gulp.task( 'build-copy',[ 'less', 'copy-common', 'copy-modules','copy-server', 'copy-client', 'copy-packages', 'copy-root-files'], function() {
+  //var clc = require('cli-color');  
+  //console.warn( clc.red('verifiy public/confidential/phonebook.json file' ) );
+  //console.warn( clc.red('verify routes/confidentials/mail-config.json file' ) );
 } );
 
-/*gulp.task('copy-bower-components', function() {
-   return gulp.src([
-      './bower_components/angular-material/angular-material.min.css',
-      './bower_components/components-font-awesome/css/font-awesome.min.css'
-      './bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
-      './bower_components/jquery/dist/jquery.min.js',
-      './bower_components/angular/angular.min.js',
-      './bower_components/angular-animate/angular-animate.min.js',
-      './bower_components/angular-aria/angular-aria.min.js',
-      './bower_components/angular-material/angular-material.min.js',
-      './bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
-      './bower_components/headroom.js/dist/angular.headroom.min.js',
-      './bower_components/showdown/compressed/Showdown.js',
-      './bower_components/angular-markdown-directive/markdown.js',
-      './bower_components/angular-sanitize/angular-sanitize.min.js',
-      './bower_components/jsoneditor/dist/jsoneditor.min.css'
-      './bower_components/jsoneditor/dist/jsoneditor.min.js'
-      './bower_components/angular-ui-router/release/angular-ui-router.min.js'
 
-    ] )
-   .pipe(gulp.dest('./../build/public'));
-});
-*/

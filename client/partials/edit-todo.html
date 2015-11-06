@@ -1,0 +1,25 @@
+
+<div>
+    <form name="todoForm" ng-submit="updateTodo( $event ) ">
+        <input type="submit" hidden>
+
+        <md-input-container md-no-float class="md-block">
+            <label>Add Todo</label>
+            <input ng-model="todo.text" required>
+        </md-input-container>
+        <md-input-container>
+        <md-checkbox class="md-secondary pull-right" ng-model="todo.isPublished" n>
+            Do you want to publish?
+        </md-checkbox>
+        </md-input-container>
+        <div>
+            <md-button href="#/" class="md-raised md-primary">
+                Back
+            </md-button>
+            <md-button class="md-raised md-primary pull-right">
+                UPdate
+            </md-button>
+        </div>
+    </form>
+
+</div>
