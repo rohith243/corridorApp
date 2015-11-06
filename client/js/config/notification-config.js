@@ -1,4 +1,4 @@
-require( [
+define( [
     'angular',
     'angular-notification'
 ], function(
@@ -6,7 +6,9 @@ require( [
     notification
 ) {
 
-    return angular.module('notificationConfig', ['ui-notification'])
+    return {
+      init: function() {
+        angular.module('notificationConfig', ['ui-notification'])
         .config(function(NotificationProvider) {
             NotificationProvider.setOptions({
                 delay: 3000,
@@ -17,7 +19,9 @@ require( [
                 positionX: 'right',
                 positionY: 'top'
             });
-        });
+        });  
+      } 
+    } 
 
 } );
 

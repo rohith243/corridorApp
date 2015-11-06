@@ -3,7 +3,6 @@ define([
     'angular-animate',
     'angular-aria',
     'angular-material',
-    'config/notification-config',
     'services/http-service'
 ], 
 function(
@@ -11,11 +10,12 @@ function(
     animate,
     aria,
     material,
-    notificationConfig,
     httpService
 ){
+    
     return {
       init: function() {
+            httpService.init();
             angular.module('commonModule', ['ngMaterial', 'httpService'])
             .factory('model', [function() {            
                 var data = {};
