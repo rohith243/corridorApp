@@ -3,7 +3,7 @@ var cas = require('connect-cas');
 var router = express.Router();
 var user = require('./modules/user');
 //var handleContent = require('./modules/handleContent.js');
-router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), function(req, res) {
+router.get('/', cas.ssout('/signin'), cas.serviceValidate(), cas.authenticate(), function(req, res) {
     var udetails = user.getDetails(req);
     if(  udetails.admin  ) {
         res.render('admin', {
@@ -16,7 +16,7 @@ router.get('/', cas.ssout('/'), cas.serviceValidate(), cas.authenticate(), funct
     }
 });
 
-router.get('/edit/:_id',cas.ssout('/edit/:_id'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
+router.get('/edit/:_id',cas.ssout('/signin'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
     
     var udetails = user.getDetails(req);
     if(  udetails.admin  ) {
