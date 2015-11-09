@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../fonts/roboto-regular-webfont.eot');
+    src: url('../../fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/roboto-regular-webfont.woff2') format('woff2'),
+         url('../../fonts/roboto-regular-webfont.woff') format('woff'),
+         url('../../fonts/roboto-regular-webfont.ttf') format('truetype'),
+         url('../../fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body, html{
+  font-family: 'Roboto';
+  font-size: 14px;
+}
+.page-layout {
+  max-width: @pagelayout;
+  margin: 0 auto;
+  padding: 0 @pagelayout-flush;
+}
+
+header {
+  z-index: 1;
+  border-bottom: solid 1px @header-border-color;
+  background-color: @header-bg;
+  height: @header-height;
+}
+
+.logo {
+  display: inline-block;
+  padding: 10px 0;
+  color: @logo-color;
+  text-decoration: none;
+  font-weight: bold;
+  .fonts( 28 );
+}
+/*
+.corr-home-btn {
+  float: right;
+  margin-top: 10px;
+  background: rgba(250, 203, 59, 0.85) !important;
+  margin-right: 40px;
+}*/
+
+.main-content {
+  min-height: calc(@pagemin-height);
+  overflow: auto;
+}
+
+.md-raised.md-primary.primary-button:hover {
+    background-color: @primary-button-hover-color !important;
+}
+.primary-button.md-button.md-default-theme:focus, .primary-button.md-button.md-default-theme:active {
+    .drop-shadow( 0 0 1px 3px @primary-button-active-color inset );
+}

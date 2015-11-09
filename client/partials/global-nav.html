@@ -1,6 +1,0 @@
-<div >
-    <md-button class="md-primary" href="#/">All todos</md-button>
-    <md-button class="md-primary" ng-if="user" href="#/my-todos">My todos</md-button>
-    <md-button class="md-primary"  ng-if="user" href="signout" ng-click="logout( $event )">signout, {{user.firstName}}</md-button>
-    <md-button class="md-primary" ng-if="!user" href="./signin?redirect=./">signin</md-button>
-</div>

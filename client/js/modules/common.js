@@ -3,20 +3,23 @@ define([
     'angular-animate',
     'angular-aria',
     'angular-material',
-    'services/http-service'
+    'services/http-service',
+    'directives/global-nav-directive'
 ], 
 function(
     angular,
     animate,
     aria,
     material,
-    httpService
+    httpService,
+    globalNav
 ){
     
     return {
       init: function() {
             httpService.init();
-            angular.module('commonModule', ['ngMaterial', 'httpService'])
+            globalNav.init();
+            angular.module('commonModule', ['ngMaterial', 'httpService', 'globalNavigation'])
             .factory('model', [function() {            
                 var data = {};
                 return data;

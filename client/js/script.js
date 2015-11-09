@@ -15,16 +15,24 @@ function(
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('default', {
-            url: "/", 
+            url: "/",
             views: {
               "lazyLoadView": {
-                controller: 'allTodoController',
-                templateUrl: 'partials/all-todo.html'
+                templateUrl: 'partials/home.html'
+              }
+            }
+        })
+        .state('propose-form', {
+            url: "/propose-form",
+            views: {
+              "lazyLoadView": {
+                templateUrl: 'partials/propose-form.html',
+                controller: 'proposeFormController'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/all-todo.js');
+                return $ocLazyLoad.load('js/controllers/propose-form.js');
               }]
             }
         })
@@ -57,29 +65,6 @@ function(
             }
         });
     })
-    .directive( 'globalNav', function() {
-        return {
-            'templateUrl': './partials/global-nav.html',
-            controller: [ 
-                '$scope',
-                'http',
-                '$state',
-
-                function( $scope, http, $state ){
-                    $scope.user = GLOBAL.user;
-                    $scope.logout = function( e ) {
-                      e.preventDefault();
-                      http.get( './services/signout' )
-                      .then( function() {
-                        $scope.user = null;
-                        GLOBAL.user = null;
-                        $state.go( 'default' );
-                      } )
-                    }
-                } 
-            ]
-        }
-    } )
     ;
     common.init();
     angular.bootstrap( document, [ 'commonModule', 'todoApp' ] )

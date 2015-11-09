@@ -4,50 +4,7 @@
 <head>
 <title page-title> Todo {{model.pageTitle}}</title>
 <style type="text/css">
-    .page-loader {
-        overflow: hidden;
-        font-size: 10px;
-        /* margin: 50px auto; */
-        text-indent: -9999em;
-        width: 11em;
-        height: 11em;
-        border-radius: 50%;
-        background: #FFF;
-        background: linear-gradient(to right, #FFF 10%, rgba(255, 255, 255, 0) 42%);
-        position: relative;
-        animation: load3 1.4s infinite linear;
-        transform: translateZ(0);
-        display: inline-block;
-        top: calc( 50% - 50px);
-        position: absolute;
-    }
-    
-    .page-loader:before {
-        width: 50%;
-        height: 50%;
-        background: #FFF;
-        border-radius: 100% 0 0 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '';
-    }
-    
-    .page-loader:after {
-        background: #0dc5c1;
-        width: 75%;
-        height: 75%;
-        border-radius: 50%;
-        content: '';
-        margin: auto;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        opacity: 0.5;
-    }
-    
+    @charset "UTF-8";
     .loader-wrap {
         position: fixed;
         top: 0;
@@ -59,33 +16,49 @@
         transition: all 0.8s ease-in;
         text-align: center;
     }
-    
     .loader-wrap.loader-hide {
         opacity: 0;
         visibility: hidden;
     }
     
-    @-webkit-keyframes load3 {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
+    .page-loader{
+        position:relative;
+        top: 50%;
+        left: 47%;
     }
-    
-    @keyframes load3 {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
+    .page-loader span{
+        display:block;
+        bottom:0px;
+        width: 9px;
+        height: 5px;
+        background:#9b59b6;
+        position:absolute;
+        animation: preloader_1 1.5s  infinite ease-in-out;
     }
-</style>
-<link rel="stylesheet" href="./css/base/index.css">
-<style type="text/css">
-    @charset "UTF-8";
+     
+    .page-loader span:nth-child(2){
+        left:11px;
+        animation-delay: .2s;
+    }
+    .page-loader span:nth-child(3){
+        left:22px;
+        animation-delay: .4s;
+    }
+    .page-loader span:nth-child(4){
+        left:33px;
+        animation-delay: .6s;
+    }
+    .page-loader span:nth-child(5){
+        left:44px;
+        animation-delay: .8s;
+    }
+    @keyframes preloader_1 {
+        0% {height:5px;transform:translateY(0px);background:#9b59b6;}
+        25% {height:30px;transform:translateY(15px);background:#3498db;}
+        50% {height:5px;transform:translateY(0px);background:#9b59b6;}
+        100% {height:5px;transform:translateY(0px);background:#9b59b6;}
+    }
+
     [ng\:cloak],
     [ng-cloak],
     [data-ng-cloak],
@@ -105,6 +78,8 @@
         position: absolute;
     }
 </style>
+
+<link rel="stylesheet" href="./css/base/index.css">
 <script>
     var GLOBAL = {};
     <% if(user) {%>
@@ -114,44 +89,36 @@
 
 </head>
 <body>
-
-<div class="loader-wrap" ng-class="{'loader-hide': true}">
-    <div class="page-loader"></div>
+<div class="wrap-all">
+    <div class="loader-wrap" ng-class="{'loader-hide': true}">
+        <div class="page-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <header>
+        <div class="page-layout">
+            <a href="./#/" class="logo">
+                LetsBuild
+            </a>
+            <div global-nav>
+            </div>
+        </div>
+    </header>
+    <div class="main-content page-layout">        
+        <div ui-view="lazyLoadView"></div>
+    </div>
+    <footer>
+        <p>
+            All Rights Reserved. © 2015, Imaginea
+        </p>
+    </footer>
 </div>
-
-<div class="main-content" style="width: 500px; margin: 0 auto">
-    <div global-nav></div>    
-    <div ui-view="lazyLoadView"></div>
-</div>
-
 <script src="./js/require-config.js"></script>
 <script data-main="script" src="./js/vendors/require.js"></script>
-
-<style type="text/css">
-    .pull-right {
-        float: right;
-    }
-    .pull-left {
-        float: left;
-    }
-    .md-button.md-fab.md-mini {
-        line-height: 25px;
-        width: 25px;
-        height: 25px;
-        min-height: 25px;
-    }
-    .feature-buttons md-checkbox, .feature-buttons .md-button{
-        margin-top: 0px;
-    }
-    .feature-buttons {
-        margin-top: -8px;
-    }
-    ul li{
-        padding: 10px;
-    }
-    ul li p{
-        margin: 0;
-    }
-</style>
 </body>
 </html>
