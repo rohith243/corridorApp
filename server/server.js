@@ -6,7 +6,7 @@ var app = module.exports = loopback();
 
 var cas = require('connect-cas');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-cas.configure({ 'host': 'cev3.pramati.com',protocol:'http',
+cas.configure({ 'host': 'cev3.pramati.com',protocol:'https',
 paths: {
         validate: '/cas/validate', 
         serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0

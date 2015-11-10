@@ -20,7 +20,34 @@ module.exports = function(app) {
     
     });
 
-    app.get('/services/signout', function(req, res, next) {
+    app.post('/signin', function(req, res, next) {
+        
+        var body = '';
+        req.on('data', function(chunk){
+            body += chunk;
+        });
+        req.on('end', function(){
+           
+            body = decodeURIComponent( body );
+            if (!/<samlp:SessionIndex>(.*)<\/samlp:SessionIndex>/.exec(body)) {
+                next();
+                return;
+            }
+            var st = RegExp.$1;
+            var sessionId = req.sessionStore.sessions[ st ];
+            if( sessionId ) {
+              sessionId = JSON.parse( sessionId );
+              if( sessionId ) {
+                if ( sessionId && sessionId.sid ) req.sessionStore.destroy( sessionId.sid );
+                req.sessionStore.destroy(st);  
+              }
+            }
+            res.send(204);
+        });
+    
+    });
+
+    app.get('/services/logout', function(req, res, next) {
         
         if (req.session.destroy) {
             req.session.destroy();
