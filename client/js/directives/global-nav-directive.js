@@ -34,11 +34,13 @@ function(
                 };
                 $scope.openMenu = function( e ) {
                     e.preventDefault();
-                    angular.element( 'body' ).addClass( 'open-navigation' );
+                    document.body.classList.add( 'open-navigation' );
+                    //angular.element( 'body' ).addClass(  );
                 };
                 $scope.closeMenu = function( e ) {
                     e.preventDefault();
-                    angular.element( 'body' ).removeClass( 'open-navigation' );   
+                    document.body.classList.remove( 'open-navigation' );
+                    //angular.element( 'body' ).removeClass( 'open-navigation' );   
                 };
 
                 $scope.user = GLOBAL.user;

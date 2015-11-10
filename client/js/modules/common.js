@@ -21,15 +21,19 @@ function(
             globalNav.init();
             angular.module('commonModule', ['ngMaterial', 'httpService', 'globalNavigation'])
             .factory('model', [function() {            
-                var data = {};
+                var data = {
+                    pageTitle: 'Home'
+                };
                 return data;
             }])
             .directive( 'pageTitle', function() {
                 return {
+                    template: '{{model.pageTitle}} | LetsBuild',
                     controller :[
                         '$scope', 'model', 
                         function( $scope, model ) {
                             $scope.model = model;
+
                         } 
                     ]
                 } 

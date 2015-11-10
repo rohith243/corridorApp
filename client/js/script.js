@@ -40,13 +40,13 @@ function(
             url: '/edit/:id',
             views: {
               "lazyLoadView": {
-                controller: 'editTodoController',
-                templateUrl: 'partials/edit-todo.html'
+                controller: 'proposeFormEditController',
+                templateUrl: 'partials/propose-form.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/edit-todo.js');
+                return $ocLazyLoad.load('js/controllers/propose-form.js');
               }]
             }
         })
