@@ -29,11 +29,9 @@ var app = express();
 
 app.locals.stringify = JSON.stringify;
 app.use(function(req, res, next) {
-  
   if( req.headers.hostName === '192.168.2.135' ) {
     req.headers.host = "cev3.pramati.com/letsbuild";
   }
-
   next();
 });
 
@@ -42,47 +40,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'corridorApp'}));
 
-app.use(function(req, res, next) {
-  var url = req.url;
-  if( req.method === 'POST' && url.indexOf( 'signin' ) !== -1 ) {
-    var body = '';
-    req.on('data', function(chunk){
-        body += chunk;
-    });
-    
-    req.on('end', function(){
-        body = decodeURIComponent( body );
-        if (!/<samlp:SessionIndex>(.*)<\/samlp:SessionIndex>/.exec(body)) {
-            next();
-            return;
-        }
-        var st = RegExp.$1;
-        var id = req.sessionStore.sessions[ st ];
-        if( id ) {
-          id = JSON.parse( id );
-          if( id ) {
-            if ( id && id.sid) req.sessionStore.destroy(id.sid);
-            req.sessionStore.destroy(st);  
-          }
-        }
-        res.send(204);
-    });
-  } else {
-    next();
-    return;
-  }  
-});
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', require('./routes/home'));
 app.use('/gallery', require( './routes/gallery' ) );
 app.use('/dashboard', require( './routes/dashboard' ) );
