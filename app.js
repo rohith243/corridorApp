@@ -6,12 +6,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cas = require('connect-cas');
+var ssout = require('connect-cas').ssout;
 
 
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-cas.configure({ 'host': 'cev3.pramati.com',protocol:'http',
+cas.configure({ 'host': 'cev3.pramati.com',protocol:'https',
 paths: {
         validate: '/cas/validate', 
         serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0
@@ -23,16 +24,14 @@ paths: {
 });
 
 
+
 var app = express();
 
 app.locals.stringify = JSON.stringify;
-
 app.use(function(req, res, next) {
-  
   if( req.headers.hostName === '192.168.2.135' ) {
     req.headers.host = "cev3.pramati.com/letsbuild";
   }
-
   next();
 });
 
@@ -41,14 +40,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'corridorApp'}));
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/home'));
 app.use('/gallery', require( './routes/gallery' ) );
 app.use('/dashboard', require( './routes/dashboard' ) );
@@ -59,9 +58,6 @@ app.use('/admin', require( './routes/admin' ) );
 app.use('/aboutus', require( './routes/aboutus' ) );
 app.use('/feature-config', require( './routes/feature-config' ) );
 app.use('/site-config', require( './routes/site-config' ) );
-
-
-
 
 
 // catch 404 and forward to error handler

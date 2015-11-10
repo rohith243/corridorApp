@@ -1,7 +1,6 @@
 var siteConfig = require( './../confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
-
     var attr = req.session.cas && req.session.cas.attributes;
     var user;
     

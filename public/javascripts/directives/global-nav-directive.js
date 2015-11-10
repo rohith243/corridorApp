@@ -29,7 +29,7 @@ if ( typeof window.GLOBAL === 'undefined' ) {
                 e.preventDefault();
                 http.get( basePath + 'services/logout' )
                     .then(function(res) {
-                        window.location = "//cev3.pramati.com/?custom_normal_logout=1";
+                        window.location = "//cev3.pramati.com/cas/logout?service=" + location.origin;
                     });
             };
             $scope.openMenu = function( e ) {

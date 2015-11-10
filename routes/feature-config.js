@@ -3,7 +3,7 @@ var cas = require('connect-cas');
 var router = express.Router();
 var user = require('./modules/user');
 
-router.get('/', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(), function(req, res) {    
+router.get('/', cas.ssout('/signin'), cas.serviceValidate(), cas.authenticate(), function(req, res) {    
     var udetails = user.getDetails(req);
     if(  udetails.admin  ) {
         res.render('feature-config', {
