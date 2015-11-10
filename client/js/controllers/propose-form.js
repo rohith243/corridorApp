@@ -32,6 +32,8 @@ function(
             ],
             globals: ['name', 'type', 'value']
         };
+        
+
         var obj = {};
         for (var len = map[cname].length - 1; len >= 0; len--) {
             var key = map[cname][len];
@@ -39,10 +41,89 @@ function(
                 obj[key] = data[key];
             }
         }
-        
         return obj;
     };
+    var findObjectIndex = function  ( arr, key, value ) {
+        for( var len = arr.length -1 ;  len >= 0; len-- ) {
+            if( arr[ len ][ key ] === value ) {
+                return len;
+            }
+        }
+        return -1;
+    };
+    var common = {
+        nextPrevTab: function( $scope ) {
+            $scope.nextTab = function( e ) {
+                e.preventDefault();
+                $scope.global.selectedIndex = ($scope.global.selectedIndex + 1) % tabcount;
+            };
+            $scope.prevTab = function(e) {
+                e.preventDefault();
+                $scope.global.selectedIndex = ($scope.global.selectedIndex + tabcount - 1) % tabcount;
+            }
+        },
+        
+        watchIndex: function( $scope ) { 
+            $scope.$watch(
+                function() { return $scope.global.selectedIndex; },
+                function(newValue, oldValue,scope) {
+                    setTimeout( function() {
+                        if ($(':input',$('md-tab-content')[newValue])[0]) {
+                          $(':input',$('md-tab-content')[newValue])[0].focus();
+                        }
+                    }, 300);
+                }
+            );
+    
+        },
+        querySearch: function( $scope, http ) {
+            var chipsugg = {};
+            function loadEmployees() {
+                if( !$scope.empRequestSent ) {
+                    $scope.empRequestSent = true;
+                    http.get(  'confidential/phonebook.json' )
+                    .then( function( res ) {
+                      $scope.emps = res.employees.map( function ( obj ) {
+                        var emp = {};
+                        emp.firstName = obj.firstName.toLowerCase();
+                        emp.lastName = obj.lastName.toLowerCase();
+                        emp.mail = obj.email.toLowerCase();
+                        return emp;
+                      } );
+                    }, function  ( err ) {
+                        $scope.empRequestSent = false;
+                    } );  
+                }
+                return $scope.emps || [];
+            }
+            
+            function createFilterFor(query) {
+              var lowercaseQuery = angular.lowercase(query);
+              return function filterFn( emp ) {
+                return ((emp.firstName + ' ' +  emp.lastName ).toLowerCase().indexOf(lowercaseQuery) === 0) ||
+                    (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
+              };
+            }
+            return function( query, key ) {
+                var index;
+                var len;
+                if( !chipsugg[ key ] && $scope.item[ key ] && $scope.emps ) {
+                    for( len = $scope.item[ key ].length - 1; len >= 0; len-- ) {
+                        index = findObjectIndex( $scope.emps, 'mail', $scope.item[ key ][ len ].mail );
+                        if( index !== -1 ) {
+                            $scope.item[ key ][ len ] = $scope.emps[ index ];
+                        }
+                    }
+                    chipsugg[ key ] = true;
+                }
+
+                var results = query ? ( $scope.emps || loadEmployees() ).filter( createFilterFor(query) ) : [];
+                return results;
+            };
+        }
+    }
     angular.module('todoApp').requires.push('ngMessages');
+    
     angular.module('todoApp')
     .controller('proposeFormController', [
             '$scope',
@@ -53,6 +134,10 @@ function(
             '$timeout',
             function($scope, Notification, http, $state, $stateParams,$timeout) {
                 
+                if( !GLOBAL.user ) {
+                    window.location = '/signin?=redirect=/#/propose-form';
+                }
+
                 $scope.item = {};
                 $scope.item.proposedTeam = [ {
                     firstName: GLOBAL.user.firstName,
@@ -66,16 +151,8 @@ function(
                     selectedIndex: 0
                 };
                 $scope.tabcount = tabcount;
-                $scope.$watch(
-                    function() { return $scope.global.selectedIndex; },
-                        function(newValue, oldValue,scope) {
-                            $timeout(function() {
-                                if ($(':input',$('md-tab-content')[newValue])[0]) {
-                                  $(':input',$('md-tab-content')[newValue])[0].focus();
-                                }
-                            }, 300);
-                        }
-                );
+
+                
                 $scope.saveApp = function(e) {
                     e.preventDefault();
                     http.post('api/todos/createTodo', {
@@ -88,6 +165,7 @@ function(
                             });
                         });
                 };
+                
                 $scope.togglePublish = function(e, isPublished) {
                     e.preventDefault();
                     $scope.updateForm.$showValidation = true;
@@ -106,67 +184,11 @@ function(
                         Notification.error('To publish fill the required fileds in other tabs');
                     }
                 };
-                $scope.nextTab = function(e) {
-                    e.preventDefault();
-                    $scope.global.selectedIndex = ($scope.global.selectedIndex + 1) % tabcount;
-                };
-                $scope.prevTab = function(e) {
-                    e.preventDefault();
-                    $scope.global.selectedIndex = ($scope.global.selectedIndex + tabcount - 1) % tabcount;
-                };
-                
-                function loadEmployees() {
-                    if( !$scope.empRequestSent ) {
-                        $scope.empRequestSent = true;
-                        http.get(  'confidential/phonebook.json' )
-                        .then( function( res ) {
-                          $scope.emps = res.employees.map( function ( obj ) {
-                            var emp = {};
-                            emp.firstName = obj.firstName.toLowerCase();
-                            emp.lastName = obj.lastName.toLowerCase();
-                            emp.mail = obj.email.toLowerCase();
-                            return emp;
-                          } );
-                        }, function  ( err ) {
-                            $scope.empRequestSent = false;
-                        } );  
-                    }
-                    return $scope.emps || [];
-                }
-                var chipsugg = {};
-                var findObjectIndex = function  ( arr, key, value ) {
-                    
-                    for( var len = arr.length -1 ;  len >= 0; len-- ) {
-                        if( arr[ len ][ key ] === value ) {
-                            return len;
-                        }
-                    }
-                    return -1;
-                };
-                $scope.querySearch = function(query, key ) {
-                    var index;
-                    var len;
-                    if( !chipsugg[ key ] && $scope.item[ key ] && $scope.emps ) {
-                        for( len = $scope.item[ key ].length - 1; len >= 0; len-- ) {
-                            index = findObjectIndex( $scope.emps, 'mail', $scope.item[ key ][ len ].mail );
-                            if( index !== -1 ) {
-                                $scope.item[ key ][ len ] = $scope.emps[ index ];
-                            }
-                        }
-                        chipsugg[ key ] = true;
-                    }
 
-                    var results = query ? ( $scope.emps || loadEmployees() ).filter( createFilterFor(query) ) : [];
-                    return results;
-                };
-                function createFilterFor(query) {
-                  var lowercaseQuery = angular.lowercase(query);
-                  return function filterFn( emp ) {
-                    return ((emp.firstName + ' ' +  emp.lastName ).toLowerCase().indexOf(lowercaseQuery) === 0) ||
-                        (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
-                  };
-                }
+                common.nextPrevTab( $scope );
                 
+                $scope.querySearch = common.querySearch( $scope, http );
+                common.watchIndex( $scope );
             }
         ])
         .controller('proposeFormEditController', [
@@ -186,17 +208,7 @@ function(
                 tabcount = 6;
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
-                $scope.$watch(
-                    function() { return $scope.global.selectedIndex; },
-                        function(newValue, oldValue,scope) {
-                            $timeout(function() {
-                                if ($(':input',$('md-tab-content')[newValue])[0]) {
-                                  $(':input',$('md-tab-content')[newValue])[0].focus();
-                                }
-                            }, 300);
-                        }
-                );
-                if (id) {
+                if ( id ) {
                     http.get( 'api/todos/getTodo?id=' + id)
                         .then(function(res) {
                             originalData = res;
@@ -213,30 +225,17 @@ function(
                 $scope.saveApp = function(e) {
                     e.preventDefault();
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
+                    setData.id = id;
                     http.post(  'api/todos/updateTodo', {
-                            postData: {
-                                data: setData,
-                                cname: 'letsbuild',
-                                id: id
-                            }
-                        })
-                        .then(function(res) {
-                            for (var key in setData) {
-                                originalData[key] = angular.copy(setData[key]);
-                                if (typeof setData.appName !== 'undefined') {
-                                    $scope.itemName = setData.appName;
-                                }
-                            }
-                            Notification.success('successfully updated');
-                        });
-                };
-                $scope.nextTab = function(e) {
-                    e.preventDefault();
-                    $scope.global.selectedIndex = ($scope.global.selectedIndex + 1) % tabcount;
-                };
-                $scope.prevTab = function(e) {
-                    e.preventDefault();
-                    $scope.global.selectedIndex = ($scope.global.selectedIndex + tabcount - 1) % tabcount;
+                        postData: setData
+                    })
+                    .then(function(res) {
+
+                        $scope.item = res;
+                        $scope.itemName = res.appName;
+                        Notification.success('successfully updated');
+                    
+                    });
                 };
                 $scope.togglePublish = function(e, isPublished) {
                     e.preventDefault();
@@ -247,29 +246,20 @@ function(
                     }
                     $scope.item.isPublish = !isPublished;
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
+                    setData.id = id;
                     http.post(  'api/todos/updateTodo', {
-                            postData: {
-                                data: setData,
-                                cname: 'letsbuild',
-                                id: id
-                            }
-                        })
-                        .then(function(res) {
-                            for (var key in setData) {
-                                originalData[key] = angular.copy(setData[key]);
-                                if (typeof setData.appName !== 'undefined') {
-                                    $scope.itemName = setData.appName;
-                                }
-                                if (typeof setData.isPublish !== 'undefined') {
-                                    $scope.isPublished = setData.isPublish;
-                                }
-                            }
-                            if ($scope.isPublished) {
-                                Notification.success('successfully published');
-                            } else {
-                                Notification.success('successfully unpublished');
-                            }
-                        });
+                        postData: setData
+                    })
+                    .then(function(res) {
+                        $scope.item = res;
+                        $scope.itemName = res.appName;
+                        $scope.isPublished = res.isPublish;
+                        if ($scope.isPublished) {
+                            Notification.success('successfully published');
+                        } else {
+                            Notification.success('successfully unpublished');
+                        }
+                    });
                 };
                 $scope.isContributorsAvailable = function(interestedPeople) {
                     var flag = true;
@@ -283,58 +273,10 @@ function(
                     }
                     return flag;
                 }
-                function loadEmployees() {
-                    if( !$scope.empRequestSent ) {
-                        $scope.empRequestSent = true;
-                        http.get( 'confidential/phonebook.json' )
-                        .then( function( res ) {
-                          $scope.emps = res.employees.map( function ( obj ) {
-                            var emp = {};
-                            emp.firstName = obj.firstName.toLowerCase();
-                            emp.lastName = obj.lastName.toLowerCase();
-                            emp.mail = obj.email.toLowerCase();
-                            return emp;
-                          } );
-                        }, function  ( err ) {
-                            $scope.empRequestSent = false;
-                        } );  
-                    }
-                    return $scope.emps || [];
-                }
-                var chipsugg = {};
-                var findObjectIndex = function  ( arr, key, value ) {
-                    
-                    for( var len = arr.length -1 ;  len >= 0; len-- ) {
-                        if( arr[ len ][ key ] === value ) {
-                            return len;
-                        }
-                    }
-                    return -1;
-                };
-                $scope.querySearch = function(query, key ) {
-                    var index;
-                    var len;
-                    if( !chipsugg[ key ] && $scope.item[ key ] && $scope.emps ) {
-                        for( len = $scope.item[ key ].length - 1; len >= 0; len-- ) {
-                            index = findObjectIndex( $scope.emps, 'mail', $scope.item[ key ][ len ].mail );
-                            if( index !== -1 ) {
-                                $scope.item[ key ][ len ] = $scope.emps[ index ];
-                            }
-                        }
-                        chipsugg[ key ] = true;
-                    }
-
-                    var results = query ? ( $scope.emps || loadEmployees() ).filter( createFilterFor(query) ) : [];
-                    return results;
-                };
-                function createFilterFor(query) {
-                  var lowercaseQuery = angular.lowercase(query);
-                  return function filterFn( emp ) {
-                    return ( ( emp.firstName + ' ' +  emp.lastName ).toLowerCase().indexOf(lowercaseQuery) === 0) ||
-                        (emp.mail.toLowerCase().indexOf(lowercaseQuery) === 0);
-                  };
-                }
-                window.setTimeout(function(){
+                $scope.querySearch = common.querySearch( $scope, http );
+                common.watchIndex( $scope );
+                common.nextPrevTab( $scope );
+                /* window.setTimeout(function(){
                     var shareConf = {
                         defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')',
                         pageUrl : location.origin+'/gallery/id/'+$scope.item.id
@@ -343,8 +285,7 @@ function(
                     $('#yj-share-button').on("click", 'a', function(e) {
                         e.preventDefault();
                     });
-                },100);
+                },100); */
             }
         ]);
-    
 })

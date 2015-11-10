@@ -1,7 +1,7 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-            <div ng-show="isPublished" id="yj-share-button" class="yj-share-button"></div>
+            <div ng-show="isPublished" class="yj-share-button"></div>
             <md-button class="md-raised md-primary primary-button" data-step="2" data-intro="Save your changes and publish later.">
                 <span ng-if="isPublished">
                     Update Changes
@@ -16,19 +16,18 @@
             <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">
                 unpublish
             </md-button>
-            <md-button ng-if="item._id"  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item._id}}">
+            <md-button ng-if="item.id"  class="md-raised md-primary primary-button" target="_blank" ng-href="gallery/id/{{item.id}}">
                 Preview
             </md-button>
         </div>
-        
         <h1 class="md-display-1">
-      <span ng-show="itemName">
-        Edit: {{itemName}}
-      </span>
-      <span ng-show="!itemName">
-        Propose your Idea.
-      </span>
-    </h1>
+          <span ng-show="itemName">
+            Edit: {{itemName}}
+          </span>
+          <span ng-show="!itemName">
+            Propose your Idea.
+          </span>
+        </h1>
         <md-content layout-padding>
             <md-tabs md-dynamic-height md-border-bottom md-selected="global.selectedIndex" data-step="1" data-intro="Fill in your application details." data-position="top">
                 <md-tab label="Introduction">
@@ -268,4 +267,7 @@
     .main-content {
         padding-bottom: 40px;
     }
+    .md-button {
+        vertical-align: middle;
+    } 
 </style>
