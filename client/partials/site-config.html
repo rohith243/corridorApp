@@ -1,0 +1,23 @@
+<div ng-if="config">
+    <h1 class="md-display-1">
+      Site configurations
+    </h1>
+    
+    <form name="updateConfigForm" class="update-config" ng-submit="updateConfig( $event )" novalidate ng-class="{'form-validate':updateConfigForm.$showValidation}">
+            <div  class="field-wrapper">
+                <md-chips required ng-model="config.admin" name="admin" placeholder="
+                + Admin"
+                secondary-placeholder="Add admin"></md-chips>
+            </div>
+            <md-input-container>
+                <label>Notification Email</label>
+                <input  required name="mail" ng-model="config.mailConfig.mail">
+            </md-input-container>
+            <md-input-container>
+                <label>Notification Email Password</label>
+                <input  required name="pass" ng-model="config.mailConfig.pass">
+            </md-input-container>
+            <md-button class="md-raised md-primary">Update</md-button>
+    </form>
+
+</div>

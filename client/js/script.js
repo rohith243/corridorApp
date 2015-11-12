@@ -1,10 +1,12 @@
 require([
+  'jquery',
   'angular',
   'modules/common',
   'ui-router',
   'ocLazyLoad'
 ], 
 function(
+    $,
     angular,
     common,
     router,
@@ -50,20 +52,113 @@ function(
               }]
             }
         })
-        .state('myTodos', {
-            url: '/my-todos',
+        .state('myProposals', {
+            url: '/my-proposals',
             views: {
               "lazyLoadView": {
-                controller: 'myTodoController',
-                templateUrl: 'partials/my-todo.html'
+                controller: 'appsController',
+                templateUrl: 'partials/my-apps.html'
+              }
+            },
+            params: {
+              url: './api/todos/myTodos',
+              keys: [ 'drafts' , 'published' ]
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+              }]
+            }
+        })
+        .state('allProposals', {
+            url: '/all-proposals',
+            views: {
+              "lazyLoadView": {
+                controller: 'appsController',
+                templateUrl: 'partials/all-proposals.html'
+              }
+            },
+            params: {
+              url: './api/todos/publishedTodos',
+              keys: [ 'publishedApps' ]
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+              }]
+            }
+        })
+        .state('admin', {
+            url: '/admin',
+            views: {
+              "lazyLoadView": {
+                controller: 'appsController',
+                templateUrl: 'partials/admin-proposals.html'
+              }
+            },
+            params: {
+              url: './api/todos/publishedTodos',
+              keys: [ 'publishedApps' ]
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+              }]
+            }
+        })
+        .state('adminEdit', {
+            url: '/admin/edit/:id',
+            views: {
+              "lazyLoadView": {
+                controller: 'adminEditController',
+                templateUrl: 'partials/admin-edit-app.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/my-todo.js');
+                return $ocLazyLoad.load([
+                    'js/controllers/admin-edit-controller.js',
+                    '../bower_components/jsoneditor/dist/jsoneditor.min.css'
+                ]);
               }]
             }
-        });
+        })
+        .state('details', {
+            url: '/details/:id',
+            views: {
+              "lazyLoadView": {
+                controller: 'appDetailsController',
+                templateUrl: 'partials/app-details.html'
+              }
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/app-details-controller.js');
+              }]
+            }
+        })
+        .state('siteConfig', {
+            url: '/site-config',
+            views: {
+              "lazyLoadView": {
+                controller: 'siteConfigController',
+                templateUrl: 'partials/site-config.html'
+              }
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/site-config-controller.js');
+              }]
+            }
+        })
+        .state('aboutus', {
+            url: '/aboutus',
+            views: {
+              "lazyLoadView": {
+                templateUrl: 'partials/aboutus.html'
+              }
+            }
+        })
     })
     ;
     common.init();

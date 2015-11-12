@@ -11,11 +11,16 @@ require = {
         'angular-notification': '../bower_components/angular-ui-notification/dist/angular-ui-notification.min',
         'ui-router':'../bower_components/angular-ui-router/release/angular-ui-router.min',
         'ocLazyLoad': '../bower_components/oclazyload/dist/ocLazyLoad.require.min',
-        'angular-messages': '../bower_components/angular-messages/angular-messages'
+        'angular-messages': '../bower_components/angular-messages/angular-messages',
+        'jsoneditor': '../bower_components/jsoneditor/dist/jsoneditor',
+        'sanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
+        'markdown': '../bower_components/angular-markdown-directive/markdown',
+        'showdown': '../bower_components/showdown/compressed/Showdown'
     },
     shim: {
         "angular": {
-            exports: "angular"
+            exports: "angular",
+            deps: ["jquery"]
         },
         "angular-animate": {
             deps: ["angular"]
@@ -37,6 +42,12 @@ require = {
         },
         'ocLazyLoad' : {
             deps: ["angular"]
+        },
+        jsoneditor: {
+            exports: "JSONEditor"
+        },
+        'sanitize' : {
+            deps: [ 'angular' ]
         }
 
     },

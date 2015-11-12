@@ -1,3 +1,4 @@
+var siteConfig = require( './confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
     var attr = req.session.cas && req.session.cas.attributes;
@@ -8,7 +9,7 @@ user.getDetails = function(req) {
         user.mail = attr.mail[0];
         user.lastName = attr.lastname[0];
         user.uid = attr.uid[0];
-        //user.admin = siteConfig.admin.indexOf( user.mail ) !== -1;
+        user.admin = siteConfig.admin.indexOf( user.mail ) !== -1;
     }
     return user;
 };
@@ -18,5 +19,26 @@ user.getAllDetails = function(req) {
 user.checkMail = function ( req, email ) {
     var detail = user.getDetails( req );
     return detail && ( detail.mail === email );
+};
+user.setConfig = function( obj ) {
+    var fs = require('fs');
+    var path = require('path');
+    var data = obj.data;
+    console.log( obj.data );
+    fs.writeFile( path.join(__dirname, './confidentials/site-config.json' ) , JSON.stringify( data, null, '  ' ), 'utf8' , function(err) {
+        if( err ) {
+            obj.res.statusCode = '500';
+            obj.res.json( {
+                error: err
+            } );
+            return;
+        }
+        siteConfig = data;
+        obj.callback()
+        return;
+    }); 
+};
+user.getConfig = function( ) {
+    return siteConfig;    
 };
 module.exports = user;

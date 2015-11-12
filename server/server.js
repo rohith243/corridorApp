@@ -6,7 +6,7 @@ var app = module.exports = loopback();
 
 var cas = require('connect-cas');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-cas.configure({ 'host': 'cev3.pramati.com',protocol:'https',
+cas.configure({ 'host': 'cev3.pramati.com',protocol:'http',
 paths: {
         validate: '/cas/validate', 
         serviceValidate: '/cas/p3/serviceValidate', // CAS 3.0
@@ -29,8 +29,6 @@ app.use(function(req, res, next) {
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-
 
 app.start = function() {
   // start the web server

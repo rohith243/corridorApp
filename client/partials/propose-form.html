@@ -197,49 +197,48 @@
                             <p>This an Awesome Idea</p>
                             <p>We are looking for Interested people</p>
                         </div>
-                        <div class="grid-row">
-                           <div ng-repeat="user in item.interests | getImages" class="grid grid-md-6 grid-sm-6 grid-xs-12 interested-tile">
-                                <div ng-if="user.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{user.src }})'}">
+                        <div layout="row" layout-wrap>
+                           <div flex="50" flex-sm="100" ng-repeat="mem in item.interests | getImages" class="user-rep large">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
-                                <div ng-if="!user.src" class="background-name">
-                                    {{user.firstName[0]}}{{user.lastName[0]}}
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
                                 </div>
                                 <div class="name-container">
-                                  <div>{{user.firstName}}</div>
-                                  <div>mail : {{user.mail}}</div>
-                                  <div>hours : {{user.hours}}</div>
-                                  <div><b>About</b> : {{user.aboutme}}</div>
-                                  <div check-feature="show contribute" class="switch-btn"><b>Can Contribute</b> :
-                                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="user.isContributor">
+                                    <div>{{mem.firstName}}</div>
+                                    <div>mail : {{mem.mail}}</div>
+                                    <div>hours : {{mem.hours}}</div>
+                                    <div><b>About</b> : {{mem.aboutme}}</div>
+                                    <div class="switch-btn"><b>Can Contribute</b> :
+                                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="mem.isContributor">
                                         </md-switch>
-                                  </div>
+                                    </div>
                                 </div>
                            </div>
                         </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="contributed People" ng-if="item.interests &&item.interests.length>=0">
+                <md-tab label="contributed People">
                     <md-content class="tab-content">
-                        <div ng-if="isContributorsAvailable(item.interests)">
-                            <p>This an Awesome Idea</p>
-                            <p>We are looking for Contributed people</p>
+                        <div ng-if="!isContributorsAvailable(item.interests)">
+                            <p>No contributor added yet</p>
                         </div>
-                        <div class="grid-row">
-                           <div ng-repeat="user in item.interests | getImages" ng-if="user.isContributor" class="grid grid-md-6 grid-sm-6 grid-xs-12 interested-tile">
-                                <div ng-if="user.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{user.src }})'}">
+                        <div layout="row" layout-wrap>
+                           <div flex="50" flex-sm="100" ng-if="mem.isContributor" ng-repeat="mem in item.interests | getImages" class="user-rep large">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
-                                <div ng-if="!user.src" class="background-name">
-                                    {{user.firstName[0]}}{{user.lastName[0]}}
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
                                 </div>
                                 <div class="name-container">
-                                  <div>{{user.firstName}}</div>
-                                  <div>mail : {{user.mail}}</div>
-                                  <div>hours : {{user.hours}}</div>
-                                  <div><b>About</b> : {{user.aboutme}}</div>
-                                  <div check-feature="show contribute" class="switch-btn"><b>Can Contribute</b> :
-                                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="user.isContributor">
+                                    <div>{{mem.firstName}}</div>
+                                    <div>mail : {{mem.mail}}</div>
+                                    <div>hours : {{mem.hours}}</div>
+                                    <div><b>About</b> : {{mem.aboutme}}</div>
+                                    <div class="switch-btn"><b>Can Contribute</b> :
+                                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="mem.isContributor">
                                         </md-switch>
-                                  </div>
+                                    </div>
                                 </div>
                            </div>
                         </div>
@@ -270,4 +269,8 @@
     .md-button {
         vertical-align: middle;
     } 
+    .switch-btn md-switch {
+        display: inline-block;
+        margin: 0px;
+    }
 </style>

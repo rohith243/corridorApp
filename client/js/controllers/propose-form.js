@@ -276,6 +276,15 @@ function(
                 $scope.querySearch = common.querySearch( $scope, http );
                 common.watchIndex( $scope );
                 common.nextPrevTab( $scope );
+                $scope.isContributorsAvailable = function( interestedPeople ) {
+                    if ( interestedPeople ) {
+                        for (var index in interestedPeople ) {
+                            if ( interestedPeople[index].isContributor ) {
+                                return true;
+                            }
+                        }
+                    }
+                };
                 /* window.setTimeout(function(){
                     var shareConf = {
                         defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')',

@@ -1,0 +1,147 @@
+define([
+  'jquery',
+  'angular',
+  'directives/app-tile-directive',
+  'directives/search-app-directive'
+], 
+function(
+    $,
+    angular,
+    appTile,
+    searchApp
+){
+    
+    var closeSearchApps = function() {
+        $(document).off('keydown.opensearch');
+        $('body').removeClass('app-search-opened');
+    };
+    var openSearchApps = function() {
+        $(document).on('keydown.opensearch', function(e) {
+            if (e.keyCode === 27) {
+                closeSearchApps();
+            }
+        });
+        $('body').addClass('app-search-opened');
+        setTimeout( function() {
+            $('#search-app').focus();    
+        }, 200 );
+        
+        //console.log( $('#search-app') );
+    };
+    angular.module( 'todoApp' )
+    .controller('appsController', [
+        '$scope',
+        'model',
+        'Notification',
+        'http',
+        '$filter',
+        '$timeout',
+        '$stateParams',
+        function(
+            $scope,
+            model,
+            Notification,
+            http,
+            $filter,
+            $timeout,
+            $stateParams
+        ) {
+            var url = $stateParams.url;
+
+            http.get( url )
+            .then(function(res) {
+                var keys = $stateParams.keys;
+                model.appResponse = res;
+                $scope.apps = {};
+                $scope.limit = {};
+                for (var key in keys) {
+                    $scope.apps[keys[key]] = res; // drafts,published
+                    $scope.limit[ keys[key] ] = 6;
+                }
+                for( var index in res) { 
+                    var item = res[index];
+                    if (item) {
+                        item.likes = item.likes || [];
+                    }
+                }
+            });
+
+            $scope.getData = function( key ) {
+                var data = [];
+                if ( !model.appResponse ) {
+                    return data;
+                }
+                for( var len = model.appResponse.length - 1; len>=0; len-- ) {
+                    if ( key === 'drafts' && !model.appResponse[len].isPublish) {
+                        data.push( model.appResponse[len] );
+                    }
+                    else if( key === 'published' && model.appResponse[len].isPublish ){
+                        data.push( model.appResponse[len] );
+                    }
+                }
+                return data;
+            };
+            $scope.searchpop = function() {
+                openSearchApps();
+            };
+            /*$scope.deleteItem = function(e, item, index, key) {
+                e.preventDefault();
+                if (confirm('do you want to delete "' + item.appName + '" ?')) {
+                    http.get( basePath + 'services/deleteDoc?_id=' + item._id)
+                        .then(function(res) {
+                            index = findObjectIndex(model.appResponse,'_id',item._id);
+                            if (index !== -1) {
+                                model.appResponse.splice(index, 1);
+                                Notification.success('app successfully deleted');
+                            }
+                            else {
+                                Notification.error('not able to delete contact adminstrator');
+                            }
+                        });
+                }
+            };
+            
+            $scope.togglePublish = function(e, item) {
+                e.preventDefault();
+                if (item.appName && item.solution) {
+                    http.post( basePath + 'services/updateDoc', {
+                        postData: {
+                            data: {
+                                isPublish : !item.isPublish
+                            },
+                            _id: item._id
+                        }
+                    })
+                    .then(function(res) {
+                        item.isPublish = !item.isPublish;
+                        Notification.success('successfully updated');
+                    });
+                }
+                else {
+                    Notification.error('Fill required details and then publish');
+                }
+            };
+            
+            $scope.bgColors = function(){
+               return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
+            };
+            
+            
+            $scope.getEffortFunded = function(item) {
+                var effortFunded = 0;
+                for (var interest in item.interests) {
+                    var user = item.interests[interest];
+                    if (user.hours && !isNaN(user.hours)) {
+                        effortFunded = effortFunded + parseInt(user.hours);
+                    }                        
+                }
+                var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
+                if (isNaN(effortFundedPerc)) {
+                    return '0%';
+                }
+                return effortFundedPerc+'%';
+            };*/
+        }
+    ]);
+    appTile.init();
+})

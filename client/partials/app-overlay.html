@@ -1,0 +1,96 @@
+<div class="app-search-overlay">
+    <span class="close fa fa-remove" id="app-search-popup-close"></span>
+    <div class="search-content page-layout">
+        <div class="container search-wrapper" ng-class="{'result-found': loading || searchText}">
+            <h3>
+                Search Apps
+            </h3>
+            <span class="fa fa-search"></span>
+            <input class="search-app" autocomplete="off" ng-model="searchText" id="search-app" type="text" name="search" placeholder="What are you looking for?" ng-change="searchFilter()">
+            <div>
+                <div class="search-loader" ng-if="loading">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                </div>
+                <div class="tiles-container" ng-if="!loading && searchText">
+                        <div layout="row" layout-wrap>
+                            <div flex="33" class="fadeInUp" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-index="$index" data-key="key" ng-repeat="item in  getData()">
+                            </div>
+                        </div>
+                        <div ng-if="(!getData().length) && searchText">
+                            <p>Sorry, We colud not find anything</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style type="text/css">
+    .app-search-overlay {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        
+        opacity: 0;
+        overflow: auto;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        -webkit-transition: all 0.2s ease-in;
+        background: #fff;
+        visibility: hidden;
+    }
+    .tiles-container {
+        overflow: hidden;
+    }
+
+    .app-search-opened {
+        overflow: hidden;
+    } 
+    .app-search-opened .app-search-overlay {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transition: all 0.2s ease-in;
+    }
+    .app-search-overlay .close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #999;
+        transition: all 0.4s ease-in;
+    }
+    .search-content {
+        text-align: center;
+    }
+    .search-wrapper {
+        margin-top: 16%;
+        -webkit-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
+        color: #999;
+    }
+    .search-content .fa-search {
+        font-size: 30px;
+    }
+    .search-content .search-app, .search-content .search-app:active, .search-content .search-app:focus {
+        display: inline-block;
+        background: none;
+        font-size: 30px;
+        border: 0;
+        width: 90%;
+        max-width: 400px;
+    }
+    .search-wrapper.result-found {
+        margin-top: 30px;
+    }
+    input {
+        outline: 0px;
+    }
+    .search-loader md-progress-circular{
+        display: inline-block;
+    }
+</style>

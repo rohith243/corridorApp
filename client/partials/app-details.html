@@ -1,0 +1,392 @@
+<div ng-if="item">
+    <div class="app-details-sections info-section" id="summary" layout="row" layout-sm="column">
+        <div flex="70" flex-sm="100" class="app-details-wrap">
+            <div layout="row" layout-sm="column">
+                <div class="image-section" flex="20" flex-sm="100">
+                    <img ng-src="{{item.imgurl || './images/default.png'}}">
+                </div>
+                <div class="app-intro" flex="50" flex-sm="100">
+                    <div class="md-title">
+                        {{item.appName}}
+                    </div>
+                    <div btf-markdown="item.shortDesc">
+                    </div>
+                    <div layout="row" ng-if="item.status">
+                        <span><span class="thiker">Stage </span>: {{item.status}}</span> 
+                    </div>
+                    <div layout="row"  ng-if="item.category">
+                        <span><span class="thiker">Category </span> : {{item.category}}</span> 
+                    </div>
+                </div>
+                <div class="app-summary" flex="30" flex-sm="100">
+
+                    <div layout="row" ng-if="item.createdAt">
+                        <span class="thiker" flex="45" align="right">Posted date : </span>
+                        <span flex="55" class="app-summary-value"> {{item.createdAt | date:'dd-MMM-yyyy'}}</span>
+                    </div>
+                    <div layout="row"  ng-if="item.lastUpdated">
+                        <span class="thiker" flex="45" align="right">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-MMM-yyyy'}}</span>
+                    </div>                                        
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
+                    </div>
+                    <div class="like-container">
+                        
+                        <a href="#" ng-click="updateLikes($event)">
+                            <div ng-class="{'upvote-container':item.likes.indexOf( user.mail) != -1,'upvote-container-down':item.likes.indexOf( user.mail) == -1}" class="like-button">
+                                <span flex="80" class="" >Upvote</span>
+                                <span class="upvote-line"> | </span>
+                                <span class="upvote-count">{{item.likes.length}}</span>
+                            </div>
+                        </a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div flex="30" flex-sm="100" class="proposer-details-wrap">
+            <div class="proposer-details">
+                <div>
+                    <div class="md-title">Proposed by</div>
+                    <div class="proposed-team-wrap">
+                        <div ng-repeat="mem in item.proposedTeam | getImages" class="user-rep">
+                            <a ng-href="mailto:{{mem.mail}}">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                </div>
+                                <span>
+                                &nbsp;{{mem.firstName}}
+                                </span>
+                            </a>
+                        </div>
+                        <md-button ng-if="item.owner.mail != user.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
+                            Express Interest
+                        </md-button>
+                        <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button" ng-href="#edit/{{item.id}}">
+                            Edit
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+                
+    <div style="position:relative"> 
+        <div class="section-content">
+            <div class="content-separators info-section"  id="team" ng-if="isContributorsAvailable(item.interests)">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-users"></span>
+                    </div>    
+                </div>
+                <div   >
+                    <h1 class="content-heading">Team</h1>
+                    <div class="content-data" layout="row" layout-wrap >
+                        <div flex="50" flex-sm="100" ng-repeat="mem in item.interests | getImages" ng-if="mem.isContributor"  class="user-rep large">
+                            <a ng-href="mailto:{{mem.mail}}">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                </div>
+                                <span>
+                                &nbsp;{{mem.firstName}}
+                                </span>
+                            </a>
+                        </div>
+
+                        <!--div class="grid-row">
+                            <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" ng-if="mem.isContributor" style="list-style:none;">
+                                <li>
+                                    <div>
+                                        <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
+
+                                        </div>
+                                        <div ng-if="!mem.src" class="background-name">
+                                            {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                        </div>
+                                        <div class="name-container">
+                                            <p class="ng-binding">{{mem.firstName}}</p>
+                                            <p class="ng-binding">{{mem.mail}}</p>
+                                        </div>
+                                     </div>                                            
+                                </li>
+                            </ul>
+                        </div-->
+                    </div>
+                </div>
+            </div>
+            <div class="content-separators info-section" id="introduction" ng-if="item.longDesc"  >
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-info"></span>
+                    </div>    
+                </div>
+                <div>
+                    <h1 class="content-heading">Introduction</h1>
+                    <div class="content-data">
+                        <div btf-markdown="item.longDesc"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-separators info-section" id="video" ng-if="item.vedioLink">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-television"></span>
+                    </div>    
+                </div>
+                <div    >
+                    <h1 class="content-heading">Video</h1>
+                    <div class="content-data" >
+                        <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                            </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-separators info-section" id="analysis" ng-if="item.solution">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-sitemap"></span>
+                    </div>    
+                </div>
+                <div>
+                    <h1 class="content-heading">Analysis</h1>
+                    <div class="content-data">
+                        <div btf-markdown="item.solution"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-navigator">
+            <ul class="page-navigator-link">
+                <li id="summary-li"><a href="#summary" >Summary</a></li>
+                <li id="team-li" ng-if="isContributorsAvailable(item.interests)"><a href="#team">Team</a></li>
+                <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
+                <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
+                <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<style type="text/css">
+    .image-section img{
+        width: 100%;
+    }
+    .app-details-sections {
+        padding-top: 40px;
+        margin-bottom: 50px;
+    }
+    .md-title {
+        font-weight: bold;
+    }
+    .app-intro {
+        padding-left: 15px;
+        padding-right: 15px;
+    } 
+    .app-summary-value {
+        text-align: left;
+        padding-left: 5px;
+    }
+    .thiker {
+        font-weight: bold;
+    }
+    .app-summary{
+        font-size: 14px;
+    }
+    .upvote-container {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+        border-radius: 3px;
+        box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+        display: inline-block;
+        font-weight: 500;
+        outline: 0;
+        padding: 3px 7px 4px 7px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        background: #f1f8fb;
+        color: #2b6dad;
+        border: 1px solid #bbcadc;
+        line-height: 18px;
+        margin-top: 5px;
+    }
+
+    .upvote-container:hover {
+        border: 1px solid #2865a1;
+        color: #2865a1;
+    }
+
+    .upvote-container .upvote-line {
+        color: #bbcadc;
+    }
+    .upvote-container:hover .upvote-line {
+        color: #2865a1;
+    }
+
+    .upvote-count {
+        color: #2b6dad;
+        background: 0;
+        padding: 0;
+        margin: 0;
+        margin-left: 6px;
+        padding-left: 6px;
+        transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+        position: relative;
+        border-radius: 0 3px 3px 0;
+        background: 0;
+        padding: 0;
+        margin: 0;
+        transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+        position: relative;
+        border-radius: 0 3px 3px 0;
+        font-weight: bold;
+        min-width: 10px;
+        text-align: center;
+        display: inline-block;
+        float: none;
+    }
+
+    .upvote-count:before {
+        content: "";
+        transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+        width: 1px;
+        height: 14.5px;
+        position: absolute;
+        left: 0;
+        top: 2px;
+    }
+
+    .upvote-container-down {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        transition: color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+        border-radius: 3px;
+        box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+        display: inline-block;
+        font-weight: 500;
+        outline: 0;
+        padding: 3px 7px 4px 7px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        background: #f6f6f6;
+        color: #999;
+        background-color: #f6f6f6;
+        border: 1px solid #ddd;
+        line-height: 18px;
+        margin-top: 5px;
+    }
+
+    .upvote-container-down:hover {
+        color: #919191;
+        border: 1px solid #919191;
+    }
+
+    .upvote-container-down .upvote-line {
+        color: #ddd;
+    }
+
+    .upvote-container-down .upvote-count {
+        color: #999;
+    }
+
+    .upvote-container-down:hover .upvote-line {
+        color: #919191;
+    }
+    .like-container {
+        text-align: center;
+    }
+    .like-button {
+        margin-left: -5%;
+    }
+    .app-details-wrap {
+        border-right: 1px solid #ccc;
+    }
+    .proposer-details-wrap {
+        margin-left: -1px;
+        border-left: 1px solid #ccc;
+    }
+    .proposer-details {
+        margin-left: 10px;
+        padding-left: 50px;
+        text-align: left;
+    }
+    .proposed-team-wrap {
+        margin-top: 10px;
+    }
+
+    
+    .content-separators {
+        padding: 50px 0;
+    }
+    .icon-holder {
+        position: relative;
+        border-top: 1px solid #ccc;
+        top: -50px;
+    }
+    
+    .icon-parent {
+        height: 80px;
+        width: 80px;
+        background: #fff;
+        display: inline-block;
+        position: absolute;
+        left: calc( 50% - 40px);
+        top: -40px;
+        font-size: 29px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        text-align: center;
+    }
+    .section-content {
+        width: 85%;
+    }
+    .section-navigator {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10%;
+    }
+    .content-heading {
+        text-align: center;
+        font-weight: 500;
+    }
+    .page-navigator-link {
+        margin: 0;
+        padding: 0;
+        list-style: none
+    }
+    .page-navigator-link li {
+        border-left: 2px solid #fff;
+    }
+    .page-navigator-link a {
+        text-decoration: none;
+        padding: 2px 0 2px 5px;
+        display: block;
+    }
+    .page-navigator-link li.active-link {
+        border-left: 2px solid #888;
+    }
+
+</style>

@@ -1,0 +1,46 @@
+<div class="pull-right">
+    <md-button class="md-raised md-primary primary-button" ng-click="update($event)">
+        <span >
+            Update Changes
+        </span>
+    </md-button>
+    <md-button class="md-raised md-primary primary-button" ng-click="reset($event)">
+        <span>
+            Reset
+        </span>
+    </md-button>
+    <md-button  class="md-raised md-primary primary-button" target="_blank" ng-href="../../gallery/id/{{_id}}">
+        App Details
+    </md-button>
+</div>
+<h1 class="md-display-1">
+    Admin, Edit {{item.appName}}
+</h1>
+<div id="jsoneditor"></div>
+<div class="button-container">
+    <div class="pull-right">
+        <md-button class="md-raised md-primary primary-button"  ng-click="update($event)">
+            <span >
+                Update Changes
+            </span>
+        </md-button>
+        <md-button class="md-raised md-primary primary-button"  ng-click="reset($event)">
+            <span>
+                Reset
+            </span>
+        </md-button>
+        <md-button  class="md-raised md-primary primary-button" target="_blank" ng-href="../../gallery/id/{{_id}}">
+            App Details
+        </md-button>
+    </div>
+</div>
+
+<style type="text/css">
+    .md-primary {
+        vertical-align: middle;
+    }
+    .button-container {
+        margin-top: 10px;
+        overflow: auto;
+    }
+</style>

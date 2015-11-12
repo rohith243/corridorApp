@@ -13,12 +13,12 @@
 }
 .line-height(@value) {
     @remValue: unit(@value);
-    @pxValue: (unit(@value) * 14);
+    @pxValue: (unit(@value) * 16);
     line-height: ~"@{pxValue}px";
     line-height: ~"@{remValue}rem";
 }
 .fonts(@sizeValue) {
-    @remValue: (@sizeValue / 14);
+    @remValue: (@sizeValue / 16);
     @pxValue: @sizeValue;
     font-size: ~"@{pxValue}px"; 
     font-size: ~"@{remValue}rem";

@@ -7,12 +7,12 @@
                 </a>
             </li>
             <li>
-                <a href="#/propose-form#/" >
+                <a href="#/propose-form" >
                     Propose An App
                 </a>
             </li>
             <li>
-                <a href="#/gallery" >
+                <a href="#/all-proposals" >
                     All Proposals
                 </a>
             </li>
@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li ng-if="username">
-                <a  href="#/dashboard" >
+                <a  href="#/my-proposals" >
                     My Proposals
                 </a>
             </li>
@@ -36,11 +36,11 @@
                     Site config
                 </a>
             </li>
-            <li ng-if="admin">
+            <!--li ng-if="admin">
                 <a  href="#/feature-config" >
                     Feature config
                 </a>
-            </li>
+            </li-->
             <li>
                 <a  href="https://github.com/uidev547/corridorApp/issues" target="_new">
                     Create a github issue
@@ -130,14 +130,19 @@
         transition: left 0.3s linear;
     }
     .wrap-all {
-        -webkit-transition: left 0.3s linear;
+
+        -webkit-transition:  left 0.3s linear;
         -moz-transition:  left 0.3s linear;
-        -o-transition: left 0.3s linear;
+        -o-transition:  left 0.3s linear;
         transition:  left 0.3s linear;
+
     }
     .wrap-all {
         left: 0;
         position: relative;
+    }
+    .app-search-opened .wrap-all {
+        /*transform: scale3d(0.95, 0.95, 1);*/
     }
     .fixed-menu-button {
         position: fixed;

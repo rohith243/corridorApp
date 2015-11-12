@@ -14,6 +14,9 @@ function(
                     scope: {},
                     controller: 'globalNavCtrl',
                     link: function  ( scope, ele ) {
+                        ele.find( '#aside-nav' ).on( 'click', 'a',  function( e ) {
+                            scope.closeMenu();
+                        } );
                         document.body.appendChild( document.getElementById( 'aside-nav' ) );
                         document.body.appendChild( document.getElementById( 'opened-page-mask' ) );
                     }
@@ -31,7 +34,7 @@ function(
                     //angular.element( 'body' ).addClass(  );
                 };
                 $scope.closeMenu = function( e ) {
-                    e.preventDefault();
+                    e&&e.preventDefault();
                     document.body.classList.remove( 'open-navigation' );
                     //angular.element( 'body' ).removeClass( 'open-navigation' );   
                 };
@@ -40,12 +43,11 @@ function(
                 $scope.logout = function( e ) {
                   e.preventDefault();
                   
-                  /*http.get( 'services/logout' )
+                  http.get( 'services/logout' )
                   .then( function() {
                     $scope.user = null;
                     GLOBAL.user = null;
-                     
-                  } );*/
+                  } );
                   window.location = '//cev3.pramati.com/cas/logout?service=' + location.origin 
 
                 }
