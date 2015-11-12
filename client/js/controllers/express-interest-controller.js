@@ -10,7 +10,7 @@ function(
 ){
     
     
-    angular.module( 'todoApp' )
+    angular.module( 'letsBuild' )
     .controller('expressInterestController', [
         '$scope', 
         '$mdDialog', 
@@ -56,7 +56,7 @@ function(
             };
 
             $scope.addContributor = function() {
-                http.post( 'api/todos/expressInterest', {
+                http.post( 'api/apps/expressInterest', {
                     postData: {
                         hours:  $scope.user.hours,
                         aboutme: $scope.user.aboutme,

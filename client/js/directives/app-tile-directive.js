@@ -9,7 +9,7 @@ function(
     
     var init = function() {
         console.log( 'calling apptile init' );
-        angular.module( 'todoApp' )
+        angular.module( 'letsBuild' )
         .directive('appTile', [function() {
             return {
                 templateUrl:  'partials/app-tile.html',
@@ -43,7 +43,7 @@ function(
                 $scope.deleteItem = function(  e ,item ) {
 
                     e.preventDefault();
-                    http.get( './api/todos/deleteTodo?id=' + item.id )
+                    http.get( './api/apps/deleteApp?id=' + item.id )
                     .then( function( res ) {
                         Notification.success( 'Deleted' );
                         var index = model.appResponse.indexOf( item );
@@ -58,7 +58,7 @@ function(
 
                     e.preventDefault();
                     if (item.appName && item.solution) {
-                        http.post( '/api/todos/updateTodo', {
+                        http.post( '/api/apps/updateApp', {
                             postData: {
                                 isPublish : !item.isPublish,
                                 id: item.id

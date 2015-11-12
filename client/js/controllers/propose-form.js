@@ -122,9 +122,9 @@ function(
             };
         }
     }
-    angular.module('todoApp').requires.push('ngMessages');
+    angular.module('letsBuild').requires.push('ngMessages');
     
-    angular.module('todoApp')
+    angular.module('letsBuild')
     .controller('proposeFormController', [
             '$scope',
             'Notification',
@@ -155,7 +155,7 @@ function(
                 
                 $scope.saveApp = function(e) {
                     e.preventDefault();
-                    http.post('api/todos/createTodo', {
+                    http.post('api/apps/createApp', {
                             postData: $scope.item
                         })
                         .then(function(res) {
@@ -171,7 +171,7 @@ function(
                     $scope.updateForm.$showValidation = true;
                     if ($scope.updateForm && $scope.updateForm.$valid) {
                         $scope.item.isPublish = true;
-                        http.post( 'api/todos/createTodo', {
+                        http.post( 'api/apps/createApp', {
                                 postData: $scope.item
                             })
                             .then(function(res) {
@@ -209,7 +209,7 @@ function(
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
                 if ( id ) {
-                    http.get( 'api/todos/getTodo?id=' + id)
+                    http.get( 'api/apps/getApp?id=' + id)
                         .then(function(res) {
                             originalData = res;
                             $scope.item = angular.copy(res);
@@ -226,7 +226,7 @@ function(
                     e.preventDefault();
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
                     setData.id = id;
-                    http.post(  'api/todos/updateTodo', {
+                    http.post(  'api/apps/updateApp', {
                         postData: setData
                     })
                     .then(function(res) {
@@ -247,7 +247,7 @@ function(
                     $scope.item.isPublish = !isPublished;
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
                     setData.id = id;
-                    http.post(  'api/todos/updateTodo', {
+                    http.post(  'api/apps/updateApp', {
                         postData: setData
                     })
                     .then(function(res) {

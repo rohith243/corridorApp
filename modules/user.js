@@ -1,6 +1,12 @@
 var siteConfig = require( './confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
+    return {
+        firstName: 'Kiran',
+        lastName: 'Adepu',
+        admin: true,
+        mail: 'kiran.adepu@imaginea.com'
+    };
     var attr = req.session.cas && req.session.cas.attributes;
     var user;
     if (attr) {

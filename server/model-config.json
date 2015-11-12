@@ -32,7 +32,7 @@
     "dataSource": "db",
     "public": false
   },
-  "todo": {
+  "app": {
     "dataSource": "db",
     "public": true
   }

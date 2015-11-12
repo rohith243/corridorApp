@@ -23,6 +23,6 @@ function(
         };
     }]);
 
-    angular.module('todoApp').requires.push( 'markdown' );
+    angular.module('letsBuild').requires.push( 'markdown' );
 
 });

@@ -13,7 +13,7 @@ module.exports = function(app) {
     });
 
     var cas = require('connect-cas');
-    app.get('/signin', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
+    app.get('/signin', /*cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(),*/ function(req, res, next) {
     
         var redirect = req.query.redirect || '.';
         res.redirect(redirect);

@@ -10,7 +10,7 @@ function(
 ){
     
     
-    angular.module( 'todoApp' )
+    angular.module( 'letsBuild' )
     .controller( 'siteConfigController', [
         '$scope',
         'http',

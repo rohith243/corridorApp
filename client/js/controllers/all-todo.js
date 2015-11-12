@@ -5,7 +5,7 @@ function(
     angular
 ){
     
-    angular.module('todoApp').controller( 'allTodoController', [
+    angular.module('letsBuild').controller( 'allTodoController', [
         '$scope',
         'http',
         'model',
@@ -17,10 +17,10 @@ function(
             $state
         ) {
             
-            model.pageTitle = 'All todos';
-            http.get( './api/todos/publishedTodos')
+            model.pageTitle = 'All apps';
+            http.get( './api/apps/publishedApps')
             .then( function( res ) {
-                $scope.todos = res;
+                $scope.apps = res;
             } );
         } 
     ] );

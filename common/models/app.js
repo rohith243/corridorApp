@@ -2,11 +2,11 @@ var user = require( '../../modules/user' );
 var disableAllMethodsBut = require( '../../modules/disable-all-methods-but');
 var mail = require( '../../modules/mail' );
 
-module.exports = function(Todo) {
+module.exports = function(App) {
     
-    disableAllMethodsBut( Todo, [] );
-    Todo.publishedTodos = function( req, res, cb ) {
-        Todo.find({
+    disableAllMethodsBut( App, [] );
+    App.publishedApps = function( req, res, cb ) {
+        App.find({
           // find locations near the provided GeoPoint
           where: { isPublish: true }
         }, function(err, res ) {      
@@ -14,7 +14,7 @@ module.exports = function(Todo) {
         } );
     };
 
-    Todo.remoteMethod('publishedTodos', {
+    App.remoteMethod('publishedApps', {
         returns: {arg: 'apps', root: true},
         http: { verb: 'GET' },
         accepts:[
@@ -24,7 +24,7 @@ module.exports = function(Todo) {
     });
 
 
-    Todo.myTodos = function(req, res, cb) {
+    App.myApps = function(req, res, cb) {
         
         udetails = user.getDetails( req );
         if( !udetails ) {
@@ -32,7 +32,7 @@ module.exports = function(Todo) {
             res.json( [] );
             return;
         }
-        Todo.find({
+        App.find({
           where: {'owner.mail': udetails.mail }
         }, function(err, res ) {      
           cb( null, res );
@@ -40,7 +40,7 @@ module.exports = function(Todo) {
 
     };
 
-    Todo.remoteMethod('myTodos', {
+    App.remoteMethod('myApps', {
         returns: {arg: 'apps', root: true},
         http: { verb: 'GET' },
         accepts:[
@@ -50,7 +50,7 @@ module.exports = function(Todo) {
     });
 
 
-    Todo.createTodo = function( data, req, res, cb ) {
+    App.createApp = function( data, req, res, cb ) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 403;
@@ -62,13 +62,13 @@ module.exports = function(Todo) {
         var setObj = data;
         setObj.owner = udetails;
         setObj.createdAt = +new Date();
-        Todo.create( setObj , function(err, res ) {      
+        App.create( setObj , function(err, res ) {      
           cb( null, res );
         } );
     };
 
-    Todo.remoteMethod('createTodo', {
-        returns: {arg: 'todo', root: true},
+    App.remoteMethod('createApp', {
+        returns: {arg: 'app', root: true},
         accepts:[
           { arg: 'data', type: 'object', 'http': {source: 'body'} },
           { arg: 'req', type: 'object', 'http': {source: 'req'}},
@@ -78,7 +78,7 @@ module.exports = function(Todo) {
 
 
 
-    Todo.updateTodo = function( data, req, res, cb ) {
+    App.updateApp = function( data, req, res, cb ) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
@@ -88,7 +88,7 @@ module.exports = function(Todo) {
             return;
         }
         var id = data.id;;
-        Todo.findById( id, function( err, doc ) {
+        App.findById( id, function( err, doc ) {
             var setObj = data;
             setObj.lastUpdatedBy = udetails;
             setObj.lastUpdatedAt = +new Date();
@@ -107,8 +107,8 @@ module.exports = function(Todo) {
         
     };
 
-    Todo.remoteMethod('updateTodo', {
-        returns: {arg: 'todo', root: true},
+    App.remoteMethod('updateApp', {
+        returns: {arg: 'app', root: true},
         accepts:[
           { arg: 'data', type: 'object', 'http': {source: 'body'} },
           { arg: 'req', type: 'object', 'http': {source: 'req'}},
@@ -117,7 +117,7 @@ module.exports = function(Todo) {
     });
 
 
-    Todo.deleteTodo = function( id, req, res, cb ) {
+    App.deleteApp = function( id, req, res, cb ) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
@@ -127,7 +127,7 @@ module.exports = function(Todo) {
             return;
         }
 
-        Todo.findById( id, function( err, doc ) {
+        App.findById( id, function( err, doc ) {
             /*if(  udetails.mail !== doc.owner.mail ) {
                 res.statusCode = 404;
                 res.json( {
@@ -135,15 +135,15 @@ module.exports = function(Todo) {
                 } );
                 return;
             }*/
-            Todo.destroyById( id, function( err, res ) {
+            App.destroyById( id, function( err, res ) {
                 cb( null, res );
             } );
         } );
         
     };
 
-    Todo.remoteMethod('deleteTodo', {
-        returns: {arg: 'todo', root: true},
+    App.remoteMethod('deleteApp', {
+        returns: {arg: 'app', root: true},
         accepts:[
           { arg: 'id', type: 'string', required: true },
           { arg: 'req', type: 'object', 'http': {source: 'req'}},
@@ -153,10 +153,10 @@ module.exports = function(Todo) {
     });
 
 
-    Todo.getTodo = function(id, req, res, cb ) {
+    App.getApp = function(id, req, res, cb ) {
         
         var udetails = user.getDetails( req );
-        Todo.findById( id, function(err, doc ) {
+        App.findById( id, function(err, doc ) {
           if( !doc ) {
             res.statusCode = 404;
             res.json( {
@@ -176,7 +176,7 @@ module.exports = function(Todo) {
         } );
     };
 
-    Todo.remoteMethod('getTodo', {
+    App.remoteMethod('getApp', {
         returns: {arg: 'apps', root: true},
         http: { verb: 'GET' },
         accepts:[
@@ -188,7 +188,7 @@ module.exports = function(Todo) {
     });
 
 
-    Todo.toggleVote = function( id, req, res, cb ) {
+    App.toggleVote = function( id, req, res, cb ) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
@@ -197,7 +197,7 @@ module.exports = function(Todo) {
             } );
             return;
         }
-        Todo.findById( id, function( err, doc ) {
+        App.findById( id, function( err, doc ) {
             doc.likes = doc.likes || [];
             var index = doc.likes.indexOf( udetails.mail );
             if( index !== -1 ) {
@@ -213,8 +213,8 @@ module.exports = function(Todo) {
         
     };
 
-    Todo.remoteMethod('toggleVote', {
-        returns: {arg: 'todo', root: true},
+    App.remoteMethod('toggleVote', {
+        returns: {arg: 'app', root: true},
         http: { verb: 'GET' },
         accepts:[
           { arg: 'id', type: 'string', required: true },
@@ -225,7 +225,7 @@ module.exports = function(Todo) {
 
 
 
-    Todo.expressInterest = function( data, req, res, cb ) {
+    App.expressInterest = function( data, req, res, cb ) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
@@ -235,7 +235,7 @@ module.exports = function(Todo) {
             return;
         }
         var id = data.id;
-        Todo.findById( id, function( err, doc ) {
+        App.findById( id, function( err, doc ) {
             doc.interests = doc.interests || [];
             if( udetails.mail ===  doc.owner.mail ) {
                 res.statusCode = 403;
@@ -274,8 +274,8 @@ module.exports = function(Todo) {
         
     };
 
-    Todo.remoteMethod('expressInterest', {
-        returns: {arg: 'todo', root: true},
+    App.remoteMethod('expressInterest', {
+        returns: {arg: 'app', root: true},
         accepts:[
           { arg: 'data', type: 'object', 'http': {source: 'body'} },
           { arg: 'req', type: 'object', 'http': {source: 'req'}},

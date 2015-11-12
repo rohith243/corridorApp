@@ -27,7 +27,7 @@ function(
         });
     };
 
-    angular.module( 'todoApp' )
+    angular.module( 'letsBuild' )
     .controller( 'appDetailsController',[
         '$scope',
         'http',
@@ -47,7 +47,7 @@ function(
             var id = $stateParams.id;
             model.id = id;
             $scope.user = GLOBAL.user;
-            http.get(  'api/todos/getTodo?id=' + id )
+            http.get(  'api/apps/getApp?id=' + id )
             .then( function( res ) {
                 $scope.item = res;
                 model.item = $scope.item;
@@ -57,7 +57,7 @@ function(
             $scope.updateLikes = function( e ) {
                 e.preventDefault();
                 if( $scope.user ) {
-                    http.get( 'api/todos/toggleVote?id=' + id )
+                    http.get( 'api/apps/toggleVote?id=' + id )
                     .then( function( res ) {
                         $scope.item.likes = res.likes;
                         Notification.success( 'Updated success fully' );
@@ -98,21 +98,24 @@ function(
         }            
     ] );
     $( window ).scroll( function  (argument) {
-        var win = $( this );
-        var top = $( '.section-content' ).offset().top - win.scrollTop() ;
-        if( top < 20  ) {
-            $( '.section-navigator' ).css( 'top', -top + 20 );
-        } else {
-            $( '.section-navigator' ).css( 'top', '' );
+        if( $( '.section-content' ).length ) {
+            var win = $( this );
+            var top = $( '.section-content' ).offset().top - win.scrollTop() ;
+            if( top < 20  ) {
+                $( '.section-navigator' ).css( 'top', -top + 20 );
+            } else {
+                $( '.section-navigator' ).css( 'top', '' );
+            }
+            
+            $( '.info-section' ).each( function( index, ele ) {
+                var dim = ele.getBoundingClientRect();
+                if( dim.top - 75 < 0  && dim.bottom > 0 )  {
+                    $( '.page-navigator-link li' ).removeClass( 'active-link' );
+                    $( '#' + ele.id + '-li' ).addClass( 'active-link' );
+                }
+            } );    
         }
         
-        $( '.info-section' ).each( function( index, ele ) {
-            var dim = ele.getBoundingClientRect();
-            if( dim.top - 75 < 0  && dim.bottom > 0 )  {
-                $( '.page-navigator-link li' ).removeClass( 'active-link' );
-                $( '#' + ele.id + '-li' ).addClass( 'active-link' );
-            }
-        } );
     } );
     setTimeout( function() {
         $( '.page-navigator-link a' ).click( function( e ) {

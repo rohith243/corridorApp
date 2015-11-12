@@ -28,7 +28,7 @@ function(
         
         //console.log( $('#search-app') );
     };
-    angular.module( 'todoApp' )
+    angular.module( 'letsBuild' )
     .controller('appsController', [
         '$scope',
         'model',

@@ -18,7 +18,7 @@ var DATASTORES = {
   },
   mongodb: {
     host: 'localhost',
-    database: 'todoApp',
+    database: 'letsBuild',
     /*username: 'demo',
     password: 'L00pBack',*/
     port: 27017

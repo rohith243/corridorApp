@@ -10,7 +10,7 @@ function(
         $( document ).off('keydown.opensearch');
         $( 'body' ).removeClass('app-search-opened');
     };
-    angular.module('todoApp')
+    angular.module('letsBuild')
     .directive('searchApp', [function() {
         return {
             templateUrl: 'partials/app-overlay.html',

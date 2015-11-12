@@ -1,5 +1,5 @@
 {
-  "name": "todo",
+  "name": "app",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

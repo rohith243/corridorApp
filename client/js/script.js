@@ -12,7 +12,7 @@ function(
     router,
     ocLazyLoad
 ){
-    var app = angular.module( 'todoApp', [ 'ui.router', 'oc.lazyLoad' ] );  
+    var app = angular.module( 'letsBuild', [ 'ui.router', 'oc.lazyLoad' ] );  
     app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -61,7 +61,7 @@ function(
               }
             },
             params: {
-              url: './api/todos/myTodos',
+              url: './api/apps/myApps',
               keys: [ 'drafts' , 'published' ]
             },
             resolve: { 
@@ -79,7 +79,7 @@ function(
               }
             },
             params: {
-              url: './api/todos/publishedTodos',
+              url: './api/apps/publishedApps',
               keys: [ 'publishedApps' ]
             },
             resolve: { 
@@ -97,7 +97,7 @@ function(
               }
             },
             params: {
-              url: './api/todos/publishedTodos',
+              url: './api/apps/publishedApps',
               keys: [ 'publishedApps' ]
             },
             resolve: { 
@@ -162,5 +162,5 @@ function(
     })
     ;
     common.init();
-    angular.bootstrap( document, [ 'commonModule', 'todoApp' ] )
+    angular.bootstrap( document, [ 'commonModule', 'letsBuild' ] )
 })

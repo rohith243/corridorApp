@@ -4,7 +4,7 @@ define([
 function(
     angular
 ){
-    angular.module('todoApp').controller( 'editTodoController', [ 
+    angular.module('letsBuild').controller( 'editTodoController', [ 
         '$scope',
         'http',
         'Notification',
@@ -16,22 +16,22 @@ function(
                 $state.go( 'default' );
             }
             var id =  $stateParams.id;
-            model.pageTitle = 'Edit todo';
+            model.pageTitle = 'Edit app';
             
-            http.get( './api/todos/getTodo?id=' + id )
+            http.get( './api/apps/getApp?id=' + id )
             .then( function( res ) {
-                $scope.todo = res;
+                $scope.app = res;
             } );
 
-            $scope.updateTodo = function( e ) {
+            $scope.updateApp = function( e ) {
                 e.preventDefault();
-                if( $scope.todoForm.$valid ) {
-                    http.post( './api/todos/updateTodo', {
-                        postData: $scope.todo
+                if( $scope.appForm.$valid ) {
+                    http.post( './api/apps/updateApp', {
+                        postData: $scope.app
                     } )
                     .then( function( res ) {
                         Notification.success( 'Item Updated' );
-                        $state.go( 'myTodos' );
+                        $state.go( 'myApps' );
                     } );
                 }
             };

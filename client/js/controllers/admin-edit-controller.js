@@ -10,7 +10,7 @@ function(
 ){
     
     
-    angular.module( 'todoApp' )
+    angular.module( 'letsBuild' )
     .controller( 'adminEditController',[
         '$scope',
         'http',
@@ -26,7 +26,7 @@ function(
             var container = document.getElementById("jsoneditor");
             var editor = new JSONEditor(container);
 
-            http.get(  'api/todos/getTodo?id=' + id )
+            http.get(  'api/apps/getApp?id=' + id )
             .then( function( res ) {
                 $scope.item = angular.copy(res);
                 $scope.id = $scope.item.id
@@ -45,7 +45,7 @@ function(
                 e.preventDefault();
                 var postData = editor.get();
                 postData.id = $scope.id;
-                http.post(  'api/todos/updateTodo', {
+                http.post(  'api/apps/updateApp', {
                     postData: postData
                 } )
                 .then( function( res ) {
