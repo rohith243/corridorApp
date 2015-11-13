@@ -9,13 +9,18 @@ var mail = {
     
     } 
 };
-var transporter = nodemailer.createTransport(smtpTransport({
-    service: 'Gmail',
-    auth: {
-        user: mailConfig.mail,
-        pass: mailConfig.pass
-    }
-}));
+
+
+var getTransporter = function() {
+    return nodemailer.createTransport(smtpTransport({
+            service: 'Gmail',
+            auth: {
+                user: mailConfig.mail,
+                pass: mailConfig.pass
+            }
+        }
+    ));
+}
 
 var mailOptions = {
     from: mailConfig.mail, // sender address
@@ -34,7 +39,7 @@ mail.send = function  ( item, user ) {
     mailOptions.html += '<p><b>'+ ( user.firstName || user.uid ) +'</b> has expressed interest in the app</p>';
     mailOptions.html += '<p><b>Contribution Hours :</b> '+ user.hours +'</p>';
     mailOptions.html += '<p><b>Comments: </b>'+ user.aboutme +'</p>';
-    transporter.sendMail(mailOptions, function(error, info){
+    getTransporter().sendMail(mailOptions, function(error, info){
         if(error) {
             return console.log(error);
         }
@@ -47,7 +52,7 @@ mail.notifyContributor = function  ( item, contributor, info ) {
     mailOptions.subject = 'LetsBuild Notification: Contributor ' + item.appName;
     mailOptions.html = '<p>Hi '+ ( contributor.firstName || contributor.uid )+',</p>';
     mailOptions.html += '<p>'+ info + item.appName+' idea</p>';
-    transporter.sendMail(mailOptions, function(error, info){
+    getTransporter().sendMail(mailOptions, function(error, info){
         if(error) {
             return console.log(error);
         }

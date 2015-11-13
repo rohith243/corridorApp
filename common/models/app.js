@@ -92,16 +92,19 @@ module.exports = function(App) {
             var setObj = data;
             setObj.lastUpdatedBy = udetails;
             setObj.lastUpdatedAt = +new Date();
-            if(  udetails.mail !== doc.owner.mail || !udetails.admin ) {
+            if(  udetails.mail === doc.owner.mail || udetails.admin ) {
+                doc.updateAttributes( data, function( err, res ) {
+                    cb( null, res );
+                } );
+                
+            } else {
                 res.statusCode = 404;
                 res.json( {
                     error: '_unauthorized_user'
                 } );
                 return;
             }
-            doc.updateAttributes( data, function( err, res ) {
-                cb( null, res );
-            } );
+            
             
         } );
         

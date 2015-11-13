@@ -13,7 +13,7 @@ module.exports = function(app) {
     });
 
     var cas = require('connect-cas');
-    app.get('/signin', /*cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(),*/ function(req, res, next) {
+    app.get('/signin', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
     
         var redirect = req.query.redirect || '.';
         res.redirect(redirect);
@@ -53,14 +53,14 @@ module.exports = function(app) {
 
     app.post('/services/updateSiteConfig', function(req, res, next) {
         var udetails =  user.getDetails( req );
+        
         if( !udetails || udetails&&!udetails.admin) {
             res.statusCode = '403';
             res.json( {
-                error: udetails ? '_not_loggedin' : '_unauthorized_user'
+                error: udetails ? '_unauthorized_user' : '_not_loggedin'
             } );
             return;
         }
-        console.log( req.body.data );
 
         user.setConfig( {
             res: res,

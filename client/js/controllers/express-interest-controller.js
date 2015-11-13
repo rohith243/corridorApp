@@ -45,8 +45,8 @@ function(
                 for (user in interests) {
                     if (interests[user].mail === mail) {
                         isupdate = true;
-                        $scope.user.hours  = interests[user].hours;
-                        $scope.user.aboutme  = interests[user].aboutme;
+                        $scope.user  = interests[user];
+                        //$scope.user.aboutme  = interests[user].aboutme;
                         break;
                     }
                 }
@@ -64,6 +64,7 @@ function(
                     }
                 } )
                 .then( function  ( res ) {
+
                     if ( isupdate ) {
                         Notification.success('Successfully updated your changes');
                     } else {

@@ -1,12 +1,12 @@
 var siteConfig = require( './confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
-    return {
+    /*return {
         firstName: 'Kiran',
         lastName: 'Adepu',
         admin: true,
         mail: 'kiran.adepu@imaginea.com'
-    };
+    };*/
     var attr = req.session.cas && req.session.cas.attributes;
     var user;
     if (attr) {
@@ -30,7 +30,6 @@ user.setConfig = function( obj ) {
     var fs = require('fs');
     var path = require('path');
     var data = obj.data;
-    console.log( obj.data );
     fs.writeFile( path.join(__dirname, './confidentials/site-config.json' ) , JSON.stringify( data, null, '  ' ), 'utf8' , function(err) {
         if( err ) {
             obj.res.statusCode = '500';
