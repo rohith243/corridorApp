@@ -24,7 +24,6 @@ function(
             }])
             .controller('globalNavCtrl', function($scope, http,  $state) {
                 $scope.signinurl = 'signin?redirect=./'
-
                 $scope.openMenu = function( e ) {
                     e.preventDefault();
                     document.body.classList.add( 'open-navigation' );
@@ -44,7 +43,7 @@ function(
                     $scope.user = null;
                     GLOBAL.user = null;
                   } );
-                  window.location = '//cev3.pramati.com/cas/logout?service=' + location.origin 
+                  window.location = "//cev3.pramati.com/cas/logout?service=" + document.URL;
 
                 }
             });

@@ -53,6 +53,10 @@ function(
                 model.item = $scope.item;
                 $scope.item.likes = res.likes || [];
                 $scope.item.interests = res.interests || [];
+                $scope.shareConfig = {
+                    defaultMessage: 'LetsBuild : ' + res.appName,
+                    pageUrl: document.URL
+                }
             });
             $scope.updateLikes = function( e ) {
                 e.preventDefault();

@@ -256,6 +256,7 @@ function(
                     .then(function(res) {
                         $scope.item = res;
                         $scope.itemName = res.appName;
+                        $scope.shareConfig.defaultMessage = 'LetsBuild : ' + $scope.itemName;
                         $scope.isPublished = res.isPublish;
                         if ($scope.isPublished) {
                             Notification.success('successfully published');

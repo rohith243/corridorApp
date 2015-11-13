@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
-    "pretest": "jshint ."
+    "pretest": "jshint .",
+    "start": "DB=mongodb node ."
   },
+
   "dependencies": {
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
