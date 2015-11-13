@@ -1,0 +1,257 @@
+.filter-panel md-input-container{
+   padding-bottom: 0; 
+}
+.filter-panel .sort-by{
+    margin-top: -10px;
+    margin-right: 10px;
+}
+
+.dummy-search-wrap {
+    white-space: nowrap;
+    position: relative;
+    max-width: 100%;
+}
+.dummy-search-wrap input {
+    padding: 12px 12px 12px 33px;
+    border-radius: 2px;
+    border: 1px solid #dddddd;
+    max-width: 100%;
+}
+.dummy-search-wrap span {
+    position: absolute;
+    top: 4px;
+    left: 13px;
+    color: #999;
+    cursor: pointer;
+}
+.tiles-container {
+    padding-top: 20px;
+}
+.app-tile {
+    margin: 15px;
+    border: solid 1px #d9d9de;
+    border-radius: 6px;
+    height: 470px;
+    position: relative;
+    font-size: 14px;
+
+
+}
+.app-tile a{
+    text-decoration: none;
+    color: rgb(130, 133, 135);
+}
+.app-tile  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.app-tile-thumbnail {
+    height: 230px;
+    position: relative;
+    overflow: hidden;    
+}
+
+.app-tile-thumbnail img{
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+}
+
+.app-tile-content {
+    padding: 10px;
+}
+.app-tile-footer {
+    position: absolute;
+    padding: 10px;
+    padding-top: 45px;
+    bottom: 0;
+    width: 100%;
+}
+.app-tile-progress-bar {
+    border-radius: 3px;
+    height: 6px;
+    margin-bottom: 5px;
+    background-color: #d9d9de;
+    overflow: hidden;    
+}
+.percent-pledged {
+    background-color: #2bde73;
+    height: 100%;
+    width: 0;
+}
+
+.app-tile-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color:#0f2105
+}
+.app-tile-desc {
+
+}
+@media ( min-width: 925px ) {
+    .md-layout-row>.flex-33 {
+        max-width: calc( 100% / 3 );
+        flex: none;
+        width: calc( 100% / 3 );
+    }
+}
+
+
+
+.tile-features {
+    text-align: right;
+    opacity: 0;
+    background: rgba(33, 26, 26, 0.51);
+    font-size: 14px;
+    padding: 5px;
+    position: absolute;
+    visibility: hidden;
+    bottom: -62px;
+    left: 0px;
+    right: 0px;
+    transition: all 0.3s ease-in;
+}
+
+.app-tile:hover .tile-features {
+    opacity: 1;
+    visibility: visible;
+    bottom: 0;
+    transition: all 0.3s ease-in;
+} 
+.tile-features:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease-in;
+}
+.loadmore {
+    text-align: center;
+}
+.main-content {
+    padding-bottom: 40px;
+}
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+.fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+.fadeInUp:nth-child( 6n + 1 ) {
+    animation-delay: 0s;
+}
+.fadeInUp:nth-child( 6n + 2) {
+    animation-delay: 0.3s;
+}
+.fadeInUp:nth-child( 6n + 3) {
+    animation-delay: 0.6s;
+}
+.fadeInUp:nth-child( 6n + 4) {
+    animation-delay: 0.9s;
+}
+.fadeInUp:nth-child( 6n + 5) {
+    animation-delay: 1.2s;
+}
+.fadeInUp:nth-child( 6n ) {
+    animation-delay: 1.5s;
+}
+.tiles-container .ng-leave {
+    animation: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app-search-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    
+    opacity: 0;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    -webkit-transition: all 0.2s ease-in;
+    background: #fff;
+    visibility: hidden;
+}
+.tiles-container {
+    overflow: hidden;
+}
+
+.app-search-opened {
+    overflow: hidden;
+} 
+.app-search-opened .app-search-overlay {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: all 0.2s ease-in;
+}
+.app-search-overlay .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #999;
+    transition: all 0.4s ease-in;
+}
+.search-content {
+    text-align: center;
+}
+.search-wrapper {
+    margin-top: 16%;
+    -webkit-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+    color: #999;
+}
+.search-content .fa-search {
+    font-size: 30px;
+}
+.search-content .search-app, .search-content .search-app:active, .search-content .search-app:focus {
+    display: inline-block;
+    background: none;
+    font-size: 30px;
+    border: 0;
+    width: 90%;
+    max-width: 400px;
+}
+.search-wrapper.result-found {
+    margin-top: 30px;
+}
+input {
+    outline: 0px;
+}
+.search-loader md-progress-circular{
+    display: inline-block;
+}

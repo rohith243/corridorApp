@@ -15,7 +15,7 @@ gulp.task('less-css', function () {
 
 gulp.task('copy-fonts', function () {
   return gulp.src('./client/bower_components/components-font-awesome/fonts/**/*.*')
-    .pipe(gulp.dest('./client/css/fonts/'));
+    .pipe(gulp.dest('./client/fonts/'));
 });
 gulp.task( 'less', ['less-css', 'copy-fonts'] );
 

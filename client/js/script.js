@@ -66,7 +66,10 @@ function(
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+                return $ocLazyLoad.load([
+                  'js/controllers/apps-controller.js',
+                  '../css/gallary/index.css'
+                ]);
               }]
             }
         })
@@ -84,7 +87,10 @@ function(
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+                return $ocLazyLoad.load([
+                  'js/controllers/apps-controller.js',
+                  '../css/gallary/index.css'
+                ]);
               }]
             }
         })
@@ -102,7 +108,10 @@ function(
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/apps-controller.js');
+                return $ocLazyLoad.load([
+                  'js/controllers/apps-controller.js',
+                  '../css/gallary/index.css'
+                ]);
               }]
             }
         })
@@ -118,7 +127,7 @@ function(
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'js/controllers/admin-edit-controller.js',
-                    '../bower_components/jsoneditor/dist/jsoneditor.min.css'
+                    '../css/admin-editor/index.css'
                 ]);
               }]
             }
@@ -133,7 +142,10 @@ function(
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/app-details-controller.js');
+                return $ocLazyLoad.load([
+                  'js/controllers/app-details-controller.js',
+                  '../css/app-details/index.css'
+                ]);
               }]
             }
         })

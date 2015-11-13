@@ -6,3 +6,18 @@
 .md-button.md-raised:not([disabled]) {
     box-shadow: none;
 }
+
+.main-content {
+  min-height: calc(@pagemin-height);
+  overflow: auto;
+  padding-bottom: 40px;
+}
+
+.md-raised.md-primary.primary-button:hover {
+    background-color: @primary-button-hover-color !important;
+}
+.primary-button.md-button.md-default-theme:focus, .primary-button.md-button.md-default-theme:active {
+  .drop-shadow( 0 0 1px 3px @primary-button-active-color inset );
+}
+
+
