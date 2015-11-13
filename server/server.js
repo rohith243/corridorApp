@@ -20,8 +20,8 @@ paths: {
 app.locals.stringify = JSON.stringify;
 app.use(session({secret: 'corridorApp'}));
 
-app.use(function(req, res, next) {  
-  if( req.headers.hostName === '192.168.2.135' ) {
+app.use(function(req, res, next) {
+  if( process.env.NODE_ENV === 'production' ) {
     req.headers.host = "cev3.pramati.com/letsbuild";
   }
   next();
