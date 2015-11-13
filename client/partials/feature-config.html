@@ -1,0 +1,68 @@
+<div>
+    <div class="pull-right">
+        <md-button class="md-raised md-primary primary-button"  data-step="3" data-intro="Publish to make it available for others." ng-click="addNewConfig( $event )">
+            Add new feature flag
+        </md-button>
+    </div>
+    <h1 class="md-display-1">
+      Feature configurations
+    </h1>
+    <div class="feature-table">
+        <div  class="table-row table-header" layout="row" >
+            <div flex="20">
+                Key
+            </div>
+
+            <div flex="50">
+                Feature
+            </div>
+            
+            <div flex="20">
+                Open for
+            </div>
+            <div flex="10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="table-row" ng-repeat="config in configs" layout="row"  >
+            <div flex="20">
+                {{config.featureKey}}
+            </div>
+
+            <div flex="50">
+                {{config.featureText}}
+            </div>
+            
+            <div flex="20">
+                {{config.open}}
+            </div>
+            <div flex="10">
+                <a title="Edit" href="#" style="text-decoration: none" ng-click="editFeature( $event, $index )">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a title="Edit" href="#" style="text-decoration: none" ng-click="deleteFeature( $event, $index )">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    
+    md-switch {
+        margin-left: 0
+    }
+    .feature-table .table-header {
+        font-weight: bold; 
+        margin-bottom: 10px;
+    }
+    .feature-table .table-row>div {
+        padding-right: 10px;
+    }
+    .feature-table .table-row {
+        padding: 3px 0;
+    }
+
+
+</style>

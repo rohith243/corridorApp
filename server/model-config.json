@@ -35,5 +35,9 @@
   "app": {
     "dataSource": "db",
     "public": true
+  },
+  "feature": {
+    "dataSource": "db",
+    "public": true
   }
 }

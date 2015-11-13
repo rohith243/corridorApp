@@ -159,6 +159,20 @@ function(
               }
             }
         })
+        .state('featureConfig', {
+            url: '/feature-config',
+            views: {
+              "lazyLoadView": {
+                controller: 'featureConfigController',
+                templateUrl: 'partials/feature-config.html'
+              }
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/feature-config-controller.js');
+              }]
+            }
+        })
     })
     ;
     common.init();

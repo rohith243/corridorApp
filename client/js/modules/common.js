@@ -14,6 +14,9 @@ function(
     httpService,
     globalNav
 ){
+    var checkFeatureRequest;
+    var checkFeatureResponse = {};
+
     var tempImages = {
         'apurba.n@imaginea.com':   'images/apurba.jpg',
         'jay.pullur@pramati.com':  'images/jay.jpg',
@@ -58,6 +61,52 @@ function(
                 return inputArray;
               };
             })
+            .directive( 'checkFeature', [
+                function() {
+                    return {
+                        restrict: 'A',
+                        controller: [
+                            
+                            '$scope',
+                            'http',
+                            '$attrs',
+                            '$element',
+
+                            function( $scope, http, $attrs, $element ) {
+
+                                var key = $attrs.checkFeature;
+                                var udetails = GLOBAL.user;
+                                checkFeatureResponse = {};
+                                http.get( 'api/features/allFeatureConfigs' )
+                                .then( function( res ) {
+                                    for( var i = 0; i < res.length; i++ ) {
+                                        if( res[ i ].open === 'all' )
+                                            checkFeatureResponse[ res[i].featureKey ] = true;
+                                        else if( res[ i ].open === 'none' ) 
+                                            checkFeatureResponse[ res[i].featureKey ] = false;
+                                        else if( res[ i ].list ) {
+                                            if( udetails &&  udetails.mail )
+                                                checkFeatureResponse[ res[i].featureKey ] =  res[ i ].list.indexOf( udetails.mail ) !== -1;
+                                        } else {
+                                            checkFeatureResponse[ res[i].featureKey ] =  false;
+                                        }
+                                    }
+                                } );
+
+                                $scope.$watch( function() {
+                                    return checkFeatureResponse[ key ];
+                                }, function( newVal ) {
+                                    if( newVal ) {
+                                        $element.show();
+                                    } else {
+                                        $element.hide();
+                                    }
+                                }  );
+                            }
+                        ]
+                    }
+                }
+            ] )
         }  
     };
 });

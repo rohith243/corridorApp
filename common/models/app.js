@@ -131,13 +131,13 @@ module.exports = function(App) {
         }
 
         App.findById( id, function( err, doc ) {
-            /*if(  udetails.mail !== doc.owner.mail ) {
+            if(  udetails.mail !== doc.owner.mail ) {
                 res.statusCode = 404;
                 res.json( {
                     error: '_unauthorized_user'
                 } );
                 return;
-            }*/
+            }
             App.destroyById( id, function( err, res ) {
                 cb( null, res );
             } );
