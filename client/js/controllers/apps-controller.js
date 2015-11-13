@@ -84,63 +84,6 @@ function(
             $scope.searchpop = function() {
                 openSearchApps();
             };
-            /*$scope.deleteItem = function(e, item, index, key) {
-                e.preventDefault();
-                if (confirm('do you want to delete "' + item.appName + '" ?')) {
-                    http.get( basePath + 'services/deleteDoc?_id=' + item._id)
-                        .then(function(res) {
-                            index = findObjectIndex(model.appResponse,'_id',item._id);
-                            if (index !== -1) {
-                                model.appResponse.splice(index, 1);
-                                Notification.success('app successfully deleted');
-                            }
-                            else {
-                                Notification.error('not able to delete contact adminstrator');
-                            }
-                        });
-                }
-            };
-            
-            $scope.togglePublish = function(e, item) {
-                e.preventDefault();
-                if (item.appName && item.solution) {
-                    http.post( basePath + 'services/updateDoc', {
-                        postData: {
-                            data: {
-                                isPublish : !item.isPublish
-                            },
-                            _id: item._id
-                        }
-                    })
-                    .then(function(res) {
-                        item.isPublish = !item.isPublish;
-                        Notification.success('successfully updated');
-                    });
-                }
-                else {
-                    Notification.error('Fill required details and then publish');
-                }
-            };
-            
-            $scope.bgColors = function(){
-               return [{'background-color':'#55BDC3'},{'background-color':'#a7e1c0'},{'background-color':'#d8bce7'},{'background-color':'#eedd88'},{'background-color':'#93d5e2'},{'background-color':'#9EFF9E'}];
-            };
-            
-            
-            $scope.getEffortFunded = function(item) {
-                var effortFunded = 0;
-                for (var interest in item.interests) {
-                    var user = item.interests[interest];
-                    if (user.hours && !isNaN(user.hours)) {
-                        effortFunded = effortFunded + parseInt(user.hours);
-                    }                        
-                }
-                var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
-                if (isNaN(effortFundedPerc)) {
-                    return '0%';
-                }
-                return effortFundedPerc+'%';
-            };*/
         }
     ]);
     appTile.init();
