@@ -8,8 +8,6 @@ var bodyParser = require('body-parser');
 var cas = require('connect-cas');
 var ssout = require('connect-cas').ssout;
 
-
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 cas.configure({ 'host': 'cev3.pramati.com',protocol:'https',
@@ -23,13 +21,10 @@ paths: {
     }
 });
 
-
-
 var app = express();
-
 app.locals.stringify = JSON.stringify;
 app.use(function(req, res, next) {
-  if( req.headers.hostName === '192.168.2.135' ) {
+  if( app.get('env') === 'production' ) {
     req.headers.host = "cev3.pramati.com/letsbuild";
   }
   next();
