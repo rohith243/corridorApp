@@ -107,6 +107,28 @@ function(
                     }
                 }
             ] )
+            .directive('yammerShare', [
+                function() {
+                    return {
+                        restrict: 'A',
+                        scope: {
+                            shareConf: '='
+                        },
+                        link: function(scope, ele) {
+                            ele.click( function( e ) {
+                                e.preventDefault();
+                                require( [ 'yammer' ] , function( yam ) {
+                                    var shareConf = scope.shareConf ||  {
+                                        defaultMessage : 'LetsBuild :',
+                                        pageUrl: document.URL
+                                    };
+                                    yam.platform.yammerShareOpenPopup( shareConf );
+                                } )
+                            } )
+                        }
+                    }
+                } 
+            ] )
         }  
     };
 });

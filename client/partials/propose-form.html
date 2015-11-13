@@ -1,8 +1,10 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-            <div ng-show="isPublished" class="yj-share-button"></div>
-            <md-button class="md-raised md-primary primary-button" data-step="2" data-intro="Save your changes and publish later.">
+            <md-button href="#" ng-show="isPublished" class="md-raised md-primary primary-button" yammer-share data-share-config="shareConfig">
+                Yammer Share
+            </md-button>
+            <md-button class="md-raised md-primary primary-button" >
                 <span ng-if="isPublished">
                     Update Changes
                 </span>
@@ -10,7 +12,7 @@
                     Save to draft
                 </span>
             </md-button>
-            <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) " data-step="3" data-intro="Publish to make it available for others.">
+            <md-button ng-if="!isPublished" class="md-raised md-primary primary-button" ng-click="togglePublish( $event, isPublished ) " >
                 Publish
             </md-button>
             <md-button ng-if="isPublished" class="md-raised md-warn primary-button" ng-click="togglePublish( $event, isPublished ) ">

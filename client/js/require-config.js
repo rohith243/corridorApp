@@ -15,7 +15,8 @@ require = {
         'jsoneditor': '../bower_components/jsoneditor/dist/jsoneditor',
         'sanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
         'markdown': '../bower_components/angular-markdown-directive/markdown',
-        'showdown': '../bower_components/showdown/compressed/Showdown'
+        'showdown': '../bower_components/showdown/compressed/Showdown',
+        'yammer' : 'https://c64.assets-yammer.com/assets/platform_social_buttons.min'
     },
     shim: {
         "angular": {
@@ -48,6 +49,9 @@ require = {
         },
         'sanitize' : {
             deps: [ 'angular' ]
+        },
+        yammer:{
+            exports: 'yam' 
         }
 
     },

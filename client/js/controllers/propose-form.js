@@ -218,8 +218,11 @@ function(
                             $scope.item.proposedTeam = $scope.item.proposedTeam || [];
                             $scope.item.invites = $scope.item.invites || [];
                             $scope.isPublished = $scope.item.isPublish;
-                            $scope.item.interests = $scope.item.interests || []; 
-                            
+                            $scope.item.interests = $scope.item.interests || [];
+                            $scope.shareConfig = {
+                                defaultMessage: 'LetsBuild : ' + $scope.itemName,
+                                pageUrl: location.origin + location.pathname + '#/details/' + $scope.item.id
+                            }
                         });
                 }
                 $scope.saveApp = function(e) {
@@ -285,6 +288,7 @@ function(
                         }
                     }
                 };
+                
                 /* window.setTimeout(function(){
                     var shareConf = {
                         defaultMessage : 'LetsBuild idea: '+'('+$scope.item.appName+')',
