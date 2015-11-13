@@ -24,10 +24,7 @@ function(
             }])
             .controller('globalNavCtrl', function($scope, http,  $state) {
                 $scope.signinurl = 'signin?redirect=./'
-                if ( GLOBAL.user ) {
-                    $scope.username = GLOBAL.user.firstName;
-                    $scope.admin = GLOBAL.user.admin;
-                }
+
                 $scope.openMenu = function( e ) {
                     e.preventDefault();
                     document.body.classList.add( 'open-navigation' );
@@ -42,7 +39,6 @@ function(
                 $scope.user = GLOBAL.user;
                 $scope.logout = function( e ) {
                   e.preventDefault();
-                  
                   http.get( 'services/logout' )
                   .then( function() {
                     $scope.user = null;

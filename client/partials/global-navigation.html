@@ -16,27 +16,27 @@
                     All Proposals
                 </a>
             </li>
-            <li ng-if="!username">
+            <li ng-if="!user.firstName">
                 <a  ng-href="{{signinurl}}" >
                     SIGNIN
                 </a>
             </li>
-            <li ng-if="username">
+            <li ng-if="user.firstName">
                 <a  href="#/my-proposals" >
                     My Proposals
                 </a>
             </li>
-            <li ng-if="admin">
+            <li ng-if="user.admin">
                 <a  href="#/admin" >
                     Admin Dashboard
                 </a>
             </li>
-            <li ng-if="admin">
+            <li ng-if="user.admin">
                 <a  href="#/site-config" >
                     Site config
                 </a>
             </li>
-            <li ng-if="admin">
+            <li ng-if="user.admin">
                 <a  href="#/feature-config" >
                     Feature config
                 </a>
@@ -51,9 +51,9 @@
                     About
                 </a>
             </li> 
-            <li ng-if="username">
+            <li ng-if="user.firstName">
                 <a  href="#" ng-click="logout($event)">
-                    LOGOUT, {{username}}
+                    LOGOUT, {{user.firstName}}
                 </a>
             </li>
         </ul>

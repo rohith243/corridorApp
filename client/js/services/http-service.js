@@ -5,6 +5,22 @@ define( [
     angular,
     notificationConfig
 ) {
+    var validateLogin = function(err, $state, Notification ) {
+        if( err&& err.error === '_not_loggedin' ) {
+            if( GLOBAL.user ) {
+                GLOBAL.user.firstName = undefined;
+                GLOBAL.user.lastName = undefined;
+                GLOBAL.user.mail = undefined;
+                GLOBAL.user.admin = undefined;
+                GLOBAL.user = undefined;    
+            }
+            $state.go( 'default' );
+            Notification.error( 'Please login to continue' );
+        } else {
+            Notification.error( 'Error' );
+        }
+    };
+
     return {
         init: function() {
             notificationConfig.init();
@@ -13,10 +29,12 @@ define( [
                 '$http',
                 '$q',
                 'Notification',
+                '$state',
                 function(
                     $http,
                     $q,
-                    Notification
+                    Notification,
+                    $state
                 ) {
                     return {
                         get: function(url) {
@@ -27,8 +45,11 @@ define( [
                                     defer.resolve(response);
                                 })
                                 .error(function(err, status) {
-                                    Notification.error( 'Error' );
+                                    
+                                    validateLogin( err, $state, Notification );
+                                    console.log( err );
                                     defer.reject(err);
+
                                 });
                             return defer.promise;
                         },
@@ -39,8 +60,8 @@ define( [
                                 .success(function(response, success) {
                                     defer.resolve(response, success);
                                 })
-                                .error(function(data, status) {
-                                    Notification.error( 'Error in Request' );
+                                .error(function(err, status) {
+                                    validateLogin( err, $state, Notification );
                                     defer.reject(data, status);
                                 });
                             return defer.promise;
