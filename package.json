@@ -6,25 +6,19 @@
     "pretest": "jshint ."
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "express-session": "^1.12.1",
     "loopback": "^2.22.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.1.0",
     "loopback-connector-mongodb": "^1.13.0",
     "loopback-datasource-juggler": "^2.39.0",
-    "serve-favicon": "^2.0.1",
-    "express-session": "^1.12.1"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-change": "^1.0.0",
-    "gulp-cssmin": "^0.1.7",
-    "gulp-less": "^3.0.3",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.7",
-    "jshint": "^2.5.6"
+    "nodemailer": "^1.9.0",
+    "nodemailer-smtp-transport": "^1.0.4",
+    "serve-favicon": "^2.0.1"
   },
   "repository": {
     "type": "",
