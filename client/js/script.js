@@ -35,7 +35,10 @@ function(
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load('js/controllers/propose-form.js');
-              }]
+              }],
+              signedin: [ 'http', function(http) {
+                return http.get( 'services/checksignin' ); 
+              } ]
             }
         })
         .state('editItem', {

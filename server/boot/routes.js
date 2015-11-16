@@ -7,7 +7,8 @@ module.exports = function(app) {
        res.render('home', {
             title: 'Home | LetsBuild',
             user: user.getDetails( req ),
-            basePath: './'
+            basePath: './',
+            stringify: JSON.stringify
         });
     
     });
@@ -45,6 +46,19 @@ module.exports = function(app) {
         res.json( user.getConfig() );
     });
 
+    app.get('/services/checksignin', function(req, res, next) {
+        var udetails =  user.getDetails( req );
+        if( !udetails ) {
+            res.statusCode = '403';
+            res.json( {
+                error: '_not_loggedin'
+            } );
+            return;
+        }
+        
+        res.json( '' );
+    });
+
 
 
     var bodyParser = require('body-parser');
@@ -72,29 +86,21 @@ module.exports = function(app) {
     });
     app.post('/signin', function(req, res, next) {
         
-        var body = '';
-        req.on('data', function(chunk){
-            body += chunk;
-        });
-        req.on('end', function(){
-           
-            body = decodeURIComponent( body );
-            if (!/<samlp:SessionIndex>(.*)<\/samlp:SessionIndex>/.exec(body)) {
-                next();
-                return;
-            }
-            var st = RegExp.$1;
-            var sessionId = req.sessionStore.sessions[ st ];
-            if( sessionId ) {
-              sessionId = JSON.parse( sessionId );
-              if( sessionId ) {
-                if ( sessionId && sessionId.sid ) req.sessionStore.destroy( sessionId.sid );
-                req.sessionStore.destroy(st);  
-              }
-            }
-            res.send(204);
-        });
-    
+        var logoutRequest = req.body.logoutRequest;
+        if (!/<samlp:SessionIndex>(.*)<\/samlp:SessionIndex>/.exec(logoutRequest)) {
+            next();
+            return;
+        }
+        var st = RegExp.$1;
+        var sessionId = req.sessionStore.sessions[ st ];
+        if( sessionId ) {
+          sessionId = JSON.parse( sessionId );
+          if( sessionId ) {
+            if ( sessionId && sessionId.sid ) req.sessionStore.destroy( sessionId.sid );
+            req.sessionStore.destroy(st);  
+          }
+        }
+        res.sendStatus(204);
     });
 
     

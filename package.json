@@ -6,11 +6,11 @@
     "pretest": "jshint .",
     "start": "DB=mongodb node ."
   },
-
   "dependencies": {
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "compression": "^1.0.3",
+    "connect-cas": "^1.4.4",
     "cors": "^2.5.2",
     "express-session": "^1.12.1",
     "loopback": "^2.22.0",
@@ -21,6 +21,20 @@
     "nodemailer": "^1.9.0",
     "nodemailer-smtp-transport": "^1.0.4",
     "serve-favicon": "^2.0.1"
+  },
+  "devDependencies": {
+    "cli-color": "^1.1.0",
+    "gulp": "^3.9.0",
+    "gulp-change": "^1.0.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-jsbeautifier": "^1.0.1",
+    "gulp-jshint": "^1.11.2",
+    "gulp-less": "^3.0.5",
+    "gulp-prettify": "^0.3.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.6",
+    "guppy-pre-commit": "^0.2.1",
+    "jshint-stylish": "^2.0.1"
   },
   "repository": {
     "type": "",

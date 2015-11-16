@@ -29,7 +29,9 @@ module.exports = function(App) {
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
-            res.json( [] );
+            res.json( {
+                error: '_not_loggedin'
+            } );
             return;
         }
         App.find({
@@ -55,7 +57,7 @@ module.exports = function(App) {
         if( !udetails ) {
             res.statusCode = 403;
             res.json( {
-                error: '_invalid_user'
+                error: '_not_loggedin'
             } );
             return;
         }
@@ -167,7 +169,7 @@ module.exports = function(App) {
             } );
             return;
           } 
-          if( doc.isPublish ||  udetails&&udetails.mail === doc.owner.mail ) {
+          if( doc.isPublish ||  udetails && udetails.mail === doc.owner.mail ) {
             cb( null, doc)
           } else {
             res.statusCode = 403;
