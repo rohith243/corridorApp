@@ -25,6 +25,7 @@
                 var paths = location.pathname.split('/');
                 _id = paths[ paths.length - 1 ];
                 model._id = _id;
+                
                 $scope.currentUser = GLOBAL.user;
                 $http.get( basePath + 'services/getDocument?_id=' + _id)
                     .then(function(res) {
@@ -109,6 +110,31 @@
                     }
                     return flag;
                 };
+
+                $scope.isEditExpress = function() {
+                    if( !$scope.currentUser ) {
+                        return false
+                    } 
+                    var interests = $scope.item.interests;
+                    for ( var user in interests ) {
+                        if (interests[user].mail === $scope.currentUser.mail) {
+                            return true;
+                        }
+                    }
+                };
+
+                $scope.unExpressInterest = function( e ) {
+                    
+                    e.preventDefault();
+                    if( confirm( 'Do you want to unexpress?' ) ) {
+                        http.get( basePath + 'services/unExpressInterest?_id=' + _id )
+                        .then( function( res ) {
+                            Notification.success( 'successfully Removed' );
+                            $scope.item.interests = res.interests;
+                        } )    
+                    }
+                    
+                }
             }
         ]);
 })(angular);

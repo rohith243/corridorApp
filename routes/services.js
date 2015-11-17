@@ -363,6 +363,78 @@ router.post('/expressInterest', function(req, res, next) {
     });
 });
 
+router.get('/unExpressInterest', function(req, res, next) {    
+    var id = req.query._id;
+    var oid = new ObjectId( id );
+    var udetails = user.getDetails( req );
+    if( !( udetails && udetails.mail ) ) {
+        res.json( {
+            error: '_invalid_user'
+        } );
+        return;
+    }
+
+    mongo.connect({
+        res: res,
+        callback: function(err, db) {
+            var collection = db.collection( collectionName );
+            mongo.findOne( {
+                res: res,
+                query: {
+                    _id: oid
+                },
+                collection: collection,
+                callback: function  ( err, doc ) {
+                    if( !doc ) {
+                        console.log( 'error 404' );
+                        res.statusCode = 404;
+                        res.json( {
+                            error: '_item_not_found'
+                        } );
+                        db.close();
+                        return;
+                    } 
+                    else {
+                        doc.interests = doc.interests || [];
+                        var isExists = false;
+                        for (var i = doc.interests.length - 1; i >= 0; i--) {
+                            if( doc.interests[ i ].mail === udetails.mail ) {
+                                isExists = true;    
+                                doc.interests.splice( i, 1 );
+                                break;
+                            }
+                        }
+                        if( !isExists ) {
+                           res.json( {
+                            interests : doc.interests
+                           } )
+                           return;
+                        }
+                        mongo.update( {
+                            res: res,
+                            collection: collection,
+                            query: {
+                                _id: oid    
+                            },
+                            setData: {
+                                $set: {
+                                    interests: doc.interests
+                                }
+                            },  
+                            callback: function  ( err, udoc ) {
+                                res.json({
+                                  interests : doc.interests
+                                });
+                                db.close();    
+                            }
+                        } );
+                    }
+                }
+            } );
+        }
+    });
+});
+
 router.post('/toggleVote', function(req, res, next) {
 
     var id = req.body._id;
