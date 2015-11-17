@@ -17,11 +17,11 @@ var DATASTORES = {
     password: 'L00pBack'
   },
   mongodb: {
-    host: 'localhost',
+    host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost',
     database: 'letsBuild',
     /*username: 'demo',
     password: 'L00pBack',*/
-    port: 27017
+    port: process.env.DB_PORT ? process.env.DB_PORT : '27017'
   },
   mysql: {
     host: 'demo.strongloop.com',

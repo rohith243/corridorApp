@@ -5,3 +5,5 @@ npm-debug.log
 
 routes/confidential
 .vagrant
+bin
+public
