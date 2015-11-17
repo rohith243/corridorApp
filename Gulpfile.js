@@ -17,7 +17,13 @@ gulp.task('copy-fonts', function () {
   return gulp.src('./client/bower_components/components-font-awesome/fonts/**/*.*')
     .pipe(gulp.dest('./client/fonts/'));
 });
-gulp.task( 'less', ['less-css', 'copy-fonts'] );
+
+gulp.task('copy-images', function () {
+  return gulp.src('./client/less/**/*.png')
+    .pipe(gulp.dest('./client/css/'));
+});
+
+gulp.task( 'less', ['less-css', 'copy-fonts', 'copy-images'] );
 
 gulp.task('copy-common', function() {
    return gulp.src('./common/**/*.*')

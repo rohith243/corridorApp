@@ -288,4 +288,67 @@ module.exports = function(App) {
         ]
     });
 
+
+    App.unExpressInterest = function( id, req, res, cb  ) {
+        udetails = user.getDetails( req );
+        if( !udetails ) {
+            res.statusCode = 404;
+            res.json( {
+                error: '_not_loggedin'
+            } );
+            return;
+        }
+        App.findById( id, function( err, doc ) {
+
+            if( doc ) {
+                doc.interests = doc.interests || [];
+                var isExists = false;
+                for (var i = doc.interests.length - 1; i >= 0; i--) {
+                    if( doc.interests[ i ].mail === udetails.mail ) {
+                        isExists = true;    
+                        doc.interests.splice( i, 1 );
+                        break;
+                    }
+                }
+                if( !isExists ) {
+                   res.json( {
+                    interests : doc.interests
+                   } )
+                   return;
+                }
+                doc.updateAttributes( {interests:doc.interests}, function( err, res ) {
+                    cb( null, res );
+                } )
+            } else {
+                res.statusCode = 404;
+                res.json( {
+                    error: '_item_not_found'
+                } ) 
+            }
+            /*doc.likes = doc.likes || [];
+            var index = doc.likes.indexOf( udetails.mail );
+            if( index !== -1 ) {
+                doc.likes.splice( index, 1 );
+            } else {
+                doc.likes.push( udetails.mail );
+            }
+            doc.updateAttributes( {likes:doc.likes}, function( err, res ) {
+                cb( null, res );
+            } );*/
+
+
+            
+        } );
+    };
+
+    App.remoteMethod('unExpressInterest', {
+        returns: {arg: 'app', root: true},
+        http: { verb: 'GET' },
+        accepts:[
+          { arg: 'id', type: 'string', required: true },
+          { arg: 'req', type: 'object', 'http': {source: 'req'}},
+          { arg: 'res', type: 'object', 'http': {source: 'res'}}
+        ]
+    });
+
 };

@@ -98,6 +98,32 @@ function(
                 }
             };
 
+            $scope.isEditExpress = function() {
+            
+                if( !$scope.user ) {
+                    return false
+                } 
+                var interests = $scope.item.interests;
+                for ( var user in interests ) {
+                    if (interests[user].mail === $scope.user.mail) {
+                        return true;
+                    }
+                }
+            };
+
+            $scope.unExpressInterest = function( e ) {
+                
+                e.preventDefault();
+                if( confirm( 'Do you want to unexpress?' ) ) {
+                    http.get( 'api/apps/unExpressInterest?id=' + id )
+                    .then( function( res ) {
+                        Notification.success( 'successfully Removed' );
+                        $scope.item.interests = res.interests;
+                    } )    
+                }
+                
+            }
+
 
         }            
     ] );
