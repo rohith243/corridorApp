@@ -211,10 +211,14 @@
 }
 
 .detail-yammer-share {
-    top: calc(50% - 28px);
+    top: calc( ~"50% - 28px" );
     position: fixed;
     left: 15px;
     background-color: rgb(191, 44, 71) !important;
+    span {
+        text-indent: -9999px;
+        position: absolute;
+    }
 }
 .detail-yammer-share img{
     max-width: 100%;

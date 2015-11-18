@@ -1,5 +1,5 @@
 <div class="app-tile">
-   <a ng-href="#details/{{item.id}}">
+   <a ng-href="#details/{{item.id}}" class="gtm-apptile-link" data-gtm-data="{{item.appName}}">
        <div class="app-tile-thumbnail">
           <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || ( 'images/default.png') }}">
           <div class="tile-features" ng-if="mode==='edit'">

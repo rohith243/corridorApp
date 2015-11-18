@@ -132,8 +132,9 @@ function(
             '$state',
             '$stateParams',
             '$timeout',
-            function($scope, Notification, http, $state, $stateParams,$timeout) {
-                
+            'model',
+            function($scope, Notification, http, $state, $stateParams,$timeout, model) {
+                model.pageTitle = 'propose form | LetsBuild';
                 if( !GLOBAL.user ) {
                     window.location = '/signin?=redirect=/#/propose-form';
                 }
@@ -198,8 +199,9 @@ function(
             '$state',
             '$stateParams',
             '$timeout',
-            function($scope, Notification, http, $state, $stateParams, $timeout) {
-                
+            'model',
+            function($scope, Notification, http, $state, $stateParams, $timeout, model) {
+                model.pageTitle = 'Edit App | LetsBuild';
                 $scope.global = {
                     selectedIndex: 0
                 };

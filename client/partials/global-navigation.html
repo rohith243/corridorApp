@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li ng-if="!user.firstName">
-                <a  ng-href="{{signinurl}}" >
+                <a  ng-click="signIn( $event )" ng-href="{{signinurl}}" >
                     SIGNIN
                 </a>
             </li>
@@ -60,7 +60,8 @@
     </div>
 </div>
 <div class="fixed-menu-button">
-    <a href="#" class="nav-menu" ng-click="openMenu( $event )" >
+    <a href="#" class="nav-menu gtm-click-nav-menu" ng-click="openMenu( $event )" data-gtm-data="Global navigation">
+        <span>Global Nav menu</span>
         <i class="fa fa-bars"></i>
     </a>
 </div>

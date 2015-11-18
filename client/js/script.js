@@ -20,8 +20,23 @@ function(
             url: "/",
             views: {
               "lazyLoadView": {
-                templateUrl: 'partials/home.html'
+                templateUrl: 'partials/home.html',
+                controller: function( $state ) {
+                  var stateName = localStorage.getItem( 'stateName' );
+                  if( stateName ) {
+                    var stateParams = localStorage.getItem( 'stateParams' ) || '{}';
+                    stateParams = JSON.parse( stateParams );
+                    $state.go( stateName, stateParams );
+                  }
+                  localStorage.removeItem( 'stateName' );
+                  localStorage.removeItem( 'stateParams' );
+                } 
               }
+            },
+            resolve: {
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Home';
+              }]
             }
         })
         .state('propose-form', {
@@ -73,6 +88,9 @@ function(
                   'js/controllers/apps-controller.js',
                   '../css/gallary/index.css'
                 ]);
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'My Proposals';
               }]
             }
         })
@@ -86,7 +104,7 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'publishedApps' ]
+              keys: [ 'publishedApps' ]              
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -94,6 +112,9 @@ function(
                   'js/controllers/apps-controller.js',
                   '../css/gallary/index.css'
                 ]);
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'All Proposals';
               }]
             }
         })
@@ -107,7 +128,7 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'publishedApps' ]
+              keys: [ 'publishedApps' ]            
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -115,6 +136,9 @@ function(
                   'js/controllers/apps-controller.js',
                   '../css/gallary/index.css'
                 ]);
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Admin Dashboard';
               }]
             }
         })
@@ -132,6 +156,9 @@ function(
                     'js/controllers/admin-edit-controller.js',
                     '../css/admin-editor/index.css'
                 ]);
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Admin Edit';
               }]
             }
         })
@@ -149,6 +176,9 @@ function(
                   'js/controllers/app-details-controller.js',
                   '../css/app-details/index.css'
                 ]);
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Details';
               }]
             }
         })
@@ -163,6 +193,9 @@ function(
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load('js/controllers/site-config-controller.js');
+              }],
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Site Config';
               }]
             }
         })
@@ -172,6 +205,11 @@ function(
               "lazyLoadView": {
                 templateUrl: 'partials/aboutus.html'
               }
+            },
+            resolve: { 
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Aboutus page';
+              }]
             }
         })
         .state('featureConfig', {
@@ -183,13 +221,14 @@ function(
               }
             },
             resolve: { 
-              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/feature-config-controller.js');
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Feature Config page';
               }]
             }
         })
     })
-    ;
+
+    
     common.init();
     angular.bootstrap( document, [ 'commonModule', 'letsBuild' ] )
 })

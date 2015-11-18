@@ -22,8 +22,8 @@ function(
                     }
                 };
             }])
-            .controller('globalNavCtrl', function($scope, http,  $state) {
-                $scope.signinurl = 'signin?redirect=./'
+            .controller('globalNavCtrl', function($scope, http,  $state, $stateParams) {
+                $scope.signinurl = 'signin?redirect=./';
                 $scope.openMenu = function( e ) {
                     e.preventDefault();
                     document.body.classList.add( 'open-navigation' );
@@ -45,7 +45,15 @@ function(
                   } );
                   window.location = "//cev3.pramati.com/cas/logout?service=" + document.URL;
 
-                }
+                };
+
+                $scope.signIn = function( e ) {
+
+                    e.preventDefault();
+                    localStorage.setItem( 'stateName', $state.current.name );
+                    localStorage.setItem( 'stateParams', JSON.stringify( $stateParams ) );
+                    window.location = $scope.signinurl;
+                };
             });
         }
     }

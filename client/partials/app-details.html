@@ -33,8 +33,8 @@
                     </div>
                     <div class="like-container">
                         
-                        <a href="#" ng-click="updateLikes($event)">
-                            <div ng-class="{'upvote-container':item.likes.indexOf( user.mail) != -1,'upvote-container-down':item.likes.indexOf( user.mail) == -1}" class="like-button">
+                        <a href="#" ng-click="updateLikes($event)" class="gtm-upvote" data-gtm-data="{{item.appName}}">
+                            <div ng-class="{'upvote-container':item.likes.indexOf( user.mail) != -1,'upvote-container-down':item.likes.indexOf( user.mail) == -1}" class="like-button" >
                                 <span flex="80" class="" >Upvote</span>
                                 <span class="upvote-line"> | </span>
                                 <span class="upvote-count">{{item.likes.length}}</span>
@@ -62,19 +62,20 @@
                                 </span>
                             </a>
                         </div>
-                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button" ng-click="expressInterestDetails($event)">
-                            <span ng-if="!isEditExpress()">
+                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
+                        >
+                            <span ng-if="!isEditExpress()" >
                                 Express Interest
                             </span>
-                            <span ng-if="isEditExpress()">
+                            <span ng-if="isEditExpress()" >
                                 Edit Interest
                             </span>
                         </md-button>
 
-                        <md-button ng-if="item.owner.mail != currentUser.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn" ng-click="unExpressInterest($event)">
+                        <md-button ng-if="item.owner.mail != currentUser.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
                             UNEXPRESS Interest
                         </md-button>
-                        <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button" ng-href="#edit/{{item.id}}">
+                        <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button gtm-click-edit" ng-href="#edit/{{item.id}}" >
                             Edit
                         </md-button>
                     </div>
@@ -185,6 +186,7 @@
     </div>
 </div>
 
-<md-button title="Share on yammer" class="md-fab md-primary md-lg .detail-yammer-share" yammer-share data-share-config="shareConfig">
+<md-button title="Share on yammer" class="md-fab md-primary md-lg detail-yammer-share gtm-click-yammer-share" yammer-share data-share-config="shareConfig" data-gtm-data="detail page yammer share">
     <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
+    <span>Yammer share</span>
 </md-button>
