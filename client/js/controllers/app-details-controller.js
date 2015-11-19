@@ -136,7 +136,7 @@ function(
         
     } );
     setTimeout( function() {
-        $( '.page-navigator-link a' ).click( function( e ) {
+        $( document ).on('click', '.page-navigator-link a', function( e ) {
             e.preventDefault();
             var id = $(this).attr( 'href' );
             $("html, body").animate(
