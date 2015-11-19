@@ -1,7 +1,7 @@
 <form name="updateForm" class="update-form" ng-submit="saveApp( $event )" novalidate ng-class="{'form-validate':updateForm.$showValidation}">
     <div ng-if="item">
         <div class="pull-right">
-            <md-button href="#" ng-show="isPublished" class="md-raised md-primary primary-button" yammer-share data-share-config="shareConfig">
+            <md-button href="#" ng-show="isPublished" class="md-raised md-primary primary-button gtm-yammer-share" yammer-share data-share-config="shareConfig">
                 Yammer Share
             </md-button>
             <md-button class="md-raised md-primary primary-button" >
@@ -220,7 +220,7 @@
                         </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="contributed People">
+                <md-tab label="contributed People" ng-if="item.interests &&item.interests.length>=0">
                     <md-content class="tab-content">
                         <div ng-if="!isContributorsAvailable(item.interests)">
                             <p>No contributor added yet</p>
