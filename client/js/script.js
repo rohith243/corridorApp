@@ -233,7 +233,7 @@ function(
           console.log( 'stateChanged' );
           dataLayer.push( {
             event: 'virtualPageView',
-            virtualPagePath: $location.path()
+            virtualPagePath: '#' + $location.path()
           } );
         } catch ( e) {}
       });
