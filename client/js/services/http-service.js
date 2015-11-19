@@ -5,7 +5,7 @@ define( [
     angular,
     notificationConfig
 ) {
-    var validateLogin = function(err, $state, Notification ) {
+    var validateLogin = function(err, $state, Notification, navMenu ) {
         if( err&& err.error === '_not_loggedin' ) {
             if( GLOBAL.user ) {
                 GLOBAL.user.firstName = undefined;
@@ -15,7 +15,7 @@ define( [
                 GLOBAL.user = undefined;    
             }
             $state.go( 'default' );
-            Notification.error( 'Please login to continue' );
+            navMenu.openMenu( false, true);
         } else {
             Notification.error( 'Error' );
         }
@@ -30,11 +30,13 @@ define( [
                 '$q',
                 'Notification',
                 '$state',
+                'navMenu',
                 function(
                     $http,
                     $q,
                     Notification,
-                    $state
+                    $state,
+                    navMenu
                 ) {
                     return {
                         get: function(url) {
@@ -46,7 +48,7 @@ define( [
                                 })
                                 .error(function(err, status) {
                                     
-                                    validateLogin( err, $state, Notification );
+                                    validateLogin( err, $state, Notification, navMenu );
                                     console.log( err );
                                     defer.reject(err);
 
@@ -61,7 +63,7 @@ define( [
                                     defer.resolve(response, success);
                                 })
                                 .error(function(err, status) {
-                                    validateLogin( err, $state, Notification );
+                                    validateLogin( err, $state, Notification, navMenu );
                                     defer.reject(data, status);
                                 });
                             return defer.promise;

@@ -12,20 +12,6 @@ function(
     easein,
     expressInterest
 ){
-    var openSinginWarning = function($mdDialog, e) {
-        var confirm = $mdDialog.confirm()
-            .title('You have not signin Please sign.')
-            .content('It seems you are not signed in please signin')
-            .ariaLabel('Signin here')
-            .targetEvent(e)
-            .ok('signin here')
-            .cancel('Ignore');
-        $mdDialog.show(confirm).then(function() {
-            window.location =  './signin?redirect=' + location.pathname + location.hash;
-        }, function() {
-            return;
-        });
-    };
 
     angular.module( 'letsBuild' )
     .controller( 'appDetailsController',[
@@ -35,13 +21,15 @@ function(
         '$stateParams',
         'model',
         '$mdDialog',
+        'navMenu',
         function  (
             $scope,
             http,
             Notification,
             $stateParams,
             model,
-            $mdDialog
+            $mdDialog,
+            navMenu
         ) {
             
             var id = $stateParams.id;
@@ -67,7 +55,7 @@ function(
                         Notification.success( 'Updated success fully' );
                     } );    
                 } else {
-                    openSinginWarning($mdDialog, e );
+                    navMenu.openMenu(e, true);
                 }
             };
 
@@ -83,7 +71,7 @@ function(
                         controller: 'expressInterestController',
                     });
                 } else {
-                    openSinginWarning($mdDialog, e );   
+                    navMenu.openMenu(e, true);
                 }
 
             };

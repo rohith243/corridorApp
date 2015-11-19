@@ -134,7 +134,7 @@ function(
             '$timeout',
             'model',
             function($scope, Notification, http, $state, $stateParams,$timeout, model) {
-                model.pageTitle = 'propose form | LetsBuild';
+                model.pageTitle = 'propose form';
                 if( !GLOBAL.user ) {
                     window.location = '/signin?=redirect=/#/propose-form';
                 }
@@ -201,7 +201,7 @@ function(
             '$timeout',
             'model',
             function($scope, Notification, http, $state, $stateParams, $timeout, model) {
-                model.pageTitle = 'Edit App | LetsBuild';
+                model.pageTitle = 'Edit App';
                 $scope.global = {
                     selectedIndex: 0
                 };

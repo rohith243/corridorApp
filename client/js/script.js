@@ -20,17 +20,7 @@ function(
             url: "/",
             views: {
               "lazyLoadView": {
-                templateUrl: 'partials/home.html',
-                controller: function( $state ) {
-                  var stateName = localStorage.getItem( 'stateName' );
-                  if( stateName ) {
-                    var stateParams = localStorage.getItem( 'stateParams' ) || '{}';
-                    stateParams = JSON.parse( stateParams );
-                    $state.go( stateName, stateParams );
-                  }
-                  localStorage.removeItem( 'stateName' );
-                  localStorage.removeItem( 'stateParams' );
-                } 
+                templateUrl: 'partials/home.html'
               }
             },
             resolve: {
@@ -228,9 +218,31 @@ function(
         })
     })
 
+    app.run(function($rootScope, $state,  $location) {
+      var stateName = localStorage.getItem( 'stateUrl' );
+      if( stateName ) {
+        $location.path( localStorage.getItem( 'stateUrl' ) )
+        localStorage.removeItem( 'stateUrl' );
+      }
+      $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        //console.log( document.title );
+        //console.log( 'stateChangeSuccess' );
+        console.log( toState );
+        try{
+          console.log( 'stateChanged' );
+          dataLayer.push( {
+            event: 'virtualPageView',
+            virtualPagePath: toState.url
+          } );
+        } catch ( e) {}
+      });
+    });
+    
+
     
     common.init();
-    angular.bootstrap( document, [ 'commonModule', 'letsBuild' ] )
+    angular.bootstrap( document, [ 'commonModule', 'letsBuild' ] );
+    
 })
 
 
