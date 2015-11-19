@@ -62,7 +62,7 @@
                                 </span>
                             </a>
                         </div>
-                        <md-button ng-if="item.owner.mail != currentUser.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
+                        <md-button ng-if="item.owner.mail != user.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
                         >
                             <span ng-if="!isEditExpress()" >
                                 Express Interest
@@ -72,7 +72,7 @@
                             </span>
                         </md-button>
 
-                        <md-button ng-if="item.owner.mail != currentUser.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
+                        <md-button ng-if="item.owner.mail != user.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
                             UNEXPRESS Interest
                         </md-button>
                         <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button gtm-click-edit" ng-href="#edit/{{item.id}}" >
