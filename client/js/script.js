@@ -227,12 +227,13 @@ function(
       $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         //console.log( document.title );
         //console.log( 'stateChangeSuccess' );
-        console.log( toState );
+        //console.log( $location.path() );
+        //console.log( toState );
         try{
           console.log( 'stateChanged' );
           dataLayer.push( {
             event: 'virtualPageView',
-            virtualPagePath: toState.url
+            virtualPagePath: $location.path()
           } );
         } catch ( e) {}
       });
