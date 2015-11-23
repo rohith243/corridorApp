@@ -14,7 +14,6 @@ define( [
                 GLOBAL.user.admin = undefined;
                 GLOBAL.user = undefined;    
             }
-            $state.go( 'default' );
             navMenu.openMenu( false, true);
         } else {
             Notification.error( 'Error' );

@@ -22,11 +22,13 @@ function(
                     }
                 };
             }])
-            .controller('globalNavCtrl', function($scope, http,  $state, $stateParams, navMenu) {
+            .controller('globalNavCtrl', function($scope, http, navMenu, $location, Notification, model) {
                 $scope.signinurl = 'signin?redirect=./';
                 $scope.openMenu = navMenu.openMenu;
                 $scope.closeMenu = navMenu.closeMenu;
-
+                model.notification = {};
+                $scope.notification = model.notification;
+                $scope.notification.count = 0; 
                 $scope.user = GLOBAL.user;
                 $scope.logout = function( e ) {
                   e.preventDefault();
@@ -42,9 +44,40 @@ function(
                 $scope.signIn = function( e ) {
 
                     e.preventDefault();
-                    localStorage.setItem( 'stateUrl', $state.current.url );
+                    localStorage.setItem( 'stateUrl', $location.path() );
                     window.location = $scope.signinurl;
                 };
+
+                if( GLOBAL.user ) {
+                    
+                    require( ['modules/socket'], function( socket ) {
+                        
+                        socket = socket.getSocket();
+                        //socket.emit( 'req-feeds', { from: 0, to: 50 } );
+                        socket.emit( 'req-feeds-unread-count' );
+                        
+                        socket.on( 'res-feeds-unread-count', function( res ) {
+                            console.log( 'count', res );
+                            $scope.notification.count = res;
+                        } );
+
+
+                        socket.on( 'new-feed', function( res ) {
+
+                            $scope.notification.count++;
+                            Notification.success({
+                                message: res.appName + ' updated' , 
+                                positionY: 'bottom', 
+                                positionX: 'left',
+                                templateUrl: './partials/ui-notification.html'
+                            });
+
+                        } );
+                        
+
+                    } );
+                }
+
             })
             .service( 'navMenu', [ 'Notification', function( Notification ) {
                 var navMenu = {};

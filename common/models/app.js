@@ -1,10 +1,13 @@
 var user = require( '../../modules/user' );
 var disableAllMethodsBut = require( '../../modules/disable-all-methods-but');
 var mail = require( '../../modules/mail' );
+var notify = require( '../../modules/notify' );
 
 module.exports = function(App) {
     
     disableAllMethodsBut( App, [] );
+    
+
     App.publishedApps = function( req, res, cb ) {
         App.find({
           // find locations near the provided GeoPoint
@@ -81,6 +84,7 @@ module.exports = function(App) {
 
 
     App.updateApp = function( data, req, res, cb ) {
+        
         udetails = user.getDetails( req );
         if( !udetails ) {
             res.statusCode = 404;
@@ -89,6 +93,7 @@ module.exports = function(App) {
             } );
             return;
         }
+        
         var id = data.id;;
         App.findById( id, function( err, doc ) {
             var setObj = data;
@@ -97,6 +102,13 @@ module.exports = function(App) {
             if(  udetails.mail === doc.owner.mail || udetails.admin ) {
                 doc.updateAttributes( data, function( err, res ) {
                     cb( null, res );
+                    notify( {
+                        appId: doc.id,
+                        appName: doc.appName,
+                        to: doc.interests,
+                        type: 'update',
+                        updatedBy: udetails
+                    } );
                 } );
                 
             } else {
@@ -123,7 +135,9 @@ module.exports = function(App) {
 
 
     App.deleteApp = function( id, req, res, cb ) {
+        
         udetails = user.getDetails( req );
+        
         if( !udetails ) {
             res.statusCode = 404;
             res.json( {
@@ -142,6 +156,15 @@ module.exports = function(App) {
             }
             App.destroyById( id, function( err, res ) {
                 cb( null, res );
+                
+                notify( {
+                    appId: doc.id,
+                    appName: doc.appName,
+                    to: doc.interests,
+                    type: 'delete',
+                    updatedBy: udetails
+                } );
+
             } );
         } );
         

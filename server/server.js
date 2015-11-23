@@ -5,9 +5,7 @@ var session = require('express-session');
 var http = require('http');
 var https = require('https');
 var sslConfig = require('./ssl-config');
-
 var app = module.exports = loopback();
-
 
 var cas = require('connect-cas');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -21,8 +19,8 @@ paths: {
         logout: '/cas/logout'
     }
 });
-
-app.use(session({secret: 'corridorApp'}));
+app.sessionMiddleware = session({secret: 'corridorApp'});
+app.use( app.sessionMiddleware );
 app.use(function(req, res, next) {
   if( process.env.NODE_ENV === 'production' ) {
     req.headers.host = "cev3.pramati.com/letsbuild";
@@ -32,7 +30,6 @@ app.use(function(req, res, next) {
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 
 
 app.start = function(httpOnly) {
@@ -62,5 +59,8 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
   // start the server if `$ node server.js`
   if (require.main === module)
-    app.start( true );
+    {
+      var appSocket = require( './app-socket' );
+      appSocket.init( app, app.start( true ) );      
+    }
 });

@@ -26,6 +26,11 @@
                     My Proposals
                 </a>
             </li>
+            <li ng-if="user.firstName">
+                <a  href="#/notification" >
+                    Notifications <span class="notification-count" ng-if="notification.count">{{notification.count}}</span>
+                </a>
+            </li>
             <li ng-if="user.admin">
                 <a  href="#/admin" >
                     Admin Dashboard

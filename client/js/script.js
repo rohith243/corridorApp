@@ -216,6 +216,20 @@ function(
               }]
             }
         })
+        .state('notification', {
+            url: '/notification',
+            views: {
+              "lazyLoadView": {
+                controller: 'notificationController',
+                templateUrl: 'partials/notification-page.html'
+              }
+            },
+            resolve: { 
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/notification-controller.js');
+              }],
+            }
+        })
     })
 
     app.run(function($rootScope, $state,  $location) {
@@ -225,10 +239,6 @@ function(
         localStorage.removeItem( 'stateUrl' );
       }
       $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-        //console.log( document.title );
-        //console.log( 'stateChangeSuccess' );
-        //console.log( $location.path() );
-        //console.log( toState );
         try{
           console.log( 'stateChanged' );
           dataLayer.push( {
@@ -243,7 +253,7 @@ function(
     
     common.init();
     angular.bootstrap( document, [ 'commonModule', 'letsBuild' ] );
-    
+   
 })
 
 
