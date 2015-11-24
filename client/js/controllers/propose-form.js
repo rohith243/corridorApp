@@ -135,10 +135,6 @@ function(
             'model',
             function($scope, Notification, http, $state, $stateParams,$timeout, model) {
                 model.pageTitle = 'propose form';
-                if( !GLOBAL.user ) {
-                    window.location = '/signin?=redirect=/#/propose-form';
-                }
-
                 $scope.item = {};
                 $scope.item.proposedTeam = [ {
                     firstName: GLOBAL.user.firstName,

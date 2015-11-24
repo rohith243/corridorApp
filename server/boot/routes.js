@@ -14,13 +14,11 @@ module.exports = function(app) {
     });
 
     var cas = require('connect-cas');
-    app.get('/signin', cas.ssout('/protected'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
-    
+    app.get('/signin', cas.ssout('/signin'), cas.serviceValidate(), cas.authenticate(), function(req, res, next) {
         var redirect = req.query.redirect || '.';
-        res.redirect(redirect);
-    
+        res.redirect(redirect);    
     });
-
+    
 
     app.get('/services/logout', function(req, res, next) {
         
@@ -64,6 +62,7 @@ module.exports = function(app) {
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.post('/signin', cas.ssout('/signin') );
 
     app.post('/services/updateSiteConfig', function(req, res, next) {
         var udetails =  user.getDetails( req );
@@ -84,7 +83,7 @@ module.exports = function(app) {
             }
         } );
     });
-    app.post('/signin', function(req, res, next) {
+    /*app.post('/signin', function(req, res, next) {
         
         var logoutRequest = req.body.logoutRequest;
         if (!/<samlp:SessionIndex>(.*)<\/samlp:SessionIndex>/.exec(logoutRequest)) {
@@ -101,7 +100,7 @@ module.exports = function(app) {
           }
         }
         res.sendStatus(204);
-    });
+    });*/
 
     
 }

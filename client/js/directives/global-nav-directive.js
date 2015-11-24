@@ -23,7 +23,7 @@ function(
                 };
             }])
             .controller('globalNavCtrl', function($scope, http, navMenu, $location, Notification, model) {
-                $scope.signinurl = 'signin?redirect=./';
+                $scope.signinurl = './signin';
                 $scope.openMenu = navMenu.openMenu;
                 $scope.closeMenu = navMenu.closeMenu;
                 model.notification = {};
