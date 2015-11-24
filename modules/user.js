@@ -1,15 +1,6 @@
 var siteConfig = require( './confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
-<<<<<<< HEAD:modules/user.js
-    /*return {
-        firstName: 'Kiran',
-        lastName: 'Adepu',
-        admin: true,
-        mail: 'kiran.adepu@imaginea.com'
-    };*/
-=======
->>>>>>> master:routes/modules/user.js
     var attr = req.session.cas && req.session.cas.attributes;
     var user;
     if (attr) {
