@@ -10,7 +10,7 @@
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "compression": "^1.0.3",
-    "connect-cas": "https://github.com/uidev547/connect-cas.git",
+    "connect-cas": "git://github.com/uidev547/connect-cas.git",
     "cors": "^2.5.2",
     "express-session": "^1.12.1",
     "loopback": "^2.22.0",
