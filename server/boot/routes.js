@@ -18,6 +18,7 @@ module.exports = function(app) {
         var redirect = req.query.redirect || '.';
         res.redirect(redirect);    
     });
+    app.post('/signin', cas.ssout( '/signin' ) );
     
 
     app.get('/services/logout', function(req, res, next) {
