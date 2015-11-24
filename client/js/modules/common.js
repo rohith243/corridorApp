@@ -18,12 +18,12 @@ function(
     var checkFeatureResponse = {};
 
     var tempImages = {
-        'apurba.n@imaginea.com':   'images/apurba.jpg',
-        'jay.pullur@pramati.com':  'images/jay.jpg',
-        'vijay@pramati.com':  'images/vijay.jpg',
-        'chandru@pramati.com':  'images/chandru.jpg',
-        'sharad.s@imaginea.com':  'images/sharad.jpg',
-        'kvp@pramati.com':  'images/kvp.jpg'
+        'apurba.n@imaginea.com':   './images/apurba.jpg',
+        'jay.pullur@pramati.com':  './images/jay.jpg',
+        'vijay@pramati.com':  './images/vijay.jpg',
+        'chandru@pramati.com':  './images/chandru.jpg',
+        'sharad.s@imaginea.com':  './images/sharad.jpg',
+        'kvp@pramati.com':  './images/kvp.jpg'
     };
     return {
         init: function() {

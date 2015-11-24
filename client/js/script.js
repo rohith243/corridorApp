@@ -213,6 +213,9 @@ function(
             resolve: { 
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Feature Config page';
+              }],
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('js/controllers/feature-config-controller.js');
               }]
             }
         })
@@ -227,7 +230,7 @@ function(
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load('js/controllers/notification-controller.js');
-              }],
+              }]
             }
         })
     })
