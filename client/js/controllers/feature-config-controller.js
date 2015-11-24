@@ -22,7 +22,7 @@ function(
             model
         ) {
             $scope.configs = [];
-            http.get( 'api/features/allFeatureConfigs' )
+            http.get( './api/features/allFeatureConfigs' )
             .then( function( res ) {
                 $scope.configs = res;
             } )
@@ -93,7 +93,7 @@ function(
 
                 if(confirm( 'do you want to delete feature "' + item.featureKey + '" ?' ) ) {
 
-                    http.get(  'api/feature/deleteFeatureConfig?id=' + item.id)
+                    http.get(  './api/feature/deleteFeatureConfig?id=' + item.id)
                     .then( function() {
                         $scope.configs.splice( index , 1 );
                         Notification.success( 'successfully Deleted' );
@@ -135,7 +135,7 @@ function(
 
                 if( $scope.featureConfigForm.$valid ) {
                     e.preventDefault();
-                    var url = model.featureConfig ? 'api/features/updateFeatureConfig' : 'api/features/addFeatureConfig';
+                    var url = model.featureConfig ? './api/features/updateFeatureConfig' : './api/features/addFeatureConfig';
                     http.post(  url, {
                         postData: $scope.item
                     })

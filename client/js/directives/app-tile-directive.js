@@ -58,7 +58,7 @@ function(
 
                     e.preventDefault();
                     if (item.appName && item.solution) {
-                        http.post( '/api/apps/updateApp', {
+                        http.post( './api/apps/updateApp', {
                             postData: {
                                 isPublish : !item.isPublish,
                                 id: item.id

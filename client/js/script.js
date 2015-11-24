@@ -42,7 +42,7 @@ function(
                 return $ocLazyLoad.load('js/controllers/propose-form.js');
               }],
               signedin: [ 'http', function(http) {
-                return http.get( 'services/checksignin' ); 
+                return http.get( './services/checksignin' ); 
               } ]
             }
         })

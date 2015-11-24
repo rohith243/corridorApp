@@ -35,7 +35,7 @@ function(
             var id = $stateParams.id;
             model.id = id;
             $scope.user = GLOBAL.user;
-            http.get(  'api/apps/getApp?id=' + id )
+            http.get(  './api/apps/getApp?id=' + id )
             .then( function( res ) {
                 $scope.item = res;
                 model.item = $scope.item;
@@ -49,7 +49,7 @@ function(
             $scope.updateLikes = function( e ) {
                 e.preventDefault();
                 if( $scope.user ) {
-                    http.get( 'api/apps/toggleVote?id=' + id )
+                    http.get( './api/apps/toggleVote?id=' + id )
                     .then( function( res ) {
                         $scope.item.likes = res.likes;
                         Notification.success( 'Updated success fully' );
@@ -103,7 +103,7 @@ function(
                 
                 e.preventDefault();
                 if( confirm( 'Do you want to unexpress?' ) ) {
-                    http.get( 'api/apps/unExpressInterest?id=' + id )
+                    http.get( './api/apps/unExpressInterest?id=' + id )
                     .then( function( res ) {
                         Notification.success( 'successfully Removed' );
                         $scope.item.interests = res.interests;

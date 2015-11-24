@@ -32,7 +32,7 @@ function(
                 $scope.user = GLOBAL.user;
                 $scope.logout = function( e ) {
                   e.preventDefault();
-                  http.get( 'services/logout' )
+                  http.get( './services/logout' )
                   .then( function() {
                     $scope.user = null;
                     GLOBAL.user = null;

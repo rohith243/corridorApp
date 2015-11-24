@@ -56,7 +56,7 @@ function(
             };
 
             $scope.addContributor = function() {
-                http.post( 'api/apps/expressInterest', {
+                http.post( './api/apps/expressInterest', {
                     postData: {
                         hours:  $scope.user.hours,
                         aboutme: $scope.user.aboutme,

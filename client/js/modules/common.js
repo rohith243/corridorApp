@@ -77,7 +77,7 @@ function(
                                 var key = $attrs.checkFeature;
                                 var udetails = GLOBAL.user;
                                 checkFeatureResponse = {};
-                                http.get( 'api/features/allFeatureConfigs' )
+                                http.get( './api/features/allFeatureConfigs' )
                                 .then( function( res ) {
                                     for( var i = 0; i < res.length; i++ ) {
                                         if( res[ i ].open === 'all' )

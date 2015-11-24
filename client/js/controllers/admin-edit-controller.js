@@ -26,7 +26,7 @@ function(
             var container = document.getElementById("jsoneditor");
             var editor = new JSONEditor(container);
 
-            http.get(  'api/apps/getApp?id=' + id )
+            http.get(  './api/apps/getApp?id=' + id )
             .then( function( res ) {
                 $scope.item = angular.copy(res);
                 $scope.id = $scope.item.id

@@ -81,7 +81,7 @@ function(
             function loadEmployees() {
                 if( !$scope.empRequestSent ) {
                     $scope.empRequestSent = true;
-                    http.get(  'confidential/phonebook.json' )
+                    http.get(  './confidential/phonebook.json' )
                     .then( function( res ) {
                       $scope.emps = res.employees.map( function ( obj ) {
                         var emp = {};
@@ -152,7 +152,7 @@ function(
                 
                 $scope.saveApp = function(e) {
                     e.preventDefault();
-                    http.post('api/apps/createApp', {
+                    http.post('./api/apps/createApp', {
                             postData: $scope.item
                         })
                         .then(function(res) {
@@ -168,7 +168,7 @@ function(
                     $scope.updateForm.$showValidation = true;
                     if ($scope.updateForm && $scope.updateForm.$valid) {
                         $scope.item.isPublish = true;
-                        http.post( 'api/apps/createApp', {
+                        http.post( './api/apps/createApp', {
                                 postData: $scope.item
                             })
                             .then(function(res) {
@@ -207,7 +207,7 @@ function(
                 $scope.tabcount = tabcount;
                 $scope.template = 'editItem';
                 if ( id ) {
-                    http.get( 'api/apps/getApp?id=' + id)
+                    http.get( './api/apps/getApp?id=' + id)
                         .then(function(res) {
                             originalData = res;
                             $scope.item = angular.copy(res);
@@ -227,7 +227,7 @@ function(
                     e.preventDefault();
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
                     setData.id = id;
-                    http.post(  'api/apps/updateApp', {
+                    http.post(  './api/apps/updateApp', {
                         postData: setData
                     })
                     .then(function(res) {
@@ -248,7 +248,7 @@ function(
                     $scope.item.isPublish = !isPublished;
                     var setData = getPostData($scope.item, originalData, 'letsbuild');
                     setData.id = id;
-                    http.post(  'api/apps/updateApp', {
+                    http.post(  './api/apps/updateApp', {
                         postData: setData
                     })
                     .then(function(res) {
