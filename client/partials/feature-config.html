@@ -1,0 +1,73 @@
+<div>
+    <div class="pull-right">
+        <md-button class="md-raised md-primary primary-button"  ng-click="addNewConfig( $event )">
+            Add new feature flag
+        </md-button>
+    </div>
+    <h1 class="md-display-1">
+      Feature configurations
+    </h1>
+    <div class="feature-table">
+        <div  class="table-row table-header" layout="row" hide-sm>
+            <div flex="20">
+                Key
+            </div>
+            <div flex="50">
+                Feature
+            </div>
+            
+            <div flex="20">
+                Open for
+            </div>
+            <div flex="10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="table-row" ng-repeat="config in configs" layout="row" layout-sm="column"  >
+            <div flex="20" flex-sm="100">
+                <span hide  show-sm class="field">Key: </span> {{config.featureKey}}
+            </div>
+
+            <div flex="50" flex-sm="100">
+                <span hide show-sm class="field">Text: </span> {{config.featureText}}
+            </div>
+            
+            <div flex="20" flex-sm="100">
+                <span hide show-sm class="field">Oen For: </span> {{config.open}}
+            </div>
+            <div flex="10" flex-sm="100">
+                <a title="Edit" href="#" style="text-decoration: none" ng-click="editFeature( $event, $index )">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a title="Edit" href="#" style="text-decoration: none" ng-click="deleteFeature( $event, $index )">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    md-switch {
+        margin-left: 0
+    }
+    .feature-table .table-header {
+        font-weight: bold; 
+    }
+    .feature-table .table-row>div {
+        padding-right: 10px;
+    }
+    .feature-table .table-row {
+        padding: 5px;
+    }
+
+    .feature-table {
+        background: #f1f1f1;
+    }
+    .table-row:nth-child(even) {
+        background: #f9f9f9;
+    }
+    .field {
+        font-weight: bold
+    }
+</style>

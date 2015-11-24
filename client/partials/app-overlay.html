@@ -1,0 +1,26 @@
+<div class="app-search-overlay">
+    <span class="close fa fa-remove" id="app-search-popup-close"></span>
+    <div class="search-content page-layout">
+        <div class="container search-wrapper" ng-class="{'result-found': loading || searchText}">
+            <h3>
+                Search Apps
+            </h3>
+            <span class="fa fa-search"></span>
+            <input class="search-app" autocomplete="off" ng-model="searchText" id="search-app" type="text" name="search" placeholder="What are you looking for?" ng-change="searchFilter()">
+            <div>
+                <div class="search-loader" ng-if="loading">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                </div>
+                <div class="tiles-container" ng-if="!loading && searchText">
+                        <div layout="row" layout-wrap>
+                            <div flex="33" class="fadeInUp" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-index="$index" data-key="key" ng-repeat="item in  getData()">
+                            </div>
+                        </div>
+                        <div ng-if="(!getData().length) && searchText">
+                            <p>Sorry, We colud not find anything</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

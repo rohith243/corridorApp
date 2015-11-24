@@ -1,0 +1,49 @@
+<div class="app-tile">
+   <a ng-href="#details/{{item.id}}" class="gtm-apptile-link" data-gtm-data="{{item.appName}}">
+       <div class="app-tile-thumbnail">
+          <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || ( 'images/default.png') }}">
+          <div class="tile-features" ng-if="mode==='edit'">
+             <md-button ng-if="!item.isPublish" title="Move to Publish" href="#" class="md-fab md-primary md-mini" ng-click="togglePublish($event,item)">
+                  <i class="fa fa-share"></i>
+              </md-button>
+             <md-button ng-if="item.isPublish" title="Move to Draft" href="#" class="md-fab md-primary md-mini" ng-click="togglePublish($event,item)">
+                  <i class="fa fa-reply"></i>
+              </md-button>
+              <md-button title="Edit" class="md-fab md-primary md-mini" ng-href="#edit/{{item.id}}">
+                  <i class="fa fa-edit"></i>
+              </md-button>
+              <md-button title="Delete" href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
+                  <i class="fa fa-trash-o"></i>
+              </md-button>
+          </div>
+          <div class="tile-features" ng-if="mode==='admin'">
+              <md-button title="Edit" class="md-fab md-primary md-mini" ng-href="#admin/edit/{{item.id}}">
+                  <i class="fa fa-edit"></i>
+              </md-button>
+              <md-button title="Delete" href="#" class="md-fab md-primary md-mini" ng-click="deleteItem( $event,item, index , key )">
+                  <i class="fa fa-trash-o"></i>
+              </md-button>
+          </div>
+
+       </div>
+       <div class="app-tile-content">
+          <h6 class="app-tile-title">{{item.appName}}</h6>
+           <!-- <p class="project-byline">{{item.appName}}</p>  -->
+          <p class="app-tile-desc">
+             {{item.shortDesc}}
+          </p>
+       </div>
+       <div class="app-tile-footer">
+          <p>Category : {{item.category || "N/A"}}</p>
+          <div class="project-stats-container">
+             <div class="app-tile-progress-bar">
+                <div class="percent-pledged" ng-style="{'width':getEffortFunded(item)}"></div>
+             </div>
+             <div class="project-stats">
+                   <div class="pull-left">{{getEffortFunded(item)}} hours filled</div>
+                   <div class="pull-right">Total Upvotes : {{item.likes.length}}</div>
+              </div>
+          </div>
+       </div>
+   </a>
+</div>

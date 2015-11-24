@@ -1,0 +1,192 @@
+<div ng-if="item">
+    <div class="app-details-sections info-section" id="summary" layout="row" layout-sm="column">
+        <div flex="70" flex-sm="100" class="app-details-wrap">
+            <div layout="row" layout-sm="column">
+                <div class="image-section" flex="20" flex-sm="100">
+                    <img ng-src="{{item.imgurl || './images/default.png'}}">
+                </div>
+                <div class="app-intro" flex="50" flex-sm="100">
+                    <div class="md-title">
+                        {{item.appName}}
+                    </div>
+                    <div btf-markdown="item.shortDesc">
+                    </div>
+                    <div layout="row" ng-if="item.status">
+                        <span><span class="thiker">Stage </span>: {{item.status}}</span> 
+                    </div>
+                    <div layout="row"  ng-if="item.category">
+                        <span><span class="thiker">Category </span> : {{item.category}}</span> 
+                    </div>
+                </div>
+                <div class="app-summary" flex="30" flex-sm="100">
+
+                    <div layout="row" ng-if="item.createdAt">
+                        <span class="thiker" flex="45" align="right">Posted date : </span>
+                        <span flex="55" class="app-summary-value"> {{item.createdAt | date:'dd-MMM-yyyy'}}</span>
+                    </div>
+                    <div layout="row"  ng-if="item.lastUpdated">
+                        <span class="thiker" flex="45" align="right">Last Updated : </span><span flex="55" class="app-summary-value"> {{(item.lastUpdated || item.createdAt) | date:'dd-MMM-yyyy'}}</span>
+                    </div>                                        
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
+                    </div>
+                    <div class="like-container">
+                        
+                        <a href="#" ng-click="updateLikes($event)" class="gtm-upvote" data-gtm-data="{{item.appName}}">
+                            <div ng-class="{'upvote-container':item.likes.indexOf( user.mail) != -1,'upvote-container-down':item.likes.indexOf( user.mail) == -1}" class="like-button" >
+                                <span flex="80" class="" >Upvote</span>
+                                <span class="upvote-line"> | </span>
+                                <span class="upvote-count">{{item.likes.length}}</span>
+                            </div>
+                        </a>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div flex="30" flex-sm="100" class="proposer-details-wrap">
+            <div class="proposer-details">
+                <div>
+                    <div class="md-title">Proposed by</div>
+                    <div class="proposed-team-wrap">
+                        <div ng-repeat="mem in item.proposedTeam | getImages" class="user-rep">
+                            <a ng-href="mailto:{{mem.mail}}">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                </div>
+                                <span>
+                                &nbsp;{{mem.firstName}}
+                                </span>
+                            </a>
+                        </div>
+                        <md-button ng-if="item.owner.mail != user.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
+                        >
+                            <span ng-if="!isEditExpress()" >
+                                Express Interest
+                            </span>
+                            <span ng-if="isEditExpress()" >
+                                Edit Interest
+                            </span>
+                        </md-button>
+
+                        <md-button ng-if="item.owner.mail != user.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
+                            UNEXPRESS Interest
+                        </md-button>
+                        <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button gtm-click-edit" ng-href="#edit/{{item.id}}" >
+                            Edit
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+                
+    <div style="position:relative"> 
+        <div class="section-content">
+            <div class="content-separators info-section"  id="team" ng-if="isContributorsAvailable(item.interests)">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-users"></span>
+                    </div>    
+                </div>
+                <div   >
+                    <h1 class="content-heading">Team</h1>
+                    <div class="content-data" layout="row" layout-wrap >
+                        <div flex="50" flex-sm="100" ng-repeat="mem in item.interests | getImages" ng-if="mem.isContributor"  class="user-rep large">
+                            <a ng-href="mailto:{{mem.mail}}">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                </div>
+                                <span>
+                                &nbsp;{{mem.firstName}}
+                                </span>
+                            </a>
+                        </div>
+
+                        <!--div class="grid-row">
+                            <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" ng-if="mem.isContributor" style="list-style:none;">
+                                <li>
+                                    <div>
+                                        <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
+
+                                        </div>
+                                        <div ng-if="!mem.src" class="background-name">
+                                            {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                        </div>
+                                        <div class="name-container">
+                                            <p class="ng-binding">{{mem.firstName}}</p>
+                                            <p class="ng-binding">{{mem.mail}}</p>
+                                        </div>
+                                     </div>                                            
+                                </li>
+                            </ul>
+                        </div-->
+                    </div>
+                </div>
+            </div>
+            <div class="content-separators info-section" id="introduction" ng-if="item.longDesc"  >
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-info"></span>
+                    </div>    
+                </div>
+                <div>
+                    <h1 class="content-heading">Introduction</h1>
+                    <div class="content-data">
+                        <div btf-markdown="item.longDesc"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-separators info-section" id="video" ng-if="item.vedioLink">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-television"></span>
+                    </div>    
+                </div>
+                <div    >
+                    <h1 class="content-heading">Video</h1>
+                    <div class="content-data" >
+                        <iframe width="100%" height="500" ng-src="{{item.vedioLink | trustAsResourceUrl}}">
+                                            </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-separators info-section" id="analysis" ng-if="item.solution">
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-sitemap"></span>
+                    </div>    
+                </div>
+                <div>
+                    <h1 class="content-heading">Analysis</h1>
+                    <div class="content-data">
+                        <div btf-markdown="item.solution"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-navigator">
+            <ul class="page-navigator-link">
+                <li id="summary-li"><a href="#summary" >Summary</a></li>
+                <li id="team-li" ng-if="isContributorsAvailable(item.interests)"><a href="#team">Team</a></li>
+                <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
+                <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
+                <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<md-button title="Share on yammer" class="md-fab md-primary md-lg detail-yammer-share gtm-yammer-share" yammer-share data-share-config="shareConfig" data-gtm-data="detail page yammer share" hide-sm>
+    <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
+    <span>Yammer share</span>
+</md-button>

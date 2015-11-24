@@ -1,0 +1,74 @@
+<h1>All Notifications</h1>
+
+<ul class="notifications">
+    <li ng-repeat="item in notifications" ng-class="{'unread':item.toBeRead}" ng-mouseover="makeRead( item )">
+        <div ng-if="item.type==='update'">
+            <p>
+                <a ng-href="#/details/{{item.appId}}">
+                    {{item.appName}} 
+                </a>
+                updated
+            </p>
+            <p class="noti-details">
+                By  
+                <a href="mailto:{{item.updatedBy.mail}}">
+                    {{item.updatedBy.firstName}} {{item.updatedBy.lastName}}
+                </a>
+                <span class="pull-right">
+                    date: {{item.createdAt | date:'medium' }} 
+                </span>
+            </p>
+        </div>
+        <div ng-if="item.type=== 'delete' ">
+            <p>
+                {{item.appName}} 
+                Deleted
+            </p>
+
+            <p class="noti-details">
+                By  
+                <a href="mailto:{{item.updatedBy.mail}}">
+                    {{item.updatedBy.firstName}} {{item.updatedBy.lastName}}
+                </a>
+                <span class="pull-right">
+                    date: {{item.createdAt | date:'medium' }} 
+                </span>
+            </p>
+        </div>
+    </li>
+</ul>
+
+<div ng-if="notifications.length<totalCount" class="text-center">
+    <md-button href="#" class="md-raised md-primary" ng-click="loadmore( $event )">
+        Loadmore
+    </md-button>
+</div>
+
+<style type="text/css">
+    .notifications {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .notifications a{
+        text-decoration: none;
+    }
+    .notifications p{
+        margin: 0;
+    }
+    .notifications li{
+        padding: 10px;
+        background: #f9f9f9;
+        border-bottom: 1px solid #ccc;
+        overflow: auto;
+    }
+    .unread {
+        background: #c1c1c1;
+    }
+    .noti-details {
+        font-size: 14px;
+    }
+    .text-center {
+        text-align: center;
+    }
+</style>
