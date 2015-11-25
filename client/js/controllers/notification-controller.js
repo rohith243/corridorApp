@@ -30,6 +30,22 @@ function(
             socket.emit( 'req-feeds-count' );
             socket.on( 'res-feeds', function( res ) {
                 $scope.notifications = $scope.notifications.concat( res );
+                var index, j, user = GLOBAL.user;
+                if( user ) {
+                    for( len = res.length-1 ; len>=0 ; len-- ) {
+                        if( res[ len].to ) {
+                            for( j = res[ len ].to.length-1; j>=0 ; j-- ) {
+                                if( res[ len ].to[ j ].mail === user.mail &&  res[ len ].to[ j ].toBeRead ) {
+                                    res[ len ].toBeRead = true;
+                                    break;
+                                }
+                            }    
+                        }
+                        
+                    }    
+                }
+                
+
                 $scope.$apply();
             } );
             

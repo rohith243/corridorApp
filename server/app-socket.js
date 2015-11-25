@@ -70,10 +70,10 @@ appSocket.init = function( app, server ) {
         Notification.count({
           to: {
             elemMatch: {
-              mail: details.mail
+              mail: details.mail,
+              toBeRead: true
             }
-          },
-          toBeRead: true
+          }
         }, function(err, res ) {   
           socket.emit( 'res-feeds-unread-count', res );
         } );
@@ -81,12 +81,21 @@ appSocket.init = function( app, server ) {
 
 
       socket.on( 'req-make-read', function( req ) {
-        Notification.update( {
-          id:req.id
-        }, {toBeRead: false});
+        Notification.findById( req.id, function( err, doc ) {          
+          if( doc) {
+            for( var len = doc.to.length-1; len >= 0; len-- ) {
+              if( doc.to[ len].mail === details.mail ) {
+                doc.to[ len ].toBeRead = false;
+                doc.updateAttributes( {
+                  to: doc.to
+                });
+                break;
+              }  
+            }
+          }
+        } );
       } );
 
-      
       socket.on( 'disconnect', function(){
 
         if( current.length <= 1 ) {
