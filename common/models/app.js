@@ -374,4 +374,30 @@ module.exports = function(App) {
         ]
     });
 
+
+    App.allApps = function( req, res, cb ) {
+        udetails = user.getDetails( req );
+        if( udetails && udetails.admin ) {
+            App.find({}, function(err, res ) {      
+              cb( null, res );
+            } );
+            
+        } else {
+            res.statusCode = 404;
+            res.json( {
+                error: '_unauthorized_user'
+            } );
+            return;
+        }
+        
+    };
+
+    App.remoteMethod('allApps', {
+        returns: {arg: 'apps', root: true},
+        http: { verb: 'GET' },
+        accepts:[
+            { arg: 'req', type: 'object', 'http': {source: 'req'}},
+            { arg: 'res', type: 'object', 'http': {source: 'res'}}
+        ]
+    });
 };
