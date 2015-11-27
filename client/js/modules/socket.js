@@ -8,8 +8,9 @@ function(
 
     return {
        getSocket: function() {
+            var url = document.URL;
             if( !socket ) {
-                socket = socketio( document.URL )
+                socket = socketio( url )
             }
             return socket;
        }
