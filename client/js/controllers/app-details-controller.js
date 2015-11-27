@@ -67,7 +67,7 @@ function(
                     $mdDialog.show({
                         parent: parentEl,
                         targetEvent: e,
-                        templateUrl:  'partials/express-interest.html',
+                        templateUrl:  './partials/express-interest.html',
                         controller: 'expressInterestController',
                     });
                 } else {

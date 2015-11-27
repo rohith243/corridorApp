@@ -31,7 +31,7 @@ function(
                 
                 $mdDialog.show({
                   controller: 'featureConfigTemplateController',
-                  templateUrl:  'partials/feature-config-template.html',
+                  templateUrl:  './partials/feature-config-template.html',
                   parent: angular.element(document.body),
                   targetEvent: ev,
                   clickOutsideToClose:true
@@ -69,7 +69,7 @@ function(
                 model.featureConfig = angular.copy( $scope.configs[ index ] );
                 $mdDialog.show({
                   controller: 'featureConfigTemplateController',
-                  templateUrl:  'partials/feature-config-template.html',
+                  templateUrl:  './partials/feature-config-template.html',
                   parent: angular.element(document.body),
                   targetEvent: e,
                   clickOutsideToClose:true

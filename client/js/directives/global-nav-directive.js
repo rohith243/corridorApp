@@ -9,7 +9,7 @@ function(
             angular.module('globalNavigation', [])
             .directive('globalNav', [function() {
                 return {
-                    templateUrl:  'partials/global-navigation.html',
+                    templateUrl:  './partials/global-navigation.html',
                     restict: 'A',
                     scope: {},
                     controller: 'globalNavCtrl',

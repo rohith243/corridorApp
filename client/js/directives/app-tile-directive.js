@@ -12,7 +12,7 @@ function(
         angular.module( 'letsBuild' )
         .directive('appTile', [function() {
             return {
-                templateUrl:  'partials/app-tile.html',
+                templateUrl:  './partials/app-tile.html',
                 restict: 'A',
                 scope: {
                     item: '=',
@@ -23,7 +23,7 @@ function(
         }])
         .directive('appTileEdit', [function() {
             return {
-                templateUrl:  'partials/app-tile-edit.html',
+                templateUrl:  './partials/app-tile-edit.html',
                 restict: 'A',
                 scope: {
                     item: '=',

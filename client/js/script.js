@@ -20,7 +20,7 @@ function(
             url: "/",
             views: {
               "lazyLoadView": {
-                templateUrl: 'partials/home.html'
+                templateUrl: './partials/home.html'
               }
             },
             resolve: {
@@ -33,13 +33,13 @@ function(
             url: "/propose-form",
             views: {
               "lazyLoadView": {
-                templateUrl: 'partials/propose-form.html',
+                templateUrl: './partials/propose-form.html',
                 controller: 'proposeFormController'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/propose-form.js');
+                return $ocLazyLoad.load('./js/controllers/propose-form.js');
               }],
               signedin: [ 'http', function(http) {
                 return http.get( './services/checksignin' ); 
@@ -51,12 +51,12 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'proposeFormEditController',
-                templateUrl: 'partials/propose-form.html'
+                templateUrl: './partials/propose-form.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/propose-form.js');
+                return $ocLazyLoad.load('./js/controllers/propose-form.js');
               }]
             }
         })
@@ -65,7 +65,7 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'appsController',
-                templateUrl: 'partials/my-apps.html'
+                templateUrl: './partials/my-apps.html'
               }
             },
             params: {
@@ -76,7 +76,7 @@ function(
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
                   'js/controllers/apps-controller.js',
-                  '../css/gallary/index.css'
+                  './css/gallary/index.css'
                 ]);
               }],
               pageTitle : ['model', function( model ) {
@@ -89,7 +89,7 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'appsController',
-                templateUrl: 'partials/all-proposals.html'
+                templateUrl: './partials/all-proposals.html'
               }
             },
             params: {
@@ -99,8 +99,8 @@ function(
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                  'js/controllers/apps-controller.js',
-                  '../css/gallary/index.css'
+                  './js/controllers/apps-controller.js',
+                  './css/gallary/index.css'
                 ]);
               }],
               pageTitle : ['model', function( model ) {
@@ -113,7 +113,7 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'appsController',
-                templateUrl: 'partials/admin-proposals.html'
+                templateUrl: './partials/admin-proposals.html'
               }
             },
             params: {
@@ -123,8 +123,8 @@ function(
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                  'js/controllers/apps-controller.js',
-                  '../css/gallary/index.css'
+                  './js/controllers/apps-controller.js',
+                  './css/gallary/index.css'
                 ]);
               }],
               pageTitle : ['model', function( model ) {
@@ -137,14 +137,14 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'adminEditController',
-                templateUrl: 'partials/admin-edit-app.html'
+                templateUrl: './partials/admin-edit-app.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'js/controllers/admin-edit-controller.js',
-                    '../css/admin-editor/index.css'
+                    './js/controllers/admin-edit-controller.js',
+                    './css/admin-editor/index.css'
                 ]);
               }],
               pageTitle : ['model', function( model ) {
@@ -157,14 +157,14 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'appDetailsController',
-                templateUrl: 'partials/app-details.html'
+                templateUrl: './partials/app-details.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                  'js/controllers/app-details-controller.js',
-                  '../css/app-details/index.css'
+                  './js/controllers/app-details-controller.js',
+                  './css/app-details/index.css'
                 ]);
               }],
               pageTitle : ['model', function( model ) {
@@ -177,12 +177,12 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'siteConfigController',
-                templateUrl: 'partials/site-config.html'
+                templateUrl: './partials/site-config.html'
               }
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/site-config-controller.js');
+                return $ocLazyLoad.load('./js/controllers/site-config-controller.js');
               }],
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Site Config';
@@ -193,7 +193,7 @@ function(
             url: '/aboutus',
             views: {
               "lazyLoadView": {
-                templateUrl: 'partials/aboutus.html'
+                templateUrl: './partials/aboutus.html'
               }
             },
             resolve: { 
@@ -207,7 +207,7 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'featureConfigController',
-                templateUrl: 'partials/feature-config.html'
+                templateUrl: './partials/feature-config.html'
               }
             },
             resolve: { 
@@ -215,7 +215,7 @@ function(
                 model.pageTitle = 'Feature Config page';
               }],
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/feature-config-controller.js');
+                return $ocLazyLoad.load('./js/controllers/feature-config-controller.js');
               }]
             }
         })
@@ -224,12 +224,15 @@ function(
             views: {
               "lazyLoadView": {
                 controller: 'notificationController',
-                templateUrl: 'partials/notification-page.html'
+                templateUrl: './partials/notification-page.html'
               }
             },
-            resolve: { 
+            resolve: {
+              pageTitle : ['model', function( model ) {
+                model.pageTitle = 'Notifications';
+              }], 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                return $ocLazyLoad.load('js/controllers/notification-controller.js');
+                return $ocLazyLoad.load('./js/controllers/notification-controller.js');
               }]
             }
         })
