@@ -25,41 +25,43 @@ function(
             var socket = msocket.getSocket();
             $scope.notifications = [];
             $scope.totalCount = 0;
-            
-            socket.emit( 'req-feeds' );
-            socket.emit( 'req-feeds-count' );
-            socket.on( 'res-feeds', function( res ) {
-                $scope.notifications = $scope.notifications.concat( res );
-                var index, j, user = GLOBAL.user;
-                if( user ) {
-                    for( len = res.length-1 ; len>=0 ; len-- ) {
-                        if( res[ len].to ) {
-                            for( j = res[ len ].to.length-1; j>=0 ; j-- ) {
-                                if( res[ len ].to[ j ].mail === user.mail &&  res[ len ].to[ j ].toBeRead ) {
-                                    res[ len ].toBeRead = true;
-                                    break;
-                                }
-                            }    
-                        }
-                        
-                    }    
-                }
+            if( socket ){
+                socket.emit( 'req-feeds' );
+                socket.emit( 'req-feeds-count' );
+                socket.on( 'res-feeds', function( res ) {
+                    $scope.notifications = $scope.notifications.concat( res );
+                    var index, j, user = GLOBAL.user;
+                    if( user ) {
+                        for( len = res.length-1 ; len>=0 ; len-- ) {
+                            if( res[ len].to ) {
+                                for( j = res[ len ].to.length-1; j>=0 ; j-- ) {
+                                    if( res[ len ].to[ j ].mail === user.mail &&  res[ len ].to[ j ].toBeRead ) {
+                                        res[ len ].toBeRead = true;
+                                        break;
+                                    }
+                                }    
+                            }
+                            
+                        }    
+                    }
+                    
+
+                    $scope.$apply();
+                } );
                 
-
-                $scope.$apply();
-            } );
+                socket.on( 'new-feed', function( res ) {
+                    $scope.notifications.unshift( res );
+                    $scope.totalCount++;
+                    $scope.$apply();
+                } );
+                
+                socket.on( 'res-feeds-count', function( res ) {
+                    $scope.totalCount = res;
+                    $scope.$apply();
+                } );
+    
+            }
             
-            socket.on( 'new-feed', function( res ) {
-                $scope.notifications.unshift( res );
-                $scope.totalCount++;
-                $scope.$apply();
-            } );
-            
-            socket.on( 'res-feeds-count', function( res ) {
-                $scope.totalCount = res;
-                $scope.$apply();
-            } );
-
             $scope.loadmore = function( e ) {
                 e.preventDefault();
                 page++;

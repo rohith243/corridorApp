@@ -8,9 +8,9 @@ function(
 
     return {
        getSocket: function() {
-            if( !socket ) {
+            /*if( !socket ) {
                 socket = socketio()
-            }
+            }*/
             return socket;
        }
     };
