@@ -82,7 +82,7 @@ appSocket.init = function( app, server ) {
 
       socket.on( 'req-make-read', function( req ) {
         Notification.findById( req.id, function( err, doc ) {          
-          if( doc) {
+          if( doc && doc.to ) {
             for( var len = doc.to.length-1; len >= 0; len-- ) {
               if( doc.to[ len].mail === details.mail ) {
                 doc.to[ len ].toBeRead = false;
