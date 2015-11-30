@@ -18,24 +18,32 @@
     max-width: 100%;
 }
 .dummy-search-wrap span {
-    position: absolute;
-    top: 4px;
-    left: 13px;
+    /*position: absolute;*/
+    margin-top: 30px;
     color: #999;
     cursor: pointer;
+}
+.filter-panel md-checkbox {
+    margin-bottom: 0;
+    margin-top: 27px;
+    margin-right: 0;
 }
 .tiles-container {
     padding-top: 20px;
 }
 .app-tile {
-    margin: 15px;
+    margin:15px 0;
     border: solid 1px #d9d9de;
     border-radius: 6px;
     height: 470px;
     position: relative;
     font-size: 14px;
-
-
+}
+.interested-app {
+    position: absolute;
+    z-index: 1;
+    right: 4px;
+    color:rgb(130, 133, 135)
 }
 .app-tile a{
     text-decoration: none;
@@ -200,7 +208,7 @@
     top: 0;
     left: 0;
     z-index: 9999;
-    -webkit-transition: transform 1200ms cubic-bezier(0.175, 0.885, 0.335, 1.05), opacity 0.1s ease-in;
+    -webkit-transition: transform 100ms cubic-bezier(0.175, 0.885, 0.335, 1.05), opacity 100ms ease-in;
     background: #fff;
     visibility: hidden;
     transform: scale3d(0.95, 0.95, 1)
@@ -216,7 +224,7 @@
     opacity: 1;
     visibility: visible;
     transform: scale3d(1, 1, 1);
-    -webkit-transition: transform 1200ms , opacity 0.1s ease-in;
+    -webkit-transition: transform 100ms , opacity 0.1s ease-in;
 }
 .app-search-overlay .close {
     position: absolute;
@@ -256,3 +264,4 @@ input {
 .search-loader md-progress-circular{
     display: inline-block;
 }
+

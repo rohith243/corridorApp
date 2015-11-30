@@ -94,7 +94,7 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'publishedApps' ]              
+              keys: [ 'published Apps' ]              
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {

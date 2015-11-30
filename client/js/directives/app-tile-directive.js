@@ -8,7 +8,6 @@ function(
 ){
     
     var init = function() {
-        console.log( 'calling apptile init' );
         angular.module( 'letsBuild' )
         .directive('appTile', [function() {
             return {
@@ -41,7 +40,6 @@ function(
             'Notification',
             function( $scope,model,http,Notification ) {
                 $scope.deleteItem = function(  e ,item ) {
-
                     e.preventDefault();
                     http.get( './api/apps/deleteApp?id=' + item.id )
                     .then( function( res ) {
@@ -89,9 +87,22 @@ function(
                     }
                     return effortFundedPerc+'%';
                 };
+
+                $scope.checkInterested = function() {
+                    if( !GLOBAL.user ) {
+                        return false;
+                    }
+
+                    var interests = $scope.item.interests;
+                    for( var item in  interests ) {
+                        if( GLOBAL.user.mail === interests[ item ].mail ) {
+                            return true;
+                        }
+                    }
+                    
+                };
             }
         ] )
-    
     };
 
     return {

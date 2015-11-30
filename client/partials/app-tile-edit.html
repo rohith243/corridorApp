@@ -1,4 +1,7 @@
 <div class="app-tile">
+   <span class="interested-app" ng-if="checkInterested()" title="your Interested Item">
+     <i class="fa fa-heart"></i>
+   </span>
    <a ng-href="#details/{{item.id}}" class="gtm-apptile-link" data-gtm-data="{{item.appName}}">
        <div class="app-tile-thumbnail">
           <img alt="Project image" class="project-thumbnail-img" ng-src="{{item.imgurl || ( 'images/default.png') }}">
