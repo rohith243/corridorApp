@@ -31,6 +31,14 @@
                         <span class="thiker" flex="45" align="right">Effort : </span> 
                         <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
                     </div>
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Filled effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{getEffortFunded( item )}}h</span>
+                    </div>
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Required effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{item.effort - getEffortFunded( item )}}h</span>
+                    </div>
                     <div class="like-container">
                         
                         <a href="#" ng-click="updateLikes($event)" class="gtm-upvote" data-gtm-data="{{item.appName}}">

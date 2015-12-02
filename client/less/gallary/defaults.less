@@ -78,10 +78,19 @@
 }
 .app-tile-progress-bar {
     border-radius: 3px;
-    height: 6px;
+    height: 20px;
     margin-bottom: 5px;
     background-color: #d9d9de;
     overflow: hidden;    
+    .status-text {
+        position: absolute;
+        color: #009436;
+        font-size: 10px;
+        line-height: 20px;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;        
+    }
 }
 .percent-pledged {
     background-color: #2bde73;
@@ -96,8 +105,15 @@
     color:#0f2105
 }
 .app-tile-desc {
-
+    line-clamp: 3;
+    box-orient: vertical;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
+
+
 @media ( min-width: 925px ) {
     .md-layout-row>.flex-33 {
         max-width: calc( 100% / 3 );
