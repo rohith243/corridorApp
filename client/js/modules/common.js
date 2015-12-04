@@ -61,6 +61,19 @@ function(
                 return inputArray;
               };
             })
+            .filter('commentGetImages', function() {
+              return function( inputArray ) {
+                if( !inputArray ) {
+                    return [];
+                }
+                for( var i = 0; i < inputArray.length; i++ ) {
+                    if( tempImages[ inputArray[i].commenter.mail ] ) {
+                        inputArray[i].commenter.src = tempImages[ inputArray[i].commenter.mail ];
+                    }
+                }
+                return inputArray;
+              };
+            })
             .directive( 'checkFeature', [
                 function() {
                     return {

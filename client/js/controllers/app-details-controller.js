@@ -3,14 +3,16 @@ define([
   'angular',
   'modules/markdown',
   'vendors//jquery.easing.min',
-  'controllers/express-interest-controller'
+  'controllers/express-interest-controller',
+  'directives/comments-directive'
 ], 
 function(
     $,
     angular,
     markdown,
     easein,
-    expressInterest
+    expressInterest,
+    comments
 ){
 
     angular.module( 'letsBuild' )
@@ -127,7 +129,8 @@ function(
                 return effortFundedPerc;
             };
 
-
+            
+        
         }            
     ] );
     $( window ).scroll( function  (argument) {
