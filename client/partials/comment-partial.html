@@ -6,7 +6,9 @@
     <div class="md-list-item-text" layout="column">
         <h3>{{ item.commenter.firstName }} {{ item.commenter.lastName }}</h3>
         <h4>{{ item.comment }}</h4>
-        <p><a href="#" ng-click="replyComment( $event, item )">Reply</a><a href="#" href="#" ng-click="removeComment( $event, index )">Remove</a><small>{{ item.createdAt | date : 'dd-MMM-yyyy'}}</small></p>
+        <p>
+        <a href="#" ng-click="replyComment( $event, item )">Reply</a>
+        <a href="#" href="#" ng-click="removeComment( $event, index )" ng-if="item.commenter.mail === user.mail">Remove</a><small>{{ item.createdAt | date : 'dd-MMM-yyyy'}}</small></p>
         <md-list>
             <inner-comment ng-repeat="innerItem in item.children | commentGetImages" data-all-comments="item.children" data-item="innerItem" data-parent-comment="item" data-index="$index"></inner-comment>
         </md-list>

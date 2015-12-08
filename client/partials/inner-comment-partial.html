@@ -9,6 +9,7 @@
             <strong ng-if="item.target.firstName">@{{item.target.firstName }} {{item.target.lastName }}</strong>
             {{ item.comment }}
         </h4>
-        <p><a href="#" ng-click="replyComment( $event, item )">Reply</a><a href="#" href="#" ng-click="removeInnerComment( $event, index )">Remove</a><small>{{ item.createdAt | date: 'dd-MMM-yyyy' }}</small></p>
+        <p><a href="#" ng-click="replyComment( $event, item )">Reply</a>
+        <a ng-if="item.commenter.mail === user.mail"  href="#" href="#" ng-click="removeInnerComment( $event, index )">Remove</a><small>{{ item.createdAt | date: 'dd-MMM-yyyy' }}</small></p>
     </div>
 </md-list-item>

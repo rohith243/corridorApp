@@ -85,6 +85,7 @@ function(
             $stateParams,
             navMenu
         ) {
+            $scope.user = GLOBAL.user;
             $scope.removeComment = function( e, index ) {
                 if( !GLOBAL.user ) {
                     navMenu.openMenu(e, true);
@@ -122,7 +123,6 @@ function(
                 comment.comment = value;
                 comment.commenter = GLOBAL.user;
                 comment.pageId = $stateParams.id;
-                
                 comment.commentId = commentingTo.id;
 
                 console.log( comment.commentId );    
@@ -165,6 +165,7 @@ function(
             $scope,
             navMenu
         ) {
+            $scope.user = GLOBAL.user;
             $scope.removeInnerComment = function( e, index ) {
                 e.preventDefault();
                 if( !GLOBAL.user ) {
