@@ -1,10 +1,11 @@
 <div layout="row"  layout-wrap layout-align="start center">
     <div flex="70" flex-sm="100">
-        <h1 class="md-display-1">Your proposed apps</h1>
+        <h1 class="md-display-1">Published Apps</h1>
     </div>
-    <div flex="30" flex-sm="100" class="filter-panel dashboard-filter" >
+    <div flex="30" flex-sm="100" class="filter-panel" >
         <div layout="row"  layout-align="center center">
-            <div flex="50">
+
+            <div flex="40">
                 <div class="sort-by">
                     <md-input-container>
                         <label >Sort By</label>
@@ -21,15 +22,19 @@
                     <span ng-click="searchpop()" class="fa fa-search"></span>
                 </div>
             </div>
+            <div ng-show="user">
+                <md-checkbox ng-model="isInterested">
+                    Interested Apps
+                </md-checkbox>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="app-container">
-    
-        
+
     <md-content class="tiles-container" ng-repeat="(key,tab) in apps">
-        <div  ng-if="!tab || tab.length ===0">
+        <div ng-if="getData( key, 'all' ).length === 0" >
             <div class="margin-flush">
                 <md-toolbar class="md-warn">
                     <div class="md-toolbar-tools">
@@ -38,18 +43,17 @@
                 </md-toolbar>
             </div>
         </div>
-        <div layout="row" layout-wrap ng-if="tab && tab.length > 0">
-            <div flex="33" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-mode="'publish'" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+        <div layout="row" layout-wrap>
+            <div flex="33" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-mode="'publish'" ng-repeat="item in getData( key, 'all' ) | orderBy:sortBy | limitTo: limit[key]">
             </div>
         </div>
 
-        <div class="loadmore" ng-if="tab.length > limit[key]">
+        <div class="loadmore" ng-if="getData( key, 'all' ).length > limit[key]">
             <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
                 Load more
             </md-button>
         </div>
     </md-content>
-
 
 </div>
 

@@ -3,14 +3,16 @@ define([
   'angular',
   'modules/markdown',
   'vendors//jquery.easing.min',
-  'controllers/express-interest-controller'
+  'controllers/express-interest-controller',
+  'directives/comments-directive'
 ], 
 function(
     $,
     angular,
     markdown,
     easein,
-    expressInterest
+    expressInterest,
+    comments
 ){
 
     angular.module( 'letsBuild' )
@@ -110,9 +112,25 @@ function(
                     } )    
                 }
                 
-            }
+            };
+            $scope.getEffortFunded = function(item) {
+                
+                var effortFunded = 0;
+                for (var interest in item.interests) {
+                    var user = item.interests[interest];
+                    if (user.hours && !isNaN(user.hours)) {
+                        effortFunded = effortFunded + parseInt(user.hours);
+                    }                        
+                }
+                var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
+                if (isNaN(effortFundedPerc)) {
+                    return 0;
+                }
+                return effortFundedPerc;
+            };
 
-
+            
+        
         }            
     ] );
     $( window ).scroll( function  (argument) {

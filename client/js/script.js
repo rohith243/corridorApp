@@ -26,7 +26,12 @@ function(
             resolve: {
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Home';
-              }]
+              }],
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                  './css/home/index.css'
+                ]);
+              }],
             }
         })
         .state('propose-form', {
@@ -94,7 +99,7 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'publishedApps' ]              
+              keys: [ 'published Apps' ]              
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -249,7 +254,8 @@ function(
           console.log( 'stateChanged' );
           dataLayer.push( {
             event: 'virtualPageView',
-            virtualPagePath: '#' + $location.path()
+            virtualPagePath: '#' + $location.path(),
+            userName: GLOBAL.user ? GLOBAL.user.mail : ''
           } );
         } catch ( e) {}
       });

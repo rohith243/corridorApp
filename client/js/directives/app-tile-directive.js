@@ -8,7 +8,6 @@ function(
 ){
     
     var init = function() {
-        console.log( 'calling apptile init' );
         angular.module( 'letsBuild' )
         .directive('appTile', [function() {
             return {
@@ -41,7 +40,6 @@ function(
             'Notification',
             function( $scope,model,http,Notification ) {
                 $scope.deleteItem = function(  e ,item ) {
-
                     e.preventDefault();
                     http.get( './api/apps/deleteApp?id=' + item.id )
                     .then( function( res ) {
@@ -76,6 +74,10 @@ function(
                 };
 
                 $scope.getEffortFunded = function(item) {
+                    
+                    if( typeof item.accumlatedEffort !== 'undefined' ) {
+                        return item.accumlatedEffort;
+                    } 
                     var effortFunded = 0;
                     for (var interest in item.interests) {
                         var user = item.interests[interest];
@@ -85,13 +87,26 @@ function(
                     }
                     var effortFundedPerc = Math.floor((effortFunded/item.effort)*100);
                     if (isNaN(effortFundedPerc)) {
-                        return '0%';
+                        return 0;
                     }
-                    return effortFundedPerc+'%';
+                    return effortFundedPerc;
+                };
+
+                $scope.checkInterested = function() {
+                    if( !GLOBAL.user ) {
+                        return false;
+                    }
+
+                    var interests = $scope.item.interests;
+                    for( var item in  interests ) {
+                        if( GLOBAL.user.mail === interests[ item ].mail ) {
+                            return true;
+                        }
+                    }
+                    
                 };
             }
         ] )
-    
     };
 
     return {

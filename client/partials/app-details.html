@@ -31,6 +31,14 @@
                         <span class="thiker" flex="45" align="right">Effort : </span> 
                         <span flex="55" class="app-summary-value"> {{item.effort}}h</span>
                     </div>
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Filled effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{getEffortFunded( item )}}h</span>
+                    </div>
+                    <div layout="row"ng-if="item.effort">
+                        <span class="thiker" flex="45" align="right">Required effort : </span> 
+                        <span flex="55" class="app-summary-value"> {{item.effort - getEffortFunded( item )}}h</span>
+                    </div>
                     <div class="like-container">
                         
                         <a href="#" ng-click="updateLikes($event)" class="gtm-upvote" data-gtm-data="{{item.appName}}">
@@ -108,25 +116,6 @@
                                 </span>
                             </a>
                         </div>
-
-                        <!--div class="grid-row">
-                            <ul class="grid grid-sm-12 grid-md-6" ng-repeat="mem in item.interests | getImages" ng-if="mem.isContributor" style="list-style:none;">
-                                <li>
-                                    <div>
-                                        <div ng-if="mem.src" class="backname-prof-pic" ng-style="{'background-image': 'url( {{mem.src }} )'}">
-
-                                        </div>
-                                        <div ng-if="!mem.src" class="background-name">
-                                            {{mem.firstName[0]}}{{mem.lastName[0]}}
-                                        </div>
-                                        <div class="name-container">
-                                            <p class="ng-binding">{{mem.firstName}}</p>
-                                            <p class="ng-binding">{{mem.mail}}</p>
-                                        </div>
-                                     </div>                                            
-                                </li>
-                            </ul>
-                        </div-->
                     </div>
                 </div>
             </div>
@@ -172,6 +161,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="content-separators info-section" id="comments" >
+                <div class="icon-holder">
+                    <div class="icon-parent">
+                        <span class="fa fa-comments"></span>
+                    </div>    
+                </div>
+                <div>
+                    <h1 class="content-heading">Comments</h1>
+                    <comments></comments>
+                </div>
+            </div>
         </div>
         <div class="section-navigator">
             <ul class="page-navigator-link">
@@ -180,6 +181,7 @@
                 <li id="introduction-li" ng-if="item.longDesc"><a href="#introduction">Introduction</a></li>
                 <li id="video-li" ng-if="item.vedioLink"><a href="#video">Video</a></li>
                 <li id="analysis-li" ng-if="item.solution"><a href="#analysis">Analysis</a></li>
+                <li id="comments-li"><a href="#comments">Comments</a></li>
             </ul>
         </div>
 
@@ -190,3 +192,37 @@
     <img class="yj-yam-spittle" src="https://c64.assets-yammer.com/assets/yammer_spittle_white.png" alt="Yammer Spittle Icon">
     <span>Yammer share</span>
 </md-button>
+
+<style type="text/css">
+    md-list-item {
+        margin-bottom: 20px;
+    } 
+    .avtar-name {
+        text-align: center;
+        background-color: #39A2CA;
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 40px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    md-list md-list {
+        padding: 0;
+        margin-left: -20px;
+    }
+    md-list-item md-list-item {
+        margin-top: 20px;
+        margin-bottom: 0
+    }
+    md-list-item.md-3-line, md-list-item.md-3-line>.md-no-style{
+        height: auto;
+    }
+
+    md-list-item a {
+        margin-right: 10px;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    
+
+</style>

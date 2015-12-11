@@ -28,7 +28,11 @@ function(
             if( socket ){
                 socket.emit( 'req-feeds' );
                 socket.emit( 'req-feeds-count' );
+                socket.off( 'res-feeds' );
                 socket.on( 'res-feeds', function( res ) {
+                    if( !$scope ) {
+                        return;
+                    }
                     $scope.notifications = $scope.notifications.concat( res );
                     var index, j, user = GLOBAL.user;
                     if( user ) {
@@ -48,14 +52,20 @@ function(
 
                     $scope.$apply();
                 } );
-                
+                socket.off( 'res-feed' );
                 socket.on( 'new-feed', function( res ) {
+                    if( !$scope ) {
+                        return;
+                    }
                     $scope.notifications.unshift( res );
                     $scope.totalCount++;
                     $scope.$apply();
                 } );
-                
+                socket.off( 'res-feeds-count' );
                 socket.on( 'res-feeds-count', function( res ) {
+                    if( !$scope ) {
+                        return;
+                    }
                     $scope.totalCount = res;
                     $scope.$apply();
                 } );
@@ -82,9 +92,6 @@ function(
                 }
             };
 
-            
-                
-        
         
         } 
     ] )

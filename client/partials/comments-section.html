@@ -1,0 +1,21 @@
+<div>
+    <p ng-if="comments.length">{{comments.length}} thoughts about this idea</p>
+    <p ng-if="!comments.length">Be the first one to comment on this Idea</p>
+    <div class="content-data">
+        <div class="comments-holder">
+            <md-list>
+                <div ng-repeat="item in comments | commentGetImages">
+                    <comment data-all-comments="comments" data-item="item" data-index="$index"></comment>
+                 </div>
+             </md-list>
+        </div>
+
+        <form class="comment-form" name="postCommentForm" ng-submit="postComment( $event, newcomment )">
+            <input type="submit" hidden>
+            <md-input-container class="md-block">
+                <label>Post your feedback here</label>
+                <input required name="newcomment" ng-model="newcomment">
+            </md-input-container>
+        </form>
+    </div>
+</div>
