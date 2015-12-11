@@ -54,7 +54,9 @@ function(
                 socket.emit( 'req-comments', {
                     pageId: $stateParams.id
                 } );
-                
+
+                //remove the earlier binded on for socket 
+                socket.off( 'res-comments' );
                 socket.on( 'res-comments', function( res ) {
                     $scope.comments = res;
                     $scope.$apply();
@@ -125,7 +127,7 @@ function(
                 comment.pageId = $stateParams.id;
                 comment.commentId = commentingTo.id;
 
-                console.log( comment.commentId );    
+                //console.log( comment.commentId );    
                 
                 if( innerCommentTo && innerCommentTo.createdAt ) {
                     comment.commentTo = innerCommentTo.createdAt;
