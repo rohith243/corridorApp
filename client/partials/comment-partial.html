@@ -1,0 +1,25 @@
+<md-list-item class="md-3-line">
+    <img ng-if="item.src" ng-src="{{item.src}}" class="md-avatar"/>
+    <div ng-if="!item.src" class="md-avatar avtar-name">
+        {{item.commenter.firstName[0]}} {{item.commenter.lastName[0]}}
+    </div>
+    <div class="md-list-item-text" layout="column">
+        <h3>{{ item.commenter.firstName }} {{ item.commenter.lastName }}</h3>
+        <h4>{{ item.comment }}</h4>
+        <p>
+        <a href="#" ng-click="replyComment( $event, item )">Reply</a>
+        <a href="#" href="#" ng-click="removeComment( $event, index )" ng-if="item.commenter.mail === user.mail">Remove</a><small>{{ item.createdAt | date : 'dd-MMM-yyyy'}}</small></p>
+        <md-list>
+            <inner-comment ng-repeat="innerItem in item.children | commentGetImages" data-all-comments="item.children" data-item="innerItem" data-parent-comment="item" data-index="$index"></inner-comment>
+        </md-list>
+        <div ng-if="item.showCommentForm"> 
+            <form  class="comment-form" name="postCommentForm" ng-submit="postReplyComment( $event, newcomment, item )">
+                <input type="submit" hidden>
+                <md-input-container class="md-block">
+                    <label>Reply to {{userTarget.firstName}} {{userTarget.lastName}}</label>
+                    <input required name="newcomment" ng-model="newcomment">
+                </md-input-container>
+            </form> 
+        </div>
+    </div>
+</md-list-item>

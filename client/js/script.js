@@ -26,7 +26,12 @@ function(
             resolve: {
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Home';
-              }]
+              }],
+              loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                  './css/home/index.css'
+                ]);
+              }],
             }
         })
         .state('propose-form', {
