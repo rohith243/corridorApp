@@ -40,7 +40,7 @@
           <p>Category : {{item.category || "N/A"}}</p>
           <div class="project-stats-container">
              <div class="app-tile-progress-bar">
-                <span class="status-text">Filled {{getEffortFunded(item)}} of {{item.effort}} hours</span>
+                <span class="status-text">Filled {{getEffortFunded(item)*( item.effort || 0)}} of {{item.effort}} hours</span>
                 <div class="percent-pledged" ng-style="{'width':getEffortFunded(item) + '%'}"></div>
              </div>
              <div class="project-stats">
