@@ -400,4 +400,35 @@ module.exports = function(App) {
             { arg: 'res', type: 'object', 'http': {source: 'res'}}
         ]
     });
+
+    App.toggleFeature = function( data, req, res, cb ) {
+        var id = data.id;
+        udetails = user.getDetails( req );
+        if( udetails && udetails.admin ) {
+            App.update( {
+                id: data.id
+            }, {
+                featured: data.featured
+            }, function(err, res) {
+                cb( null, res );
+            } );
+            
+        } else {
+            res.statusCode = 404;
+            res.json( {
+                error: '_unauthorized_user'
+            } );
+            return;
+        }
+        
+    };
+
+    App.remoteMethod('toggleFeature', {
+        returns: {arg: 'app', root: true},
+        accepts:[
+          { arg: 'data', type: 'object', 'http': {source: 'body'} },
+          { arg: 'req', type: 'object', 'http': {source: 'req'}},
+          { arg: 'res', type: 'object', 'http': {source: 'res'}}
+        ]
+    });
 };

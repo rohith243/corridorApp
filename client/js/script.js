@@ -75,7 +75,8 @@ function(
             },
             params: {
               url: './api/apps/myApps',
-              keys: [ 'drafts' , 'published' ]
+              keys: [ 'drafts' , 'published' ],
+              page: 'my-proposals'
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -99,7 +100,8 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'published Apps' ]              
+              keys: [ 'featured', 'my-proposals', 'published-apps' ],
+              page: 'all-proposals'            
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -123,7 +125,8 @@ function(
             },
             params: {
               url: './api/apps/publishedApps',
-              keys: [ 'publishedApps' ]            
+              keys: [ 'featured', 'my-proposals', 'published-apps' ],
+              page: 'admin-dashboard'          
             },
             resolve: { 
               loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -132,6 +135,9 @@ function(
                   './css/gallary/index.css'
                 ]);
               }],
+              signedin: [ 'http', function(http) {
+                return http.get( './services/checksignin' ); 
+              } ],
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Admin Dashboard';
               }]
@@ -152,6 +158,9 @@ function(
                     './css/admin-editor/index.css'
                 ]);
               }],
+              signedin: [ 'http', function(http) {
+                return http.get( './services/checksignin' ); 
+              } ],
               pageTitle : ['model', function( model ) {
                 model.pageTitle = 'Admin Edit';
               }]

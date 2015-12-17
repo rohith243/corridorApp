@@ -26,29 +26,25 @@
 </div>
 
 <div class="app-container">
-    
-        
-    <md-content class="tiles-container" ng-repeat="(key,tab) in apps">
-        <div  ng-if="!tab || tab.length ===0">
-            <div class="margin-flush">
-                <md-toolbar class="md-warn">
-                    <div class="md-toolbar-tools">
-                        <h2 class="md-flex">You don't have any items in <strong>{{key}}</strong></h2>
-                    </div>
-                </md-toolbar>
+ 
+     <md-content class="tiles-container" ng-repeat="(key,tab) in apps">
+        <div  ng-if="tab.length !== 0">
+            <h1 class="md-headline">
+                {{keymap[ key ]}}
+            </h1>
+            <div layout="row" layout-wrap>
+                <div flex="33" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-mode="'admin'" data-re-arrange-apps="reArrangeApps" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
+                </div>
             </div>
-        </div>
-        <div layout="row" layout-wrap ng-if="tab && tab.length > 0">
-            <div flex="33" flex-sm="100" flex-md="50"  app-tile-edit data-item="item" data-mode="'admin'" ng-repeat="item in tab | orderBy:sortBy | limitTo: limit[key]">
-            </div>
-        </div>
 
-        <div class="loadmore" ng-if="tab.length > limit[key]">
-            <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
-                Load more
-            </md-button>
+            <div class="loadmore" ng-if="tab.length > limit[key]">
+                <md-button ng-click="$event.preventDefault();limit[key] = limit[key] + 6" class="md-raised md-primary primary-button">
+                    Load more
+                </md-button>
+            </div>
         </div>
     </md-content>
+
 </div>
 
 <div id="search-app-wrapper" search-app mode='admin'></div>

@@ -20,6 +20,12 @@
               </md-button>
           </div>
           <div class="tile-features" ng-if="mode==='admin'">
+              <md-button ng-if="item.featured" title="Remove featured" href="#" class="md-fab md-primary md-mini" ng-click="toggleFeature($event,item)">
+                  <i class="fa fa-heart"></i>
+              </md-button>
+              <md-button ng-if="!item.featured" title="Add featured" href="#" class="md-fab md-primary md-mini" ng-click="toggleFeature($event,item)">
+                  <i class="fa fa-heart-o"></i>
+              </md-button>
               <md-button title="Edit" class="md-fab md-primary md-mini" ng-href="#admin/edit/{{item.id}}">
                   <i class="fa fa-edit"></i>
               </md-button>

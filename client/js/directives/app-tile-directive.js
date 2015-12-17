@@ -28,7 +28,8 @@ function(
                     item: '=',
                     mode: '=',
                     key: '=',
-                    index: '='
+                    index: '=',
+                    reArrangeApps: '='
                 },
                 controller: 'appTileController'
             };
@@ -48,11 +49,15 @@ function(
                         if( index != -1 ) {
                             model.appResponse.splice( index, 1 );
                         }
+                        if( $scope.reArrangeApps ) {
+                            $scope.reArrangeApps();    
+                        }
+                        
                     } )
                 
                 };
 
-                $scope.togglePublish = function(  e ,item, index, key ) {
+                $scope.togglePublish = function(  e ,item ) {
 
                     e.preventDefault();
                     if (item.appName && item.solution) {
@@ -65,6 +70,9 @@ function(
                         .then(function(res) {
                             item.isPublish = res.isPublish;
                             Notification.success('successfully updated');
+                            if( $scope.reArrangeApps ) {
+                                $scope.reArrangeApps();    
+                            }
                         });
                     }
                     else {
@@ -103,6 +111,27 @@ function(
                             return true;
                         }
                     }
+                    
+                };
+
+                $scope.toggleFeature = function( e, item) {
+                    e.preventDefault();
+                    if( !GLOBAL.user && !GLOBAL.user.admin ) {
+                        return false;
+                    }
+                    item.featured = !item.featured;
+                    http.post( './api/apps/toggleFeature', {
+                        postData: {
+                            featured : item.featured,
+                            id: item.id
+                        }
+                    })
+                    .then(function(res) {
+                        Notification.success('successfully updated');
+                        if( $scope.reArrangeApps ) {
+                            $scope.reArrangeApps();    
+                        }
+                    });
                     
                 };
             }

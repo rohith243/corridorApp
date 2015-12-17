@@ -81,7 +81,8 @@
     height: 20px;
     margin-bottom: 5px;
     background-color: #d9d9de;
-    overflow: hidden;    
+    overflow: hidden; 
+    position: relative;   
     .status-text {
         position: absolute;
         color: #009436;
@@ -89,7 +90,9 @@
         line-height: 20px;
         font-weight: bold;
         width: 100%;
-        text-align: center;        
+        text-align: center;    
+        left: 0;
+        top: 0;   
     }
 }
 .percent-pledged {
@@ -136,6 +139,12 @@
     left: 0px;
     right: 0px;
     transition: all 0.3s ease-in;
+    .fa-heart, .fa-heart-o {
+        margin-left: -2px;
+    }
+    .md-button.md-fab {
+        transition: none;
+    }
 }
 
 .app-tile:hover .tile-features {
