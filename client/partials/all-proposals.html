@@ -1,6 +1,6 @@
 <div layout="row"  layout-wrap layout-align="start center">
     <div flex="70" flex-sm="100">
-        <h1 class="md-display-1">Published Apps</h1>
+        <h1 class="md-display-1">All Proposals</h1>
     </div>
     <div flex="30" flex-sm="100" class="filter-panel" >
         <div layout="row"  layout-align="center center">
@@ -33,9 +33,9 @@
 
 <div class="app-container">
 
-
-    <md-content class="tiles-container" ng-repeat="(key,tab) in apps">
-        <div  ng-if="getDataAllProp( tab ).length !== 0">
+    <div ng-repeat="(key,tab) in apps">
+        <md-content class="tiles-container" ng-if="getDataAllProp( tab ).length !== 0">
+            
             <h1 class="md-headline">
                 {{keymap[ key ]}}
             </h1>
@@ -49,9 +49,9 @@
                     Load more
                 </md-button>
             </div>
-        </div>
-    </md-content>
-
+        
+        </md-content>
+    </div>
 
 
 </div>

@@ -26,9 +26,8 @@
 </div>
 
 <div class="app-container">
- 
-     <md-content class="tiles-container" ng-repeat="(key,tab) in apps">
-        <div  ng-if="tab.length !== 0">
+    <div  ng-repeat="(key,tab) in apps">
+        <md-content class="tiles-container" ng-if="getDataAllProp( tab ).length !== 0">
             <h1 class="md-headline">
                 {{keymap[ key ]}}
             </h1>
@@ -42,9 +41,9 @@
                     Load more
                 </md-button>
             </div>
-        </div>
-    </md-content>
-
+        
+        </md-content>
+    </div>
 </div>
 
 <div id="search-app-wrapper" search-app mode='admin'></div>
