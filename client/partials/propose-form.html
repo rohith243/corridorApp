@@ -92,7 +92,11 @@
                                 <md-input-container>
                                     <label>Estimated effort ( in hours )</label>
                                     <input type="number" required name="effort" ng-model="item.effort">
+                                    <div ng-messages="updateForm.$showValidation && updateForm.effort.$error">
+                                        <div ng-message="required">This is required.</div>
+                                    </div>
                                 </md-input-container>
+
                             </div>
 
                         </div>
@@ -187,8 +191,28 @@
                         </div>
                         <div>
                             <md-input-container>
-                                <label>App Icon URL</label>
-                                <input type="text" ng-model="item.imgurl" name="imgurl">
+                                <div layout="row"  layout-sm="column">
+                                    <div flex class="icon-holder" ng-if="item.imgurl">
+                                        <img ng-src="{{item.imgurl}}" id="appicon" imageonload>
+                                    </div>
+                                    <div flex class="upload-btn-holder">
+                                        <input id="fileInput"  name="fileInput" type="file" class="ng-hide" onchange="angular.element(this).scope().fileNameChanged(event)" >
+                                        <md-button  id="uploadButton" class="md-raised md-primary" ng-click="pickImage( $event )">
+                                         <span ng-if="item.imgurl">
+                                            Change App Icon
+                                         </span>
+                                         <span ng-if="!item.imgurl">
+                                            Upload app icon
+                                         </span>
+                                         
+                                        </md-button>
+                                        <md-button ng-if="item.imgurl"  class="md-raised md-primary" ng-click="item.imgurl = ''">
+                                         Remove Icon
+                                        </md-button>
+                                        <p><small>* Keep image size low ( preferred 320px x 230px )</small></p>
+                                    </div>
+                                </div>
+                                
                             </md-input-container>
                         </div>
                     </md-content>
@@ -204,7 +228,7 @@
                                 <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
                                 <div ng-if="!mem.src" class="profile-name">
-                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                    {{mem.firstName[0]}}{{mem.lastName[0]}}
                                 </div>
                                 <div class="name-container">
                                     <div>{{mem.firstName}}</div>
@@ -230,7 +254,7 @@
                                 <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
                                 <div ng-if="!mem.src" class="profile-name">
-                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                    {{mem.firstName[0]}}{{mem.lastName[0]}}
                                 </div>
                                 <div class="name-container">
                                     <div>{{mem.firstName}}</div>
@@ -274,5 +298,15 @@
     .switch-btn md-switch {
         display: inline-block;
         margin: 0px;
+    }
+    .icon-holder {
+        margin-top: 20px;
+    }
+
+    .icon-holder img{
+        max-width: 150px;
+    }
+    .upload-btn-holder {
+        padding:30px 0; 
     }
 </style>

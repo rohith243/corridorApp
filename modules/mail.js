@@ -46,18 +46,64 @@ mail.send = function  ( item, user ) {
         console.log('Message sent: ' + info.response);
     });  
 };
-mail.notifyContributor = function  ( item, contributor, info ) {
-    mailOptions.to = contributor.mail;
-    mailOptions.cc = item.owner.mail;
-    mailOptions.subject = 'LetsBuild Notification: Contributor ' + item.appName;
-    mailOptions.html = '<p>Hi '+ ( contributor.firstName || contributor.uid )+',</p>';
-    mailOptions.html += '<p>'+ info + item.appName+' idea</p>';
-    getTransporter().sendMail(mailOptions, function(error, info){
-        if(error) {
-            return console.log(error);
+mail.notifyProposedTeam = function  ( item, existingTeam, updatingTeam  ) {
+    //check if proposed member deleted
+    for( var i=0; i < existingTeam.length; i++ ) {
+        var deleted = true;
+        for( var j=0;j<updatingTeam.length;j++ ) {
+            if( existingTeam[i].mail === updatingTeam[ j ].mail ) {
+                deleted = false;
+                break;
+            }
         }
-        console.log('Message sent: ' + info.response);
-    });  
+        if( deleted ) {
+            if( existingTeam[i].mail === item.owner.mail ) {
+                //donot notify the owner ( to avoid sending mail to owner same person)
+                return;
+            }
+            console.log( 'deleting', existingTeam[i].mail );
+            mailOptions.to = existingTeam[i].mail;
+            mailOptions.cc = item.owner.mail;
+            mailOptions.subject = 'LetsBuild Notification: ' + item.appName;
+            mailOptions.html = '<p>Hi '+ ( existingTeam[i].firstName )+',</p>';
+            mailOptions.html += '<p> you have removed from proposed Team of <b>'+  item.appName+'</b></p>';
+            getTransporter().sendMail(mailOptions, function(error, info){
+                if(error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+            })        
+        }
+    }
+    //check if proposed member added
+    for( var i=0; i < updatingTeam.length; i++ ) {
+        var newMem = true;
+        for( var j=0;j<existingTeam.length;j++ ) {
+            if( updatingTeam[i].mail === existingTeam[ j ].mail ) {
+                newMem = false;
+                break;
+            }
+        }
+        if( newMem ) {
+            if( updatingTeam[i].mail === item.owner.mail ) {
+                //donot notify the owner ( to avoid sending mail to owner same person)
+                return;
+            }
+            console.log( 'adding', updatingTeam[i].mail );
+            mailOptions.to = updatingTeam[i].mail;
+            mailOptions.cc = item.owner.mail;
+            mailOptions.subject = 'LetsBuild Notification: ' + item.appName;
+            mailOptions.html = '<p>Hi '+ ( updatingTeam[i].firstName )+',</p>';
+            mailOptions.html += '<p> you have added in proposed Team of <b>'+  item.appName+'</b></p>';
+            getTransporter().sendMail(mailOptions, function(error, info){
+                if(error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+            })        
+        }
+    }
+
 };
 module.exports = mail;
 

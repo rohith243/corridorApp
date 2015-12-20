@@ -63,34 +63,51 @@
                                 <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
                                 <div ng-if="!mem.src" class="profile-name">
-                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                    {{mem.firstName[0]}}{{mem.lastName[0]}}
                                 </div>
                                 <span>
                                 &nbsp;{{mem.firstName}}
                                 </span>
                             </a>
                         </div>
-                        <md-button ng-if="item.owner.mail != user.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
-                        >
-                            <span ng-if="!isEditExpress()" >
-                                Express Interest
-                            </span>
-                            <span ng-if="isEditExpress()" >
-                                Edit Interest
-                            </span>
-                        </md-button>
+                        <div ng-if="!isProposedMem()">
+                            <md-button ng-if="item.owner.mail != user.mail" class="md-raised md-primary primary-button gtm-click-express-interest" ng-click="expressInterestDetails($event)"
+                            >
+                                <span ng-if="!isEditExpress()" >
+                                    Express Interest
+                                </span>
+                                <span ng-if="isEditExpress()" >
+                                    Edit Interest
+                                </span>
+                            </md-button>
 
-                        <md-button ng-if="item.owner.mail != user.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
-                            UNEXPRESS Interest
-                        </md-button>
+                            <md-button ng-if="item.owner.mail != user.mail && isEditExpress()" class="md-raised md-primary primary-button md-warn gtm-click-unexpress-interest" ng-click="unExpressInterest($event)">
+                                UNEXPRESS Interest
+                            </md-button>
+                        </div>
                         <md-button ng-if="item.owner.mail == user.mail" class="md-raised md-primary primary-button gtm-click-edit" ng-href="#edit/{{item.id}}" >
                             Edit
                         </md-button>
+                        
+                    </div>
+                    <div ng-if="user.mail !== item.owner.mail" class="owner-tile">
+                        <div class="md-title">Owner</div>
+                        <div ng-repeat="mem in [item.owner] | getImages" class="user-rep">
+                            <a ng-href="mailto:{{mem.mail}}">
+                                <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
+                                </div>
+                                <div ng-if="!mem.src" class="profile-name">
+                                    {{mem.firstName[0]}}{{mem.lastName[0]}}
+                                </div>
+                                <span>
+                                &nbsp;{{mem.firstName}}
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-       
     </div>
                 
     <div style="position:relative"> 
@@ -109,7 +126,7 @@
                                 <div ng-if="mem.src" class="profile-pic" ng-style="{'background-image': 'url( {{mem.src }})'}">
                                 </div>
                                 <div ng-if="!mem.src" class="profile-name">
-                                    {{mem.firstName[0]}} {{mem.lastName[0]}}
+                                    {{mem.firstName[0]}}{{mem.lastName[0]}}
                                 </div>
                                 <span>
                                 &nbsp;{{mem.firstName}}
@@ -222,6 +239,12 @@
         margin-right: 10px;
         text-decoration: none;
         font-size: 12px;
+    }
+    .owner-tile {
+        margin-top: 10px;
+    }
+    .owner-tile .md-title {
+        margin-bottom: 10px;
     }
     
 

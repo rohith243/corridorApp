@@ -129,6 +129,19 @@ function(
                 return effortFundedPerc;
             };
 
+            $scope.isProposedMem = function() {
+                
+                if( !$scope.user ) {
+                    return false;
+                }
+                var pteam = $scope.item.proposedTeam;
+                for( var len = pteam.length - 1 ; len >= 0; len-- ) {
+                    if( pteam[ len ].mail === $scope.user.mail ) {
+                        return true;
+                    }
+                }
+
+            };
             
         
         }            

@@ -1,6 +1,16 @@
 var siteConfig = require( './confidentials/site-config' );
 var user = {};
 user.getDetails = function(req) {
+    /*
+    to avoid cas login authentiication
+    user = {};
+    user.firstName = 'Kiran';
+    user.mail = 'kiran.adepu@imaginea.com';
+    user.lastName = 'Adepu';
+    user.uid = 'kirana';
+    user.admin = true;
+    return user;
+    */
     var attr = req.session.cas && req.session.cas.attributes;
     var user;
     if (attr) {

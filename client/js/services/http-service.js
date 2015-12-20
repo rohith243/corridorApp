@@ -16,7 +16,12 @@ define( [
             }
             navMenu.openMenu( false, true);
         } else {
-            Notification.error( 'Error' );
+            if( err && err.error && err.error.type === 'entity.too.large') {
+                Notification.error( 'It seems app icon memory is high' );    
+            } else {
+                Notification.error( 'error' );    
+            }
+            
         }
     };
 

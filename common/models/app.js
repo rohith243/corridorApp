@@ -67,8 +67,12 @@ module.exports = function(App) {
         var setObj = data;
         setObj.owner = udetails;
         setObj.createdAt = +new Date();
-        App.create( setObj , function(err, res ) {      
-          cb( null, res );
+        App.create( setObj , function(err, doc ) {
+            // send a mail to person if proposed team is added
+            if( doc.proposedTeam && doc.proposedTeam.length ) {
+                mail.notifyProposedTeam( doc, [], doc.proposedTeam || []);
+            }
+            cb( null, doc );
         } );
     };
 
@@ -93,15 +97,19 @@ module.exports = function(App) {
             } );
             return;
         }
-        
-        var id = data.id;;
+        var id = data.id;
+        var updateProposedTeam = data.proposedTeam;
+        var existingProposedTeam = [];
         App.findById( id, function( err, doc ) {
             var setObj = data;
             setObj.lastUpdatedBy = udetails;
             setObj.lastUpdatedAt = +new Date();
             if(  udetails.mail === doc.owner.mail || udetails.admin ) {
+                existingProposedTeam = doc.proposedTeam;
                 doc.updateAttributes( data, function( err, res ) {
                     cb( null, res );
+                    // send a mail to person if proposed team is updated 
+                    mail.notifyProposedTeam( doc, existingProposedTeam || [], updateProposedTeam || []);
                     notify( {
                         appId: doc.id,
                         appName: doc.appName,

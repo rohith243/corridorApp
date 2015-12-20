@@ -75,7 +75,7 @@ function(
             },
             params: {
               url: './api/apps/myApps',
-              keys: [ 'drafts' , 'published' ],
+              keys: [  'published', 'drafts' ],
               page: 'my-proposals'
             },
             resolve: { 

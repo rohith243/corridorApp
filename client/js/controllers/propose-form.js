@@ -221,6 +221,8 @@ function(
                                 defaultMessage: 'LetsBuild : ' + $scope.itemName,
                                 pageUrl: location.origin + location.pathname + '#/details/' + $scope.item.id
                             }
+                            
+                            
                         });
                 }
                 $scope.saveApp = function(e) {
@@ -287,6 +289,22 @@ function(
                         }
                     }
                 };
+
+                $scope.pickImage = function( e ) {
+                    e.preventDefault();
+                    $( '#fileInput' ).click();
+                };
+                $scope.fileNameChanged = function( e ) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $scope.item.imgurl = e.target.result;
+                        $scope.$apply();
+                    };
+                    var self = e.target;
+                    reader.readAsDataURL( self.files[0] );
+                };
+
+                
                 
                 /* window.setTimeout(function(){
                     var shareConf = {
@@ -299,5 +317,28 @@ function(
                     });
                 },100); */
             }
-        ]);
+        ])
+        .directive('imageonload', function() {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    element.bind('load', function() {
+                        if( scope.item.imgurl.startsWith( 'data' ) ){
+                            return;
+                        }
+                        var img = new Image();
+                        img.setAttribute('crossOrigin', 'anonymous');
+                        var canvas = document.createElement('CANVAS');
+                        var ctx = canvas.getContext('2d');
+                        var dataURL;
+                        canvas.height = this.height;
+                        canvas.width = this.width;
+                        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+                        dataURL = canvas.toDataURL();
+                        canvas = null; 
+                        scope.item.imgurl = dataURL ;    
+                    });
+                }
+            };
+        });
 })

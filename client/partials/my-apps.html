@@ -30,7 +30,7 @@
             <md-tab label="{{key}}" ng-repeat="(key,tab) in apps">
                 <md-content class="tiles-container">
                     <div ng-if="getData(key).length ===0">
-                        <div class="margin-flush">
+                        <div class="margin-flush" style="margin-top: 10px; margin-left: 10px">
                             <md-toolbar class="md-warn">
                                 <div class="md-toolbar-tools">
                                     <h2 class="md-flex">You don't have any items in <strong>{{key}}</strong></h2>
