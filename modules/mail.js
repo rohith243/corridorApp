@@ -59,7 +59,7 @@ mail.notifyProposedTeam = function  ( item, existingTeam, updatingTeam  ) {
         if( deleted ) {
             if( existingTeam[i].mail === item.owner.mail ) {
                 //donot notify the owner ( to avoid sending mail to owner same person)
-                return;
+                continue;
             }
             console.log( 'deleting', existingTeam[i].mail );
             mailOptions.to = existingTeam[i].mail;
@@ -87,7 +87,7 @@ mail.notifyProposedTeam = function  ( item, existingTeam, updatingTeam  ) {
         if( newMem ) {
             if( updatingTeam[i].mail === item.owner.mail ) {
                 //donot notify the owner ( to avoid sending mail to owner same person)
-                return;
+                continue;
             }
             console.log( 'adding', updatingTeam[i].mail );
             mailOptions.to = updatingTeam[i].mail;
