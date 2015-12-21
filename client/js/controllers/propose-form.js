@@ -186,6 +186,19 @@ function(
                 
                 $scope.querySearch = common.querySearch( $scope, http );
                 common.watchIndex( $scope );
+                $scope.pickImage = function( e ) {
+                    e.preventDefault();
+                    $( '#fileInput' ).click();
+                };
+                $scope.fileNameChanged = function( e ) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $scope.item.imgurl = e.target.result;
+                        $scope.$apply();
+                    };
+                    var self = e.target;
+                    reader.readAsDataURL( self.files[0] );
+                };
             }
         ])
         .controller('proposeFormEditController', [
