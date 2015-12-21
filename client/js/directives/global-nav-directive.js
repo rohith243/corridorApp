@@ -37,7 +37,7 @@ function(
                     $scope.user = null;
                     GLOBAL.user = null;
                   } );
-                  window.location = "//cev3.pramati.com/cas/logout?service=" + document.URL;
+                  window.location = "//cev3.pramati.com/cas/logout?service=" + location.origin + location.pathname;
 
                 };
 

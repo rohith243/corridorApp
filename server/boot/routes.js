@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.get('/', function( req, res, next ) {
     
        res.render('home', {
-            title: 'Home | LetsBuild',
+            title: 'Home | Let\'s Build',
             user: user.getDetails( req ),
             basePath: './',
             stringify: JSON.stringify

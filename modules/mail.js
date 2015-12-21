@@ -34,7 +34,7 @@ mail.send = function  ( item, user ) {
     console.log( 'sending mails' );
     mailOptions.to = item.owner.mail;
     mailOptions.cc = user.mail;
-    mailOptions.subject = 'LetsBuild Notification: Interest ' + item.appName;
+    mailOptions.subject = 'Let\'s Build Notification: Interest ' + item.appName;
     mailOptions.html = '<p>Hi '+ ( item.owner.firstName || item.owner.uid )+'</p>';
     mailOptions.html += '<p><b>'+ ( user.firstName || user.uid ) +'</b> has expressed interest in the app</p>';
     mailOptions.html += '<p><b>Contribution Hours :</b> '+ user.hours +'</p>';
@@ -64,7 +64,7 @@ mail.notifyProposedTeam = function  ( item, existingTeam, updatingTeam  ) {
             console.log( 'deleting', existingTeam[i].mail );
             mailOptions.to = existingTeam[i].mail;
             mailOptions.cc = item.owner.mail;
-            mailOptions.subject = 'LetsBuild Notification: ' + item.appName;
+            mailOptions.subject = 'Let\'s Build Notification: ' + item.appName;
             mailOptions.html = '<p>Hi '+ ( existingTeam[i].firstName )+',</p>';
             mailOptions.html += '<p> you have removed from proposed Team of <b>'+  item.appName+'</b></p>';
             getTransporter().sendMail(mailOptions, function(error, info){
@@ -92,7 +92,7 @@ mail.notifyProposedTeam = function  ( item, existingTeam, updatingTeam  ) {
             console.log( 'adding', updatingTeam[i].mail );
             mailOptions.to = updatingTeam[i].mail;
             mailOptions.cc = item.owner.mail;
-            mailOptions.subject = 'LetsBuild Notification: ' + item.appName;
+            mailOptions.subject = 'Let\'s Build Notification: ' + item.appName;
             mailOptions.html = '<p>Hi '+ ( updatingTeam[i].firstName )+',</p>';
             mailOptions.html += '<p> you have added in proposed Team of <b>'+  item.appName+'</b></p>';
             getTransporter().sendMail(mailOptions, function(error, info){

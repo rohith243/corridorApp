@@ -231,7 +231,7 @@ function(
                             $scope.isPublished = $scope.item.isPublish;
                             $scope.item.interests = $scope.item.interests || [];
                             $scope.shareConfig = {
-                                defaultMessage: 'LetsBuild : ' + $scope.itemName,
+                                defaultMessage: 'Let\'s Build : ' + $scope.itemName,
                                 pageUrl: location.origin + location.pathname + '#/details/' + $scope.item.id
                             }
                             

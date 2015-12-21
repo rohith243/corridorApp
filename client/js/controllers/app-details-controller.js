@@ -44,7 +44,7 @@ function(
                 $scope.item.likes = res.likes || [];
                 $scope.item.interests = res.interests || [];
                 $scope.shareConfig = {
-                    defaultMessage: 'LetsBuild : ' + res.appName,
+                    defaultMessage: 'Let\'s Build : ' + res.appName,
                     pageUrl: document.URL
                 }
             });
