@@ -222,6 +222,11 @@ function(
                 if ( id ) {
                     http.get( './api/apps/getApp?id=' + id)
                         .then(function(res) {
+
+                            if( !res || !GLOBAL.user || res.owner.mail !== GLOBAL.user.mail ) {
+                                // redirect back to default if user is not owner
+                                $state.go( 'default' );
+                            }
                             originalData = res;
                             $scope.item = angular.copy(res);
                             $scope.itemName = $scope.item.appName ;

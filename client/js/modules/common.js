@@ -125,13 +125,13 @@ function(
                     return {
                         restrict: 'A',
                         scope: {
-                            shareConf: '='
+                            shareConfig: '='
                         },
                         link: function(scope, ele) {
                             ele.click( function( e ) {
                                 e.preventDefault();
                                 require( [ 'yammer' ] , function( yam ) {
-                                    var shareConf = scope.shareConf ||  {
+                                    var shareConf = scope.shareConfig ||  {
                                         defaultMessage : 'LetsBuild :',
                                         pageUrl: document.URL
                                     };
