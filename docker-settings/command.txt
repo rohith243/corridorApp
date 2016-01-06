@@ -1,0 +1,38 @@
+sudo docker run -d -p 27019:27017 --name db1 -v /home/pramati/letsbuild/database/production:/data uidev547/letsbuild_db:latest
+
+
+sudo docker run -d -e NODE_ENV=production -p 3000:3000 --name web --dns=192.168.1.10 --link db:mongodb_prod uidev547/letsbuild_web
+
+
+useful commands:
+
+    sudo docker build -t=”prashantha/letsbuild_db” .
+    sudo docker run -d —name db -v /var/lib/mongodb:/data/db prashantha/letsbuild_db
+
+​
+Node container
+
+    sudo docker build -t=”prashantha/letsbuild_web” .
+    sudo docker run -d -p 3000:3000 —name web —dns=192.168.1.10 —link db:mongodb_prod prashantha/letsbuild_web
+
+​
+Push docker image to hub
+
+    sudo docker push prashantha/letsbuild_db:latest
+    sudo docker push prashantha/letsbuild_web:latest
+
+Pull docker image from hub
+
+    sudo docker pull prashantha/letsbuild_db:latest
+    sudo docker pull prashantha/letsbuild_web:latest
+
+Miscellaneous commands
+
+    sudo docker search prashantha/letsbuild
+    sudo docker images
+    sudo docker images -a
+    sudo docker ps
+    sudo docker ps -a
+    sudo docker rm
+    sudo docker rmi 
+

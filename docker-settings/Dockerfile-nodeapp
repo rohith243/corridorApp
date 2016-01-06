@@ -1,0 +1,41 @@
+#
+#	Dockerizing NodeJS application
+#
+
+FROM ubuntu:14.04
+
+#	Set environment variable
+ENV DB_HOST mongodb_prod
+
+#	Install NodeJS
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:chris-lea/node.js
+RUN apt-get update
+RUN apt-get install -y nodejs
+
+#	Install GIT
+RUN apt-get install -y git
+
+#	Install Bower
+RUN npm install -g bower
+
+#   Install gulp
+RUN npm install -g gulp
+
+
+
+#clone git repo
+RUN git clone https://github.com/uidev547/corridorApp.git
+
+WORKDIR /corridorApp
+
+#	Install app dependencies
+RUN npm install
+RUN bower install --allow-root
+RUN gulp less
+
+#	Expose the ports.
+EXPOSE 3000
+
+#	Start node server
+CMD ["npm", "start"]
